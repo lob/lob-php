@@ -250,7 +250,9 @@ try {
 
 #### Delete a specific object
 
+```php
 $lob->objects()->delete('966a7feaaeb5cb38010e');
+```
 
 Settings
 --------
