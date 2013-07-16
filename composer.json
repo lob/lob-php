@@ -1,0 +1,28 @@
+{
+    "name": "lobapi/lob-php",
+    "type": "library",
+    "description": "Lob.com API PHP wrapper.",
+    "keywords": ["lob", "printing", "api", "rest", "web service", "wrapper"],
+    "homepage": "https://www.lob.com/",
+    "authors": [
+        {
+            "name": "Danilo Assis",
+            "email": "danilo.sajr@gmail.com",
+            "homepage": "https://github.com/daniloassis"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "guzzle/guzzle": "~3.7"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Lob\\Tests": "tests/",
+            "Lob": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}

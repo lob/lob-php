@@ -1,0 +1,29 @@
+# Composer
+/vendor/
+composer.phar
+composer.lock
+composer-test.lock
+
+# Common
+.DS_Store
+.svn
+code_coverage
+*~
+*.swp
+coverage
+.coverage
+nbproject
+.nbproject
+build
+.build
+.settings
+.settings/.*
+.project
+project
+*.project
+.buildpath
+*.db
+*.tmproj
+*.sublime-project
+.idea
+*.idea/*
