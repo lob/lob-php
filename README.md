@@ -406,4 +406,4 @@ Documentation
 ------------
 
 Being a simple and flexible wrapper, the Lob.com [documentation](https://www.lob.com/docs) is the best source
-to read about the API and, if needed, to extend this library.
+to read about the API and to extend this library, if needed.
