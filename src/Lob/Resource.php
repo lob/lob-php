@@ -16,8 +16,6 @@ use Guzzle\Common\Exception\GuzzleException;
 use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\Message\EntityEnclosingRequestInterface;
-use Lob\Lob;
-use Lob\ResourceInterface;
 use Lob\Exception\AuthorizationException;
 use Lob\Exception\InternalErrorException;
 use Lob\Exception\NetworkErrorException;
@@ -34,15 +32,20 @@ abstract class Resource implements ResourceInterface
         $this->lob = $lob;
     }
 
-    public function retrieveList(array $query = array())
+    public function retrieveList(array $query = array(), $includeMeta = false)
     {
-        return $this->sendRequest(
+        $list = $this->sendRequest(
             'GET',
             $this->lob->getVersion(),
             $this->resourceName(),
             $query,
             array()
         );
+        if ($includeMeta) {
+            return $list;
+        }
+
+        return $list['data'];
     }
 
     public function create(array $data)
