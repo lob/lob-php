@@ -42,8 +42,7 @@ class Lob
 
     public function setApiKey($apiKey)
     {
-        $apiKey = strval($apiKey);
-        if (empty($apiKey)) {
+        if (!is_string($apiKey) || empty($apiKey)) {
             throw new InvalidArgumentException('API Key must be a non-empty string.');
         }
         $this->apiKey = $apiKey;

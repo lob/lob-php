@@ -10,7 +10,7 @@
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
     <php>
-        <const name="TEST_API_KEY" value="YOUR_TEST_API_KEY_HERE"/>
+        <const name="LOB_TEST_API_KEY" value="YOUR_LOB_TEST_API_KEY"/>
     </php>
 
     <testsuites>
