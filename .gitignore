@@ -4,6 +4,9 @@ composer.phar
 composer.lock
 composer-test.lock
 
+# PHPUnit
+phpunit.xml
+
 # Common
 .DS_Store
 .svn

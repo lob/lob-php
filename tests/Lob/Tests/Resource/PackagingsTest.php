@@ -13,4 +13,9 @@ namespace Lob\Tests\Resource;
 
 class PackagingsTest extends \Lob\Tests\ResourceTest
 {
+    protected $resourceMethodName = 'packagings';
+    protected $respondsToRetrieveListWithCountOffset = false;
+    protected $respondsToRetrieve = false;
+    protected $respondsToCreate = false;
+    protected $respondsToDelete = false;
 }

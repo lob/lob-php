@@ -39,19 +39,15 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(LOB_TEST_API_KEY, $this->lob->getApiKey());
     }
 
-    /**
-    * @expectedException InvalidArgumentException
-    */
     public function testApiKeySetterExceptionWithEmptyString()
     {
+        $this->setExpectedException('InvalidArgumentException');
         $this->lob->setApiKey('');
     }
 
-    /**
-    * @expectedException InvalidArgumentException
-    */
     public function testApiKeySetterExceptionWithNonString()
     {
+        $this->setExpectedException('InvalidArgumentException');
         $this->lob->setApiKey(999);
     }
 

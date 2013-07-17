@@ -13,4 +13,8 @@ namespace Lob\Tests\Resource;
 
 class SettingsTest extends \Lob\Tests\ResourceTest
 {
+    protected $resourceMethodName = 'settings';
+    protected $respondsToCreate = false;
+    protected $respondsToDelete = false;
+    protected $respondsToRetrieveListWithCountOffset = false;
 }

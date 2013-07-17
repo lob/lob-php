@@ -13,4 +13,6 @@ namespace Lob\Tests\Resource;
 
 class PostcardsTest extends \Lob\Tests\ResourceTest
 {
+    protected $resourceMethodName = 'postcards';
+    protected $respondsToDelete = false;
 }

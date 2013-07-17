@@ -13,4 +13,5 @@ namespace Lob\Tests\Resource;
 
 class ObjectsTest extends \Lob\Tests\ResourceTest
 {
+    protected $resourceMethodName = 'objects';
 }

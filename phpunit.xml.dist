@@ -23,6 +23,7 @@
         <whitelist>
             <directory suffix=".php">./src/Lob</directory>
             <exclude>
+                <file>./src/Lob/ResourceTest.php</file>
                 <directory suffix="Interface.php">./src/Lob</directory>
                 <directory>./src/Lob/Exception</directory>
             </exclude>

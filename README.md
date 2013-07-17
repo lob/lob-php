@@ -399,13 +399,18 @@ try {
 
 Deleting a postcard is not supported.
 
-Unit testing
-------------
-
-Soon.
 
 Documentation
 ------------
 
 Being a simple and flexible wrapper, the Lob.com [documentation](https://www.lob.com/docs) is the best source
 to read about the API and to extend this library, if needed.
+
+Unit testing
+------------
+
+Lob.com PHP Client uses PHPUnit for unit testing. In order to run the unit tests, you'll first need
+to install the dependencies of the project using Composer: `php composer.phar install --dev`.
+You can then run the tests using `vendor/bin/phpunit`.
+
+Make sure you provide a `test` API Key in your `phpunit.xml`.

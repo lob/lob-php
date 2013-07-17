@@ -13,4 +13,6 @@ namespace Lob\Tests\Resource;
 
 class JobsTest extends \Lob\Tests\ResourceTest
 {
+    protected $resourceMethodName = 'jobs';
+    protected $respondsToDelete = false;
 }
