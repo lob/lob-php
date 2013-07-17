@@ -83,7 +83,7 @@ try {
         'address_state'     => 'CA', // Required
         'address_country'   => 'USA', // Required
         'address_zip'       => '94085', // Required
-        'email'             => 'harry@lob.com' // Optional
+        'email'             => 'harry@lob.com', // Optional
         'phone'             => '5555555555', // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
@@ -202,8 +202,8 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => '@'.realpath('/path/to/your/file/goblue.pdf'), // Required
-        'setting_id'  => $setting['id'], // Optional
-        'quantity'    => 1,// Optional
+        'setting_id'  => $setting['id'], // Required
+        'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
@@ -215,8 +215,8 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => 'https://www.lob.com/goblue.pdf', // Required
-        'setting_id'  => $setting['id'], // Optional
-        'quantity'    => 1,// Optional
+        'setting_id'  => $setting['id'], // Required
+        'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something

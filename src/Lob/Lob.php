@@ -20,6 +20,7 @@ use Lob\Resource\Objects;
 use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
 use Lob\Resource\Services;
+use Lob\Resource\Settings;
 
 class Lob
 {
@@ -90,5 +91,10 @@ class Lob
     public function services()
     {
         return new Services($this);
+    }
+
+    public function settings()
+    {
+        return new Settings($this);
     }
 }
