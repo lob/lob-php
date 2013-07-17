@@ -12,9 +12,10 @@
 namespace Lob;
 
 use Exception;
-use Guzzle\Http\Exception\CurlException;
 use Guzzle\Common\Exception\GuzzleException;
+use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Client as HttpClient;
+use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Lob\Lob;
 use Lob\ResourceInterface;
 use Lob\Exception\AuthorizationException;
@@ -87,22 +88,7 @@ abstract class Resource implements ResourceInterface
     protected function sendRequest($method, $version, $path, array $query, 
         array $body = null)
     {
-        $path = '/'.$version.'/'.$path;
-        $headers = array(
-            'Accept' => 'application/json; charset=utf-8',
-            'User-Agent' => 'lob-php-wrapper-v1',
-        );
-        $queryString = '';
-        if (!empty($query)) {
-            $queryString = '?'.http_build_query($query);
-        }
-
-        $client = new HttpClient('https://api.lob.com');
-        $request = $client->createRequest($method, $path.$queryString, $headers);
-        $request->setAuth($this->lob->getApiKey(), '');
-        if ($body) {
-            $request->setBody($body, 'application/x-www-form-urlencoded');
-        }
+        $request = $this->prepareRequest($method, $version, $path, $query, $body);
         
         try {
             $response = $request->send();
@@ -131,6 +117,42 @@ abstract class Resource implements ResourceInterface
         }
 
         return $response->json();
+    }
+
+    protected function prepareRequest($method, $version, $path, array $query, 
+        array $body = null)
+    {
+        $path = '/'.$version.'/'.$path;
+        $headers = array(
+            'Accept' => 'application/json; charset=utf-8',
+            'User-Agent' => 'lob-php-wrapper-v1',
+        );
+        $queryString = '';
+        if (!empty($query)) {
+            $queryString = '?'.http_build_query($query);
+        }
+
+        $client = new HttpClient('https://api.lob.com');
+        $request = $client->createRequest($method, $path.$queryString, $headers);
+        $request->setAuth($this->lob->getApiKey(), '');
+        if ($body) {
+            $this->handleRequestBody($request, $body);
+        }
+
+        return $request;
+    }
+
+    protected function handleRequestBody(
+        EntityEnclosingRequestInterface $request, array $data)
+    {
+        $files = array_filter($data, function ($element) {
+            return strpos($element, '@') === 0;
+        });
+
+        $request->addPostFields($data);
+        if ($files) {
+            $request->addPostFiles($files);
+        }
     }
 
     protected function errorMessageFromJsonBody($body)
