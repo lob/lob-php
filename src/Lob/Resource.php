@@ -12,12 +12,14 @@
 namespace Lob;
 
 use Exception;
+use Guzzle\Http\Exception\CurlException;
 use Guzzle\Common\Exception\GuzzleException;
 use Guzzle\Http\Client as HttpClient;
 use Lob\Lob;
 use Lob\ResourceInterface;
 use Lob\Exception\AuthorizationException;
 use Lob\Exception\InternalErrorException;
+use Lob\Exception\NetworkErrorException;
 use Lob\Exception\ResourceNotFoundException;
 use Lob\Exception\UnexpectedErrorException;
 use Lob\Exception\ValidationException;
@@ -104,7 +106,9 @@ abstract class Resource implements ResourceInterface
         
         try {
             $response = $request->send();
-        } catch(GuzzleException $e) {
+        } catch (CurlException $e) {
+            throw new NetworkErrorException($e->getMessage());
+        } catch (GuzzleException $e) {
             $responseErrorBody = strval($e->getResponse()->getBody());
             $errorMessage = $this->errorMessageFromJsonBody($responseErrorBody);
             $statusCode = $e->getResponse()->getStatusCode();
