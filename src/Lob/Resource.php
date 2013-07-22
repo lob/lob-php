@@ -149,7 +149,7 @@ abstract class Resource implements ResourceInterface
         EntityEnclosingRequestInterface $request, array $data)
     {
         $files = array_filter($data, function ($element) {
-            return strpos($element, '@') === 0;
+            return (is_string($element) && strpos($element, '@') === 0);
         });
 
         $request->addPostFields($data);

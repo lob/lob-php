@@ -11,8 +11,38 @@
 
 namespace Lob\Tests\Resource;
 
+use Lob\Tests\Resource\AddressesTest;
+
 class PostcardsTest extends \Lob\Tests\ResourceTest
 {
     protected $resourceMethodName = 'postcards';
     protected $respondsToDelete = false;
+
+    public function testCreateWithMessage()
+    {
+        $postcard = $this->resource->create(array(
+            'name' => 'Demo Postcard job', // Required
+            'to' => AddressesTest::$validCreateData,
+            'from' => AddressesTest::$validCreateData,
+            'message' => 'This an example message on back of the postcard',
+            'front' => 'https://www.lob.com/goblue.pdf',
+        ));
+
+        $this->assertTrue(is_array($postcard));
+        $this->assertTrue(array_key_exists('id', $postcard));
+    }
+
+    public function testCreateWithBackFile()
+    {
+        $postcard = $this->resource->create(array(
+            'name' => 'Demo Postcard job', // Required
+            'to' => AddressesTest::$validCreateData,
+            'from' => AddressesTest::$validCreateData,
+            'front' => 'https://www.lob.com/goblue.pdf',
+            'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/goblue.pdf'),
+        ));
+
+        $this->assertTrue(is_array($postcard));
+        $this->assertTrue(array_key_exists('id', $postcard));
+    }
 }
