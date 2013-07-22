@@ -11,8 +11,28 @@
 
 namespace Lob\Tests\Resource;
 
+use Lob\Tests\Resource\AddressesTest;
+
 class JobsTest extends \Lob\Tests\ResourceTest
 {
     protected $resourceMethodName = 'jobs';
     protected $respondsToDelete = false;
+
+    public function testCreateWithMessage()
+    {
+        $job = $this->resource->create(array(
+            'name' => 'Welcome letter to JJJ INC',
+            'to' => AddressesTest::$validCreateData,
+            'from' => AddressesTest::$validCreateData,
+            'object1' => array(
+                'name' => 'GO BLUE',
+                'file' => 'https://www.lob.com/goblue.pdf',
+                'setting_id' => $this->getRandomSettingId(),
+                'quantity' => 1,
+            ),
+        ));
+
+        $this->assertTrue(is_array($job));
+        $this->assertTrue(array_key_exists('id', $job));
+    }
 }

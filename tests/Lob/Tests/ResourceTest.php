@@ -75,6 +75,22 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         return $settings[0]['id'];
     }
 
+    protected function getRandomPackagingId()
+    {
+        $packagings = $this->lob->packagings()->retrieveList();
+        shuffle($packagings);
+
+        return $packagings[0]['id'];
+    }
+
+    protected function getRandomServiceId()
+    {
+        $services = $this->lob->services()->retrieveList();
+        shuffle($services);
+
+        return $services[0]['id'];
+    }
+
     public function testRetrieveListReturnsArray()
     {
         if (!$this->respondsToRetrieveList)
