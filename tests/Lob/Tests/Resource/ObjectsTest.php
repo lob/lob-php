@@ -14,4 +14,30 @@ namespace Lob\Tests\Resource;
 class ObjectsTest extends \Lob\Tests\ResourceTest
 {
     protected $resourceMethodName = 'objects';
+
+    public function testCreateWithLocalFileUpload()
+    {
+        $object = $this->resource->create(array(
+            'name' => 'GO BLUE',
+            'file' => '@'.realpath(__DIR__.'/../TestData/pdfs/goblue.pdf'),
+            'setting_id' => $this->getRandomSettingId(),
+            'quantity' => 1,
+        ));
+
+        $this->assertTrue(is_array($object));
+        $this->assertTrue(array_key_exists('id', $object));
+    }
+
+    public function testCreateWithRemoteFileUrl()
+    {
+        $object = $this->resource->create(array(
+            'name' => 'GO BLUE',
+            'file' => 'https://www.lob.com/goblue.pdf',
+            'setting_id' => $this->getRandomSettingId(),
+            'quantity' => 1,
+        ));
+
+        $this->assertTrue(is_array($object));
+        $this->assertTrue(array_key_exists('id', $object));
+    }
 }
