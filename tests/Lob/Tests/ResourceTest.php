@@ -26,8 +26,8 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     protected $respondsToRetrieve = true;
     protected $respondsToCreate = true;
     protected $respondsToDelete = true;
-    protected $createInvalidData = array();
-
+    public static $validCreateData = array();
+    public static $invalidCreateData = array();
  
     protected function setUp()
     {
@@ -65,6 +65,14 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         ), true);
 
         return $this->testSampleListWithMeta;
+    }
+
+    protected function getRandomSettingId()
+    {
+        $settings = $this->lob->settings()->retrieveList();
+        shuffle($settings);
+
+        return $settings[0]['id'];
     }
 
     public function testRetrieveListReturnsArray()
@@ -113,7 +121,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
             return;
 
         $this->setExpectedException('Lob\Exception\ValidationException');
-        $this->resource->create($this->createInvalidData);
+        $this->resource->create(static::$invalidCreateData);
     }
 
     public function testRaiseAuthorizationExceptionOnInvalidApiKey()

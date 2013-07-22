@@ -81,7 +81,7 @@ try {
         'address_line2'     => 'Unit 199', // Optional
         'address_city'      => 'Mountain View', // Required
         'address_state'     => 'CA', // Required
-        'address_country'   => 'USA', // Required
+        'address_country'   => 'US', // Required - Must be a 2 letter country short-name code (ISO 3316)
         'address_zip'       => '94085', // Required
         'email'             => 'harry@lob.com', // Optional
         'phone'             => '5555555555', // Optional
