@@ -1,5 +1,5 @@
 {
-    "name": "lobapi/lob-php",
+    "name": "lob/lob-php",
     "type": "library",
     "description": "Lob.com API PHP wrapper.",
     "keywords": ["lob", "printing", "api", "rest", "web service", "wrapper"],
