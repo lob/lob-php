@@ -54,6 +54,10 @@ echo get_class($lob->jobs());
 echo get_class($lob->objects());
 // >>> Lob\Resource\Objects
 
+// Settings
+echo get_class($lob->settings());
+// >>> Lob\Resource\Settings
+
 // Packagings
 echo get_class($lob->packagings());
 // >>> Lob\Resource\Packagings
