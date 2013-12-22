@@ -15,6 +15,7 @@ use InvalidArgumentException;
 use BadMethodCallException;
 use Lob\Resource;
 use Lob\Resource\Addresses;
+use Lob\Resource\Countries;
 use Lob\Resource\Jobs;
 use Lob\Resource\Objects;
 use Lob\Resource\Packagings;
@@ -65,6 +66,11 @@ class Lob
     public function addresses()
     {
         return new Addresses($this);
+    }
+
+    public function countries()
+    {
+        return new Countries($this);
     }
 
     public function jobs()
