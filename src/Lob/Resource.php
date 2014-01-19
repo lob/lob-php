@@ -114,6 +114,9 @@ abstract class Resource implements ResourceInterface
             if ($statusCode === 500)
                 throw new InternalErrorException($errorMessage, 500);
 
+            if ($statusCode === 400)
+                throw new ValidationException($errorMessage, 400);
+
             throw new UnexpectedErrorException('An Unexpected Error has occurred.');
         } catch (Exception $e) {
             throw new UnexpectedErrorException('An Unexpected Error has occurred.');
