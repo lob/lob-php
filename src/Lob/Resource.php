@@ -114,6 +114,7 @@ abstract class Resource implements ResourceInterface
             if ($statusCode === 500)
                 throw new InternalErrorException($errorMessage, 500);
 
+            //Handle unverifiable address
             if ($statusCode === 400)
                 throw new ValidationException($errorMessage, 400);
 
