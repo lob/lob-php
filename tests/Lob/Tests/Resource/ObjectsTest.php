@@ -19,8 +19,8 @@ class ObjectsTest extends \Lob\Tests\ResourceTest
     {
         $object = $this->resource->create(array(
             'name' => 'GO BLUE',
-            'file' => '@'.realpath(__DIR__.'/../TestData/pdfs/goblue.pdf'),
-            'setting_id' => $this->getRandomSettingId(),
+            'file' => '@'.realpath(__DIR__.'/../TestData/pdfs/test.pdf'),
+            'setting_id' => 200,
             'quantity' => 1,
         ));
 
@@ -32,8 +32,8 @@ class ObjectsTest extends \Lob\Tests\ResourceTest
     {
         $object = $this->resource->create(array(
             'name' => 'GO BLUE',
-            'file' => 'https://www.lob.com/goblue.pdf',
-            'setting_id' => $this->getRandomSettingId(),
+            'file' => 'https://www.lob.com/test.pdf',
+            'setting_id' => 200,
             'quantity' => 1,
         ));
 
