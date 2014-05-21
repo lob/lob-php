@@ -1,6 +1,6 @@
 Lob.com PHP Client
 ==================
-[![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php) [![Dependency Status](https://gemnasium.com/lob/lob-php.svg)](https://gemnasium.com/lob/lob-php) 
+[![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php) [![Dependency Status](https://gemnasium.com/lob/lob-php.svg)](https://gemnasium.com/lob/lob-php)
 
 Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API ([docs](https://www.lob.com/docs)).
 
@@ -46,6 +46,14 @@ Through the Lob object, you have access to all resources available, like in the 
 // Addresses
 echo get_class($lob->addresses());
 // >>> Lob\Resource\Addresses
+
+// Bank Accounts
+echo get_class($lob->bankAccounts());
+// >>> Lob\Resource\BankAccounts
+
+// Checks
+echo get_class($lob->checks());
+// >>> Lob\Resource\Checks
 
 // Jobs
 echo get_class($lob->jobs());
@@ -139,6 +147,34 @@ $lob->addresses()->delete('966a7feaaeb5cb38010e');
       'address_country'   => 'USA',  // Optional
       'address_zip'       => '94085', // Optional
   ));
+```
+
+Bank Accounts
+----
+
+### Create a new bank account
+
+```php
+try {
+  // Returns a valid bank_account
+  $account = $lob->bankAccounts()->create(array(
+    'routing_number'              => '12345678',
+    'account_number'              => '12345678',
+    'bank_code'                   => '12345678',
+    'bank_address[name]'          => 'Bank Address',
+    'bank_address[address_line1]' => '123 Test Street',
+    'bank_address[address_city]'  => 'San Francisco',
+    'bank_address[address_zip]'   => '94107',
+    'bank_address[address_state]' => 'CA',
+    'account_address[name]'          => 'Account Address',
+    'account_address[address_line1]' => '123 Test Street',
+    'account_address[address_city]'  => 'San Francisco',
+    'account_address[address_zip]'   => '94107',
+    'account_address[address_state]' => 'CA'
+  ));
+} catch(\Lob\Exception\ValidationException $e) {
+  // Do Something
+}
 ```
 
 Jobs
