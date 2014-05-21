@@ -25,7 +25,7 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
             'message' => 'This an example message on back of the postcard',
-            'front' => 'https://www.lob.com/goblue.pdf',
+            'front' => 'https://www.lob.com/test.pdf',
         ));
 
         $this->assertTrue(is_array($postcard));
@@ -38,8 +38,8 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
             'name' => 'Demo Postcard job', // Required
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
-            'front' => 'https://www.lob.com/goblue.pdf',
-            'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/goblue.pdf'),
+            'front' => 'https://www.lob.com/test.pdf',
+            'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/test.pdf'),
         ));
 
         $this->assertTrue(is_array($postcard));

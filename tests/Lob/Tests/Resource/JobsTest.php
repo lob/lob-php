@@ -26,8 +26,8 @@ class JobsTest extends \Lob\Tests\ResourceTest
             'from' => AddressesTest::$validCreateData,
             'object1' => array(
                 'name' => 'GO BLUE',
-                'file' => 'https://www.lob.com/goblue.pdf',
-                'setting_id' => $this->getRandomSettingId(),
+                'file' => 'https://www.lob.com/test.pdf',
+                'setting_id' => 200,
                 'quantity' => 1,
             ),
         ));
