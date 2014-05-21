@@ -28,7 +28,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     protected $respondsToDelete = true;
     public static $validCreateData = array();
     public static $invalidCreateData = array();
- 
+
     protected function setUp()
     {
         $this->lob = new Lob(LOB_TEST_API_KEY);
@@ -75,6 +75,12 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         return $settings[0]['id'];
     }
 
+    protected function getBankAccountId()
+    {
+      $accounts = $this->lob->bankAccounts()->retrieveList();
+      return $accounts[0]['id'];
+    }
+
     protected function getRandomPackagingId()
     {
         $packagings = $this->lob->packagings()->retrieveList();
@@ -118,7 +124,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     public function testRetrieveListResultsCountIsLessThanOrEqualCountParamValue()
     {
-        if (!$this->respondsToRetrieveList 
+        if (!$this->respondsToRetrieveList
             || !$this->respondsToRetrieveListWithCountOffset) {
             return;
         }
