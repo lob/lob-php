@@ -177,6 +177,92 @@ try {
 }
 ```
 
+#### List bank accounts
+
+```php
+// Returns a bank account list
+$bankAccountList = $lob->bankAccounts()->retrieveList();
+
+// You can also pass `count` and `offset` to limit the results and
+// define a starting page
+$bankAccountList = $lob->bankAccounts()->retrieveList(array(
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
+));
+```
+
+#### Retrieve a specific bank account
+
+```php
+try {
+    // Returns a valid bank account
+    $bankAccount = $lob->bankAccounts()->retrieve('bank_e13902b6bdfff24');
+} catch (\Lob\Exception\ResourceNotFoundException $e) {
+    // Do something
+}
+```
+
+#### Delete a specific bank account
+
+```php
+$lob->bankAccounts()->delete($bankAccountId);
+```
+
+Checks
+----
+
+### Create a new check
+
+```php
+try {
+  // Returns a valid check
+  $account = $lob->checks()->create(array(
+    'name'              => 'Demo Check',
+    'to[name]'          => 'Recipient',
+    'to[address_line1]' => '123 Test Street',
+    'to[address_city]'  => 'San Francisco',
+    'to[address_zip]'   => '94107',
+    'to[address_state]' => 'CA',
+    'bank_account'      => 'bank_e13902b6bdfff24',
+    'amount'            => 2200,
+    'memo'              => 'rent'
+  ));
+} catch(\Lob\Exception\ValidationException $e) {
+  // Do Something
+}
+```
+
+#### List checks
+
+```php
+// Returns a check list
+$checkList = $lob->checks()->retrieveList();
+
+// You can also pass `count` and `offset` to limit the results and
+// define a starting page
+$checkList = $lob->checks()->retrieveList(array(
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
+));
+```
+
+#### Retrieve a specific check
+
+```php
+try {
+    // Returns a valid check
+    $check = $lob->checks()->retrieve('chk_b102de150bc45d9e9ed2');
+} catch (\Lob\Exception\ResourceNotFoundException $e) {
+    // Do something
+}
+```
+
+#### Delete a specific check
+
+```php
+$lob->checks()->delete($checkId);
+```
+
 Jobs
 ----
 
