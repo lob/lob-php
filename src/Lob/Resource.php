@@ -88,11 +88,11 @@ abstract class Resource implements ResourceInterface
         return array_pop($class);
     }
 
-    protected function sendRequest($method, $version, $path, array $query, 
+    protected function sendRequest($method, $version, $path, array $query,
         array $body = null)
     {
         $request = $this->prepareRequest($method, $version, $path, $query, $body);
-        
+
         try {
             $response = $request->send();
         } catch (CurlException $e) {
@@ -106,6 +106,9 @@ abstract class Resource implements ResourceInterface
                 throw new AuthorizationException('Unauthorized', 401);
 
             if ($method == 'GET' && ($statusCode === 404 || $statusCode === 422))
+                throw new ResourceNotFoundException($errorMessage, 404);
+
+            if ($method == 'POST' && $statusCode === 404)
                 throw new ResourceNotFoundException($errorMessage, 404);
 
             if ($statusCode === 422)
@@ -126,7 +129,7 @@ abstract class Resource implements ResourceInterface
         return $response->json();
     }
 
-    protected function prepareRequest($method, $version, $path, array $query, 
+    protected function prepareRequest($method, $version, $path, array $query,
         array $body = null)
     {
         $path = '/'.$version.'/'.$path;
@@ -170,7 +173,7 @@ abstract class Resource implements ResourceInterface
 
             return $error['message'];
         }
-        
+
         return 'An Internal Error has occurred';
     }
 }
