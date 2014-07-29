@@ -23,32 +23,15 @@ use Lob\Resource\Settings;
 class LobTest extends \PHPUnit_Framework_TestCase
 {
     protected $lob;
- 
+
     protected function setUp()
     {
-        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->lob = new Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
     }
 
     public function testVersionDefaultValueIsV1()
     {
         $this->assertEquals('v1', $this->lob->getVersion());
-    }
-
-    public function testApiKeyGetter()
-    {
-        $this->assertEquals(LOB_TEST_API_KEY, $this->lob->getApiKey());
-    }
-
-    public function testApiKeySetterExceptionWithEmptyString()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->lob->setApiKey('');
-    }
-
-    public function testApiKeySetterExceptionWithNonString()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->lob->setApiKey(999);
     }
 
     public function testAddressesMethodReturnsLobResourceAddressesClass()
