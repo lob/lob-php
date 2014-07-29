@@ -1,6 +1,6 @@
 Lob.com PHP Client
 ==================
-[![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php) [![Dependency Status](https://gemnasium.com/lob/lob-php.svg)](https://gemnasium.com/lob/lob-php)
+[![PHP version](https://badge.fury.io/ph/lob%2Flob-php.svg)](http://badge.fury.io/ph/lob%2Flob-php) [![Total Downloads](https://poser.pugx.org/lob/lob-php/downloads.svg)](https://packagist.org/packages/lob/lob-php) [![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php) [![Dependency Status](https://gemnasium.com/lob/lob-php.svg)](https://gemnasium.com/lob/lob-php) [![Coverage](https://coveralls.io/repos/lob/lob-php/badge.png?branch=master)](https://coveralls.io/r/lob/lob-php)
 
 Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API ([docs](https://www.lob.com/docs)).
 
