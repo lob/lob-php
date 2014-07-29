@@ -3,3 +3,13 @@ php:
   - 5.5
   - 5.4
   - hhvm
+before_install:
+  - composer selfupdate
+  - composer install
+script:
+  - php vendor/bin/phpunit
+after_script:
+  - php vendor/bin/coveralls
+notifications:
+  slack:
+    secure: JePSotcs0psHN4Rl9HILCl298jZ0PS34BxEAu3YLWWfYo2hgFf8I3RuJfC8hlFvVq3DR4IFHn5oOZJX38goL9mxs0fsAxuGAPBzJHgMms9Ny2L58WJYNkuxTbHCPoFou5xPjQP1zXvU2qSob6j41MOAnHmN2IerOMtkSTfx31dE=
