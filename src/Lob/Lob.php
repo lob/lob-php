@@ -24,6 +24,7 @@ use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
 use Lob\Resource\Services;
 use Lob\Resource\Settings;
+use Lob\Resource\States;
 
 class Lob
 {
@@ -113,5 +114,9 @@ class Lob
     public function settings()
     {
         return new Settings($this);
+    }
+    public function states()
+    {
+        return new States($this);
     }
 }

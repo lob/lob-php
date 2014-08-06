@@ -19,6 +19,7 @@ use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
 use Lob\Resource\Services;
 use Lob\Resource\Settings;
+use Lob\Resource\States;
 
 class LobTest extends \PHPUnit_Framework_TestCase
 {
@@ -68,4 +69,10 @@ class LobTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->lob->settings() instanceof Settings);
     }
+
+    public function testStatesMethodReturnsLobResourceStatesClass()
+    {
+        $this->assertTrue($this->lob->states() instanceof States);
+    }
+
 }

@@ -78,6 +78,10 @@ echo get_class($lob->postcards());
 // Services
 echo get_class($lob->services());
 // >>> \Lob\Resource\Services
+
+// States
+echo get_class($lob->states());
+// >>> \Lob\Resource\States
 ```
 
 Addresses
@@ -474,6 +478,35 @@ Retrieving a specific service is not supported.
 #### Delete a specific service
 
 Deleting a service is not supported.
+
+State
+-------
+
+#### Create a new state
+
+Creating a state is not supported.
+
+#### List states
+
+```php
+// Returns a state list
+$stateList = $lob->state()->retrieveList();
+
+// You can also pass `count` and `offset` to limit the results and
+// define a starting page
+$stateList = $lob->states()->retrieveList(array(
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
+));
+```
+
+#### Retrieve a specific state
+
+Retrieving a specific state is not supported.
+
+#### Delete a specific state
+
+Deleting a state is not supported.
 
 Postcards
 ---------
