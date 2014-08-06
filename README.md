@@ -491,13 +491,6 @@ Creating a state is not supported.
 ```php
 // Returns a state list
 $stateList = $lob->state()->retrieveList();
-
-// You can also pass `count` and `offset` to limit the results and
-// define a starting page
-$stateList = $lob->states()->retrieveList(array(
-    'count'   => 10,
-    'offset'  => 0, // Zero-indexed
-));
 ```
 
 #### Retrieve a specific state
