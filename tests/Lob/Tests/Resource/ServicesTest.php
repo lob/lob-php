@@ -14,7 +14,7 @@ namespace Lob\Tests\Resource;
 class ServicesTest extends \Lob\Tests\ResourceTest
 {
     protected $resourceMethodName = 'services';
-    protected $respondsToRetrieve = false;
+    protected $respondsToGet = false;
     protected $respondsToCreate = false;
     protected $respondsToDelete = false;
 }

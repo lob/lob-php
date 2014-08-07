@@ -13,8 +13,8 @@ namespace Lob;
 
 interface ResourceInterface
 {
-    public function retrieveList(array $options = array(), $includeMeta = false);
+    public function all(array $options = array(), $includeMeta = false);
     public function create(array $data);
-    public function retrieve($id);
+    public function get($id);
     public function delete($id);
 }

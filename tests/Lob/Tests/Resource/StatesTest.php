@@ -16,6 +16,6 @@ class States extends \Lob\Tests\ResourceTest
     protected $resourceMethodName = 'states';
     protected $respondsToCreate = false;
     protected $respondsToDelete = false;
-    protected $respondsToRetrieveListWithCountOffset = false;
+    protected $respondsToAllWithCountOffset = false;
 }
 
