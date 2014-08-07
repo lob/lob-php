@@ -45,4 +45,13 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
         $this->assertTrue(is_array($postcard));
         $this->assertTrue(array_key_exists('id', $postcard));
     }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testDeleteFail()
+    {
+        $create = $this->resource->delete('1');
+    }
+
 }

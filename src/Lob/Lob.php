@@ -59,13 +59,6 @@ class Lob
         return $this->version;
     }
 
-    public function setVersion($version)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
     public function addresses()
     {
         return new Addresses($this);

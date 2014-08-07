@@ -17,5 +17,33 @@ class States extends \Lob\Tests\ResourceTest
     protected $respondsToCreate = false;
     protected $respondsToDelete = false;
     protected $respondsToAllWithCountOffset = false;
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testCreateFail()
+    {
+        $state = array(
+          'name' => 'LobCity',
+          'short_name' => 'LC',
+        );
+        $this->resource->create($state);
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testDeleteFail()
+    {
+        $this->resource->delete('1');
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testGetFail()
+    {
+        $this->resource->get('1');
+    }
 }
 

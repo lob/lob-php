@@ -25,6 +25,14 @@ class LobTest extends \PHPUnit_Framework_TestCase
 {
     protected $lob;
 
+    /**
+    * @expectedException InvalidArgumentException
+    */
+    public function setUpFail()
+    {
+        $this->badLob = new Lob(1995);
+    }
+
     protected function setUp()
     {
         $this->lob = new Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
