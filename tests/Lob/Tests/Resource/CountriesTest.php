@@ -1,5 +1,6 @@
 <?php
 
+
 /*
  * This file is part of the Lob.com PHP Client.
  *
@@ -11,13 +12,13 @@
 
 namespace Lob\Tests\Resource;
 
-class SettingsTest extends \Lob\Tests\ResourceTest
+class CountriesTest extends \Lob\Tests\ResourceTest
 {
-    protected $resourceMethodName = 'settings';
+    protected $resourceMethodName = 'countries';
     protected $respondsToCreate = false;
     protected $respondsToDelete = false;
+    protected $respondsToGet = false;
     protected $respondsToAllWithCountOffset = false;
-
 
     /**
     * @expectedException BadMethodCallException
@@ -37,5 +38,13 @@ class SettingsTest extends \Lob\Tests\ResourceTest
     public function testDeleteFail()
     {
         $this->resource->delete('1');
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testGetFail()
+    {
+        $this->resource->get('1');
     }
 }

@@ -24,6 +24,7 @@ use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
 use Lob\Resource\Services;
 use Lob\Resource\Settings;
+use Lob\Resource\States;
 
 class Lob
 {
@@ -56,13 +57,6 @@ class Lob
     public function getVersion()
     {
         return $this->version;
-    }
-
-    public function setVersion($version)
-    {
-        $this->version = $version;
-
-        return $this;
     }
 
     public function addresses()
@@ -113,5 +107,9 @@ class Lob
     public function settings()
     {
         return new Settings($this);
+    }
+    public function states()
+    {
+        return new States($this);
     }
 }

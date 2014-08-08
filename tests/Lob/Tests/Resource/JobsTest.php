@@ -35,4 +35,13 @@ class JobsTest extends \Lob\Tests\ResourceTest
         $this->assertTrue(is_array($job));
         $this->assertTrue(array_key_exists('id', $job));
     }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testDeleteFail()
+    {
+        $this->resource->delete('1');
+    }
+
 }

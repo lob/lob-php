@@ -32,9 +32,9 @@ abstract class Resource implements ResourceInterface
         $this->lob = $lob;
     }
 
-    public function retrieveList(array $query = array(), $includeMeta = false)
+    public function all(array $query = array(), $includeMeta = false)
     {
-        $list = $this->sendRequest(
+        $all = $this->sendRequest(
             'GET',
             $this->lob->getVersion(),
             $this->resourceName(),
@@ -42,10 +42,10 @@ abstract class Resource implements ResourceInterface
             array()
         );
         if ($includeMeta) {
-            return $list;
+            return $all;
         }
 
-        return $list['data'];
+        return $all['data'];
     }
 
     public function create(array $data)
@@ -59,7 +59,7 @@ abstract class Resource implements ResourceInterface
         );
     }
 
-    public function retrieve($id)
+    public function get($id)
     {
         return $this->sendRequest(
             'GET',

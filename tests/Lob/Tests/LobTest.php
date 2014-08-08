@@ -19,10 +19,19 @@ use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
 use Lob\Resource\Services;
 use Lob\Resource\Settings;
+use Lob\Resource\States;
 
 class LobTest extends \PHPUnit_Framework_TestCase
 {
     protected $lob;
+
+    /**
+    * @expectedException InvalidArgumentException
+    */
+    public function setUpFail()
+    {
+        $this->badLob = new Lob(1995);
+    }
 
     protected function setUp()
     {
@@ -68,4 +77,10 @@ class LobTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->lob->settings() instanceof Settings);
     }
+
+    public function testStatesMethodReturnsLobResourceStatesClass()
+    {
+        $this->assertTrue($this->lob->states() instanceof States);
+    }
+
 }

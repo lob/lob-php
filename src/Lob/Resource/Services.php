@@ -21,7 +21,7 @@ class Services extends ResourceBase
         throw new BadMethodCallException(__CLASS__.'::'.__FUNCTION__.'() is not supported.');
     }
 
-    public function retrieve($id)
+    public function get($id)
     {
         throw new BadMethodCallException(__CLASS__.'::'.__FUNCTION__.'() is not supported.');
     }

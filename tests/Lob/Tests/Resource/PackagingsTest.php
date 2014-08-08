@@ -14,8 +14,36 @@ namespace Lob\Tests\Resource;
 class PackagingsTest extends \Lob\Tests\ResourceTest
 {
     protected $resourceMethodName = 'packagings';
-    protected $respondsToRetrieveListWithCountOffset = false;
-    protected $respondsToRetrieve = false;
+    protected $respondsToAllWithCountOffset = false;
+    protected $respondsToGet = false;
     protected $respondsToCreate = false;
     protected $respondsToDelete = false;
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testCreateFail()
+    {
+        $packaging = array(
+          'name' => 'LobPack',
+          'description' => 'Lob Packaging',
+        );
+        $this->resource->create($packaging);
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testDeleteFail()
+    {
+        $this->resource->delete('1');
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testGetFail()
+    {
+        $this->resource->get('1');
+    }
 }

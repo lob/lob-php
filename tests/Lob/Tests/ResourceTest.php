@@ -19,11 +19,11 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     protected $lob;
     protected $resource;
     protected $resourceMethodName;
-    protected $testSampleList;
-    protected $testSampleListWithMeta;
-    protected $respondsToRetrieveList = true;
-    protected $respondsToRetrieveListWithCountOffset = true;
-    protected $respondsToRetrieve = true;
+    protected $testSampleAll;
+    protected $testSampleAllWithMeta;
+    protected $respondsToAll = true;
+    protected $respondsToAllWithCountOffset = true;
+    protected $respondsToGet = true;
     protected $respondsToCreate = true;
     protected $respondsToDelete = true;
     public static $validCreateData = array();
@@ -33,43 +33,43 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     {
         $this->lob = new Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
         $this->resource = $this->lob->{$this->resourceMethodName}();
-        $this->testSampleList = $this->resource->retrieveList(array(
+        $this->testSampleAll = $this->resource->all(array(
             'count' => 1
         ));
-        $this->testSampleListWithMeta = $this->resource->retrieveList(array(
+        $this->testSampleAllWithMeta = $this->resource->all(array(
             'count' => 1
         ), true);
     }
 
-    protected function getTestSampleList()
+    protected function getTestSampleAll()
     {
-        if ($this->testSampleList) {
-            return $this->testSampleList;
+        if ($this->testSampleAll) {
+            return $this->testSampleAll;
         }
 
-        $this->testSampleList = $this->resource->retrieveList(array(
+        $this->testSampleAll = $this->resource->all(array(
             'count' => 1
         ));
 
-        return $this->testSampleList;
+        return $this->testSampleAll;
     }
 
-    protected function getTestSampleListWithMeta()
+    protected function getTestSampleAllWithMeta()
     {
-        if ($this->testSampleListWithMeta) {
-            return $this->testSampleListWithMeta;
+        if ($this->testSampleAllWithMeta) {
+            return $this->testSampleAllWithMeta;
         }
 
-        $this->testSampleListWithMeta = $this->resource->retrieveList(array(
+        $this->testSampleAllWithMeta = $this->resource->all(array(
             'count' => 1
         ), true);
 
-        return $this->testSampleListWithMeta;
+        return $this->testSampleAllWithMeta;
     }
 
     protected function getRandomSettingId()
     {
-        $settings = $this->lob->settings()->retrieveList();
+        $settings = $this->lob->settings()->all();
         shuffle($settings);
 
         return $settings[0]['id'];
@@ -77,13 +77,13 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     protected function getBankAccountId()
     {
-      $accounts = $this->lob->bankAccounts()->retrieveList();
+      $accounts = $this->lob->bankAccounts()->all();
       return $accounts[0]['id'];
     }
 
     protected function getRandomPackagingId()
     {
-        $packagings = $this->lob->packagings()->retrieveList();
+        $packagings = $this->lob->packagings()->all();
         shuffle($packagings);
 
         return $packagings[0]['id'];
@@ -91,50 +91,50 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     protected function getRandomServiceId()
     {
-        $services = $this->lob->services()->retrieveList();
+        $services = $this->lob->services()->all();
         shuffle($services);
 
         return $services[0]['id'];
     }
 
-    public function testRetrieveListReturnsArray()
+    public function testAllReturnsArray()
     {
-        if (!$this->respondsToRetrieveList)
+        if (!$this->respondsToAll)
             return;
 
-        $this->assertTrue(is_array($this->getTestSampleList()));
-        $this->assertTrue(is_array($this->getTestSampleListWithMeta()));
+        $this->assertTrue(is_array($this->getTestSampleAll()));
+        $this->assertTrue(is_array($this->getTestSampleAllWithMeta()));
     }
 
-    public function testRetrieveListWithoutMeta()
+    public function testAllWithoutMeta()
     {
-        if (!$this->respondsToRetrieveList)
+        if (!$this->respondsToAll)
             return;
 
-        $this->assertFalse(array_key_exists('data', $this->getTestSampleList()));
+        $this->assertFalse(array_key_exists('data', $this->getTestSampleAll()));
     }
 
-    public function testRetrieveListWithMeta()
+    public function testAllWithMeta()
     {
-        if (!$this->respondsToRetrieveList)
+        if (!$this->respondsToAll)
             return;
 
-        $this->assertTrue(array_key_exists('data', $this->getTestSampleListWithMeta()));
+        $this->assertTrue(array_key_exists('data', $this->getTestSampleAllWithMeta()));
     }
 
-    public function testRetrieveListResultsCountIsLessThanOrEqualCountParamValue()
+    public function testAllResultsCountIsLessThanOrEqualCountParamValue()
     {
-        if (!$this->respondsToRetrieveList
-            || !$this->respondsToRetrieveListWithCountOffset) {
+        if (!$this->respondsToAll
+            || !$this->respondsToAllWithCountOffset) {
             return;
         }
 
         $count = 5;
-        $list = $this->resource->retrieveList(array(
+        $all = $this->resource->all(array(
             'count' => $count
         ));
 
-        $this->assertLessThanOrEqual($count, count($list));
+        $this->assertLessThanOrEqual($count, count($all));
     }
 
     public function testRaiseValidationExceptionOnCreateWithInvalidData()
@@ -150,6 +150,6 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Lob\Exception\AuthorizationException');
         $this->lob->setApiKey('INVALID_API_KEY');
-        $this->resource->retrieveList(array('count' => 1));
+        $this->resource->all(array('count' => 1));
     }
 }

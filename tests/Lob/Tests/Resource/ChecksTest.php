@@ -3,6 +3,7 @@
 namespace Lob\Tests\Resource;
 
 use Lob\Tests\Resource\AddressesTest;
+use Lob\Tests\Resource\BankAccountsTest;
 
 class ChecksTest extends \Lob\Tests\ResourceTest
 {
@@ -10,15 +11,56 @@ class ChecksTest extends \Lob\Tests\ResourceTest
 
   public function testCreateWithSuccess()
   {
-    $check = $this->resource->create(array(
-      'name' => 'Demo Check',
-      'to' => AddressesTest::$validCreateData,
-      'bank_account' => $this->getBankAccountId(),
-      'amount' => 2000,
-      'memo' => 'rent'
-    ));
+     $check = $this->resource->create(array(
+        'name' => 'Demo Check',
+        'to[name]' => 'Amrit Ayalur',
+        'to[address_line1]' => '123 Test Street',
+        'to[address_city]' => 'Mountain View',
+        'to[address_state]' => 'CA',
+        'to[address_zip]' => '94041',
+        'to[address_country]' => 'US',
+        'bank_account' => $this->getBankAccountId(),
+        'amount' => '2200',
+        'memo' => 'rent',
+      ));
 
-    $this->assertTrue(is_array($check));
-    $this->assertTrue(array_key_exists('id', $check));
+     $this->assertTrue(is_array($check));
+     $this->assertTrue(array_key_exists('id', $check));
   }
+
+  public function testGet()
+  {
+     $check = $this->resource->create(array(
+        'name' => 'Demo Check',
+        'to[name]' => 'Amrit Ayalur',
+        'to[address_line1]' => '123 Test Street',
+        'to[address_city]' => 'Mountain View',
+        'to[address_state]' => 'CA',
+        'to[address_zip]' => '94041',
+        'to[address_country]' => 'US',
+        'bank_account' => $this->getBankAccountId(),
+        'amount' => '2200',
+        'memo' => 'rent',
+     ));
+     $id = $check['id'];
+     $getCheck = $this->resource->get($id);
+
+     $this->assertTrue(is_array($getCheck));
+     $this->assertTrue(array_key_exists('id', $getCheck));
+  }
+
+  public function testAll()
+  {
+    $checks = $this->resource->all();
+    $this->assertTrue(is_array($checks));
+  }
+
+  /**
+  * @expectedException BadMethodCallException
+  */
+  public function testDeleteFail()
+  {
+    $this->resource->delete('1');
+  }
+
 }

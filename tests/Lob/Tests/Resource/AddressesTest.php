@@ -34,4 +34,36 @@ class AddressesTest extends \Lob\Tests\ResourceTest
         $this->assertTrue(is_array($address));
         $this->assertTrue(array_key_exists('id', $address));
     }
+
+    public function testDelete()
+    {
+        $address = $this->resource->create(static::$validCreateData);
+        $id = $address['id'];
+        $deleted = $this->resource->delete($id);
+        $this->assertTrue(is_array($deleted));
+    }
+
+    public function testGet()
+    {
+        $address = $this->resource->create(static::$validCreateData);
+        $id = $address['id'];
+        $getAddress = $this->resource->get($id);
+
+        $this->assertTrue(is_array($getAddress));
+        $this->assertTrue(array_key_exists('id', $getAddress));
+    }
+
+    public function testVerification()
+    {
+        $address = $this->resource->verify(static::$validCreateData);
+
+        $this->assertTrue(is_array($address));
+    }
+
+    public function testAll()
+    {
+        $addresses = $this->resource->all();
+
+        $this->assertTrue(is_array($addresses));
+    }
 }

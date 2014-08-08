@@ -30,9 +30,6 @@ Basics
 // in order to instantiate the Lob object
 $apiKey = 'API Key here';
 $lob = new \Lob\Lob($apiKey);
-
-// You can also provide a specific API version you want to access
-$lob->setVersion('v1'); // "v1" is the default value
 ```
 
 Resources
@@ -78,6 +75,10 @@ echo get_class($lob->postcards());
 // Services
 echo get_class($lob->services());
 // >>> \Lob\Resource\Services
+
+// States
+echo get_class($lob->states());
+// >>> \Lob\Resource\States
 ```
 
 Addresses
@@ -108,11 +109,11 @@ try {
 
 ```php
 // Returns an address list
-$addressList = $lob->addresses()->retrieveList();
+$addressList = $lob->addresses()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$addressList = $lob->addresses()->retrieveList(array(
+$addressList = $lob->addresses()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -123,7 +124,7 @@ $addressList = $lob->addresses()->retrieveList(array(
 ```php
 try {
     // Returns a valid address
-    $address = $lob->addresses()->retrieve('966a7feaaeb5cb38010e');
+    $address = $lob->addresses()->get('966a7feaaeb5cb38010e');
 } catch (\Lob\Exception\ResourceNotFoundException $e) {
     // Do something
 }
@@ -181,11 +182,11 @@ try {
 
 ```php
 // Returns a bank account list
-$bankAccountList = $lob->bankAccounts()->retrieveList();
+$bankAccountList = $lob->bankAccounts()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$bankAccountList = $lob->bankAccounts()->retrieveList(array(
+$bankAccountList = $lob->bankAccounts()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -196,7 +197,7 @@ $bankAccountList = $lob->bankAccounts()->retrieveList(array(
 ```php
 try {
     // Returns a valid bank account
-    $bankAccount = $lob->bankAccounts()->retrieve('bank_e13902b6bdfff24');
+    $bankAccount = $lob->bankAccounts()->get('bank_e13902b6bdfff24');
 } catch (\Lob\Exception\ResourceNotFoundException $e) {
     // Do something
 }
@@ -236,11 +237,11 @@ try {
 
 ```php
 // Returns a check list
-$checkList = $lob->checks()->retrieveList();
+$checkList = $lob->checks()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$checkList = $lob->checks()->retrieveList(array(
+$checkList = $lob->checks()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -251,7 +252,7 @@ $checkList = $lob->checks()->retrieveList(array(
 ```php
 try {
     // Returns a valid check
-    $check = $lob->checks()->retrieve('chk_b102de150bc45d9e9ed2');
+    $check = $lob->checks()->get('chk_b102de150bc45d9e9ed2');
 } catch (\Lob\Exception\ResourceNotFoundException $e) {
     // Do something
 }
@@ -291,11 +292,11 @@ try {
 
 ```php
 // Returns a job list
-$jobList = $lob->jobs()->retrieveList();
+$jobList = $lob->jobs()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$jobList = $lob->jobs()->retrieveList(array(
+$jobList = $lob->jobs()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -306,7 +307,7 @@ $jobList = $lob->jobs()->retrieveList(array(
 ```php
 try {
     // Returns a valid job
-    $job = $lob->jobs()->retrieve('966a7feaaeb5cb38010e');
+    $job = $lob->jobs()->get('966a7feaaeb5cb38010e');
 } catch (\Lob\Exception\ResourceNotFoundException $e) {
     // Do something
 }
@@ -354,11 +355,11 @@ try {
 
 ```php
 // Returns an object list
-$objectList = $lob->objects()->retrieveList();
+$objectList = $lob->objects()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$objectList = $lob->objects()->retrieveList(array(
+$objectList = $lob->objects()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -369,7 +370,7 @@ $objectList = $lob->objects()->retrieveList(array(
 ```php
 try {
     // Returns a valid object
-    $object = $lob->objects()->retrieve('966a7feaaeb5cb38010e');
+    $object = $lob->objects()->get('966a7feaaeb5cb38010e');
 } catch (\Lob\Exception\ResourceNotFoundException $e) {
     // Do something
 }
@@ -392,11 +393,11 @@ Creating a setting is not supported.
 
 ```php
 // Returns a setting list
-$settingList = $lob->settings()->retrieveList();
+$settingList = $lob->settings()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$settingList = $lob->settings()->retrieveList(array(
+$settingList = $lob->settings()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -407,7 +408,7 @@ $settingList = $lob->settings()->retrieveList(array(
 ```php
 try {
     // Returns a valid setting
-    $setting = $lob->settings()->retrieve('966a7feaaeb5cb38010e');
+    $setting = $lob->settings()->get('966a7feaaeb5cb38010e');
 } catch (\Lob\Exception\ResourceNotFoundException $e) {
     // Do something
 }
@@ -428,11 +429,11 @@ Creating a packaging is not supported.
 
 ```php
 // Returns a packaging list
-$packagingList = $lob->packagings()->retrieveList();
+$packagingList = $lob->packagings()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$packagingList = $lob->packagings()->retrieveList(array(
+$packagingList = $lob->packagings()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -457,11 +458,11 @@ Creating a service is not supported.
 
 ```php
 // Returns a service list
-$serviceList = $lob->services()->retrieveList();
+$serviceList = $lob->services()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$serviceList = $lob->services()->retrieveList(array(
+$serviceList = $lob->services()->all(array(
     'count'   => 10,
     'offset'  => 0, // Zero-indexed
 ));
@@ -474,6 +475,28 @@ Retrieving a specific service is not supported.
 #### Delete a specific service
 
 Deleting a service is not supported.
+
+State
+-------
+
+#### Create a new state
+
+Creating a state is not supported.
+
+#### List states
+
+```php
+// Returns a state list
+$stateList = $lob->state()->all();
+```
+
+#### Retrieve a specific state
+
+Retrieving a specific state is not supported.
+
+#### Delete a specific state
+
+Deleting a state is not supported.
 
 Postcards
 ---------
@@ -501,11 +524,11 @@ try {
 
 ```php
 // Returns a postcard list
-$postcardList = $lob->postcards()->retrieveList();
+$postcardList = $lob->postcards()->all();
 
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
-$postcardList = $lob->postcards()->retrieveList(array(
+$postcardList = $lob->postcards()->all(array(
     'count' => 10,
     'offset' => 0, // Zero-indexed
 ));
@@ -516,7 +539,7 @@ $postcardList = $lob->postcards()->retrieveList(array(
 ```php
 try {
     // Returns a valid postcard
-    $postcard = $lob->postcards()->retrieve('966a7feaaeb5cb38010e');
+    $postcard = $lob->postcards()->get('966a7feaaeb5cb38010e');
 } catch (\Lob\Exception\ResourceNotFoundException $e) {
     // Do something
 }
