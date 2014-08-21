@@ -7,10 +7,9 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Danilo Assis",
-            "email": "danilo.sajr@gmail.com",
-            "homepage": "https://github.com/daniloassis",
-            "role": "Developer"
+            "name": "Lob",
+            "email": "support@lob.com",
+            "homepage": "https://www.lob.com"
         }
     ],
     "require": {
