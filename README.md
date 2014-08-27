@@ -93,8 +93,8 @@ try {
         'name'              => 'Harry Zhang', // Required
         'address_line1'     => '123 Test Street', // Required
         'address_line2'     => 'Unit 199', // Optional
-        'address_city'      => 'Mountain View', // Required
-        'address_state'     => 'CA', // Required
+        'address_city'      => 'Mountain View', // Required for US Addresses
+        'address_state'     => 'CA', // Required for US Addresses
         'address_country'   => 'US', // Required - Must be a 2 letter country short-name code (ISO 3316)
         'address_zip'       => '94085', // Required
         'email'             => 'harry@lob.com', // Optional
