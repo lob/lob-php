@@ -15,6 +15,7 @@ use InvalidArgumentException;
 use BadMethodCallException;
 use Lob\Resource;
 use Lob\Resource\Addresses;
+use Lob\Resource\Areas;
 use Lob\Resource\BankAccounts;
 use Lob\Resource\Checks;
 use Lob\Resource\Countries;
@@ -22,6 +23,7 @@ use Lob\Resource\Jobs;
 use Lob\Resource\Objects;
 use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
+use Lob\Resource\Routes;
 use Lob\Resource\Services;
 use Lob\Resource\Settings;
 use Lob\Resource\States;
@@ -64,6 +66,11 @@ class Lob
         return new Addresses($this);
     }
 
+    public function areas()
+    {
+        return new Areas($this);
+    }
+
     public function bankAccounts()
     {
       return new BankAccounts($this);
@@ -97,6 +104,11 @@ class Lob
     public function postcards()
     {
         return new Postcards($this);
+    }
+
+    public function routes()
+    {
+        return new Routes($this);
     }
 
     public function services()
