@@ -33,11 +33,15 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     {
         $this->lob = new Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
         $this->resource = $this->lob->{$this->resourceMethodName}();
+        if (!$this->respondsToAll)
+          return;
+
         $this->testSampleAll = $this->resource->all(array(
-            'count' => 1
+          'count' => 1
         ));
+
         $this->testSampleAllWithMeta = $this->resource->all(array(
-            'count' => 1
+          'count' => 1
         ), true);
     }
 

@@ -28,7 +28,6 @@ class RoutesTest extends \Lob\Tests\ResourceTest
         ));
 
         $this->assertTrue(is_array($routes));
-        $this->assertTrue(array_key_exists('data', $routes));
     }
 
     /**
