@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 $lob = new \Lob\Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
 
@@ -34,7 +34,7 @@ $to_address = $lob->addresses()->create(array(
 ));
 
 $bank_account = $lob->bankAccounts()->create(array(
-  'routing_number'    => '12345678',
+  'routing_number'    => '122100024',
   'account_number'    => '12345678',
   'bank_code'         => '12345678',
   'bank_address'      => $bank_address['id'],

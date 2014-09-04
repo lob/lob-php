@@ -549,6 +549,40 @@ try {
 
 Deleting a postcard is not supported.
 
+Simple Area Mail (SAM)
+------------
+
+#### View Routes
+
+```php
+$routes = $lob->routes()->all(array(
+  'zip_codes' => '94158',
+  'zip_codes' => '94107'
+));
+```
+
+You can also pass in the zip_codes as an array.
+
+```php
+$routes = $lob->routes()->all(array(
+  'zip_codes' => array(
+    '94158',
+    '94107'
+  )
+));
+```
+
+#### Create an Area
+
+```php
+$area = $lob->areas()->create(array(
+  'name'   => 'Sample SAM',
+  'routes' => '94158',
+  'routes' => '94107',
+  'front'  => 'https://www.lob.com/areafront.pdf',
+  'back'   => 'https://www.lob.com/areaback.pdf'
+));
+```
 
 Documentation
 ------------

@@ -6,7 +6,7 @@ class BankAccountsTest extends \Lob\Tests\ResourceTest
 {
   protected $resourceMethodName = 'bankAccounts';
   public static $bankData = array(
-    'routing_number' => 123456789,
+    'routing_number' => 122100024,
     'account_number' => 123456789,
     'bank_code' => 123456789,
     'bank_address[name]' => 'Bank Address',
