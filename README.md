@@ -584,6 +584,10 @@ $area = $lob->areas()->create(array(
 ));
 ```
 
+#### Creating a PDF
+
+If you need to generate your own PDF programmatically we recommend using [dompdf](https://github.com/dompdf/dompdf). There is an example provided in the examples folder [here](examples/create_pdf.php)
+
 Documentation
 ------------
 
