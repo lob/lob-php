@@ -31,6 +31,20 @@ Basics
 $apiKey = 'API Key here';
 $lob = new \Lob\Lob($apiKey);
 ```
+Supported Image Types
+--------
+The lob.com API supports the following image types:
+
+- PDF
+- PNG
+- JPEG
+
+For more information on prepping the images please see the [Lob documentation](https://lob.com/docs#prepping)
+
+Creating a PDF
+-------
+
+If you need to generate your own PDF programmatically we recommend using [dompdf](https://github.com/dompdf/dompdf). There is an example provided in the examples folder [here](examples/create_pdf.php)
 
 Resources
 ---------
@@ -583,10 +597,6 @@ $area = $lob->areas()->create(array(
   'back'   => 'https://www.lob.com/areaback.pdf'
 ));
 ```
-
-#### Creating a PDF
-
-If you need to generate your own PDF programmatically we recommend using [dompdf](https://github.com/dompdf/dompdf). There is an example provided in the examples folder [here](examples/create_pdf.php)
 
 Documentation
 ------------
