@@ -32,6 +32,7 @@ class Lob
 {
     private $version;
     private $apiKey;
+    private $clientVersion;
 
     public function __construct($apiKey = null, $version = 'v1')
     {
@@ -39,6 +40,7 @@ class Lob
             $this->setApiKey($apiKey);
         }
         $this->version = $version;
+        $this->clientVersion = '1.2.3';
     }
 
     public function getApiKey()
@@ -59,6 +61,11 @@ class Lob
     public function getVersion()
     {
         return $this->version;
+    }
+
+    public function getClientVersion()
+    {
+      return $this->clientVersion;
     }
 
     public function addresses()

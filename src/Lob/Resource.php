@@ -37,6 +37,7 @@ abstract class Resource implements ResourceInterface
         $all = $this->sendRequest(
             'GET',
             $this->lob->getVersion(),
+            $this->lob->getClientVersion(),
             $this->resourceName(),
             $query,
             array()
@@ -53,6 +54,7 @@ abstract class Resource implements ResourceInterface
         return $this->sendRequest(
             'POST',
             $this->lob->getVersion(),
+            $this->lob->getClientVersion(),
             $this->resourceName(),
             array(),
             $data
@@ -64,6 +66,7 @@ abstract class Resource implements ResourceInterface
         return $this->sendRequest(
             'GET',
             $this->lob->getVersion(),
+            $this->lob->getClientVersion(),
             $this->resourceName().'/'.strval($id),
             array(),
             array()
@@ -75,6 +78,7 @@ abstract class Resource implements ResourceInterface
         return $this->sendRequest(
             'DELETE',
             $this->lob->getVersion(),
+            $this->lob->getClientVersion(),
             $this->resourceName().'/'.strval($id),
             array(),
             array()
@@ -88,10 +92,11 @@ abstract class Resource implements ResourceInterface
         return array_pop($class);
     }
 
-    protected function sendRequest($method, $version, $path, array $query,
-        array $body = null)
+    protected function sendRequest($method, $version, $clientVersion, $path,
+        array $query, array $body = null)
     {
-        $request = $this->prepareRequest($method, $version, $path, $query, $body);
+        $request = $this->prepareRequest($method, $version, $clientVersion,
+          $path, $query, $body);
 
         try {
             $response = $request->send();
@@ -129,13 +134,13 @@ abstract class Resource implements ResourceInterface
         return $response->json();
     }
 
-    protected function prepareRequest($method, $version, $path, array $query,
+    protected function prepareRequest($method, $version, $clientVersion, $path, array $query,
         array $body = null)
     {
         $path = '/'.$version.'/'.$path;
         $headers = array(
             'Accept' => 'application/json; charset=utf-8',
-            'User-Agent' => 'lob-php-wrapper-v1',
+            'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion
         );
         $queryString = '';
         if (!empty($query)) {
