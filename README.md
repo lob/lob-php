@@ -4,7 +4,22 @@ Lob.com PHP Client
 
 Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API ([docs](https://www.lob.com/docs)).
 
-### Installing via Composer
+### Table of Contents
+[Installing via Composer](#installing)
+
+[Usage](#usage)
+
+[Supported Image Types](#supportedImages)
+
+[Creating a PDF](#creatingPDF)
+
+[Resources](#resources)
+
+[Documentation](#documentation)
+
+[Unit testing](#unitTesting)
+
+### Installing via Composer<a name="installing"></a>
 
 The recommended way to install Lob.com PHP Client is through [Composer](http://getcomposer.org).
 
@@ -22,7 +37,7 @@ After installing, you need to require Composer's autoloader:
 require 'vendor/autoload.php';
 ```
 
-Basics
+Usage<a name="usage"></a>
 ------
 
 ```php
@@ -31,7 +46,7 @@ Basics
 $apiKey = 'API Key here';
 $lob = new \Lob\Lob($apiKey);
 ```
-Supported Image Types
+Supported Image Types<a name="supportedImages"></a>
 --------
 The lob.com API supports the following image types:
 
@@ -41,12 +56,12 @@ The lob.com API supports the following image types:
 
 For more information on prepping the images please see the [Lob documentation](https://lob.com/docs#prepping)
 
-Creating a PDF
+Creating a PDF<a name="creatingPDF"></a>
 -------
 
 If you need to generate your own PDF programmatically we recommend using [dompdf](https://github.com/dompdf/dompdf). There is an example provided in the examples folder [here](examples/create_pdf.php)
 
-Resources
+Resources<a name="resources"></a>
 ---------
 
 Resource is a special object that maps directly to its correspondent API endpoint.
@@ -598,13 +613,13 @@ $area = $lob->areas()->create(array(
 ));
 ```
 
-Documentation
+Documentation<a name="documentation"></a>
 ------------
 
 Being a simple and flexible wrapper, the Lob.com [documentation](https://www.lob.com/docs) is the best source
 to read about the API and to extend this library, if needed.
 
-Unit testing
+Unit testing<a name="unitTesting"></a>
 ------------
 
 Lob.com PHP Client uses PHPUnit for unit testing. In order to run the unit tests, you'll first need
