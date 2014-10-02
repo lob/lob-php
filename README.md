@@ -109,6 +109,60 @@ echo get_class($lob->services());
 echo get_class($lob->states());
 // >>> \Lob\Resource\States
 ```
+- [Jobs](#jobs)
+  - [Create](#create-a-new-job)
+  - [List](#list-jobs)
+  - [Retrieve](#retrieve-a-specific-job)
+  - [Delete](#delete-a-specific-job)
+- [Addresses](#addresses)
+  - [Create](#create-a-new-address)
+  - [List](#list-addresses)
+  - [Retrieve](#retrieve-a-specific-address)
+  - [Delete](#delete-a-specific-address)
+  - [Verify](#verify-an-address)
+- [Objects](#objects)
+  - [Create](#create-a-new-object)
+  - [List](#list-objects)
+  - [Retrieve](#retrieve-a-specific-object)
+  - [Delete](#delete-a-specific-object)
+- [Settings](#settings)
+  - [Create](#create-a-new-setting)
+  - [List](#list-settings)
+  - [Retrieve](#retrieve-a-specific-setting)
+  - [Delete](#delete-a-specific-setting)
+- [Packagings](#packagings)
+  - [Create](#create-a-new-packaging)
+  - [List](#list-packagings)
+  - [Retrieve](#retrieve-a-specific-packaging)
+  - [Delete](#delete-a-specific-packaging)
+- [Services](#services)
+  - [Create](#create-a-new-service)
+  - [List](#list-services)
+  - [Retrieve](#retrieve-a-specific-service)
+  - [Delete](#delete-a-specific-service)
+- [Checks](#checks)
+  - [Create](#create-a-new-check)
+  - [List](#list-checks)
+  - [Retrieve](#retrieve-a-specific-check)
+  - [Delete](#delete-a-specific-check)
+- [Bank Accounts](#bank-accounts)
+  - [Create](#create-a-new-bank-account)
+  - [List](#list-bank-accounts)
+  - [Retrieve](#retrieve-a-specific-bank-account)
+  - [Delete](#delete-a-specific-bank-account)
+- [Simple Area Mail (SAM)](#simple-area-mail-sam)
+  - [View Routes](#view-routes)
+  - [Create an Area Mailing](#create-an-area-mailing)
+- [States](#states)
+  - [Create](#create-a-new-state)
+  - [List](#list-states)
+  - [Retrieve](#retrieve-a-specific-state)
+  - [Delete](#delete-a-specific-state)
+- [Countries](#countries)
+  - [Create](#create-a-new-countrie)
+  - [List](#list-countries)
+  - [Retrieve](#retrieve-a-specific-countrie)
+  - [Delete](#delete-a-specific-countrie)
 
 Jobs
 ----
@@ -362,7 +416,7 @@ Retrieving a specific packaging is not supported.
 
 Deleting a packaging is not supported.
 
-Service
+Services
 -------
 
 #### Create a new service
@@ -578,7 +632,7 @@ $routes = $lob->routes()->all(array(
 ));
 ```
 
-#### Create an Area
+#### Create an Area Mailing
 
 ```php
 $area = $lob->areas()->create(array(
@@ -590,7 +644,7 @@ $area = $lob->areas()->create(array(
 ));
 ```
 
-State
+States
 -------
 
 #### Create a new state
@@ -611,6 +665,28 @@ Retrieving a specific state is not supported.
 #### Delete a specific state
 
 Deleting a state is not supported.
+
+Countries
+-------
+
+#### Create a new country
+
+Creating a country is not supported.
+
+#### List countrys
+
+```php
+// Returns a country list
+$countryList = $lob->country()->all();
+```
+
+#### Retrieve a specific country
+
+Retrieving a specific country is not supported.
+
+#### Delete a specific country
+
+Deleting a country is not supported.
 
 Documentation<a name="documentation"></a>
 ------------
