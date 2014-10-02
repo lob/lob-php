@@ -110,6 +110,59 @@ echo get_class($lob->states());
 // >>> \Lob\Resource\States
 ```
 
+Jobs
+----
+
+#### Create a new job
+
+```php
+try {
+    // Returns a valid job
+    $job = $lob->jobs()->create(array(
+        'name'          => 'Welcome letter to JJJ INC',
+        'to'            => $receiverAddress['id'], // Required
+        'from'          => $senderAddress['id'], // Optional
+        'object1'       => $object1['id'], // Required
+        // Accepts N objects as long as you provide them
+        // incrementally like object2, object3 and so on until it hits N...
+        'object2'       => $object2['id'], // Optional
+        'packaging_id'  => $packaging['id'], // Optional
+        'service_id'    => $service['id'], // Optional
+    ));
+} catch (\Lob\Exception\ValidationException $e) {
+    // Do something
+}
+```
+
+#### List jobs
+
+```php
+// Returns a job list
+$jobList = $lob->jobs()->all();
+
+// You can also pass `count` and `offset` to limit the results and
+// define a starting page
+$jobList = $lob->jobs()->all(array(
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
+));
+```
+
+#### Retrieve a specific job
+
+```php
+try {
+    // Returns a valid job
+    $job = $lob->jobs()->get('966a7feaaeb5cb38010e');
+} catch (\Lob\Exception\ResourceNotFoundException $e) {
+    // Do something
+}
+```
+
+#### Delete a specific job
+
+Deleting a job is not supported.
+
 Addresses
 ---------
 
@@ -178,173 +231,6 @@ $lob->addresses()->delete('966a7feaaeb5cb38010e');
       'address_zip'       => '94085', // Optional
   ));
 ```
-
-Bank Accounts
-----
-
-### Create a new bank account
-
-```php
-try {
-  // Returns a valid bank_account
-  $account = $lob->bankAccounts()->create(array(
-    'routing_number'              => '12345678',
-    'account_number'              => '12345678',
-    'bank_code'                   => '12345678',
-    'bank_address[name]'          => 'Bank Address',
-    'bank_address[address_line1]' => '123 Test Street',
-    'bank_address[address_city]'  => 'San Francisco',
-    'bank_address[address_zip]'   => '94107',
-    'bank_address[address_state]' => 'CA',
-    'account_address[name]'          => 'Account Address',
-    'account_address[address_line1]' => '123 Test Street',
-    'account_address[address_city]'  => 'San Francisco',
-    'account_address[address_zip]'   => '94107',
-    'account_address[address_state]' => 'CA'
-  ));
-} catch(\Lob\Exception\ValidationException $e) {
-  // Do Something
-}
-```
-
-#### List bank accounts
-
-```php
-// Returns a bank account list
-$bankAccountList = $lob->bankAccounts()->all();
-
-// You can also pass `count` and `offset` to limit the results and
-// define a starting page
-$bankAccountList = $lob->bankAccounts()->all(array(
-    'count'   => 10,
-    'offset'  => 0, // Zero-indexed
-));
-```
-
-#### Retrieve a specific bank account
-
-```php
-try {
-    // Returns a valid bank account
-    $bankAccount = $lob->bankAccounts()->get('bank_e13902b6bdfff24');
-} catch (\Lob\Exception\ResourceNotFoundException $e) {
-    // Do something
-}
-```
-
-#### Delete a specific bank account
-
-```php
-$lob->bankAccounts()->delete($bankAccountId);
-```
-
-Checks
-----
-
-### Create a new check
-
-```php
-try {
-  // Returns a valid check
-  $account = $lob->checks()->create(array(
-    'name'              => 'Demo Check',
-    'to[name]'          => 'Recipient',
-    'to[address_line1]' => '123 Test Street',
-    'to[address_city]'  => 'San Francisco',
-    'to[address_zip]'   => '94107',
-    'to[address_state]' => 'CA',
-    'bank_account'      => 'bank_e13902b6bdfff24',
-    'amount'            => 2200,
-    'memo'              => 'rent'
-  ));
-} catch(\Lob\Exception\ValidationException $e) {
-  // Do Something
-}
-```
-
-#### List checks
-
-```php
-// Returns a check list
-$checkList = $lob->checks()->all();
-
-// You can also pass `count` and `offset` to limit the results and
-// define a starting page
-$checkList = $lob->checks()->all(array(
-    'count'   => 10,
-    'offset'  => 0, // Zero-indexed
-));
-```
-
-#### Retrieve a specific check
-
-```php
-try {
-    // Returns a valid check
-    $check = $lob->checks()->get('chk_b102de150bc45d9e9ed2');
-} catch (\Lob\Exception\ResourceNotFoundException $e) {
-    // Do something
-}
-```
-
-#### Delete a specific check
-
-```php
-$lob->checks()->delete($checkId);
-```
-
-Jobs
-----
-
-#### Create a new job
-
-```php
-try {
-    // Returns a valid job
-    $job = $lob->jobs()->create(array(
-        'name'          => 'Welcome letter to JJJ INC',
-        'to'            => $receiverAddress['id'], // Required
-        'from'          => $senderAddress['id'], // Optional
-        'object1'       => $object1['id'], // Required
-        // Accepts N objects as long as you provide them
-        // incrementally like object2, object3 and so on until it hits N...
-        'object2'       => $object2['id'], // Optional
-        'packaging_id'  => $packaging['id'], // Optional
-        'service_id'    => $service['id'], // Optional
-    ));
-} catch (\Lob\Exception\ValidationException $e) {
-    // Do something
-}
-```
-
-#### List jobs
-
-```php
-// Returns a job list
-$jobList = $lob->jobs()->all();
-
-// You can also pass `count` and `offset` to limit the results and
-// define a starting page
-$jobList = $lob->jobs()->all(array(
-    'count'   => 10,
-    'offset'  => 0, // Zero-indexed
-));
-```
-
-#### Retrieve a specific job
-
-```php
-try {
-    // Returns a valid job
-    $job = $lob->jobs()->get('966a7feaaeb5cb38010e');
-} catch (\Lob\Exception\ResourceNotFoundException $e) {
-    // Do something
-}
-```
-
-#### Delete a specific job
-
-Deleting a job is not supported.
 
 Objects
 -------
@@ -505,28 +391,6 @@ Retrieving a specific service is not supported.
 
 Deleting a service is not supported.
 
-State
--------
-
-#### Create a new state
-
-Creating a state is not supported.
-
-#### List states
-
-```php
-// Returns a state list
-$stateList = $lob->state()->all();
-```
-
-#### Retrieve a specific state
-
-Retrieving a specific state is not supported.
-
-#### Delete a specific state
-
-Deleting a state is not supported.
-
 Postcards
 ---------
 
@@ -578,6 +442,119 @@ try {
 
 Deleting a postcard is not supported.
 
+Checks
+----
+
+### Create a new check
+
+```php
+try {
+  // Returns a valid check
+  $account = $lob->checks()->create(array(
+    'name'              => 'Demo Check',
+    'to[name]'          => 'Recipient',
+    'to[address_line1]' => '123 Test Street',
+    'to[address_city]'  => 'San Francisco',
+    'to[address_zip]'   => '94107',
+    'to[address_state]' => 'CA',
+    'bank_account'      => 'bank_e13902b6bdfff24',
+    'amount'            => 2200,
+    'memo'              => 'rent'
+  ));
+} catch(\Lob\Exception\ValidationException $e) {
+  // Do Something
+}
+```
+
+#### List checks
+
+```php
+// Returns a check list
+$checkList = $lob->checks()->all();
+
+// You can also pass `count` and `offset` to limit the results and
+// define a starting page
+$checkList = $lob->checks()->all(array(
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
+));
+```
+
+#### Retrieve a specific check
+
+```php
+try {
+    // Returns a valid check
+    $check = $lob->checks()->get('chk_b102de150bc45d9e9ed2');
+} catch (\Lob\Exception\ResourceNotFoundException $e) {
+    // Do something
+}
+```
+
+#### Delete a specific check
+
+```php
+$lob->checks()->delete($checkId);
+```
+
+Bank Accounts
+----
+
+### Create a new bank account
+
+```php
+try {
+  // Returns a valid bank_account
+  $account = $lob->bankAccounts()->create(array(
+    'routing_number'              => '12345678',
+    'account_number'              => '12345678',
+    'bank_code'                   => '12345678',
+    'bank_address[name]'          => 'Bank Address',
+    'bank_address[address_line1]' => '123 Test Street',
+    'bank_address[address_city]'  => 'San Francisco',
+    'bank_address[address_zip]'   => '94107',
+    'bank_address[address_state]' => 'CA',
+    'account_address[name]'          => 'Account Address',
+    'account_address[address_line1]' => '123 Test Street',
+    'account_address[address_city]'  => 'San Francisco',
+    'account_address[address_zip]'   => '94107',
+    'account_address[address_state]' => 'CA'
+  ));
+} catch(\Lob\Exception\ValidationException $e) {
+  // Do Something
+}
+```
+
+#### List bank accounts
+
+```php
+// Returns a bank account list
+$bankAccountList = $lob->bankAccounts()->all();
+
+// You can also pass `count` and `offset` to limit the results and
+// define a starting page
+$bankAccountList = $lob->bankAccounts()->all(array(
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
+));
+```
+
+#### Retrieve a specific bank account
+
+```php
+try {
+    // Returns a valid bank account
+    $bankAccount = $lob->bankAccounts()->get('bank_e13902b6bdfff24');
+} catch (\Lob\Exception\ResourceNotFoundException $e) {
+    // Do something
+}
+```
+
+#### Delete a specific bank account
+
+```php
+$lob->bankAccounts()->delete($bankAccountId);
+```
 Simple Area Mail (SAM)
 ------------
 
@@ -612,6 +589,28 @@ $area = $lob->areas()->create(array(
   'back'   => 'https://www.lob.com/areaback.pdf'
 ));
 ```
+
+State
+-------
+
+#### Create a new state
+
+Creating a state is not supported.
+
+#### List states
+
+```php
+// Returns a state list
+$stateList = $lob->state()->all();
+```
+
+#### Retrieve a specific state
+
+Retrieving a specific state is not supported.
+
+#### Delete a specific state
+
+Deleting a state is not supported.
 
 Documentation<a name="documentation"></a>
 ------------
