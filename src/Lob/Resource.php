@@ -100,8 +100,11 @@ abstract class Resource implements ResourceInterface
 
         try {
             $response = $request->send();
+            //@codeCoverageIgnoreStart
+            // There is no way to induce this error intentionally.
         } catch (CurlException $e) {
             throw new NetworkErrorException($e->getMessage());
+            //@codeCoverageIgnoreEnd
         } catch (GuzzleException $e) {
             $responseErrorBody = strval($e->getResponse()->getBody());
             $errorMessage = $this->errorMessageFromJsonBody($responseErrorBody);
@@ -118,18 +121,19 @@ abstract class Resource implements ResourceInterface
 
             if ($statusCode === 422)
                 throw new ValidationException($errorMessage, 422);
-
+            // @codeCoverageIgnoreStart
+            // must induce serverside error to test this, so not testable
             if ($statusCode === 500)
                 throw new InternalErrorException($errorMessage, 500);
+            // @codeCoverageIgnoreEnd
 
-            //Handle unverifiable address
-            if ($statusCode === 400)
-                throw new ValidationException($errorMessage, 400);
-
+            // @codeCoverageIgnoreStart
+            // not possible to test this code because we don't return other status codes
             throw new UnexpectedErrorException('An Unexpected Error has occurred.');
         } catch (Exception $e) {
             throw new UnexpectedErrorException('An Unexpected Error has occurred.');
         }
+            // @codeCoverageIgnoreEnd
 
         return $response->json();
     }
@@ -178,7 +182,9 @@ abstract class Resource implements ResourceInterface
 
             return $error['message'];
         }
-
+        // @codeCoverageIgnoreStart
+        // Pokemon handling is tough to test... "Gotta catch em all!"
         return 'An Internal Error has occurred';
+        // @codeCoverageIgnoreEnd
     }
 }

@@ -24,7 +24,8 @@ class AddressesTest extends \Lob\Tests\ResourceTest
         'address_zip' => '94040',
         'email' => 'harry@lob.com',
         'phone' => '6502548929',
-    );
+      );
+
     public static $invalidCreateData = array();
 
     public function testCreateWithSuccess()
