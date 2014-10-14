@@ -11,6 +11,7 @@
 
 namespace Lob\Tests;
 
+use InvalidArgumentException;
 use Lob\Lob;
 use Lob\Resource\Addresses;
 use Lob\Resource\Areas;
@@ -93,6 +94,20 @@ class LobTest extends \PHPUnit_Framework_TestCase
     public function testStatesMethodReturnsLobResourceStatesClass()
     {
         $this->assertTrue($this->lob->states() instanceof States);
+    }
+
+    public function testSetApiKeyMethodSetsApiKey()
+    {
+        $oldApiKey = $this->lob->getApiKey();
+        $this->lob->setApiKey("hello world");
+        $this->assertTrue($this->lob->getApiKey() === "hello world");
+        $this->lob->setApiKey($oldApiKey);
+    }
+
+    public function testSetApiKeyMethodWithBadApiKey()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $this->lob->setApiKey(null);
     }
 
 }
