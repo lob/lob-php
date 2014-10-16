@@ -30,6 +30,9 @@ $postcard = $lob->postcards()->create(array(
   'from'    => $from_address['id'],
   'front'   => 'https://www.lob.com/postcardfront.pdf',
   'back'    => 'https://www.lob.com/postcardback.pdf'
+//Optional Parameters
+//'template' => 1 // set to 1 if you are customizing the back of the postcard (defaults to 0)
+//'full_bleed' => 1 // set to 1 to allow use of the 1/8 inch border around postcard (defaults to 0)
 ));
 
 print_r($postcard);
