@@ -14,8 +14,8 @@ $area = $lob->areas()->create(array(
   'name'   => 'Sample SAM',
   'routes' => '94158',
   'routes' => '94107',
-  'front'  => 'https://www.lob.com/areafront.pdf',
-  'back'   => 'https://www.lob.com/areaback.pdf'
+  'front'  => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
+  'back'   => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf'
 ));
 
 print_r($area);

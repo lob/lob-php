@@ -311,7 +311,7 @@ try {
     // Returns a valid object
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
-        'file'        => 'https://www.lob.com/goblue.pdf', // Required
+        'file'        => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf', // Required
         'setting_id'  => $setting['id'], // Required
         'quantity'    => 1, // Optional
     ));
@@ -639,8 +639,8 @@ $area = $lob->areas()->create(array(
   'name'   => 'Sample SAM',
   'routes' => '94158',
   'routes' => '94107',
-  'front'  => 'https://www.lob.com/areafront.pdf',
-  'back'   => 'https://www.lob.com/areaback.pdf'
+  'front'  => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
+  'back'   => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf'
 ));
 ```
 

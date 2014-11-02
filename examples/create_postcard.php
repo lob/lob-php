@@ -28,8 +28,8 @@ $from_address = $lob->addresses()->create(array(
 $postcard = $lob->postcards()->create(array(
   'to'      => $to_address['id'],
   'from'    => $from_address['id'],
-  'front'   => 'https://www.lob.com/postcardfront.pdf',
-  'back'    => 'https://www.lob.com/postcardback.pdf'
+  'front'   => 'https://s3-us-west-2.amazonaws.com/lob-assets/postcardfront.pdf',
+  'back'    => 'https://s3-us-west-2.amazonaws.com/lob-assets/postcardback.pdf'
 //Optional Parameters
 //'template' => 1 // set to 1 if you are customizing the back of the postcard (defaults to 0)
 //'full_bleed' => 1 // set to 1 to allow use of the 1/8 inch border around postcard (defaults to 0)
