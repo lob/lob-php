@@ -25,7 +25,7 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
             'message' => 'This an example message on back of the postcard',
-            'front' => 'https://www.lob.com/test.pdf',
+            'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf',
         ));
 
         $this->assertTrue(is_array($postcard));

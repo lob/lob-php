@@ -32,7 +32,7 @@ class ObjectsTest extends \Lob\Tests\ResourceTest
     {
         $object = $this->resource->create(array(
             'name' => 'GO BLUE',
-            'file' => 'https://www.lob.com/test.pdf',
+            'file' => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf',
             'setting_id' => 200,
             'quantity' => 1,
         ));
