@@ -36,13 +36,9 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         if (!$this->respondsToAll)
           return;
 
-        $this->testSampleAll = $this->resource->all(array(
-          'count' => 1
-        ));
+        $this->testSampleAll = $this->resource->all();
 
-        $this->testSampleAllWithMeta = $this->resource->all(array(
-          'count' => 1
-        ), true);
+        $this->testSampleAllWithMeta = $this->resource->all(array(), true);
     }
 
     protected function getTestSampleAll()
@@ -51,9 +47,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
             return $this->testSampleAll;
         }
 
-        $this->testSampleAll = $this->resource->all(array(
-            'count' => 1
-        ));
+        $this->testSampleAll = $this->resource->all();
 
         return $this->testSampleAll;
     }
