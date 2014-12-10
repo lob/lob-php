@@ -38,4 +38,18 @@ class SettingsTest extends \Lob\Tests\ResourceTest
     {
         $this->resource->delete('1');
     }
+
+    protected function getTestSampleAll()
+    {
+        if ($this->testSampleAll) {
+            return $this->testSampleAll;
+        }
+
+        $this->testSampleAll = $this->resource->all(array(
+            'count' => 1
+        ));
+
+        return $this->testSampleAll;
+    }
+
 }

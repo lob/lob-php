@@ -12,7 +12,6 @@ class AreasTest extends \Lob\Tests\ResourceTest
   {
      $area = $this->resource->create(array(
         'name' => 'Demo Area',
-        'to' => AddressesTest::$validCreateData,
         'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
         'back' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf',
         'routes' => '94158-C001',
@@ -27,7 +26,6 @@ class AreasTest extends \Lob\Tests\ResourceTest
   {
      $area = $this->resource->create(array(
         'name' => 'Demo Area',
-        'to' => AddressesTest::$validCreateData,
         'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
         'back' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf',
         'routes' => '94158-C001',
