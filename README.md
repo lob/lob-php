@@ -180,8 +180,7 @@ try {
         // Accepts N objects as long as you provide them
         // incrementally like object2, object3 and so on until it hits N...
         'object2'       => $object2['id'], // Optional
-        'packaging_id'  => $packaging['id'], // Optional
-        'service_id'    => $service['id'], // Optional
+        'service'    => $service['id'], // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
@@ -299,7 +298,7 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => '@'.realpath('/path/to/your/file/goblue.pdf'), // Required
-        'setting_id'  => $setting['id'], // Required
+        'setting'  => $setting['id'], // Required
         'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
@@ -312,7 +311,7 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf', // Required
-        'setting_id'  => $setting['id'], // Required
+        'setting'  => $setting['id'], // Required
         'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
@@ -562,7 +561,7 @@ try {
   $account = $lob->bankAccounts()->create(array(
     'routing_number'              => '12345678',
     'account_number'              => '12345678',
-    'bank_code'                   => '12345678',
+    'signatory'                   => 'John Doe',
     'bank_address[name]'          => 'Bank Address',
     'bank_address[address_line1]' => '123 Test Street',
     'bank_address[address_city]'  => 'San Francisco',
