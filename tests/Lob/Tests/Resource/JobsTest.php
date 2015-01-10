@@ -27,7 +27,7 @@ class JobsTest extends \Lob\Tests\ResourceTest
             'object1' => array(
                 'name' => 'GO BLUE',
                 'file' => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf',
-                'setting_id' => 200,
+                'setting' => 200,
                 'quantity' => 1,
             ),
         ));
