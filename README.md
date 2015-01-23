@@ -113,7 +113,10 @@ echo get_class($lob->states());
   - [Create](#create-a-new-job)
   - [List](#list-jobs)
   - [Retrieve](#retrieve-a-specific-job)
-  - [Delete](#delete-a-specific-job)
+- [Postcards](#postcards)
+  - [Create](#create-a-new-postcard)
+  - [List](#list-postcards)
+  - [Retrieve](#retrieve-a-specific-postcard)
 - [Addresses](#addresses)
   - [Create](#create-a-new-address)
   - [List](#list-addresses)
@@ -211,10 +214,6 @@ try {
     // Do something
 }
 ```
-
-#### Delete a specific job
-
-Deleting a job is not supported.
 
 Addresses
 ---------
@@ -466,6 +465,40 @@ try {
 }
 ```
 
+```php
+// Create a postcard with an line address
+try {
+    // Returns a valid postcard
+    $postcard = $lob->postcards()->create(array(
+        'name'          => 'Demo Postcard job', // Required
+        'to'            => array(
+                          'name'              => 'Harry Zhang',
+                          'address_line1'     => '123 Test Street',
+                          'address_line2'     => 'Unit 199',
+                          'address_city'      => 'Mountain View',
+                          'address_state'     => 'CA',
+                          'address_country'   => 'US', 
+                          'address_zip'       => '94085'
+                        ), 
+        'from'          => array(
+                          'name'              => 'Harry Zhang',
+                          'address_line1'     => '123 Test Street',
+                          'address_line2'     => 'Unit 199',
+                          'address_city'      => 'Mountain View',
+                          'address_state'     => 'CA',
+                          'address_country'   => 'US', 
+                          'address_zip'       => '94085'
+                        ),                         
+        'message'       => 'This an example message on back of the postcard', // Optional
+        // For both front and back parameters, you can also provide a public URL
+        'front'         => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional
+        'back'          => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional
+    ));
+} catch (\Lob\Exception\ValidationException $e) {
+    // Do something
+}
+```
+
 #### List postcards
 
 ```php
@@ -490,10 +523,6 @@ try {
     // Do something
 }
 ```
-
-#### Delete a specific postcard
-
-Deleting a postcard is not supported.
 
 Checks
 ----
