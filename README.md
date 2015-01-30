@@ -2,7 +2,7 @@ Lob.com PHP Client
 ==================
 [![PHP version](https://badge.fury.io/ph/lob%2Flob-php.svg)](http://badge.fury.io/ph/lob%2Flob-php) [![Total Downloads](https://poser.pugx.org/lob/lob-php/downloads.svg)](https://packagist.org/packages/lob/lob-php) [![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php) [![Dependency Status](https://gemnasium.com/lob/lob-php.svg)](https://gemnasium.com/lob/lob-php) [![Coverage Status](https://img.shields.io/coveralls/lob/lob-php.svg)](https://coveralls.io/r/lob/lob-php?branch=master)
 
-Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API ([docs](https://www.lob.com/docs)).
+Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API ([docs](https://www.lob.com/docs/php)).
 
 ### Table of Contents
 [Installing via Composer](#installing)
@@ -48,13 +48,13 @@ $lob = new \Lob\Lob($apiKey);
 ```
 Supported Image Types<a name="supportedImages"></a>
 --------
-The lob.com API supports the following image types:
+The Lob.com API supports the following image types:
 
 - PDF
 - PNG
 - JPEG
 
-For more information on prepping the images please see the [Lob documentation](https://lob.com/docs#prepping)
+For more information on prepping the images please see the [Lob documentation](https://lob.com/docs/php#prepping).
 
 Creating a PDF<a name="creatingPDF"></a>
 -------
@@ -129,11 +129,6 @@ echo get_class($lob->states());
   - [List](#list-settings)
   - [Retrieve](#retrieve-a-specific-setting)
   - [Delete](#delete-a-specific-setting)
-- [Packagings](#packagings)
-  - [Create](#create-a-new-packaging)
-  - [List](#list-packagings)
-  - [Retrieve](#retrieve-a-specific-packaging)
-  - [Delete](#delete-a-specific-packaging)
 - [Services](#services)
   - [Create](#create-a-new-service)
   - [List](#list-services)
