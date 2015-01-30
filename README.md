@@ -93,10 +93,6 @@ echo get_class($lob->objects());
 echo get_class($lob->settings());
 // >>> Lob\Resource\Settings
 
-// Packagings
-echo get_class($lob->packagings());
-// >>> Lob\Resource\Packagings
-
 // Postcards
 echo get_class($lob->postcards());
 // >>> Lob\Resource\Postcards
@@ -183,7 +179,7 @@ try {
         // Accepts N objects as long as you provide them
         // incrementally like object2, object3 and so on until it hits N...
         'object2'       => $object2['id'], // Optional
-        'service'    => $service['id'], // Optional
+        'service'       => $service['id'], // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
@@ -297,7 +293,7 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => '@'.realpath('/path/to/your/file/goblue.pdf'), // Required
-        'setting'  => $setting['id'], // Required
+        'setting'     => $setting['id'], // Required
         'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
@@ -310,7 +306,7 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf', // Required
-        'setting'  => $setting['id'], // Required
+        'setting'     => $setting['id'], // Required
         'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
@@ -384,35 +380,6 @@ try {
 #### Delete a specific setting
 
 Deleting a setting is not supported.
-
-Packagings
-----------
-
-#### Create a new packaging
-
-Creating a packaging is not supported.
-
-#### List packagings
-
-```php
-// Returns a packaging list
-$packagingList = $lob->packagings()->all();
-
-// You can also pass `count` and `offset` to limit the results and
-// define a starting page
-$packagingList = $lob->packagings()->all(array(
-    'count'   => 10,
-    'offset'  => 0, // Zero-indexed
-));
-```
-
-#### Retrieve a specific packaging
-
-Retrieving a specific packaging is not supported.
-
-#### Delete a specific packaging
-
-Deleting a packaging is not supported.
 
 Services
 -------
@@ -508,8 +475,8 @@ $postcardList = $lob->postcards()->all();
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
 $postcardList = $lob->postcards()->all(array(
-    'count' => 10,
-    'offset' => 0, // Zero-indexed
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
 ));
 ```
 
