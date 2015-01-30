@@ -2,7 +2,7 @@ Lob.com PHP Client
 ==================
 [![PHP version](https://badge.fury.io/ph/lob%2Flob-php.svg)](http://badge.fury.io/ph/lob%2Flob-php) [![Total Downloads](https://poser.pugx.org/lob/lob-php/downloads.svg)](https://packagist.org/packages/lob/lob-php) [![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php) [![Dependency Status](https://gemnasium.com/lob/lob-php.svg)](https://gemnasium.com/lob/lob-php) [![Coverage Status](https://img.shields.io/coveralls/lob/lob-php.svg)](https://coveralls.io/r/lob/lob-php?branch=master)
 
-Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API ([docs](https://www.lob.com/docs)).
+Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API ([docs](https://lob.com/docs/php)).
 
 ### Table of Contents
 [Installing via Composer](#installing)
@@ -54,7 +54,7 @@ The lob.com API supports the following image types:
 - PNG
 - JPEG
 
-For more information on prepping the images please see the [Lob documentation](https://lob.com/docs#prepping)
+For more information on prepping the images please see the [Lob documentation](https://lob.com/docs/php#prepping)
 
 Creating a PDF<a name="creatingPDF"></a>
 -------
@@ -92,6 +92,10 @@ echo get_class($lob->objects());
 // Settings
 echo get_class($lob->settings());
 // >>> Lob\Resource\Settings
+
+// Packagings
+echo get_class($lob->packagings());
+// >>> Lob\Resource\Packagings
 
 // Postcards
 echo get_class($lob->postcards());
@@ -179,7 +183,7 @@ try {
         // Accepts N objects as long as you provide them
         // incrementally like object2, object3 and so on until it hits N...
         'object2'       => $object2['id'], // Optional
-        'service'       => $service['id'], // Optional
+        'service'    => $service['id'], // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
@@ -293,7 +297,7 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => '@'.realpath('/path/to/your/file/goblue.pdf'), // Required
-        'setting'     => $setting['id'], // Required
+        'setting'  => $setting['id'], // Required
         'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
@@ -306,7 +310,7 @@ try {
     $object = $lob->objects()->create(array(
         'name'        => 'GO BLUE', // Required
         'file'        => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf', // Required
-        'setting'     => $setting['id'], // Required
+        'setting'  => $setting['id'], // Required
         'quantity'    => 1, // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
@@ -380,6 +384,35 @@ try {
 #### Delete a specific setting
 
 Deleting a setting is not supported.
+
+Packagings
+----------
+
+#### Create a new packaging
+
+Creating a packaging is not supported.
+
+#### List packagings
+
+```php
+// Returns a packaging list
+$packagingList = $lob->packagings()->all();
+
+// You can also pass `count` and `offset` to limit the results and
+// define a starting page
+$packagingList = $lob->packagings()->all(array(
+    'count'   => 10,
+    'offset'  => 0, // Zero-indexed
+));
+```
+
+#### Retrieve a specific packaging
+
+Retrieving a specific packaging is not supported.
+
+#### Delete a specific packaging
+
+Deleting a packaging is not supported.
 
 Services
 -------
@@ -475,8 +508,8 @@ $postcardList = $lob->postcards()->all();
 // You can also pass `count` and `offset` to limit the results and
 // define a starting page
 $postcardList = $lob->postcards()->all(array(
-    'count'   => 10,
-    'offset'  => 0, // Zero-indexed
+    'count' => 10,
+    'offset' => 0, // Zero-indexed
 ));
 ```
 
