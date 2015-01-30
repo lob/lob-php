@@ -28,7 +28,7 @@ file_put_contents("out.pdf", $pdf);
 
 $object = $lob->objects()->create(array(
   'file'        => '@out.pdf',
-  'setting_id'  => '201',
+  'setting'  => '201',
   'full_bleed'  => '1'
 ));
 
