@@ -27,7 +27,7 @@ $from_address = $lob->addresses()->create(array(
 
 $object = $lob->objects()->create(array(
   'name'       => 'Go Blue!',
-  'setting_id' => '100',
+  'setting' => '100',
   'file'       => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf',
   'quantity'   => '1'
 ));
