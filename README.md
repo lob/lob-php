@@ -719,7 +719,7 @@ Deleting a country is not supported.
 Documentation<a name="documentation"></a>
 ------------
 
-Being a simple and flexible wrapper, the Lob.com [documentation](https://www.lob.com/docs) is the best source
+Being a simple and flexible wrapper, the Lob.com [documentation](https://lob.com/docs/php) is the best source
 to read about the API and to extend this library, if needed.
 
 Unit testing<a name="unitTesting"></a>
