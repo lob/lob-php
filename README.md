@@ -176,8 +176,12 @@ try {
           'address_zip' => '94158',
           'address_country' => 'US'
         ), // Required
-        'from'          => $senderAddress['id'], // Optional
-        'object1'       => $object1['id'], // Required
+        'object1'       => $lob->objects()->create(array(
+          'name'        => 'GO BLUE', // Required
+          'file'        => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf', // Required
+          'setting'     => $setting['id'], // Required
+          'quantity'    => 1, // Optional
+        ), // Required
         // Accepts N objects as long as you provide them
         // incrementally like object2, object3 and so on until it hits N...
         'object2'       => $object2['id'], // Optional
