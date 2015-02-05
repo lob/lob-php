@@ -168,7 +168,14 @@ try {
     // Returns a valid job
     $job = $lob->jobs()->create(array(
         'name'          => 'Welcome letter to JJJ INC',
-        'to'            => $receiverAddress['id'], // Required
+        'to'            => array(
+          'name' => 'To Address',
+          'address_line1' => '123 Test Street',
+          'address_city' => 'San Francisco',
+          'address_state' => 'CA',
+          'address_zip' => '94158',
+          'address_country' => 'US'
+        ), // Required
         'from'          => $senderAddress['id'], // Optional
         'object1'       => $object1['id'], // Required
         // Accepts N objects as long as you provide them
