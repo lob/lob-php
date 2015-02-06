@@ -176,16 +176,20 @@ try {
           'address_zip' => '94158',
           'address_country' => 'US'
         ), // Required
+        'from'           => array(
+          'name' => 'From Address',
+          'address_line1' => '123 Main Street',
+          'address_city' => 'San Francisco',
+          'address_state' => 'CA',
+          'address_zip' => '94158',
+          'address_country' => 'US'
+        ), // Required
         'object1'       => $lob->objects()->create(array(
           'name'        => 'GO BLUE', // Required
           'file'        => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf', // Required
           'setting'     => $setting['id'], // Required
           'quantity'    => 1, // Optional
         ), // Required
-        // Accepts N objects as long as you provide them
-        // incrementally like object2, object3 and so on until it hits N...
-        'object2'       => $object2['id'], // Optional
-        'service'       => $service['id'], // Optional
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
