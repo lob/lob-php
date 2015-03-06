@@ -454,18 +454,18 @@ try {
                           'address_line2'     => 'Unit 199',
                           'address_city'      => 'Mountain View',
                           'address_state'     => 'CA',
-                          'address_country'   => 'US', 
+                          'address_country'   => 'US',
                           'address_zip'       => '94085'
-                        ), 
+                        ),
         'from'          => array(
                           'name'              => 'Harry Zhang',
                           'address_line1'     => '123 Test Street',
                           'address_line2'     => 'Unit 199',
                           'address_city'      => 'Mountain View',
                           'address_state'     => 'CA',
-                          'address_country'   => 'US', 
+                          'address_country'   => 'US',
                           'address_zip'       => '94085'
-                        ),                         
+                        ),
         'message'       => 'This an example message on back of the postcard', // Optional
         // For both front and back parameters, you can also provide a public URL
         'front'         => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional
@@ -518,7 +518,8 @@ try {
     'to[address_state]' => 'CA',
     'bank_account'      => 'bank_e13902b6bdfff24',
     'amount'            => 2200,
-    'memo'              => 'rent'
+    'memo'              => 'rent',
+    'logo'              => 'https://s3-us-west-2.amazonaws.com/lob-assets/lob_check_logo.png'
   ));
 } catch(\Lob\Exception\ValidationException $e) {
   // Do Something
