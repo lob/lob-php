@@ -46,7 +46,8 @@ $check = $lob->checks()->create(array(
   'to'            => $to_address['id'],
   'bank_account'  => $bank_account['id'],
   'amount'        => 1000,
-  'memo'          => 'Season Tickets'
+  'memo'          => 'Season Tickets',
+  'logo'          => 'https://s3-us-west-2.amazonaws.com/lob-assets/lob_check_logo.png'
 ));
 
 print_r($check);
