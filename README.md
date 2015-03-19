@@ -11,7 +11,7 @@ Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://ww
 
 [Supported Image Types](#supportedImages)
 
-[Creating a PDF](#creatingPDF)
+[HTML Support](#htmlSupport)
 
 [Resources](#resources)
 
@@ -56,10 +56,15 @@ The Lob.com API supports the following image types:
 
 For more information on prepping the images please see the [Lob documentation](https://lob.com/docs/php#prepping).
 
-Creating a PDF<a name="creatingPDF"></a>
--------
+###Creating a PDF
 
 If you need to generate your own PDF programmatically we recommend using [dompdf](https://github.com/dompdf/dompdf). There is an example provided in the examples folder [here](examples/create_pdf.php)
+
+HTML Support<a name="htmlSupport"></a>
+--------
+The Lob.com API also supports HTML strings in leiu of a file of the above type. See below for examples of submitting with HTML strings.
+
+For templates and more information regarding HTML, please see the [Lob documentation](https://lob.com/docs/php#html-fonts).
 
 Resources<a name="resources"></a>
 ---------
@@ -322,6 +327,19 @@ try {
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
 }
+
+// ... or with an HTML string
+try {
+    // Returns a valid object
+    $object = $lob->objects()->create(array(
+        'name'        => 'GO BLUE', // Required
+        'file'        => '<html style="margin: 130px; font-size: 50;">HTML here</html>', // Required
+        'setting'     => $setting['id'], // Required
+        'quantity'    => 1, // Optional
+    ));
+} catch (\Lob\Exception\ValidationException $e) {
+    // Do something
+}
 ```
 
 #### List objects
@@ -426,16 +444,16 @@ Postcards
 #### Create a new postcard
 
 ```php
+// Create a postcard with existing address IDs and local files
 try {
     // Returns a valid postcard
     $postcard = $lob->postcards()->create(array(
         'name'          => 'Demo Postcard job', // Required
         'to'            => $receiverAddress['id'], // Required
         'from'          => $senderAddress['id'], // Optional
-        'message'       => 'This an example message on back of the postcard', // Optional
-        // For both front and back parameters, you can also provide a public URL
-        'front'         => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional
-        'back'          => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional
+        'message'       => 'This an example message on back of the postcard', // Optional (choose message or back)
+        'front'         => '@'.realpath('/path/to/your/file/goblue.pdf'), // Required
+        'back'          => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional (choose message or back)
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
@@ -443,7 +461,7 @@ try {
 ```
 
 ```php
-// Create a postcard with an line address
+// Create a postcard with inline addresses and remote files
 try {
     // Returns a valid postcard
     $postcard = $lob->postcards()->create(array(
@@ -466,10 +484,26 @@ try {
                           'address_country'   => 'US',
                           'address_zip'       => '94085'
                         ),
+        'message'       => 'This an example message on back of the postcard', // Optional (choose message or back)
+        'front'         => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf', // Required
+        'back'          => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf, // Optional (choose message or back)
+    ));
+} catch (\Lob\Exception\ValidationException $e) {
+    // Do something
+}
+```
+
+```php
+//Create a postcard with HTML strings
+try {
+    // Returns a valid postcard
+    $postcard = $lob->postcards()->create(array(
+        'name'          => 'Demo Postcard job', // Required
+        'to'            => $receiverAddress['id'], // Required
+        'from'          => $senderAddress['id'], // Optional
         'message'       => 'This an example message on back of the postcard', // Optional
-        // For both front and back parameters, you can also provide a public URL
-        'front'         => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional
-        'back'          => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional
+        'front'         => '<html style="margin: 130px; font-size: 50;">Front HTML</html>', // Required
+        'back'          => '<html style="margin: 130px; font-size: 50;">Back HTML</html>', // Optional (choose message or back)
     ));
 } catch (\Lob\Exception\ValidationException $e) {
     // Do something
@@ -641,12 +675,24 @@ $routes = $lob->routes()->all(array(
 #### Create an Area Mailing
 
 ```php
+//Create an Area Mailing with remote files
 $area = $lob->areas()->create(array(
   'name'   => 'Sample SAM',
   'routes' => '94158',
   'routes' => '94107',
   'front'  => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
   'back'   => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf'
+));
+```
+
+```php
+//Create an Area Mailing with HTML
+$area = $lob->areas()->create(array(
+  'name'   => 'Sample SAM',
+  'routes' => '94158',
+  'routes' => '94107',
+  'front'  => '<html style="margin: 130px; font-size: 50;">Front HTML</html>',
+  'back'   => '<html style="margin: 130px; font-size: 50;">Front HTML</html>'
 ));
 ```
 
