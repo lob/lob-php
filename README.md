@@ -57,12 +57,16 @@ $apiKey = 'API Key here';
 $lob = new \Lob\Lob($apiKey);
 ```
 
+## Examples
+
+We've provided various examples for you to try out [here](https://github.com/lob/lob-php/tree/master/examples).
+
 ## API Documentation
 
 - [Introduction](https://lob.com/docs/php#introduction)
 - [Versioning](https://lob.com/docs/php#version)
 - [Image Prepping](https://lob.com/docs/php#prepping)
-- Simple Print Service
+- **Simple Print Service**
   - [Jobs](https://lob.com/docs/php#jobs)
     - [Create a Job](https://lob.com/docs/php#jobs_create)
     - [Retrieve a Job](https://lob.com/docs/php#jobs_retrieve)
@@ -82,12 +86,12 @@ $lob = new \Lob\Lob($apiKey);
     - [List all Settings](https://lob.com/docs/php#settings_list)
   - [Services](https://lob.com/docs/php#services)
     - [List all Services](https://lob.com/docs/php#services_list)
-- Simple Postcard Service
+- **Simple Postcard Service**
   - [Postcards](https://lob.com/docs/php#postcards)
     - [Create a Postcard](https://lob.com/docs/php#postcards_create)
     - [Retrieve a Postcard](https://lob.com/docs/php#postcards_retrieve)
     - [List all Postcards](https://lob.com/docs/php#postcards_list)
-- Simple Check Service
+- **Simple Check Service**
   - [Checks](https://lob.com/docs/php#checks)
     - [Create a Check](https://lob.com/docs/php#checks_create)
     - [Retrieve a Check](https://lob.com/docs/php#checks_retrieve)
@@ -98,7 +102,7 @@ $lob = new \Lob\Lob($apiKey);
     - [List all Bank Accounts](https://lob.com/docs/php#bankaccounts_list)
     - [Verify a Bank Account](https://lob.com/docs/php#bankaccounts_verify)
     - [Delete a Bank Account](https://lob.com/docs/php#bankaccounts_delete)
-- Simple Area Mail
+- **Simple Area Mail**
   - [Areas](https://lob.com/docs/php#areas)
     - [Create an Area Mailing](https://lob.com/docs/php#areas_create)
     - [Retrieve an Area Mailing](https://lob.com/docs/php#areas_retrieve)
@@ -106,15 +110,15 @@ $lob = new \Lob\Lob($apiKey);
   - [Routes](https://lob.com/docs/php#routes)
     - [Retrieve a Zip Code](https://lob.com/docs/php#routes_retrieve)
     - [List all Zip Codes](https://lob.com/docs/php#routes_list)
-- Simple Address Verification
+- **Address Verification**
   - [Verify](https://lob.com/docs/php#verify)
     - [Verify an Address](https://lob.com/docs/php#verify_create)
-- Resources
+- **Resources**
   - [Countries](https://lob.com/docs/php#countries)
     - [List all Countries](https://lob.com/docs/php#countries_list)
   - [States](https://lob.com/docs/php#states)
     - [List all States](https://lob.com/docs/php#states_list)
-- Appendix
+- **Appendix**
   - [SPS Templates](https://lob.com/docs/php#sps-templates)
   - [Custom Fonts with HTML](https://lob.com/docs/php#html-fonts)
   - [Postcard HTML Examples](https://lob.com/docs/php#postcard-examples)
