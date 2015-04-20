@@ -41,6 +41,8 @@ $bank_account = $lob->bankAccounts()->create(array(
   'signatory'         => 'John Doe'
 ));
 
+$bank_verify = $lob->bankAccounts()->verify($bank_account['id'], array(23,34));
+
 $check = $lob->checks()->create(array(
   'name'          => 'Season Tickets',
   'to'            => $to_address['id'],

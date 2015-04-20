@@ -11,7 +11,8 @@ class ChecksTest extends \Lob\Tests\ResourceTest
 
   public function testCreateWithSuccess()
   {
-     $check = $this->resource->create(array(
+      $account = $this->verifyBankAccount();
+      $check = $this->resource->create(array(
         'name' => 'Demo Check',
         'to[name]' => 'Amrit Ayalur',
         'to[address_line1]' => '123 Test Street',
@@ -30,6 +31,7 @@ class ChecksTest extends \Lob\Tests\ResourceTest
 
   public function testGet()
   {
+     $account = $this->verifyBankAccount();
      $check = $this->resource->create(array(
         'name' => 'Demo Check',
         'to[name]' => 'Amrit Ayalur',
