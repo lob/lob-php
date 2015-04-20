@@ -79,6 +79,17 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
       return $accounts[0]['id'];
     }
 
+    protected function verifyBankAccount()
+    {
+      $accounts = $this->lob->bankAccounts()->all();
+      if(!$accounts[0]['verified']) {
+        $this->lob->bankAccounts()->verify(
+          $accounts[0]['id'],
+          array(32,23)
+        );
+      }
+    }
+
     protected function getRandomPackagingId()
     {
         $packagings = $this->lob->packagings()->all();

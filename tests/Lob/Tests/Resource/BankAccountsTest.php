@@ -49,6 +49,20 @@ class BankAccountsTest extends \Lob\Tests\ResourceTest
       $this->assertTrue(array_key_exists('id', $getBankAccount));
   }
 
+  public function testVerify()
+  {
+      $bankAccount = $this->resource->create(static::$bankData);
+      $id = $bankAccount['id'];
+      $getBankAccount = $this->resource->get($id);
+
+      $this->assertTrue(is_array($getBankAccount));
+      $this->assertTrue(array_key_exists('id', $getBankAccount));
+
+      $bank_verify = $this->resource->verify($bankAccount['id'], array(23,34));
+      $this->assertTrue(is_array($bank_verify));
+      $this->assertTrue($bank_verify['verified'] == 1);
+  }
+
   public function testAll()
   {
       $bankAccounts = $this->resource->all();
