@@ -20,6 +20,7 @@ use Lob\Resource\BankAccounts;
 use Lob\Resource\Checks;
 use Lob\Resource\Countries;
 use Lob\Resource\Jobs;
+use Lob\Resource\Letters;
 use Lob\Resource\Objects;
 use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
@@ -96,6 +97,11 @@ class Lob
     public function jobs()
     {
         return new Jobs($this);
+    }
+
+    public function letters()
+    {
+        return new Letters($this);
     }
 
     public function objects()
