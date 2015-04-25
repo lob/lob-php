@@ -29,7 +29,8 @@ $letter = $lob->letters()->create(array(
   'to'          => $to_address['id'],
   'from'        => $from_address['id'],
   'file'        => '<html><h1>Hello World</h1></html>',
-  'description' => 'Test Letters'
+  'description' => 'Test Letters',
+  'color'       => true
 ));
 
 print_r($letter);
