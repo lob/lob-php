@@ -152,6 +152,17 @@ abstract class Resource implements ResourceInterface
         }
 
         $client = new HttpClient('https://api.lob.com');
+
+        foreach ($body as $key => $value) {
+          if ($value === FALSE) {
+            $body[$key] = 'false';
+          }
+
+          if ($value === TRUE) {
+            $body[$key] = 'true';
+          }
+        }
+
         $request = $client->createRequest($method, $path.$queryString, $headers);
         $request->setAuth($this->lob->getApiKey(), '');
         if ($body) {
