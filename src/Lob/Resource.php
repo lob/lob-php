@@ -188,8 +188,8 @@ abstract class Resource implements ResourceInterface
     protected function errorMessageFromJsonBody($body)
     {
         $response = json_decode($body, true);
-        if (is_array($response) && array_key_exists('errors', $response)) {
-            $error = reset($response['errors']);
+        if (is_array($response) && array_key_exists('error', $response)) {
+            $error = $response['error'];
 
             return $error['message'];
         }
