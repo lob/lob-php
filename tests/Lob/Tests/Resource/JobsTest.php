@@ -21,12 +21,12 @@ class JobsTest extends \Lob\Tests\ResourceTest
     public function testCreateWithMessage()
     {
         $job = $this->resource->create(array(
-            'name' => 'Welcome letter to JJJ INC',
+            'description' => 'Welcome letter to JJJ INC',
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
             'object1' => array(
-                'name' => 'GO BLUE',
-                'file' => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf',
+                'description' => 'GO BLUE',
+                'file' => 'https://s3-us-west-2.amazonaws.com/lob-assets/200_201_card.pdf',
                 'setting' => 200,
                 'quantity' => 1,
             ),

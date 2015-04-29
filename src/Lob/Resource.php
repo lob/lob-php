@@ -152,6 +152,17 @@ abstract class Resource implements ResourceInterface
         }
 
         $client = new HttpClient('https://api.lob.com');
+
+        foreach ($body as $key => $value) {
+          if ($value === FALSE) {
+            $body[$key] = 'false';
+          }
+
+          if ($value === TRUE) {
+            $body[$key] = 'true';
+          }
+        }
+
         $request = $client->createRequest($method, $path.$queryString, $headers);
         $request->setAuth($this->lob->getApiKey(), '');
         if ($body) {
@@ -177,8 +188,8 @@ abstract class Resource implements ResourceInterface
     protected function errorMessageFromJsonBody($body)
     {
         $response = json_decode($body, true);
-        if (is_array($response) && array_key_exists('errors', $response)) {
-            $error = reset($response['errors']);
+        if (is_array($response) && array_key_exists('error', $response)) {
+            $error = $response['error'];
 
             return $error['message'];
         }

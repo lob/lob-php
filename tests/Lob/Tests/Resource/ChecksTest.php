@@ -13,7 +13,7 @@ class ChecksTest extends \Lob\Tests\ResourceTest
   {
       $account = $this->verifyBankAccount();
       $check = $this->resource->create(array(
-        'name' => 'Demo Check',
+        'description' => 'Demo Check',
         'to[name]' => 'Amrit Ayalur',
         'to[address_line1]' => '123 Test Street',
         'to[address_city]' => 'Mountain View',
@@ -33,7 +33,7 @@ class ChecksTest extends \Lob\Tests\ResourceTest
   {
      $account = $this->verifyBankAccount();
      $check = $this->resource->create(array(
-        'name' => 'Demo Check',
+        'description' => 'Demo Check',
         'to[name]' => 'Amrit Ayalur',
         'to[address_line1]' => '123 Test Street',
         'to[address_city]' => 'Mountain View',

@@ -18,14 +18,29 @@ class LettersTest extends \Lob\Tests\ResourceTest
     protected $resourceMethodName = 'letters';
     protected $respondsToDelete = false;
 
-    public function testCreateWithMessage()
+    public function testCreate()
     {
         $letter = $this->resource->create(array(
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
             'description' => 'This an example message on back of the postcard',
             'file' => 'https://lob.com/goblue.pdf',
-        ));
+            'color' => FALSE
+          ));
+
+        $this->assertTrue(is_array($letter));
+        $this->assertTrue(array_key_exists('id', $letter));
+    }
+
+    public function testColorCreate()
+    {
+        $letter = $this->resource->create(array(
+            'to' => AddressesTest::$validCreateData,
+            'from' => AddressesTest::$validCreateData,
+            'description' => 'This an example message on back of the postcard',
+            'file' => 'https://lob.com/goblue.pdf',
+            'color' => TRUE
+          ));
 
         $this->assertTrue(is_array($letter));
         $this->assertTrue(array_key_exists('id', $letter));

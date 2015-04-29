@@ -21,11 +21,11 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
     public function testCreateWithMessage()
     {
         $postcard = $this->resource->create(array(
-            'name' => 'Demo Postcard job', // Required
+            'description' => 'Demo Postcard job', // Required
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
             'message' => 'This an example message on back of the postcard',
-            'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf',
+            'front' => 'https://lob.com/postcardfront.pdf'
         ));
 
         $this->assertTrue(is_array($postcard));
@@ -35,11 +35,11 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
     public function testCreateWithBackFile()
     {
         $postcard = $this->resource->create(array(
-            'name' => 'Demo Postcard job', // Required
+            'description' => 'Demo Postcard job', // Required
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
-            'front' => 'https://www.lob.com/test.pdf',
-            'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/test.pdf'),
+            'front' => 'https://lob.com/postcardfront.pdf',
+            'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/postcardfront.pdf')
         ));
 
         $this->assertTrue(is_array($postcard));

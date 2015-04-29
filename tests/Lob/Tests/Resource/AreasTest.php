@@ -11,7 +11,7 @@ class AreasTest extends \Lob\Tests\ResourceTest
   public function testCreateWithSuccess()
   {
      $area = $this->resource->create(array(
-        'name' => 'Demo Area',
+        'description' => 'Demo Area',
         'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
         'back' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf',
         'routes' => '94158-C001',
@@ -25,12 +25,11 @@ class AreasTest extends \Lob\Tests\ResourceTest
   public function testGet()
   {
      $area = $this->resource->create(array(
-        'name' => 'Demo Area',
+        'description' => 'Demo Area',
         'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
         'back' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf',
         'routes' => '94158-C001',
-        'target_type' => 'all',
-        'name' => 'Demo Check',
+        'target_type' => 'all'
      ));
      $id = $area['id'];
      $getArea = $this->resource->get($id);

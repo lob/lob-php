@@ -18,8 +18,8 @@ class ObjectsTest extends \Lob\Tests\ResourceTest
     public function testCreateWithLocalFileUpload()
     {
         $object = $this->resource->create(array(
-            'name' => 'GO BLUE',
-            'file' => '@'.realpath(__DIR__.'/../TestData/pdfs/test.pdf'),
+            'description' => 'GO BLUE',
+            'file' => '@'.realpath(__DIR__.'/../TestData/pdfs/postcardfront.pdf'),
             'setting' => 200,
             'quantity' => 1,
         ));
@@ -31,8 +31,8 @@ class ObjectsTest extends \Lob\Tests\ResourceTest
     public function testCreateWithRemoteFileUrl()
     {
         $object = $this->resource->create(array(
-            'name' => 'GO BLUE',
-            'file' => 'https://s3-us-west-2.amazonaws.com/lob-assets/test.pdf',
+            'description' => 'GO BLUE',
+            'file' => 'https://lob.com/postcardfront.pdf',
             'setting' => 200,
             'quantity' => 1,
         ));
