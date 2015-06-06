@@ -44,7 +44,7 @@ $bank_account = $lob->bankAccounts()->create(array(
 $bank_verify = $lob->bankAccounts()->verify($bank_account['id'], array(23,34));
 
 $check = $lob->checks()->create(array(
-  'name'          => 'Season Tickets',
+  'description'   => 'Season Tickets',
   'to'            => $to_address['id'],
   'bank_account'  => $bank_account['id'],
   'amount'        => 1000,
