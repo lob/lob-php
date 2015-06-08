@@ -26,10 +26,10 @@ $from_address = $lob->addresses()->create(array(
 ));
 
 $object = $lob->objects()->create(array(
-  'name'       => 'Go Blue!',
-  'setting' => '100',
-  'file'       => 'https://s3-us-west-2.amazonaws.com/lob-assets/goblue.pdf',
-  'quantity'   => '1'
+  'description'   => 'Go Blue!',
+  'setting'       => '500',
+  'file'          => 'https://s3-us-west-2.amazonaws.com/lob-assets/lob-jelly-photo.jpg',
+  'quantity'      => '1'
 ));
 
 $job = $lob->jobs()->create(array(

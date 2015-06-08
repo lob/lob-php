@@ -1,6 +1,8 @@
 <?php
 require '../vendor/autoload.php';
 
+$file = file_get_contents('html/card.html');
+
 $lob = new \Lob\Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
 
 $to_address = $lob->addresses()->create(array(
@@ -26,13 +28,11 @@ $from_address = $lob->addresses()->create(array(
 ));
 
 $postcard = $lob->postcards()->create(array(
-  'to'      => $to_address['id'],
-  'from'    => $from_address['id'],
-  'front'   => 'https://s3-us-west-2.amazonaws.com/lob-assets/postcardfront.pdf',
-  'back'    => 'https://s3-us-west-2.amazonaws.com/lob-assets/postcardback.pdf'
-//Optional Parameters
-//'template' => 1 // set to 1 if you are customizing the back of the postcard (defaults to 0)
-//'full_bleed' => 1 // set to 1 to allow use of the 1/8 inch border around postcard (defaults to 0)
+  'to'          => $to_address['id'],
+  'from'        => $from_address['id'],
+  'front'       => $file,
+  'message'     => 'Happy Birthday!',
+  'data[name]'  => 'Harry'
 ));
 
 print_r($postcard);
