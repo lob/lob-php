@@ -2,7 +2,7 @@
 
 [![PHP version](https://badge.fury.io/ph/lob%2Flob-php.svg)](http://badge.fury.io/ph/lob%2Flob-php) [![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php) [![Dependency Status](https://gemnasium.com/lob/lob-php.svg)](https://gemnasium.com/lob/lob-php) [![Coverage Status](https://img.shields.io/coveralls/lob/lob-php.svg)](https://coveralls.io/r/lob/lob-php?branch=master)
 
-Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API. See full Lob.com documentation [here](https://lob.com/docs/php).
+Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API. See full Lob.com documentation [here](https://lob.com/docs/php). For best results, be sure that you're using [the latest version](https://lob.com/docs/php#version) of the Lob API and the latest version of the PHP wrapper.
 
 ## Table of Contents
 
@@ -66,7 +66,8 @@ We've provided various examples for you to try out [here](https://github.com/lob
 
 - [Introduction](https://lob.com/docs/php#introduction)
 - [Versioning](https://lob.com/docs/php#version)
-- [Image Prepping](https://lob.com/docs/php#prepping)
+- [Errors](https://lob.com/docs/php#errors)
+- [Metadata](https://lob.com/docs/php#metadata)
 - **Addresses**
   - [Address Book](https://lob.com/docs/php#addresses)
     - [Create an Address](https://lob.com/docs/php#addresses_create)
@@ -99,6 +100,7 @@ We've provided various examples for you to try out [here](https://github.com/lob
 - **Simple Print Service**
   - [Jobs](https://lob.com/docs/php#jobs)
     - [Create a Job](https://lob.com/docs/php#jobs_create)
+    - [Create a MultiObject Job](https://lob.com/docs/php#jobs_multi)
     - [Retrieve a Job](https://lob.com/docs/php#jobs_retrieve)
     - [List all Jobs](https://lob.com/docs/php#jobs_list)
   - [Objects](https://lob.com/docs/php#objects)
@@ -123,11 +125,9 @@ We've provided various examples for you to try out [here](https://github.com/lob
   - [States](https://lob.com/docs/php#states)
     - [List all States](https://lob.com/docs/php#states_list)
 - **Appendix**
+  - [HTML Examples](https://lob.com/docs/php#html-examples)
+  - [Image Prepping](https://lob.com/docs/php#prepping)
   - [SPS Templates](https://lob.com/docs/php#sps-templates)
-  - [Custom Fonts with HTML](https://lob.com/docs/php#html-fonts)
-  - [Postcard HTML Examples](https://lob.com/docs/php#postcard-examples)
-  - [Area HTML Examples](https://lob.com/docs/php#area-examples)
-  - [Letter HTML Examples](https://lob.com/docs/php#letter-examples)
 
 ## Testing
 
