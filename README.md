@@ -18,12 +18,12 @@ Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://ww
 
 Here's a general overview of the Lob services available, click through to read more.
 
-- [Simple Postcard Service](https://lob.com/services/postcards)
-- [Simple Letter Service](https://lob.com/services/letters)
-- [Simple Check Service](https://lob.com/services/checks)
-- [Simple Print Service](https://lob.com/services/sps)
-- [Simple Area Mail](https://lob.com/services/sam)
-- [Address Verification](https://lob.com/verification/address)
+- [Postcards API](https://lob.com/services/postcards)
+- [Letters API](https://lob.com/services/letters)
+- [Checks API](https://lob.com/services/checks)
+- [Prints API](https://lob.com/services/sps)
+- [Area Mail API](https://lob.com/services/sam)
+- [Address Verification API](https://lob.com/verification/address)
 
 ### Registration
 
@@ -67,6 +67,7 @@ We've provided various examples for you to try out [here](https://github.com/lob
 - [Introduction](https://lob.com/docs/php#introduction)
 - [Versioning](https://lob.com/docs/php#version)
 - [Errors](https://lob.com/docs/php#errors)
+- [Rate Limiting](https://lob.com/docs/php#rate-limits)
 - [Metadata](https://lob.com/docs/php#metadata)
 - **Addresses**
   - [Address Book](https://lob.com/docs/php#addresses)
@@ -74,19 +75,19 @@ We've provided various examples for you to try out [here](https://github.com/lob
     - [Retrieve an Address](https://lob.com/docs/php#addresses_retrieve)
     - [Delete an Address](https://lob.com/docs/php#addresses_delete)
     - [List all Addresses](https://lob.com/docs/php#addresses_list)
-  - [Simple Address Verification](https://lob.com/docs/php#verify)
+  - [Address Verification API](https://lob.com/docs/php#verify)
     - [Verify an Address](https://lob.com/docs/php#verify_create)
-- **Simple Postcard Service**
+- **Postcards API**
   - [Postcards](https://lob.com/docs/php#postcards)
     - [Create a Postcard](https://lob.com/docs/php#postcards_create)
     - [Retrieve a Postcard](https://lob.com/docs/php#postcards_retrieve)
     - [List all Postcards](https://lob.com/docs/php#postcards_list)
-- **Simple Letter Service**
+- **Letters API**
   - [Letters](https://lob.com/docs/php#letters)
     - [Create a Letter](https://lob.com/docs/php#letters_create)
     - [Retrieve a Letter](https://lob.com/docs/php#letters_retrieve)
     - [List all Letters](https://lob.com/docs/php#letters_list)
-- **Simple Check Service**
+- **Checks API**
   - [Checks](https://lob.com/docs/php#checks)
     - [Create a Check](https://lob.com/docs/php#checks_create)
     - [Retrieve a Check](https://lob.com/docs/php#checks_retrieve)
@@ -94,10 +95,10 @@ We've provided various examples for you to try out [here](https://github.com/lob
   - [Bank Accounts](https://lob.com/docs/php#bank-accounts)
     - [Create a Bank Account](https://lob.com/docs/php#bankaccounts_create)
     - [Retrieve a Bank Account](https://lob.com/docs/php#bankaccounts_retrieve)
-    - [List all Bank Accounts](https://lob.com/docs/php#bankaccounts_list)
-    - [Verify a Bank Account](https://lob.com/docs/php#bankaccounts_verify)
     - [Delete a Bank Account](https://lob.com/docs/php#bankaccounts_delete)
-- **Simple Print Service**
+    - [Verify a Bank Account](https://lob.com/docs/php#bankaccounts_verify)
+    - [List all Bank Accounts](https://lob.com/docs/php#bankaccounts_list)
+- **Prints API**
   - [Jobs](https://lob.com/docs/php#jobs)
     - [Create a Job](https://lob.com/docs/php#jobs_create)
     - [Create a MultiObject Job](https://lob.com/docs/php#jobs_multi)
@@ -111,7 +112,7 @@ We've provided various examples for you to try out [here](https://github.com/lob
   - [Settings](https://lob.com/docs/php#settings)
     - [Retrieve a Setting](https://lob.com/docs/php#settings_retrieve)
     - [List all Settings](https://lob.com/docs/php#settings_list)
-- **Simple Area Mail**
+- **Area Mail API**
   - [Areas](https://lob.com/docs/php#areas)
     - [Create an Area Mailing](https://lob.com/docs/php#areas_create)
     - [Retrieve an Area Mailing](https://lob.com/docs/php#areas_retrieve)
@@ -125,9 +126,10 @@ We've provided various examples for you to try out [here](https://github.com/lob
   - [States](https://lob.com/docs/php#states)
     - [List all States](https://lob.com/docs/php#states_list)
 - **Appendix**
+  - [API Changelog](https://lob.com/docs/php#changelog)
   - [HTML Examples](https://lob.com/docs/php#html-examples)
   - [Image Prepping](https://lob.com/docs/php#prepping)
-  - [SPS Templates](https://lob.com/docs/php#sps-templates)
+  - [Prints API Templates](https://lob.com/docs/php#prints-templates)
 
 ## Testing
 
