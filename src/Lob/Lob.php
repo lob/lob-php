@@ -22,10 +22,8 @@ use Lob\Resource\Countries;
 use Lob\Resource\Jobs;
 use Lob\Resource\Letters;
 use Lob\Resource\Objects;
-use Lob\Resource\Packagings;
 use Lob\Resource\Postcards;
 use Lob\Resource\Routes;
-use Lob\Resource\Services;
 use Lob\Resource\Settings;
 use Lob\Resource\States;
 
@@ -109,11 +107,6 @@ class Lob
         return new Objects($this);
     }
 
-    public function packagings()
-    {
-        return new Packagings($this);
-    }
-
     public function postcards()
     {
         return new Postcards($this);
@@ -124,15 +117,11 @@ class Lob
         return new Routes($this);
     }
 
-    public function services()
-    {
-        return new Services($this);
-    }
-
     public function settings()
     {
         return new Settings($this);
     }
+
     public function states()
     {
         return new States($this);
