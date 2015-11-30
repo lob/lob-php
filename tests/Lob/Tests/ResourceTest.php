@@ -90,22 +90,6 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
       }
     }
 
-    protected function getRandomPackagingId()
-    {
-        $packagings = $this->lob->packagings()->all();
-        shuffle($packagings);
-
-        return $packagings[0]['id'];
-    }
-
-    protected function getRandomServiceId()
-    {
-        $services = $this->lob->services()->all();
-        shuffle($services);
-
-        return $services[0]['id'];
-    }
-
     public function testAllReturnsArray()
     {
         if (!$this->respondsToAll)
