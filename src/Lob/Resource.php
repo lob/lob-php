@@ -141,11 +141,16 @@ abstract class Resource implements ResourceInterface
     protected function prepareRequest($method, $version, $clientVersion, $path, array $query,
         array $body = null)
     {
-        $path = '/'.$version.'/'.$path;
+        $path = '/v1/'.$path;
         $headers = array(
             'Accept' => 'application/json; charset=utf-8',
-            'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion
+            'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion,
         );
+
+        if ($version) {
+            $headers['Lob-Version'] = $version;
+        }
+
         $queryString = '';
         if (!empty($query)) {
             $queryString = '?'.http_build_query($query);

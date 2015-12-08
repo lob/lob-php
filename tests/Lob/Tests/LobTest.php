@@ -39,9 +39,9 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->lob = new Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
     }
 
-    public function testVersionDefaultValueIsV1()
+    public function testVersionDefaultValueIsNull()
     {
-        $this->assertEquals('v1', $this->lob->getVersion());
+        $this->assertEquals(null, $this->lob->getVersion());
     }
 
     public function testAddressesMethodReturnsLobResourceAddressesClass()

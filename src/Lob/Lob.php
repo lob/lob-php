@@ -33,13 +33,13 @@ class Lob
     private $apiKey;
     private $clientVersion;
 
-    public function __construct($apiKey = null, $version = 'v1')
+    public function __construct($apiKey = null, $version = null)
     {
         if (!is_null($apiKey)) {
             $this->setApiKey($apiKey);
         }
         $this->version = $version;
-        $this->clientVersion = '1.2.3';
+        $this->clientVersion = '1.5.0';
     }
 
     public function getApiKey()
