@@ -12,7 +12,7 @@ $handle = fopen($argv[1], "r");
 $html_front = file_get_contents('postcard_front.html');
 $html_back = file_get_contents('postcard_back.html');
 
-$lob = new \Lob\Lob('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
+$lob = new \Lob\Lob('test_7c5d111af5ccfedb9f0eea91745c93896a1');
 
 $from_address = $lob->addresses()->create(array(
   'name'          => 'The Big House',
@@ -42,7 +42,7 @@ while($row = fgetcsv($handle)) {
     'from'    => $from_address['id'],
     'front'   => $html_front,
     'back'    => $html_back,
-    'setting' => 1002,
+    'size'    => '6x11',
     'data'  => array(
       'background_image' => $row[1],
       'background_color' => $row[2],
