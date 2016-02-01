@@ -46,7 +46,7 @@ class SettingsTest extends \Lob\Tests\ResourceTest
         }
 
         $this->testSampleAll = $this->resource->all(array(
-            'count' => 1
+            'limit' => 1
         ));
 
         return $this->testSampleAll;
