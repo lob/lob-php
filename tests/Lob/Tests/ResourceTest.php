@@ -59,7 +59,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->testSampleAllWithMeta = $this->resource->all(array(
-            'count' => 1
+            'limit' => 1
         ), true);
 
         return $this->testSampleAllWithMeta;
@@ -122,12 +122,12 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        $count = 5;
+        $limit = 5;
         $all = $this->resource->all(array(
-            'count' => $count
+            'limit' => $limit
         ));
 
-        $this->assertLessThanOrEqual($count, count($all));
+        $this->assertLessThanOrEqual($limit, count($all));
     }
 
     public function testRaiseValidationExceptionOnCreateWithInvalidData()
@@ -143,6 +143,6 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Lob\Exception\AuthorizationException');
         $this->lob->setApiKey('INVALID_API_KEY');
-        $this->resource->all(array('count' => 1));
+        $this->resource->all(array('limit' => 1));
     }
 }
