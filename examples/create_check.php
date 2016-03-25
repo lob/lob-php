@@ -26,6 +26,7 @@ $to_address = $lob->addresses()->create(array(
 $bank_account = $lob->bankAccounts()->create(array(
   'routing_number'    => '322271627',
   'account_number'    => '123456789',
+  'account_type'      => 'company',
   'signatory'         => 'John Doe'
 ));
 
