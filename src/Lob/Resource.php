@@ -121,6 +121,13 @@ abstract class Resource implements ResourceInterface
 
             if ($statusCode === 422)
                 throw new ValidationException($errorMessage, 422);
+
+            // @codeCoverageIgnoreStart
+            // must induce serverside error to test this, so not testable
+            if ($statusCode === 429)
+                throw new RateLimitException($errorMessage, 429);
+            // @codeCoverageIgnoreEnd
+
             // @codeCoverageIgnoreStart
             // must induce serverside error to test this, so not testable
             if ($statusCode === 500)
