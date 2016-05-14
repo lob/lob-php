@@ -22,6 +22,7 @@ use Lob\Exception\NetworkErrorException;
 use Lob\Exception\ResourceNotFoundException;
 use Lob\Exception\UnexpectedErrorException;
 use Lob\Exception\ValidationException;
+use Lob\Exception\RateLimitException;
 
 abstract class Resource implements ResourceInterface
 {
