@@ -125,6 +125,6 @@ Make sure you provide a `test` API Key in your `phpunit.xml`.
 
 =======================
 
-Copyright &copy; 2013 Lob.com
+Copyright &copy; 2016 Lob.com
 
 Released under the MIT License, which can be found in the repository in `LICENSE.txt`.

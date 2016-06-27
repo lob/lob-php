@@ -46,12 +46,19 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
         $this->assertTrue(array_key_exists('id', $postcard));
     }
 
-    /**
-    * @expectedException BadMethodCallException
-    */
-    public function testDeleteFail()
+    public function testDelete()
     {
-        $create = $this->resource->delete('1');
+      $postcard = $this->resource->create(array(
+          'description' => 'Demo Postcard job', // Required
+          'to' => AddressesTest::$validCreateData,
+          'from' => AddressesTest::$validCreateData,
+          'message' => 'This an example message on back of the postcard',
+          'front' => 'https://lob.com/postcardfront.pdf'
+      ));
+      $id = $postcard['id'];
+      $deleted = $this->resource->delete($id);
+
+      $this->assertTrue(is_array($deleted));
     }
 
 }

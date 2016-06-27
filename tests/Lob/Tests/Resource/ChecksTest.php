@@ -63,18 +63,31 @@ class ChecksTest extends \Lob\Tests\ResourceTest
      $this->assertTrue(array_key_exists('id', $getCheck));
   }
 
-  public function testAll()
+  public function testDelete()
   {
-    $checks = $this->resource->all();
-    $this->assertTrue(is_array($checks));
-  }
+    $account = $this->verifyBankAccount();
+    $check = $this->resource->create(array(
+      'description'           => 'Demo Check',
+      'to[name]'              => 'Amrit Ayalur',
+      'to[address_line1]'     => '123 Test Street',
+      'to[address_city]'      => 'Mountain View',
+      'to[address_state]'     => 'CA',
+      'to[address_zip]'       => '94041',
+      'to[address_country]'   => 'US',
+      'from[name]'            => 'Bryan Adams',
+      'from[address_line1]'   => '123 Hello Ave',
+      'from[address_city]'    => 'Providence',
+      'from[address_state]'   => 'RI',
+      'from[address_zip]'     => '02912',
+      'from[address_country]' => 'US',
+      'bank_account'          => $this->getBankAccountId(),
+      'amount'                => '2200',
+      'memo'                  => 'rent'
+    ));
+    $id = $check['id'];
+    $deleted = $this->resource->delete($id);
 
-  /**
-  * @expectedException BadMethodCallException
-  */
-  public function testDeleteFail()
-  {
-    $this->resource->delete('1');
+    $this->assertTrue(is_array($deleted));
   }
 
 }
