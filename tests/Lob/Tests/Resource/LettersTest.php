@@ -46,12 +46,19 @@ class LettersTest extends \Lob\Tests\ResourceTest
         $this->assertTrue(array_key_exists('id', $letter));
     }
 
-    /**
-    * @expectedException BadMethodCallException
-    */
-    public function testDeleteFail()
+    public function testDelete()
     {
-        $create = $this->resource->delete('1');
+      $letter = $this->resource->create(array(
+          'to' => AddressesTest::$validCreateData,
+          'from' => AddressesTest::$validCreateData,
+          'description' => 'This an example message on back of the postcard',
+          'file' => 'https://lob.com/goblue.pdf',
+          'color' => FALSE
+        ));
+      $id = $letter['id'];
+      $deleted = $this->resource->delete($id);
+
+      $this->assertTrue(is_array($deleted));
     }
 
 }
