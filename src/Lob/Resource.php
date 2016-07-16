@@ -12,10 +12,9 @@
 namespace Lob;
 
 use Exception;
-use Guzzle\Common\Exception\GuzzleException;
-use Guzzle\Http\Exception\CurlException;
-use Guzzle\Http\Client as HttpClient;
-use Guzzle\Http\Message\EntityEnclosingRequestInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ConnectException;
 use Lob\Exception\AuthorizationException;
 use Lob\Exception\InternalErrorException;
 use Lob\Exception\NetworkErrorException;
@@ -28,9 +27,12 @@ abstract class Resource implements ResourceInterface
 {
     protected $lob;
 
+    protected $client;
+
     public function __construct(Lob $lob)
     {
         $this->lob = $lob;
+        $this->client = new Client(array('base_uri' => 'https://api.lob.com'));
     }
 
     public function all(array $query = array(), $includeMeta = false)
@@ -96,14 +98,56 @@ abstract class Resource implements ResourceInterface
     protected function sendRequest($method, $version, $clientVersion, $path,
         array $query, array $body = null)
     {
-        $request = $this->prepareRequest($method, $version, $clientVersion,
-          $path, $query, $body);
+
+        $path = '/v1/'.$path;
+        $options = array(
+            'headers' => array(
+                'Accept' => 'application/json; charset=utf-8',
+                'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion,
+            ),
+            'auth' => array($this->lob->getApiKey(), '')
+        );
+
+        if ($version) {
+            $options['headers']['Lob-Version'] = $version;
+        }
+
+        $queryString = '';
+        if (!empty($query)) {
+            $queryString = '?'.http_build_query($query);
+        }
+
+        if($body) {
+            $body = $this->stringifyBooleans($body);
+            $files = array_filter($body, function ($element) {
+                return (is_string($element) && strpos($element, '@') === 0);
+            });
+
+            if ($files) {
+                $body = $this->flattenArray($body);
+                $options['multipart'] = array();
+                foreach($body as $key => $value) {
+                    $element = array(
+                        'name' => $key
+                    );
+
+                    if((is_string($value) && strpos($value, '@') === 0)) {
+                        $element['contents'] = fopen(substr($value, 1), 'r');
+                    } else {
+                        $element['contents'] = $value;
+                    }
+                    $options['multipart'][] = $element;
+                }
+            } else {
+                $options['form_params'] = $body;
+            }
+        }
 
         try {
-            $response = $request->send();
+            $response = $this->client->request($method, $path.$queryString, $options);
             //@codeCoverageIgnoreStart
             // There is no way to induce this error intentionally.
-        } catch (CurlException $e) {
+        } catch (ConnectException $e) {
             throw new NetworkErrorException($e->getMessage());
             //@codeCoverageIgnoreEnd
         } catch (GuzzleException $e) {
@@ -139,63 +183,54 @@ abstract class Resource implements ResourceInterface
             // not possible to test this code because we don't return other status codes
             throw new UnexpectedErrorException('An Unexpected Error has occurred.');
         } catch (Exception $e) {
-            throw new UnexpectedErrorException('An Unexpected Error has occurred.');
+            throw new UnexpectedErrorException('An Unexpected Error has occurred.'.$e->getMessage());
         }
             // @codeCoverageIgnoreEnd
 
-        return $response->json();
+        return json_decode($response->getBody(), true);
     }
 
-    protected function prepareRequest($method, $version, $clientVersion, $path, array $query,
-        array $body = null)
-    {
-        $path = '/v1/'.$path;
-        $headers = array(
-            'Accept' => 'application/json; charset=utf-8',
-            'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion,
-        );
-
-        if ($version) {
-            $headers['Lob-Version'] = $version;
-        }
-
-        $queryString = '';
-        if (!empty($query)) {
-            $queryString = '?'.http_build_query($query);
-        }
-
-        $client = new HttpClient('https://api.lob.com');
-
-        foreach ($body as $key => $value) {
-          if ($value === FALSE) {
-            $body[$key] = 'false';
-          }
-
-          if ($value === TRUE) {
-            $body[$key] = 'true';
-          }
-        }
-
-        $request = $client->createRequest($method, $path.$queryString, $headers);
-        $request->setAuth($this->lob->getApiKey(), '');
-        if ($body) {
-            $this->handleRequestBody($request, $body);
-        }
-
-        return $request;
+    /*
+     * Because guzzle uses http_build_query it will turn all booleans into '' and '1' for
+     * false and true respectively. This function will turn all booleans into the string
+     * literal 'false' and 'true'
+     */
+    protected function stringifyBooleans($body) {
+        return array_map(function($value) {
+            if(is_bool($value)) {
+                return $value ? 'true' : 'false';
+            } else if(is_array($value)) {
+                return $this->stringifyBooleans($value);
+            } else {
+                return $value;
+            }
+        }, $body);
     }
 
-    protected function handleRequestBody(
-        EntityEnclosingRequestInterface $request, array $data)
-    {
-        $files = array_filter($data, function ($element) {
-            return (is_string($element) && strpos($element, '@') === 0);
-        });
-
-        $request->addPostFields($data);
-        if ($files) {
-            $request->addPostFiles($files);
+    /*
+     * This method is needed because multipart guzzle requests cannot have nested data
+     * This function will take:
+     * array(
+     *     'foo' => array(
+     *         'bar' => 'baz'
+     *     )
+     * )
+     * And convert it to:
+     * array(
+     *     'foo[bar]' => 'baz'
+     * )
+     */
+    protected function flattenArray(array $body, $prefix = '') {
+        $newBody = array();
+        foreach ($body as $k => $v) {
+            $key = (!strlen($prefix)) ? $k : "{$prefix}[{$k}]";
+            if (is_array($v)) {
+                $newBody += $this->flattenArray($v, $key);
+            } else {
+                $newBody[$key] = $v;
+            }
         }
+        return $newBody;
     }
 
     protected function errorMessageFromJsonBody($body)
