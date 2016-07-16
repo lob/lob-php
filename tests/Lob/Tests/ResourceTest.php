@@ -31,7 +31,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->lob = new Lob('test_7c5d111af5ccfedb9f0eea91745c93896a1');
+        $this->lob = new Lob(LOB_TEST_API_KEY);
         $this->resource = $this->lob->{$this->resourceMethodName}();
         if (!$this->respondsToAll)
           return;
