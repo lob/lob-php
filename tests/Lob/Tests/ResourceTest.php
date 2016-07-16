@@ -26,6 +26,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
     protected $respondsToGet = true;
     protected $respondsToCreate = true;
     protected $respondsToDelete = true;
+    protected $bankAccount = null;
     public static $validCreateData = array();
     public static $invalidCreateData = array();
 
@@ -75,19 +76,21 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     protected function getBankAccountId()
     {
-      $accounts = $this->lob->bankAccounts()->all();
-      return $accounts[0]['id'];
-    }
-
-    protected function verifyBankAccount()
-    {
-      $accounts = $this->lob->bankAccounts()->all();
-      if(!$accounts[0]['verified']) {
-        $this->lob->bankAccounts()->verify(
-          $accounts[0]['id'],
-          array(32,23)
-        );
-      }
+        if($this->bankAccount === null) {
+            $accounts = $this->lob->bankAccounts()->all();
+            $this->bankAccount = $accounts[0];
+            if(!$this->bankAccount['verified']) {
+                $this->lob->bankAccounts()->verify(
+                    $this->bankAccount['id'],
+                    array(
+                        32,
+                        23
+                    )
+                );
+            }
+        }
+        return $this->bankAccount['id'];
+        
     }
 
     public function testAllReturnsArray()
