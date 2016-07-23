@@ -148,4 +148,53 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         $this->lob->setApiKey('INVALID_API_KEY');
         $this->resource->all(array('limit' => 1));
     }
+
+    //This function is needed to test the protected methods on Resource
+    protected static function getMethod($name)
+    {
+        $class = new \ReflectionClass('Lob\Resource');
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+        return $method;
+    }
+
+    public function testStringifyBooleans()
+    {
+        $testArray = array(
+            'foo' => TRUE,
+            'bar' => FALSE,
+            'baz' => 1,
+            'foobar' => 0
+        );
+
+        $stringifyBooleans = self::getMethod('stringifyBooleans');
+        $testOutput = $stringifyBooleans->invokeArgs($this->resource, array($testArray));
+
+        $this->assertEquals(array(
+            'foo' => 'true',
+            'bar' => 'false',
+            'baz' => 1,
+            'foobar' => 0
+        ), $testOutput);
+    }
+    
+    public function testFlattenArray()
+    {
+        $testArray = array(
+            'foo' => array(
+                'bar' => 1,
+                'baz' => 2,
+            ),
+            'foobar' => 3
+        );
+
+        $flattenArray = self::getMethod('flattenArray');
+        $testOutput = $flattenArray->invokeArgs($this->resource, array($testArray));
+
+        $this->assertEquals(array(
+            'foo[bar]' => 1,
+            'foo[baz]' => 2,
+            'foobar' => 3
+        ), $testOutput);
+    }
 }
