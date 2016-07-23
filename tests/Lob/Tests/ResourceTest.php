@@ -197,4 +197,39 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
             'foobar' => 3
         ), $testOutput);
     }
+
+    public function testGetPath()
+    {
+
+        $getPath = self::getMethod('getPath');
+
+        //Test when passing no array
+        $testOutput = $getPath->invokeArgs($this->resource, array('resource'));
+        $this->assertEquals('/v1/resource', $testOutput);
+
+        //Test when passing empty array
+        $testOutput = $getPath->invokeArgs($this->resource, array('resource', array()));
+        $this->assertEquals('/v1/resource', $testOutput);
+
+        $testArray = array(
+            'foo' => 'bar',
+            'baz' => 1,
+            'foobar' => 2
+        );
+        //Test passing an array of options
+        $testOutput = $getPath->invokeArgs($this->resource, array('resource', $testArray));
+        $this->assertEquals('/v1/resource?foo=bar&baz=1&foobar=2', $testOutput);
+
+
+        $testArray = array(
+            'foo' => array(
+                'bar' => 1,
+                'baz' => 2,
+            ),
+            'foobar' => 3
+        );
+        //Test passing nested array of options
+        $testOutput = $getPath->invokeArgs($this->resource, array('resource', $testArray));
+        $this->assertEquals('/v1/resource?foo%5Bbar%5D=1&foo%5Bbaz%5D=2&foobar=3', $testOutput);
+    }
 }

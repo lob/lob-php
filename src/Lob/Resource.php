@@ -42,8 +42,7 @@ abstract class Resource implements ResourceInterface
             $this->lob->getVersion(),
             $this->lob->getClientVersion(),
             $this->resourceName(),
-            $query,
-            array()
+            $query
         );
         if ($includeMeta) {
             return $all;
@@ -70,9 +69,7 @@ abstract class Resource implements ResourceInterface
             'GET',
             $this->lob->getVersion(),
             $this->lob->getClientVersion(),
-            $this->resourceName().'/'.strval($id),
-            array(),
-            array()
+            $this->resourceName().'/'.strval($id)
         );
     }
 
@@ -82,9 +79,7 @@ abstract class Resource implements ResourceInterface
             'DELETE',
             $this->lob->getVersion(),
             $this->lob->getClientVersion(),
-            $this->resourceName().'/'.strval($id),
-            array(),
-            array()
+            $this->resourceName().'/'.strval($id)
         );
     }
 
@@ -95,56 +90,11 @@ abstract class Resource implements ResourceInterface
         return array_pop($class);
     }
 
-    protected function sendRequest($method, $version, $clientVersion, $path,
-        array $query, array $body = null)
+    protected function sendRequest($method, $version, $clientVersion, $path, array $query = array(), array $body = null)
     {
-
-        $path = '/v1/'.$path;
-        $options = array(
-            'headers' => array(
-                'Accept' => 'application/json; charset=utf-8',
-                'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion,
-            ),
-            'auth' => array($this->lob->getApiKey(), '')
-        );
-
-        if ($version) {
-            $options['headers']['Lob-Version'] = $version;
-        }
-
-        $queryString = '';
-        if (!empty($query)) {
-            $queryString = '?'.http_build_query($query);
-        }
-
-        if($body) {
-            $body = $this->stringifyBooleans($body);
-            $files = array_filter($body, function ($element) {
-                return (is_string($element) && strpos($element, '@') === 0);
-            });
-
-            if ($files) {
-                $body = $this->flattenArray($body);
-                $options['multipart'] = array();
-                foreach($body as $key => $value) {
-                    $element = array(
-                        'name' => $key
-                    );
-
-                    if((is_string($value) && strpos($value, '@') === 0)) {
-                        $element['contents'] = fopen(substr($value, 1), 'r');
-                    } else {
-                        $element['contents'] = $value;
-                    }
-                    $options['multipart'][] = $element;
-                }
-            } else {
-                $options['form_params'] = $body;
-            }
-        }
-
         try {
-            $response = $this->client->request($method, $path.$queryString, $options);
+            $response = $this->client->request($method, $this->getPath($path, $query),
+                $this->getOptions($version, $clientVersion, $body));
             //@codeCoverageIgnoreStart
             // There is no way to induce this error intentionally.
         } catch (ConnectException $e) {
@@ -190,12 +140,67 @@ abstract class Resource implements ResourceInterface
         return json_decode($response->getBody(), true);
     }
 
+    protected function getPath($path, array $query = array())
+    {
+        $path = '/v1/'.$path;
+        $queryString = '';
+        if (!empty($query)) {
+            $queryString = '?'.http_build_query($query);
+        }
+        return $path.$queryString;
+    }
+
+    protected function getOptions($version, $clientVersion, array $body = null)
+    {
+        $options = array(
+            'headers' => array(
+                'Accept' => 'application/json; charset=utf-8',
+                'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion,
+            ),
+            'auth' => array($this->lob->getApiKey(), '')
+        );
+
+        if ($version) {
+            $options['headers']['Lob-Version'] = $version;
+        }
+
+
+        if($body) {
+            $body = $this->stringifyBooleans($body);
+            $files = array_filter($body, function ($element) {
+                return (is_string($element) && strpos($element, '@') === 0);
+            });
+
+            if ($files) {
+                $body = $this->flattenArray($body);
+                $options['multipart'] = array();
+                foreach($body as $key => $value) {
+                    $element = array(
+                        'name' => $key
+                    );
+
+                    if((is_string($value) && strpos($value, '@') === 0)) {
+                        $element['contents'] = fopen(substr($value, 1), 'r');
+                    } else {
+                        $element['contents'] = $value;
+                    }
+                    $options['multipart'][] = $element;
+                }
+            } else {
+                $options['form_params'] = $body;
+            }
+        }
+
+        return $options;
+    }
+
     /*
      * Because guzzle uses http_build_query it will turn all booleans into '' and '1' for
      * false and true respectively. This function will turn all booleans into the string
      * literal 'false' and 'true'
      */
-    protected function stringifyBooleans($body) {
+    protected function stringifyBooleans($body)
+    {
         return array_map(function($value) {
             if(is_bool($value)) {
                 return $value ? 'true' : 'false';
@@ -220,7 +225,8 @@ abstract class Resource implements ResourceInterface
      *     'foo[bar]' => 'baz'
      * )
      */
-    protected function flattenArray(array $body, $prefix = '') {
+    protected function flattenArray(array $body, $prefix = '')
+    {
         $newBody = array();
         foreach ($body as $k => $v) {
             $key = (!strlen($prefix)) ? $k : "{$prefix}[{$k}]";
