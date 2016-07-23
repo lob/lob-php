@@ -181,9 +181,9 @@ abstract class Resource implements ResourceInterface
 
             // @codeCoverageIgnoreStart
             // not possible to test this code because we don't return other status codes
-            throw new UnexpectedErrorException('An Unexpected Error has occurred.');
+            throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
         } catch (Exception $e) {
-            throw new UnexpectedErrorException('An Unexpected Error has occurred.'.$e->getMessage());
+            throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
         }
             // @codeCoverageIgnoreEnd
 
