@@ -209,9 +209,8 @@ abstract class Resource implements ResourceInterface
                 return $value ? 'true' : 'false';
             } else if (is_array($value)) {
                 return $this->stringifyBooleans($value);
-            } else {
-                return $value;
             }
+            return $value;
         }, $body);
     }
 
