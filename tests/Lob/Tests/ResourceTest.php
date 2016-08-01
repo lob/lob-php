@@ -148,6 +148,33 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         $this->resource->all(array('limit' => 1));
     }
 
+    public function testRaiseResourceNotFoundExceptionOnInvalidGetResource()
+    {
+        if (!$this->respondsToAll) {
+            return;
+        }
+        $this->setExpectedException('Lob\Exception\ResourceNotFoundException');
+        $mockedResource = $this->getMock('Lob\Resource\\' . ucfirst($this->resourceMethodName), array('resourceName'), array($this->lob));
+        $mockedResource->expects($this->any())
+            ->method('resourceName')
+            ->will($this->returnValue('nonResource'));
+        $mockedResource->all(array('limit' => 1));
+    }
+
+    public function testRaiseResourceNotFoundExceptionOnInvalidPostResource()
+    {
+        if (!$this->respondsToCreate) {
+            return;
+        }
+
+        $this->setExpectedException('Lob\Exception\ResourceNotFoundException');
+        $mockedResource = $this->getMock('Lob\Resource\\' . ucfirst($this->resourceMethodName), array('resourceName'), array($this->lob));
+        $mockedResource->expects($this->any())
+            ->method('resourceName')
+            ->will($this->returnValue('nonResource'));
+        $mockedResource->create(array());
+    }
+
     //This function is needed to test the protected methods on Resource
     protected static function getMethod($name)
     {
@@ -228,5 +255,13 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         //Test passing nested array of options
         $testOutput = $getPath->invokeArgs($this->resource, array('resource', $testArray));
         $this->assertEquals('/v1/resource?foo%5Bbar%5D=1&foo%5Bbaz%5D=2&foobar=3', $testOutput);
+    }
+
+    public function testGetOptions()
+    {
+        $getOptions = self::getMethod('getOptions');
+        //Test passing no version number
+        $testOutput = $getOptions->invokeArgs($this->resource, array('', $this->lob->getClientVersion()));
+        $this->assertFalse(isset($testOutput['headers']['Lob-Version']));
     }
 }
