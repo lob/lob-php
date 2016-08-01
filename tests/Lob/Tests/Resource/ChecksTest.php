@@ -11,7 +11,6 @@ class ChecksTest extends \Lob\Tests\ResourceTest
 
   public function testCreateWithSuccess()
   {
-      $account = $this->verifyBankAccount();
       $check = $this->resource->create(array(
         'description'           => 'Demo Check',
         'to[name]'              => 'Amrit Ayalur',
@@ -37,7 +36,6 @@ class ChecksTest extends \Lob\Tests\ResourceTest
 
   public function testGet()
   {
-     $account = $this->verifyBankAccount();
      $check = $this->resource->create(array(
         'description'           => 'Demo Check',
         'to[name]'              => 'Amrit Ayalur',
@@ -65,7 +63,6 @@ class ChecksTest extends \Lob\Tests\ResourceTest
 
   public function testDelete()
   {
-    $account = $this->verifyBankAccount();
     $check = $this->resource->create(array(
       'description'           => 'Demo Check',
       'to[name]'              => 'Amrit Ayalur',
