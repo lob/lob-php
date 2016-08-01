@@ -263,5 +263,9 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         //Test passing no version number
         $testOutput = $getOptions->invokeArgs($this->resource, array('', $this->lob->getClientVersion()));
         $this->assertFalse(isset($testOutput['headers']['Lob-Version']));
+
+        //Test passing in version number
+        $testOutput = $getOptions->invokeArgs($this->resource, array('2016-05-02', $this->lob->getClientVersion()));
+        $this->assertEquals('2016-05-02', $testOutput['headers']['Lob-Version']);
     }
 }
