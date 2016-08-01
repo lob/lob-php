@@ -90,7 +90,6 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
             }
         }
         return $this->bankAccount['id'];
-        
     }
 
     public function testAllReturnsArray()
@@ -200,7 +199,6 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPath()
     {
-
         $getPath = self::getMethod('getPath');
 
         //Test when passing no array
@@ -219,7 +217,6 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
         //Test passing an array of options
         $testOutput = $getPath->invokeArgs($this->resource, array('resource', $testArray));
         $this->assertEquals('/v1/resource?foo=bar&baz=1&foobar=2', $testOutput);
-
 
         $testArray = array(
             'foo' => array(
