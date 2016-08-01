@@ -76,10 +76,10 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     protected function getBankAccountId()
     {
-        if($this->bankAccount === null) {
+        if ($this->bankAccount === null) {
             $accounts = $this->lob->bankAccounts()->all();
             $this->bankAccount = $accounts[0];
-            if(!$this->bankAccount['verified']) {
+            if (!$this->bankAccount['verified']) {
                 $this->lob->bankAccounts()->verify(
                     $this->bankAccount['id'],
                     array(

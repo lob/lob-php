@@ -165,7 +165,7 @@ abstract class Resource implements ResourceInterface
         }
 
 
-        if($body) {
+        if ($body) {
             $body = $this->stringifyBooleans($body);
             $files = array_filter($body, function ($element) {
                 return (is_string($element) && strpos($element, '@') === 0);
@@ -179,7 +179,7 @@ abstract class Resource implements ResourceInterface
                         'name' => $key
                     );
 
-                    if((is_string($value) && strpos($value, '@') === 0)) {
+                    if ((is_string($value) && strpos($value, '@') === 0)) {
                         $element['contents'] = fopen(substr($value, 1), 'r');
                     } else {
                         $element['contents'] = $value;
@@ -202,9 +202,9 @@ abstract class Resource implements ResourceInterface
     protected function stringifyBooleans($body)
     {
         return array_map(function($value) {
-            if(is_bool($value)) {
+            if (is_bool($value)) {
                 return $value ? 'true' : 'false';
-            } else if(is_array($value)) {
+            } else if (is_array($value)) {
                 return $this->stringifyBooleans($value);
             } else {
                 return $value;
