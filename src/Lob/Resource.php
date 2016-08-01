@@ -184,14 +184,14 @@ abstract class Resource implements ResourceInterface
         $options['multipart'] = array();
         foreach($body as $key => $value) {
             $element = array(
-                'name' => $key
+                'name' => $key,
+                'contents' => $value
             );
 
             if ((is_string($value) && strpos($value, '@') === 0)) {
                 $element['contents'] = fopen(substr($value, 1), 'r');
-            } else {
-                $element['contents'] = $value;
             }
+
             $options['multipart'][] = $element;
         }
 
