@@ -175,23 +175,24 @@ abstract class Resource implements ResourceInterface
             return (is_string($element) && strpos($element, '@') === 0);
         });
 
-        if ($files) {
-            $body = $this->flattenArray($body);
-            $options['multipart'] = array();
-            foreach($body as $key => $value) {
-                $element = array(
-                    'name' => $key
-                );
-
-                if ((is_string($value) && strpos($value, '@') === 0)) {
-                    $element['contents'] = fopen(substr($value, 1), 'r');
-                } else {
-                    $element['contents'] = $value;
-                }
-                $options['multipart'][] = $element;
-            }
-        } else {
+        if(!$files) {
             $options['form_params'] = $body;
+            return $options;
+        }
+
+        $body = $this->flattenArray($body);
+        $options['multipart'] = array();
+        foreach($body as $key => $value) {
+            $element = array(
+                'name' => $key
+            );
+
+            if ((is_string($value) && strpos($value, '@') === 0)) {
+                $element['contents'] = fopen(substr($value, 1), 'r');
+            } else {
+                $element['contents'] = $value;
+            }
+            $options['multipart'][] = $element;
         }
 
         return $options;
