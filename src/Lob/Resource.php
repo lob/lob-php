@@ -164,31 +164,32 @@ abstract class Resource implements ResourceInterface
             $options['headers']['Lob-Version'] = $version;
         }
 
+        if (!$body) {
+            return $options;
+        }
 
-        if ($body) {
-            $body = $this->stringifyBooleans($body);
-            $files = array_filter($body, function ($element) {
-                return (is_string($element) && strpos($element, '@') === 0);
-            });
+        $body = $this->stringifyBooleans($body);
+        $files = array_filter($body, function ($element) {
+            return (is_string($element) && strpos($element, '@') === 0);
+        });
 
-            if ($files) {
-                $body = $this->flattenArray($body);
-                $options['multipart'] = array();
-                foreach($body as $key => $value) {
-                    $element = array(
-                        'name' => $key
-                    );
+        if ($files) {
+            $body = $this->flattenArray($body);
+            $options['multipart'] = array();
+            foreach($body as $key => $value) {
+                $element = array(
+                    'name' => $key
+                );
 
-                    if ((is_string($value) && strpos($value, '@') === 0)) {
-                        $element['contents'] = fopen(substr($value, 1), 'r');
-                    } else {
-                        $element['contents'] = $value;
-                    }
-                    $options['multipart'][] = $element;
+                if ((is_string($value) && strpos($value, '@') === 0)) {
+                    $element['contents'] = fopen(substr($value, 1), 'r');
+                } else {
+                    $element['contents'] = $value;
                 }
-            } else {
-                $options['form_params'] = $body;
+                $options['multipart'][] = $element;
             }
+        } else {
+            $options['form_params'] = $body;
         }
 
         return $options;
