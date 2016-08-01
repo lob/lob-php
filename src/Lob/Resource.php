@@ -92,9 +92,11 @@ abstract class Resource implements ResourceInterface
 
     protected function sendRequest($method, $version, $clientVersion, $path, array $query = array(), array $body = null)
     {
+        $path = $this->getPath($path, $query);
+        $options = $this->getOptions($version, $clientVersion, $body);
+
         try {
-            $response = $this->client->request($method, $this->getPath($path, $query),
-                $this->getOptions($version, $clientVersion, $body));
+            $response = $this->client->request($method, $path, $options);
             //@codeCoverageIgnoreStart
             // There is no way to induce this error intentionally.
         } catch (ConnectException $e) {
