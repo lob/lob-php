@@ -68,8 +68,10 @@ We've provided various examples for you to try out [here](https://github.com/lob
 - [Errors](https://lob.com/docs/php#errors)
 - [Rate Limiting](https://lob.com/docs/php#rate-limits)
 - [Metadata](https://lob.com/docs/php#metadata)
+- [Asset URLs](https://lob.com/docs/php#urls)
 - **Addresses**
   - [Address Book](https://lob.com/docs/php#addresses)
+    - [The Address Object](https://lob.com/docs/php#addresses_object)
     - [Create an Address](https://lob.com/docs/php#addresses_create)
     - [Retrieve an Address](https://lob.com/docs/php#addresses_retrieve)
     - [Delete an Address](https://lob.com/docs/php#addresses_delete)
@@ -78,20 +80,24 @@ We've provided various examples for you to try out [here](https://github.com/lob
     - [Verify an Address](https://lob.com/docs/php#verify_create)
 - **Postcards API**
   - [Postcards](https://lob.com/docs/php#postcards)
+    - [The Postcard Object](https://lob.com/docs/php#postcards_object)
     - [Create a Postcard](https://lob.com/docs/php#postcards_create)
     - [Retrieve a Postcard](https://lob.com/docs/php#postcards_retrieve)
     - [List all Postcards](https://lob.com/docs/php#postcards_list)
 - **Letters API**
   - [Letters](https://lob.com/docs/php#letters)
+    - [The Letter Object](https://lob.com/docs/php#letters_object)
     - [Create a Letter](https://lob.com/docs/php#letters_create)
     - [Retrieve a Letter](https://lob.com/docs/php#letters_retrieve)
     - [List all Letters](https://lob.com/docs/php#letters_list)
 - **Checks API**
   - [Checks](https://lob.com/docs/php#checks)
+    - [The Check Object](https://lob.com/docs/php#checks_object)
     - [Create a Check](https://lob.com/docs/php#checks_create)
     - [Retrieve a Check](https://lob.com/docs/php#checks_retrieve)
     - [List all Checks](https://lob.com/docs/php#checks_list)
   - [Bank Accounts](https://lob.com/docs/php#bank-accounts)
+    - [The Bank Account Object](https://lob.com/docs/php#bankaccounts_object)
     - [Create a Bank Account](https://lob.com/docs/php#bankaccounts_create)
     - [Retrieve a Bank Account](https://lob.com/docs/php#bankaccounts_retrieve)
     - [Delete a Bank Account](https://lob.com/docs/php#bankaccounts_delete)
@@ -99,12 +105,14 @@ We've provided various examples for you to try out [here](https://github.com/lob
     - [List all Bank Accounts](https://lob.com/docs/php#bankaccounts_list)
 - **Area Mail API**
   - [Areas](https://lob.com/docs/php#areas)
+    - [The Area Object](https://lob.com/docs/php#areas_object)
     - [Create an Area Mailing](https://lob.com/docs/php#areas_create)
     - [Retrieve an Area Mailing](https://lob.com/docs/php#areas_retrieve)
     - [List all Area Mailings](https://lob.com/docs/php#areas_list)
   - [Routes](https://lob.com/docs/php#routes)
-    - [Retrieve a Zip Code](https://lob.com/docs/php#routes_retrieve)
-    - [List all Zip Codes](https://lob.com/docs/php#routes_list)
+    - [The Routes Object](https://lob.com/docs/php#routes_object)
+    - [Retrieve Routes](https://lob.com/docs/php#routes_retrieve)
+    - [List all Routes](https://lob.com/docs/php#routes_list)
 - **Resources**
   - [Countries](https://lob.com/docs/php#countries)
     - [List all Countries](https://lob.com/docs/php#countries_list)
@@ -112,6 +120,7 @@ We've provided various examples for you to try out [here](https://github.com/lob
     - [List all States](https://lob.com/docs/php#states_list)
 - **Appendix**
   - [API Changelog](https://lob.com/docs/php#changelog)
+  - [The Tracking Event Object](https://lob.com/docs/php#tracking_event_object)
   - [HTML Examples](https://lob.com/docs/php#html-examples)
   - [Image Prepping](https://lob.com/docs/php#prepping)
 
