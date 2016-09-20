@@ -127,8 +127,8 @@ abstract class Resource implements ResourceInterface
 
             // @codeCoverageIgnoreStart
             // must induce serverside error to test this, so not testable
-            if ($statusCode === 500)
-                throw new InternalErrorException($errorMessage, 500);
+            if ($statusCode >= 500)
+                throw new InternalErrorException($errorMessage, $statusCode);
             // @codeCoverageIgnoreEnd
 
             // @codeCoverageIgnoreStart
