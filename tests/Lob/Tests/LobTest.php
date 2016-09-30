@@ -54,16 +54,6 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->lob->areas() instanceof Areas);
     }
 
-    public function testJobsMethodReturnsLobResourceJobsClass()
-    {
-        $this->assertTrue($this->lob->jobs() instanceof Jobs);
-    }
-
-    public function testObjectsMethodReturnsLobResourceObjectsClass()
-    {
-        $this->assertTrue($this->lob->objects() instanceof Objects);
-    }
-
     public function testPostcardsMethodReturnsLobResourcePostcardsClass()
     {
         $this->assertTrue($this->lob->postcards() instanceof Postcards);
@@ -72,11 +62,6 @@ class LobTest extends \PHPUnit_Framework_TestCase
     public function testRoutesMethodReturnsLobResourceAreasClass()
     {
         $this->assertTrue($this->lob->routes() instanceof Routes);
-    }
-
-    public function testSettingsMethodReturnsLobResourceSettingsClass()
-    {
-        $this->assertTrue($this->lob->settings() instanceof Settings);
     }
 
     public function testStatesMethodReturnsLobResourceStatesClass()

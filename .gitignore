@@ -3,6 +3,7 @@
 composer.phar
 composer.lock
 composer-test.lock
+composer-setup.php
 
 # PHPUnit
 phpunit.xml
