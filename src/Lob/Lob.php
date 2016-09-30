@@ -19,12 +19,9 @@ use Lob\Resource\Areas;
 use Lob\Resource\BankAccounts;
 use Lob\Resource\Checks;
 use Lob\Resource\Countries;
-use Lob\Resource\Jobs;
 use Lob\Resource\Letters;
-use Lob\Resource\Objects;
 use Lob\Resource\Postcards;
 use Lob\Resource\Routes;
-use Lob\Resource\Settings;
 use Lob\Resource\States;
 
 class Lob
@@ -92,19 +89,9 @@ class Lob
         return new Countries($this);
     }
 
-    public function jobs()
-    {
-        return new Jobs($this);
-    }
-
     public function letters()
     {
         return new Letters($this);
-    }
-
-    public function objects()
-    {
-        return new Objects($this);
     }
 
     public function postcards()
@@ -115,11 +102,6 @@ class Lob
     public function routes()
     {
         return new Routes($this);
-    }
-
-    public function settings()
-    {
-        return new Settings($this);
     }
 
     public function states()
