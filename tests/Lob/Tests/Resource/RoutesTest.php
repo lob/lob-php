@@ -30,20 +30,19 @@ class RoutesTest extends \Lob\Tests\ResourceTest
         $this->assertTrue(is_array($routes));
     }
 
+    public function testGet()
+    {
+        $route = $this->resource->get('94158-C002');
+
+        $this->assertTrue(is_array($route));
+    }
+
     /**
     * @expectedException BadMethodCallException
     */
     public function testCreateFail()
     {
       $create = $this->resource->create(array());
-    }
-
-    /**
-    * @expectedException BadMethodCallException
-    */
-    public function testGetFail()
-    {
-        $create = $this->resource->get('1');
     }
 
     /**
