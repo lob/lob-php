@@ -67,6 +67,7 @@ We've provided various examples for you to try out [here](https://github.com/lob
 - [Versioning](https://lob.com/docs/php#version)
 - [Errors](https://lob.com/docs/php#errors)
 - [Rate Limiting](https://lob.com/docs/php#rate-limits)
+- [Webhooks](https://lob.com/docs/php#webhooks)
 - [Metadata](https://lob.com/docs/php#metadata)
 - [Asset URLs](https://lob.com/docs/php#urls)
 - **Addresses**
@@ -121,6 +122,7 @@ We've provided various examples for you to try out [here](https://github.com/lob
 - **Appendix**
   - [API Changelog](https://lob.com/docs/php#changelog)
   - [The Tracking Event Object](https://lob.com/docs/php#tracking_event_object)
+  - [Events](https://lob.com/docs/php#events)
   - [HTML Examples](https://lob.com/docs/php#html-examples)
   - [Image Prepping](https://lob.com/docs/php#prepping)
 
