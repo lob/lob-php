@@ -7,7 +7,7 @@ use Lob\Resource as ResourceBase;
 
 class States extends ResourceBase
 {
-	public function create(array $data)
+    public function create(array $data)
     {
         throw new BadMethodCallException(__CLASS__.'::'.__FUNCTION__.'() is not supported.');
     }
