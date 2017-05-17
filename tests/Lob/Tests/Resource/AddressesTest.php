@@ -26,16 +26,6 @@ class AddressesTest extends \Lob\Tests\ResourceTest
         'phone' => '6502548929',
       );
 
-    public static $validVerifyData = array(
-        'address_line1' => '1037 El Monte Ave',
-        'address_line2' => 'C',
-        'address_city' => 'Mountain View',
-        'address_state' => 'CA',
-        'address_country' => 'US',
-        'address_zip' => '94040'
-      );
-
-
     public static $invalidCreateData = array();
 
     public function testCreateWithSuccess()
@@ -62,13 +52,6 @@ class AddressesTest extends \Lob\Tests\ResourceTest
 
         $this->assertTrue(is_array($getAddress));
         $this->assertTrue(array_key_exists('id', $getAddress));
-    }
-
-    public function testVerification()
-    {
-        $address = $this->resource->verify(static::$validVerifyData);
-
-        $this->assertTrue(is_array($address));
     }
 
     public function testAll()

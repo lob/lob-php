@@ -15,15 +15,4 @@ use Lob\Resource as ResourceBase;
 
 class Addresses extends ResourceBase
 {
-    public function verify(array $data)
-    {
-        return $this->sendRequest(
-            'POST',
-            $this->lob->getVersion(),
-            $this->lob->getClientVersion(),
-            'verify',
-            array(),
-            $data
-        );
-    }
 }

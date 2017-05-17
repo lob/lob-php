@@ -110,6 +110,9 @@ abstract class Resource implements ResourceInterface
             if ($statusCode === 401)
                 throw new AuthorizationException('Unauthorized', 401);
 
+            if ($statusCode === 403)
+                throw new AuthorizationException($errorMessage, 403);
+
             if ($method == 'GET' && ($statusCode === 404 || $statusCode === 422))
                 throw new ResourceNotFoundException($errorMessage, 404);
 

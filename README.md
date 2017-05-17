@@ -22,7 +22,7 @@ Here's a general overview of the Lob services available, click through to read m
 - [Letters API](https://lob.com/services/letters)
 - [Checks API](https://lob.com/services/checks)
 - [Area Mail API](https://lob.com/services/area)
-- [Address Verification API](https://lob.com/verification/address)
+- [Address Verification API](https://lob.com/services/verifications)
 
 ### Registration
 
@@ -77,8 +77,13 @@ We've provided various examples for you to try out [here](https://github.com/lob
     - [Retrieve an Address](https://lob.com/docs/php#addresses_retrieve)
     - [Delete an Address](https://lob.com/docs/php#addresses_delete)
     - [List all Addresses](https://lob.com/docs/php#addresses_list)
-  - [Address Verification API](https://lob.com/docs/php#verify)
-    - [Verify an Address](https://lob.com/docs/php#verify_create)
+- **US Verification API**
+  - [US Verifications](https://lob.com/docs/php#us_verifications)
+    - [The US Verifications Object](https://lob.com/docs/php#us_verifications_object)
+    - [Verify a US address](https://lob.com/docs/php#us_verifications_create)
+- **Int'l Verification API**
+  - [International Verifications](https://lob.com/docs/php#intl_verifications)
+    - [Verify an int'l address](https://lob.com/docs/php#intl_verifications_create)
 - **Postcards API**
   - [Postcards](https://lob.com/docs/php#postcards)
     - [The Postcard Object](https://lob.com/docs/php#postcards_object)

@@ -143,6 +143,9 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
 
     public function testRaiseAuthorizationExceptionOnInvalidApiKey()
     {
+        if (!$this->respondsToAll)
+          return;
+
         $this->setExpectedException('Lob\Exception\AuthorizationException');
         $this->lob->setApiKey('INVALID_API_KEY');
         $this->resource->all(array('limit' => 1));
@@ -203,7 +206,7 @@ abstract class ResourceTest extends \PHPUnit_Framework_TestCase
             'foobar' => 0
         ), $testOutput);
     }
-    
+
     public function testFlattenArray()
     {
         $testArray = array(
