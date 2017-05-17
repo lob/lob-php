@@ -130,6 +130,7 @@ We've provided various examples for you to try out [here](https://github.com/lob
   - [Events](https://lob.com/docs/php#events)
   - [HTML Examples](https://lob.com/docs/php#html-examples)
   - [Image Prepping](https://lob.com/docs/php#prepping)
+  - [US Verification Details](https://lob.com/docs/php#us_verification_details)
 
 ## Testing
 
