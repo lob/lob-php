@@ -21,14 +21,18 @@ cd create_postcards_from_csv/
 php create_postcards_from_csv.php input.csv
 ```
 
+### Verify US addresses from CSV
+
+An example showing how to verify US addresses from a CSV using Lob's [US Verification API](https://lob.com/docs/php#us_verifications).
+
+```
+cd verify_addresses_from_csv/
+php verify.php input.csv
+```
+
 ### Create a check
 ```
 php create_check.php
-```
-
-### Create a job
-```
-php create_job.php
 ```
 
 ### Create a letter
