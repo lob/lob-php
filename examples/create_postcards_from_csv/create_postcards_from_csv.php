@@ -38,12 +38,12 @@ while($row = fgetcsv($handle)) {
   ));
 
   $postcard = $lob->postcards()->create(array(
-    'to'      => $to_address['id'],
-    'from'    => $from_address['id'],
-    'front'   => $html_front,
-    'back'    => $html_back,
-    'size'    => '6x11',
-    'data'  => array(
+    'to'              => $to_address['id'],
+    'from'            => $from_address['id'],
+    'front'           => $html_front,
+    'back'            => $html_back,
+    'size'            => '6x11',
+    'merge_variables' => array(
       'background_image' => $row[1],
       'background_color' => $row[2],
       'name' => $row[0],
