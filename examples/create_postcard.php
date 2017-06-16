@@ -28,11 +28,11 @@ $from_address = $lob->addresses()->create(array(
 ));
 
 $postcard = $lob->postcards()->create(array(
-  'to'          => $to_address['id'],
-  'from'        => $from_address['id'],
-  'front'       => $file,
-  'message'     => 'Happy Birthday!',
-  'data[name]'  => 'Harry'
+  'to'                    => $to_address['id'],
+  'from'                  => $from_address['id'],
+  'front'                 => $file,
+  'message'               => 'Happy Birthday!',
+  'merge_variables[name]' => 'Harry'
 ));
 
 print_r($postcard);

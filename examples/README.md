@@ -12,7 +12,7 @@ cd examples/
 
 ### Create postcards from CSV
 
-An example showing how to dynamically create postcards from a CSV using HTML, a custom font, variable data, and Lob's [Postcard API](https://lob.com/services/postcards).
+An example showing how to dynamically create postcards from a CSV using HTML, a custom font, merge variables, and Lob's [Postcard API](https://lob.com/services/postcards).
 
 In order to run the program enter:
 
