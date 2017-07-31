@@ -25,6 +25,7 @@ use Lob\Resource\Postcards;
 use Lob\Resource\Routes;
 use Lob\Resource\States;
 use Lob\Resource\USVerifications;
+use Lob\Resource\USZipLookups;
 
 class Lob
 {
@@ -119,5 +120,10 @@ class Lob
     public function usVerifications()
     {
       return new USVerifications($this);
+    }
+
+    public function usZipLookups()
+    {
+      return new USZipLookups($this);
     }
 }
