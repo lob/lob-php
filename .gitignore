@@ -31,3 +31,4 @@ project
 *.sublime-project
 .idea
 *.idea/*
+*.sublime-*

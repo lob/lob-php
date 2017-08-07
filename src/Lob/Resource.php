@@ -51,7 +51,7 @@ abstract class Resource implements ResourceInterface
         return $all['data'];
     }
 
-    public function create(array $data)
+    public function create(array $data, array $headers = null)
     {
         return $this->sendRequest(
             'POST',
@@ -59,7 +59,8 @@ abstract class Resource implements ResourceInterface
             $this->lob->getClientVersion(),
             $this->resourceName(),
             array(),
-            $data
+            $data,
+            $headers
         );
     }
 
@@ -90,7 +91,7 @@ abstract class Resource implements ResourceInterface
         return array_pop($class);
     }
 
-    protected function sendRequest($method, $version, $clientVersion, $path, array $query = array(), array $body = null)
+    protected function sendRequest($method, $version, $clientVersion, $path, array $query = array(), array $body = null, array $headers = null)
     {
         $path = $this->getPath($path, $query);
         $options = $this->getOptions($version, $clientVersion, $body);
@@ -155,7 +156,7 @@ abstract class Resource implements ResourceInterface
         return $path.$queryString;
     }
 
-    protected function getOptions($version, $clientVersion, array $body = null)
+    protected function getOptions($version, $clientVersion, array $body = null, array $headers = null)
     {
         $options = array(
             'headers' => array(
@@ -167,6 +168,10 @@ abstract class Resource implements ResourceInterface
 
         if ($version) {
             $options['headers']['Lob-Version'] = $version;
+        }
+
+        if ($headers) {
+            $options['headers'] = array_merge($options['headers'], $headers);
         }
 
         if (!$body) {
