@@ -32,6 +32,32 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
         $this->assertTrue(array_key_exists('id', $postcard));
     }
 
+    public function testCreateIdempotent()
+    {
+        $testIdempotencyKey = uniqid();
+        $postcardOne = $this->resource->create(array(
+            'description' => 'Demo Postcard job', // Required
+            'to' => AddressesTest::$validCreateData,
+            'from' => AddressesTest::$validCreateData,
+            'message' => 'This an example message on back of the postcard',
+            'front' => 'https://lob.com/postcardfront.pdf'
+        ), array(
+            'Idempotency-Key' => $testIdempotencyKey
+        ));
+
+        $postcardTwo = $this->resource->create(array(
+            'description' => 'Demo Postcard job', // Required
+            'to' => AddressesTest::$validCreateData,
+            'from' => AddressesTest::$validCreateData,
+            'message' => 'This an example message on back of the postcard',
+            'front' => 'https://lob.com/postcardfront.pdf'
+        ), array(
+            'Idempotency-Key' => $testIdempotencyKey
+        ));
+
+        $this->assertEquals($postcardOne['id'], $postcardTwo['id']);
+    }
+
     public function testCreateWithBackFile()
     {
         $postcard = $this->resource->create(array(
