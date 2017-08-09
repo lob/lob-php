@@ -174,6 +174,10 @@ abstract class Resource implements ResourceInterface
             $options['headers']['Lob-Version'] = $version;
         }
 
+        if ($headers) {
+            $options['headers'] = array_merge($options['headers'], $headers);
+        }
+
         if (!$body) {
             return $options;
         }
