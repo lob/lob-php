@@ -25,11 +25,11 @@ class IntlVerificationsTest extends \Lob\Tests\ResourceTest
     public function testVerify()
     {
       $intlAddress = array(
-        'address_line1' => '123 Test St',
-        'address_city' => 'HEARST',
-        'address_state' => 'ONTARIO',
-        'address_zip' => 'P01LN0',
-        'address_country' => 'CA'
+        'primary_line' => '123 Test St',
+        'city' => 'HEARST',
+        'state' => 'ONTARIO',
+        'postal_code' => 'P01LN0',
+        'country' => 'CA'
       );
 
       $this->setExpectedException('Lob\Exception\AuthorizationException');
