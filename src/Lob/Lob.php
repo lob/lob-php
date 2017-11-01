@@ -18,12 +18,10 @@ use Lob\Resource\Addresses;
 use Lob\Resource\Areas;
 use Lob\Resource\BankAccounts;
 use Lob\Resource\Checks;
-use Lob\Resource\Countries;
 use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
 use Lob\Resource\Routes;
-use Lob\Resource\States;
 use Lob\Resource\USVerifications;
 use Lob\Resource\USZipLookups;
 
@@ -87,11 +85,6 @@ class Lob
       return new Checks($this);
     }
 
-    public function countries()
-    {
-        return new Countries($this);
-    }
-
     public function intlVerifications()
     {
         return new IntlVerifications($this);
@@ -110,11 +103,6 @@ class Lob
     public function routes()
     {
         return new Routes($this);
-    }
-
-    public function states()
-    {
-        return new States($this);
     }
 
     public function usVerifications()
