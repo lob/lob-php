@@ -31,7 +31,7 @@ $postcard = $lob->postcards()->create(array(
   'to'                    => $to_address['id'],
   'from'                  => $from_address['id'],
   'front'                 => $file,
-  'message'               => 'Happy Birthday!',
+  'back'                  => '<h1>Happy Birthday!</h1>',
   'merge_variables[name]' => 'Harry'
 ));
 

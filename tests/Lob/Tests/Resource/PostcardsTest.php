@@ -18,20 +18,6 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
     protected $resourceMethodName = 'postcards';
     protected $respondsToDelete = false;
 
-    public function testCreateWithMessage()
-    {
-        $postcard = $this->resource->create(array(
-            'description' => 'Demo Postcard job', // Required
-            'to' => AddressesTest::$validCreateData,
-            'from' => AddressesTest::$validCreateData,
-            'message' => 'This an example message on back of the postcard',
-            'front' => 'https://lob.com/postcardfront.pdf'
-        ));
-
-        $this->assertTrue(is_array($postcard));
-        $this->assertTrue(array_key_exists('id', $postcard));
-    }
-
     public function testCreateIdempotent()
     {
         $testIdempotencyKey = uniqid();
@@ -39,7 +25,7 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
             'description' => 'Demo Postcard job', // Required
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
-            'message' => 'This an example message on back of the postcard',
+            'back' => '<h1>This an example back of the postcard</h1>',
             'front' => 'https://lob.com/postcardfront.pdf'
         ), array(
             'Idempotency-Key' => $testIdempotencyKey
@@ -49,7 +35,7 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
             'description' => 'Demo Postcard job', // Required
             'to' => AddressesTest::$validCreateData,
             'from' => AddressesTest::$validCreateData,
-            'message' => 'This an example message on back of the postcard',
+            'back' => '<h1>This an example back of the postcard</h1>',
             'front' => 'https://lob.com/postcardfront.pdf'
         ), array(
             'Idempotency-Key' => $testIdempotencyKey
@@ -78,7 +64,7 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
           'description' => 'Demo Postcard job', // Required
           'to' => AddressesTest::$validCreateData,
           'from' => AddressesTest::$validCreateData,
-          'message' => 'This an example message on back of the postcard',
+          'back' => '<h1>This an example back of the postcard</h1>',
           'front' => 'https://lob.com/postcardfront.pdf'
       ));
       $id = $postcard['id'];

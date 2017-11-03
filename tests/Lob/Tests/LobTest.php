@@ -20,7 +20,6 @@ use Lob\Resource\Objects;
 use Lob\Resource\Postcards;
 use Lob\Resource\Routes;
 use Lob\Resource\Settings;
-use Lob\Resource\States;
 
 class LobTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,11 +61,6 @@ class LobTest extends \PHPUnit_Framework_TestCase
     public function testRoutesMethodReturnsLobResourceAreasClass()
     {
         $this->assertTrue($this->lob->routes() instanceof Routes);
-    }
-
-    public function testStatesMethodReturnsLobResourceStatesClass()
-    {
-        $this->assertTrue($this->lob->states() instanceof States);
     }
 
     public function testSetApiKeyMethodSetsApiKey()
