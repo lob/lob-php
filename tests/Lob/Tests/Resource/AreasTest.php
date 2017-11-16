@@ -1,22 +1,25 @@
 <?php
 
-namespace Lob\Tests\Resource;
+use Lob\Lob;
+use PHPUnit\Framework\TestCase;
 
-use Lob\Tests\Resource\AddressesTest;
-
-class AreasTest extends \Lob\Tests\ResourceTest
+class AreasTest extends TestCase
 {
-  protected $resourceMethodName = 'areas';
-
-  public function testCreateWithSuccess()
+  protected function setUp()
   {
-     $area = $this->resource->create(array(
+      $this->lob = new Lob(LOB_TEST_API_KEY);
+      $this->areaParams = array(
         'description' => 'Demo Area',
         'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
         'back' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf',
         'routes' => '94158-C001',
         'target_type' => 'all',
-      ));
+      );
+  }
+
+  public function testCreate()
+  {
+     $area = $this->lob->areas()->create($this->areaParams);
 
      $this->assertTrue(is_array($area));
      $this->assertTrue(array_key_exists('id', $area));
@@ -24,23 +27,16 @@ class AreasTest extends \Lob\Tests\ResourceTest
 
   public function testGet()
   {
-     $area = $this->resource->create(array(
-        'description' => 'Demo Area',
-        'front' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areafront.pdf',
-        'back' => 'https://s3-us-west-2.amazonaws.com/lob-assets/areaback.pdf',
-        'routes' => '94158-C001',
-        'target_type' => 'all'
-     ));
-     $id = $area['id'];
-     $getArea = $this->resource->get($id);
+     $id = $this->lob->areas()->create($this->areaParams)['id'];
+     $area = $this->lob->areas()->get($id);
 
-     $this->assertTrue(is_array($getArea));
-     $this->assertTrue(array_key_exists('id', $getArea));
+     $this->assertTrue(is_array($area));
+     $this->assertTrue($area['id'] === $id);
   }
 
   public function testAll()
   {
-    $areas = $this->resource->all();
+    $areas = $this->lob->areas()->all();
     $this->assertTrue(is_array($areas));
   }
 
@@ -49,7 +45,7 @@ class AreasTest extends \Lob\Tests\ResourceTest
   */
   public function testDeleteFail()
   {
-    $this->resource->delete('1');
+    $this->lob->areas()->delete('1');
   }
 
 }

@@ -15,11 +15,14 @@ use InvalidArgumentException;
 use Lob\Lob;
 use Lob\Resource\Addresses;
 use Lob\Resource\Areas;
-use Lob\Resource\Jobs;
-use Lob\Resource\Objects;
+use Lob\Resource\BankAccounts;
+use Lob\Resource\Checks;
+use Lob\Resource\IntlVerifications;
+use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
 use Lob\Resource\Routes;
-use Lob\Resource\Settings;
+use Lob\Resource\USVerifications;
+use Lob\Resource\USZipLookups;
 
 class LobTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,24 +46,54 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $this->lob->getVersion());
     }
 
-    public function testAddressesMethodReturnsLobResourceAddressesClass()
+    public function testAddressesMethod()
     {
         $this->assertTrue($this->lob->addresses() instanceof Addresses);
     }
 
-    public function testAreasMethodReturnsLobResourceAreasClass()
+    public function testAreasMethod()
     {
         $this->assertTrue($this->lob->areas() instanceof Areas);
     }
 
-    public function testPostcardsMethodReturnsLobResourcePostcardsClass()
+    public function testBankAccountsMethod()
+    {
+        $this->assertTrue($this->lob->bankAccounts() instanceof BankAccounts);
+    }
+
+    public function testChecksMethod()
+    {
+        $this->assertTrue($this->lob->checks() instanceof Checks);
+    }
+
+    public function testIntlVerificationsMethod()
+    {
+        $this->assertTrue($this->lob->intlVerifications() instanceof IntlVerifications);
+    }
+
+    public function testLettersMethod()
+    {
+        $this->assertTrue($this->lob->letters() instanceof Letters);
+    }
+
+    public function testPostcardsMethod()
     {
         $this->assertTrue($this->lob->postcards() instanceof Postcards);
     }
 
-    public function testRoutesMethodReturnsLobResourceAreasClass()
+    public function testRoutesMethod()
     {
         $this->assertTrue($this->lob->routes() instanceof Routes);
+    }
+
+    public function testUSVerificationsMethod()
+    {
+        $this->assertTrue($this->lob->usVerifications() instanceof USVerifications);
+    }
+
+    public function testUSZipLookupsMethod()
+    {
+        $this->assertTrue($this->lob->usZipLookups() instanceof USZipLookups);
     }
 
     public function testSetApiKeyMethodSetsApiKey()
