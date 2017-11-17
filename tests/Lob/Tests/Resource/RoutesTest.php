@@ -41,7 +41,7 @@ class RoutesTest extends TestCase
     */
     public function testCreateFail()
     {
-      $create = $this->lob->routes()->create(array());
+        $create = $this->lob->routes()->create(array());
     }
 
     /**

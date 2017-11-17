@@ -18,21 +18,20 @@ class USVerificationsTest extends TestCase
     {
         $this->lob = new Lob(LOB_TEST_API_KEY);
         $this->usAddress = array(
-          'recipient' => 'LOB.COM',
-          'primary_line' => '185 BERRY ST STE 6600',
-          'city' => 'SAN FRANCISCO',
-          'state' => 'CA',
-          'zip_code' => '94107'
+            'recipient' => 'LOB.COM',
+            'primary_line' => '185 BERRY ST STE 6600',
+            'city' => 'SAN FRANCISCO',
+            'state' => 'CA',
+            'zip_code' => '94107'
         );
-
     }
 
     public function testVerify()
     {
-      $verifiedAddress = $this->lob->usVerifications()->verify($this->usAddress);
+        $verifiedAddress = $this->lob->usVerifications()->verify($this->usAddress);
 
-      $this->assertTrue(is_array($verifiedAddress));
-      $this->assertTrue(array_key_exists('id', $verifiedAddress));
+        $this->assertTrue(is_array($verifiedAddress));
+        $this->assertTrue(array_key_exists('id', $verifiedAddress));
     }
 
     /**
@@ -40,7 +39,7 @@ class USVerificationsTest extends TestCase
     */
     public function testGet()
     {
-      $this->lob->usVerifications()->get('id');
+        $this->lob->usVerifications()->get('id');
     }
 
     /**
@@ -48,7 +47,7 @@ class USVerificationsTest extends TestCase
     */
     public function testAll()
     {
-      $this->lob->usVerifications()->all();
+        $this->lob->usVerifications()->all();
     }
 
     /**
@@ -56,7 +55,7 @@ class USVerificationsTest extends TestCase
     */
     public function testCreate()
     {
-      $this->lob->usVerifications()->create($this->usAddress);
+        $this->lob->usVerifications()->create($this->usAddress);
     }
 
     /**
@@ -64,7 +63,7 @@ class USVerificationsTest extends TestCase
     */
     public function testDelete()
     {
-      $this->lob->usVerifications()->delete('id');
+        $this->lob->usVerifications()->delete('id');
     }
 
 }

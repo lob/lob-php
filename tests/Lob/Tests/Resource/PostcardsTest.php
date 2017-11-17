@@ -18,21 +18,21 @@ class PostcardsTest extends TestCase
     {
         $this->lob = new Lob(LOB_TEST_API_KEY);
         $this->addressParams = array(
-          'name' => 'Larry Lobster',
-          'address_line1' => '185 Berry St',
-          'address_line2' => 'Ste 6100',
-          'address_city' => 'San Francisco',
-          'address_state' => 'CA',
-          'address_country' => 'US',
-          'address_zip' => '94107',
-          'email' => 'larry@lob.com'
+            'name' => 'Larry Lobster',
+            'address_line1' => '185 Berry St',
+            'address_line2' => 'Ste 6100',
+            'address_city' => 'San Francisco',
+            'address_state' => 'CA',
+            'address_country' => 'US',
+            'address_zip' => '94107',
+            'email' => 'larry@lob.com'
         );
         $this->postcardParams = array(
-          'description' => 'Demo Postcard job', // Required
-          'to' => $this->addressParams,
-          'from' => $this->addressParams,
-          'back' => '<h1>This an example back of the postcard</h1>',
-          'front' => 'https://lob.com/postcardfront.pdf'
+            'description' => 'Demo Postcard job',
+            'to' => $this->addressParams,
+            'from' => $this->addressParams,
+            'back' => '<h1>This an example back of the postcard</h1>',
+            'front' => 'https://lob.com/postcardfront.pdf'
         );
     }
 
@@ -74,26 +74,26 @@ class PostcardsTest extends TestCase
 
     public function testDelete()
     {
-      $postcard = $this->lob->postcards()->create($this->postcardParams);
-      $id = $postcard['id'];
-      $deleted = $this->lob->postcards()->delete($id);
+        $postcard = $this->lob->postcards()->create($this->postcardParams);
+        $id = $postcard['id'];
+        $deleted = $this->lob->postcards()->delete($id);
 
-      $this->assertTrue(is_array($deleted));
+        $this->assertTrue(is_array($deleted));
     }
 
     public function testGet()
     {
-       $id = $this->lob->postcards()->create($this->postcardParams)['id'];
-       $postcard = $this->lob->postcards()->get($id);
+        $id = $this->lob->postcards()->create($this->postcardParams)['id'];
+        $postcard = $this->lob->postcards()->get($id);
 
-       $this->assertTrue(is_array($postcard));
-       $this->assertTrue($postcard['id'] === $id);
+        $this->assertTrue(is_array($postcard));
+        $this->assertTrue($postcard['id'] === $id);
     }
 
     public function testAll()
     {
-      $postcards = $this->lob->postcards()->all();
-      $this->assertTrue(is_array($postcards));
+        $postcards = $this->lob->postcards()->all();
+        $this->assertTrue(is_array($postcards));
     }
 
 }

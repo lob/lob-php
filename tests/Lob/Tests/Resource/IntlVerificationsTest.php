@@ -18,11 +18,11 @@ class IntlVerificationsTest extends TestCase
     {
         $this->lob = new Lob(LOB_TEST_API_KEY);
         $this->intlAddress = array(
-          'primary_line' => '123 Test St',
-          'city' => 'HEARST',
-          'state' => 'ONTARIO',
-          'postal_code' => 'P01LN0',
-          'country' => 'CA'
+            'primary_line' => '123 Test St',
+            'city' => 'HEARST',
+            'state' => 'ONTARIO',
+            'postal_code' => 'P01LN0',
+            'country' => 'CA'
         );
     }
 
@@ -31,7 +31,7 @@ class IntlVerificationsTest extends TestCase
      */
     public function testVerify()
     {
-      $this->lob->intlVerifications()->verify($this->intlAddress);
+        $this->lob->intlVerifications()->verify($this->intlAddress);
     }
 
     /**
@@ -39,7 +39,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testGet()
     {
-      $this->lob->intlVerifications()->get('id');
+        $this->lob->intlVerifications()->get('id');
     }
 
     /**
@@ -47,7 +47,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testAll()
     {
-      $this->lob->intlVerifications()->all();
+        $this->lob->intlVerifications()->all();
     }
 
     /**
@@ -55,7 +55,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testCreate()
     {
-      $this->lob->intlVerifications()->create($this->intlAddress);
+        $this->lob->intlVerifications()->create($this->intlAddress);
     }
 
     /**
@@ -63,7 +63,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testDelete()
     {
-      $this->lob->intlVerifications()->delete('id');
+        $this->lob->intlVerifications()->delete('id');
     }
 
 }

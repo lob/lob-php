@@ -19,16 +19,16 @@ class USZipLookupsTest extends TestCase
     {
         $this->lob = new Lob(LOB_TEST_API_KEY);
         $this->usZip = array(
-          'zip_code' => '94107'
+            'zip_code' => '94107'
         );
     }
 
     public function testLookup()
     {
-      $zipLookup = $this->lob->usZipLookups()->lookup($this->usZip);
+        $zipLookup = $this->lob->usZipLookups()->lookup($this->usZip);
 
-      $this->assertTrue(is_array($zipLookup));
-      $this->assertTrue(array_key_exists('id', $zipLookup));
+        $this->assertTrue(is_array($zipLookup));
+        $this->assertTrue(array_key_exists('id', $zipLookup));
     }
 
     /**
@@ -36,7 +36,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testGet()
     {
-      $this->lob->usZipLookups()->get('id');
+        $this->lob->usZipLookups()->get('id');
     }
 
     /**
@@ -44,7 +44,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testAll()
     {
-      $this->lob->usZipLookups()->all();
+        $this->lob->usZipLookups()->all();
     }
 
     /**
@@ -52,7 +52,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testCreate()
     {
-      $this->lob->usZipLookups()->create($this->usZip);
+        $this->lob->usZipLookups()->create($this->usZip);
     }
 
     /**
@@ -60,7 +60,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testDelete()
     {
-      $this->lob->usZipLookups()->delete('id');
+        $this->lob->usZipLookups()->delete('id');
     }
 
 }
