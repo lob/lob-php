@@ -9,30 +9,61 @@
  * file that was distributed with this source code.
  */
 
-namespace Lob\Tests\Resource;
+use Lob\Lob;
+use PHPUnit\Framework\TestCase;
 
-class USVerificationsTest extends \Lob\Tests\ResourceTest
+class USVerificationsTest extends TestCase
 {
-    protected $resourceMethodName = 'usVerifications';
-    protected $respondsToAll = false;
-    protected $respondsToAllWithCountOffset = false;
-    protected $respondsToGet = false;
-    protected $respondsToCreate = false;
-    protected $respondsToDelete = false;
+    protected function setUp()
+    {
+        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->usAddress = array(
+            'recipient' => 'LOB.COM',
+            'primary_line' => '185 BERRY ST STE 6600',
+            'city' => 'SAN FRANCISCO',
+            'state' => 'CA',
+            'zip_code' => '94107'
+        );
+    }
 
     public function testVerify()
     {
-      $usAddress = array(
-        'recipient' => 'LOB.COM',
-        'primary_line' => '185 BERRY ST STE 6600',
-        'city' => 'SAN FRANCISCO',
-        'state' => 'CA',
-        'zip_code' => '94107'
-      );
+        $verifiedAddress = $this->lob->usVerifications()->verify($this->usAddress);
 
-      $verifiedAddress = $this->resource->verify($usAddress);
-
-      $this->assertTrue(is_array($verifiedAddress));
-      $this->assertTrue(array_key_exists('id', $verifiedAddress));
+        $this->assertTrue(is_array($verifiedAddress));
+        $this->assertTrue(array_key_exists('id', $verifiedAddress));
     }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testGet()
+    {
+        $this->lob->usVerifications()->get('id');
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testAll()
+    {
+        $this->lob->usVerifications()->all();
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testCreate()
+    {
+        $this->lob->usVerifications()->create($this->usAddress);
+    }
+
+    /**
+    * @expectedException BadMethodCallException
+    */
+    public function testDelete()
+    {
+        $this->lob->usVerifications()->delete('id');
+    }
+
 }

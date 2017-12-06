@@ -9,28 +9,29 @@
  * file that was distributed with this source code.
  */
 
-namespace Lob\Tests\Resource;
+use Lob\Lob;
+use PHPUnit\Framework\TestCase;
 
-class AddressesTest extends \Lob\Tests\ResourceTest
+class AddressesTest extends TestCase
 {
-    protected $resourceMethodName = 'addresses';
-    public static $validCreateData = array(
-        'name' => 'Harry Zhang',
-        'address_line1' => '1037 El Monte Ave',
-        'address_line2' => 'C',
-        'address_city' => 'Mountain View',
-        'address_state' => 'CA',
-        'address_country' => 'US',
-        'address_zip' => '94040',
-        'email' => 'harry@lob.com',
-        'phone' => '6502548929',
-      );
-
-    public static $invalidCreateData = array();
-
-    public function testCreateWithSuccess()
+    protected function setUp()
     {
-        $address = $this->resource->create(static::$validCreateData);
+        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->addressParams = array(
+            'name' => 'Larry Lobster',
+            'address_line1' => '185 Berry St',
+            'address_line2' => 'Ste 6100',
+            'address_city' => 'San Francisco',
+            'address_state' => 'CA',
+            'address_country' => 'US',
+            'address_zip' => '94107',
+            'email' => 'larry@lob.com'
+        );
+    }
+
+    public function testCreate()
+    {
+        $address = $this->lob->addresses()->create($this->addressParams);
 
         $this->assertTrue(is_array($address));
         $this->assertTrue(array_key_exists('id', $address));
@@ -38,26 +39,26 @@ class AddressesTest extends \Lob\Tests\ResourceTest
 
     public function testDelete()
     {
-        $address = $this->resource->create(static::$validCreateData);
+        $address = $this->lob->addresses()->create($this->addressParams);
         $id = $address['id'];
-        $deleted = $this->resource->delete($id);
+        $deleted = $this->lob->addresses()->delete($id);
         $this->assertTrue(is_array($deleted));
     }
 
     public function testGet()
     {
-        $address = $this->resource->create(static::$validCreateData);
-        $id = $address['id'];
-        $getAddress = $this->resource->get($id);
+        $id = $this->lob->addresses()->create($this->addressParams)['id'];
+        $address = $this->lob->addresses()->get($id);
 
-        $this->assertTrue(is_array($getAddress));
-        $this->assertTrue(array_key_exists('id', $getAddress));
+        $this->assertTrue(is_array($address));
+        $this->assertTrue($address['id'] === $id);
     }
 
     public function testAll()
     {
-        $addresses = $this->resource->all();
+        $addresses = $this->lob->addresses()->all();
 
         $this->assertTrue(is_array($addresses));
     }
+
 }

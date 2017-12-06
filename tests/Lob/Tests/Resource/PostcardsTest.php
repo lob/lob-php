@@ -9,35 +9,49 @@
  * file that was distributed with this source code.
  */
 
-namespace Lob\Tests\Resource;
+use Lob\Lob;
+use PHPUnit\Framework\TestCase;
 
-use Lob\Tests\Resource\AddressesTest;
-
-class PostcardsTest extends \Lob\Tests\ResourceTest
+class PostcardsTest extends TestCase
 {
-    protected $resourceMethodName = 'postcards';
-    protected $respondsToDelete = false;
+    protected function setUp()
+    {
+        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->addressParams = array(
+            'name' => 'Larry Lobster',
+            'address_line1' => '185 Berry St',
+            'address_line2' => 'Ste 6100',
+            'address_city' => 'San Francisco',
+            'address_state' => 'CA',
+            'address_country' => 'US',
+            'address_zip' => '94107',
+            'email' => 'larry@lob.com'
+        );
+        $this->postcardParams = array(
+            'description' => 'Demo Postcard job',
+            'to' => $this->addressParams,
+            'from' => $this->addressParams,
+            'back' => '<h1>This an example back of the postcard</h1>',
+            'front' => 'https://lob.com/postcardfront.pdf'
+        );
+    }
+
+    public function testCreate()
+    {
+        $postcard = $this->lob->postcards()->create($this->postcardParams);
+
+        $this->assertTrue(is_array($postcard));
+        $this->assertTrue(array_key_exists('id', $postcard));
+    }
 
     public function testCreateIdempotent()
     {
         $testIdempotencyKey = uniqid();
-        $postcardOne = $this->resource->create(array(
-            'description' => 'Demo Postcard job', // Required
-            'to' => AddressesTest::$validCreateData,
-            'from' => AddressesTest::$validCreateData,
-            'back' => '<h1>This an example back of the postcard</h1>',
-            'front' => 'https://lob.com/postcardfront.pdf'
-        ), array(
+        $postcardOne = $this->lob->postcards()->create($this->postcardParams, array(
             'Idempotency-Key' => $testIdempotencyKey
         ));
 
-        $postcardTwo = $this->resource->create(array(
-            'description' => 'Demo Postcard job', // Required
-            'to' => AddressesTest::$validCreateData,
-            'from' => AddressesTest::$validCreateData,
-            'back' => '<h1>This an example back of the postcard</h1>',
-            'front' => 'https://lob.com/postcardfront.pdf'
-        ), array(
+        $postcardTwo = $this->lob->postcards()->create($this->postcardParams, array(
             'Idempotency-Key' => $testIdempotencyKey
         ));
 
@@ -46,10 +60,10 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
 
     public function testCreateWithBackFile()
     {
-        $postcard = $this->resource->create(array(
+        $postcard = $this->lob->postcards()->create(array(
             'description' => 'Demo Postcard job', // Required
-            'to' => AddressesTest::$validCreateData,
-            'from' => AddressesTest::$validCreateData,
+            'to' => $this->addressParams,
+            'from' => $this->addressParams,
             'front' => 'https://lob.com/postcardfront.pdf',
             'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/postcardfront.pdf')
         ));
@@ -60,17 +74,26 @@ class PostcardsTest extends \Lob\Tests\ResourceTest
 
     public function testDelete()
     {
-      $postcard = $this->resource->create(array(
-          'description' => 'Demo Postcard job', // Required
-          'to' => AddressesTest::$validCreateData,
-          'from' => AddressesTest::$validCreateData,
-          'back' => '<h1>This an example back of the postcard</h1>',
-          'front' => 'https://lob.com/postcardfront.pdf'
-      ));
-      $id = $postcard['id'];
-      $deleted = $this->resource->delete($id);
+        $postcard = $this->lob->postcards()->create($this->postcardParams);
+        $id = $postcard['id'];
+        $deleted = $this->lob->postcards()->delete($id);
 
-      $this->assertTrue(is_array($deleted));
+        $this->assertTrue(is_array($deleted));
+    }
+
+    public function testGet()
+    {
+        $id = $this->lob->postcards()->create($this->postcardParams)['id'];
+        $postcard = $this->lob->postcards()->get($id);
+
+        $this->assertTrue(is_array($postcard));
+        $this->assertTrue($postcard['id'] === $id);
+    }
+
+    public function testAll()
+    {
+        $postcards = $this->lob->postcards()->all();
+        $this->assertTrue(is_array($postcards));
     }
 
 }

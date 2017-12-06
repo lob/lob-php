@@ -9,24 +9,44 @@
  * file that was distributed with this source code.
  */
 
-namespace Lob\Tests\Resource;
+use Lob\Lob;
+use PHPUnit\Framework\TestCase;
 
-use Lob\Tests\Resource\AddressesTest;
-
-class LettersTest extends \Lob\Tests\ResourceTest
+class LettersTest extends TestCase
 {
-    protected $resourceMethodName = 'letters';
-    protected $respondsToDelete = false;
-
-    public function testCreate()
+    protected function setUp()
     {
-        $letter = $this->resource->create(array(
-            'to' => AddressesTest::$validCreateData,
-            'from' => AddressesTest::$validCreateData,
+        $addressParams = array(
+            'name' => 'Larry Lobster',
+            'address_line1' => '185 Berry St',
+            'address_line2' => 'Ste 6100',
+            'address_city' => 'San Francisco',
+            'address_state' => 'CA',
+            'address_country' => 'US',
+            'address_zip' => '94107',
+            'email' => 'larry@lob.com'
+        );
+
+        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->bwLetterParams = array(
+            'to' => $addressParams,
+            'from' => $addressParams,
             'description' => 'This an example message on back of the postcard',
             'file' => 'https://lob.com/goblue.pdf',
             'color' => FALSE
-          ));
+        );
+        $this->colorLetterParams = array(
+            'to' => $addressParams,
+            'from' => $addressParams,
+            'description' => 'This an example message on back of the postcard',
+            'file' => 'https://lob.com/goblue.pdf',
+            'color' => TRUE
+        );
+    }
+
+    public function testCreate()
+    {
+        $letter = $this->lob->letters()->create($this->bwLetterParams);
 
         $this->assertTrue(is_array($letter));
         $this->assertTrue(array_key_exists('id', $letter));
@@ -34,31 +54,33 @@ class LettersTest extends \Lob\Tests\ResourceTest
 
     public function testColorCreate()
     {
-        $letter = $this->resource->create(array(
-            'to' => AddressesTest::$validCreateData,
-            'from' => AddressesTest::$validCreateData,
-            'description' => 'This an example message on back of the postcard',
-            'file' => 'https://lob.com/goblue.pdf',
-            'color' => TRUE
-          ));
+        $letter = $this->lob->letters()->create($this->colorLetterParams);
 
         $this->assertTrue(is_array($letter));
         $this->assertTrue(array_key_exists('id', $letter));
     }
 
+    public function testGet()
+    {
+        $id = $this->lob->letters()->create($this->colorLetterParams)['id'];
+        $letter = $this->lob->letters()->get($id);
+
+        $this->assertTrue(is_array($letter));
+        $this->assertTrue($letter['id'] === $id);
+    }
+
     public function testDelete()
     {
-      $letter = $this->resource->create(array(
-          'to' => AddressesTest::$validCreateData,
-          'from' => AddressesTest::$validCreateData,
-          'description' => 'This an example message on back of the postcard',
-          'file' => 'https://lob.com/goblue.pdf',
-          'color' => FALSE
-        ));
-      $id = $letter['id'];
-      $deleted = $this->resource->delete($id);
+        $id = $this->lob->letters()->create($this->bwLetterParams)['id'];
+        $deleted = $this->lob->letters()->delete($id);
 
-      $this->assertTrue(is_array($deleted));
+        $this->assertTrue(is_array($deleted));
+    }
+
+    public function testAll()
+    {
+        $areas = $this->lob->areas()->all();
+        $this->assertTrue(is_array($areas));
     }
 
 }

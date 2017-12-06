@@ -140,11 +140,27 @@ There are simple scripts to demonstrate how to create all the core Lob objects (
 
 ## Testing
 
-Lob.com PHP Client uses PHPUnit for unit testing. In order to run the unit tests, you'll first need
-to install the dependencies of the project using Composer: `php composer.phar install --dev`.
-You can then run the tests using `vendor/bin/phpunit`.
+Lob.com PHP Client uses PHPUnit for unit testing.
 
-Make sure you provide a `test` API Key in your `phpunit.xml`.
+In order to run the unit tests, you'll first need to install the dependencies
+using Composer.
+
+```
+composer install --dev # For PHP 5.6
+composer install       # For PHP >= 7.0
+```
+
+Once the dependencies have been installed, the tests can be run with
+
+```
+php vendor/bin/phpunit
+```
+
+To get a code coverage report after running the test suite, run
+
+```
+php vendor/bin/coveralls -v
+```
 
 =======================
 

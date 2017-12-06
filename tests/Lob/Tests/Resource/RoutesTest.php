@@ -9,20 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Lob\Tests\Resource;
+use Lob\Lob;
+use PHPUnit\Framework\TestCase;
 
-class RoutesTest extends \Lob\Tests\ResourceTest
+class RoutesTest extends TestCase
 {
-    protected $resourceMethodName = 'routes';
-    protected $respondsToDelete = false;
-    protected $respondsToCreate = false;
-    protected $respondsToGet = false;
-    protected $respondsToAll = false;
-    protected $respondsToAllWithCountOffset = false;
+    protected function setUp()
+    {
+        $this->lob = new Lob(LOB_TEST_API_KEY);
+    }
 
     public function testAll()
     {
-        $routes = $this->resource->all(array(
+        $routes = $this->lob->routes()->all(array(
             'zip_codes' => '48168',
             'zip_codes' => '94158',
         ));
@@ -32,7 +31,7 @@ class RoutesTest extends \Lob\Tests\ResourceTest
 
     public function testGet()
     {
-        $route = $this->resource->get('94158-C002');
+        $route = $this->lob->routes()->get('94158-C002');
 
         $this->assertTrue(is_array($route));
     }
@@ -42,7 +41,7 @@ class RoutesTest extends \Lob\Tests\ResourceTest
     */
     public function testCreateFail()
     {
-      $create = $this->resource->create(array());
+        $create = $this->lob->routes()->create(array());
     }
 
     /**
@@ -50,7 +49,7 @@ class RoutesTest extends \Lob\Tests\ResourceTest
     */
     public function testDeleteFail()
     {
-        $create = $this->resource->delete('1');
+        $create = $this->lob->routes()->delete('1');
     }
 
 }
