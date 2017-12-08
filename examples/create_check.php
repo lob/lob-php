@@ -4,41 +4,41 @@ require '../vendor/autoload.php';
 $lob = new \Lob\Lob('test_7c5d111af5ccfedb9f0eea91745c93896a1');
 
 $from_address = $lob->addresses()->create(array(
-  'name' => 'Jane Doe',
-  'address_line1' => '123 Hello Ave',
-  'address_city'  => 'Providence',
-  'address_state' => 'RI',
+  'name' => 'Domenica Alioto',
+  'address_line1' => '2880 Broadway Street',
+  'address_city'  => 'San Francisco',
+  'address_state' => 'CA',
   'address_country' => 'US',
-  'address_zip' => '02912'
+  'address_zip' => '94115'
 ));
 
 $to_address = $lob->addresses()->create(array(
-  'name'          => 'The Big House',
-  'address_line1' => '1201 S Main St',
+  'name'          => 'Andrew Tiemeyer Freimuth',
+  'address_line1' => '1660 South golden circle',
   'address_line2' => '',
-  'address_city'  => 'Ann Arbor',
-  'address_state' => 'MI',
-  'address_zip'   => '48104',
-  'email'         => 'goblue@umich.edu',
-  'phone'         => '734-647-2583'
+  'address_city'  => 'Highridge',
+  'address_state' => 'MO',
+  'address_zip'   => '63049',
+  'email'         => 'nathliams@yahoo.com',
+  'phone'         => '605-655-8482'
 ));
 
 $bank_account = $lob->bankAccounts()->create(array(
-  'routing_number'    => '322271627',
-  'account_number'    => '123456789',
-  'account_type'      => 'company',
-  'signatory'         => 'John Doe'
+  'routing_number'    => '121000358',
+  'account_number'    => '0264306530',
+  'account_type'      => 'individual',
+  'signatory'         => 'Domenica S Alioto'
 ));
 
-$bank_verify = $lob->bankAccounts()->verify($bank_account['id'], array(23,34));
+$bank_verify = $lob->bankAccounts()->verify($bank_account['id'], array(05,52));
 
 $check = $lob->checks()->create(array(
-  'description'   => 'Season Tickets',
+  'description'   => '',
   'to'            => $to_address['id'],
   'from'          => $from_address['id'],
   'bank_account'  => $bank_account['id'],
-  'amount'        => 1000,
-  'memo'          => 'Season Tickets',
+  'amount'        => 920000,
+  'memo'          => '',
   'logo'          => 'https://s3-us-west-2.amazonaws.com/lob-assets/lob_check_logo.png'
 ));
 
