@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Lob.com PHP Client.
- *
- * (c) 2013 Lob.com, https://www.lob.com
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Lob\Tests;
 
 use InvalidArgumentException;
@@ -38,7 +29,7 @@ class LobTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->lob = new Lob('test_7c5d111af5ccfedb9f0eea91745c93896a1');
+        $this->lob = new Lob(LOB_TEST_API_KEY);
     }
 
     public function testVersionDefaultValueIsNull()
@@ -108,6 +99,18 @@ class LobTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException');
         $this->lob->setApiKey(null);
+    }
+
+    public function testSpecificApiVersion()
+    {
+      $lob = new Lob(LOB_TEST_API_KEY, "2017-11-08");
+      $this->assertEquals($lob->getVersion(), "2017-11-08");
+
+      $verification = $lob->usVerifications()->verify(array(
+          "primary_line" => "185 BERRY ST",
+          "zip_code" => "94107"
+      ));
+      $this->assertTrue(is_array($verification));
     }
 
 }

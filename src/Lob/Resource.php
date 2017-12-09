@@ -35,28 +35,19 @@ abstract class Resource implements ResourceInterface
         $this->client = new Client(array('base_uri' => 'https://api.lob.com'));
     }
 
-    public function all(array $query = array(), $includeMeta = false)
+    public function all(array $query = array())
     {
-        $all = $this->sendRequest(
+        return $this->sendRequest(
             'GET',
-            $this->lob->getVersion(),
-            $this->lob->getClientVersion(),
             $this->resourceName(),
             $query
         );
-        if ($includeMeta) {
-            return $all;
-        }
-
-        return $all['data'];
     }
 
     public function create(array $data, array $headers = null)
     {
         return $this->sendRequest(
             'POST',
-            $this->lob->getVersion(),
-            $this->lob->getClientVersion(),
             $this->resourceName(),
             array(),
             $data,
@@ -68,8 +59,6 @@ abstract class Resource implements ResourceInterface
     {
         return $this->sendRequest(
             'GET',
-            $this->lob->getVersion(),
-            $this->lob->getClientVersion(),
             $this->resourceName().'/'.strval($id)
         );
     }
@@ -78,8 +67,6 @@ abstract class Resource implements ResourceInterface
     {
         return $this->sendRequest(
             'DELETE',
-            $this->lob->getVersion(),
-            $this->lob->getClientVersion(),
             $this->resourceName().'/'.strval($id)
         );
     }
@@ -91,57 +78,41 @@ abstract class Resource implements ResourceInterface
         return array_pop($class);
     }
 
-    protected function sendRequest($method, $version, $clientVersion, $path, array $query = array(), array $body = null, array $headers = null)
+    protected function sendRequest($method, $path, array $query = array(), array $body = null, array $headers = null)
     {
         $path = $this->getPath($path, $query);
-        $options = $this->getOptions($version, $clientVersion, $body, $headers);
+        $options = $this->getOptions($body, $headers);
 
         try {
             $response = $this->client->request($method, $path, $options);
-            //@codeCoverageIgnoreStart
-            // There is no way to induce this error intentionally.
         } catch (ConnectException $e) {
+            // @codeCoverageIgnoreStart
             throw new NetworkErrorException($e->getMessage());
-            //@codeCoverageIgnoreEnd
+            // @codeCoverageIgnoreEnd
         } catch (GuzzleException $e) {
             $responseErrorBody = strval($e->getResponse()->getBody());
             $errorMessage = $this->errorMessageFromJsonBody($responseErrorBody);
             $statusCode = $e->getResponse()->getStatusCode();
 
-            if ($statusCode === 401)
+            if ($statusCode === 401 || $statusCode === 403)
                 throw new AuthorizationException('Unauthorized', 401);
-
-            if ($statusCode === 403)
-                throw new AuthorizationException($errorMessage, 403);
-
-            if ($method == 'GET' && ($statusCode === 404 || $statusCode === 422))
-                throw new ResourceNotFoundException($errorMessage, 404);
-
-            if ($method == 'POST' && $statusCode === 404)
-                throw new ResourceNotFoundException($errorMessage, 404);
 
             if ($statusCode === 422)
                 throw new ValidationException($errorMessage, 422);
 
             // @codeCoverageIgnoreStart
-            // must induce serverside error to test this, so not testable
+            throw new NetworkErrorException($e->getMessage());
             if ($statusCode === 429)
                 throw new RateLimitException($errorMessage, 429);
-            // @codeCoverageIgnoreEnd
 
-            // @codeCoverageIgnoreStart
-            // must induce serverside error to test this, so not testable
             if ($statusCode >= 500)
                 throw new InternalErrorException($errorMessage, $statusCode);
-            // @codeCoverageIgnoreEnd
 
-            // @codeCoverageIgnoreStart
-            // not possible to test this code because we don't return other status codes
             throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
         } catch (Exception $e) {
             throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
-        }
             // @codeCoverageIgnoreEnd
+        }
 
         return json_decode($response->getBody(), true);
     }
@@ -156,12 +127,12 @@ abstract class Resource implements ResourceInterface
         return $path.$queryString;
     }
 
-    protected function getOptions($version, $clientVersion, array $body = null, array $headers = null)
+    protected function getOptions(array $body = null, array $headers = null)
     {
         $options = array(
             'headers' => array(
                 'Accept' => 'application/json; charset=utf-8',
-                'User-Agent' => 'Lob/v1 PhpBindings/' . $clientVersion,
+                'User-Agent' => 'Lob/v1 PhpBindings/' . $this->lob->getClientVersion(),
             ),
             'auth' => array($this->lob->getApiKey(), '')
         );
@@ -170,8 +141,8 @@ abstract class Resource implements ResourceInterface
             $options['headers'] = array_merge($options['headers'], $headers);
         }
 
-        if ($version) {
-            $options['headers']['Lob-Version'] = $version;
+        if ($this->lob->getVersion()) {
+            $options['headers']['Lob-Version'] = $this->lob->getVersion();
         }
 
         if (!$body) {
