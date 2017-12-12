@@ -16,6 +16,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ConnectException;
 use Lob\Exception\AuthorizationException;
+use Lob\Exception\ForbiddenException;
 use Lob\Exception\InternalErrorException;
 use Lob\Exception\NetworkErrorException;
 use Lob\Exception\ResourceNotFoundException;
@@ -94,14 +95,16 @@ abstract class Resource implements ResourceInterface
             $errorMessage = $this->errorMessageFromJsonBody($responseErrorBody);
             $statusCode = $e->getResponse()->getStatusCode();
 
-            if ($statusCode === 401 || $statusCode === 403)
+            if ($statusCode === 401)
                 throw new AuthorizationException('Unauthorized', 401);
+
+            if ($statusCode === 403)
+                throw new ForbiddenException('Forbidden', 403);
 
             if ($statusCode === 422)
                 throw new ValidationException($errorMessage, 422);
 
             // @codeCoverageIgnoreStart
-            throw new NetworkErrorException($e->getMessage());
             if ($statusCode === 429)
                 throw new RateLimitException($errorMessage, 429);
 
@@ -141,8 +144,8 @@ abstract class Resource implements ResourceInterface
             $options['headers'] = array_merge($options['headers'], $headers);
         }
 
-        if ($this->lob->getVersion()) {
-            $options['headers']['Lob-Version'] = $this->lob->getVersion();
+        if ($version = $this->lob->getVersion()) {
+            $options['headers']['Lob-Version'] = $version;
         }
 
         if (!$body) {

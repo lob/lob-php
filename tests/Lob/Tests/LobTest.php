@@ -87,7 +87,7 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->lob->usZipLookups() instanceof USZipLookups);
     }
 
-    public function testSetApiKeyMethodSetsApiKey()
+    public function testSetApiKey()
     {
         $oldApiKey = $this->lob->getApiKey();
         $this->lob->setApiKey("hello world");
@@ -95,10 +95,24 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->lob->setApiKey($oldApiKey);
     }
 
-    public function testSetApiKeyMethodWithBadApiKey()
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testSetNullApiKey()
     {
-        $this->setExpectedException('InvalidArgumentException');
         $this->lob->setApiKey(null);
+    }
+
+    /**
+     * @expectedException Lob\Exception\AuthorizationException
+     */
+    public function testInvalidApiKey()
+    {
+        $lob = new Lob("bad_api_key");
+        $lob->usVerifications()->verify(array(
+            "primary_line" => "185 BERRY ST",
+            "zip_code" => "94107"
+        ));
     }
 
     public function testSpecificApiVersion()

@@ -18,7 +18,7 @@ class IntlVerificationsTest extends TestCase
     }
 
     /**
-     * @expectedException Lob\Exception\AuthorizationException
+     * @expectedException Lob\Exception\ForbiddenException
      */
     public function testVerify()
     {
