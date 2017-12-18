@@ -13,8 +13,6 @@ class BankAccounts extends ResourceBase
   function verify($id, $amounts) {
     return $this->sendRequest(
         'POST',
-        $this->lob->getVersion(),
-        $this->lob->getClientVersion(),
         $this->resourceName().'/'.strval($id).'/verify',
         array(),
         array(
