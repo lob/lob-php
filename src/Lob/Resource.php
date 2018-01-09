@@ -30,6 +30,8 @@ abstract class Resource implements ResourceInterface
 
     protected $client;
 
+    private static $file_parameters = array('front', 'back', 'file', 'check_bottom', 'attachment');
+
     public function __construct(Lob $lob)
     {
         $this->lob = $lob;
@@ -170,7 +172,7 @@ abstract class Resource implements ResourceInterface
                 'contents' => $value
             );
 
-            if ((is_string($value) && strpos($value, '@') === 0)) {
+            if (in_array($key, self::$file_parameters) && (is_string($value) && strpos($value, '@') === 0)) {
                 $element['contents'] = fopen(substr($value, 1), 'r');
             }
 
