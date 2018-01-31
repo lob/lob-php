@@ -93,6 +93,10 @@ abstract class Resource implements ResourceInterface
             throw new NetworkErrorException($e->getMessage());
             // @codeCoverageIgnoreEnd
         } catch (GuzzleException $e) {
+            if (!$e->hasResponse()) {
+                throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
+            }
+            
             $responseErrorBody = strval($e->getResponse()->getBody());
             $errorMessage = $this->errorMessageFromJsonBody($responseErrorBody);
             $statusCode = $e->getResponse()->getStatusCode();
