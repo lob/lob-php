@@ -119,12 +119,6 @@ class LobTest extends \PHPUnit_Framework_TestCase
     {
       $lob = new Lob(LOB_TEST_API_KEY, "2017-11-08");
       $this->assertEquals($lob->getVersion(), "2017-11-08");
-
-      $verification = $lob->usVerifications()->verify(array(
-          "primary_line" => "185 BERRY ST",
-          "zip_code" => "94107"
-      ));
-      $this->assertTrue(is_array($verification));
     }
 
 }
