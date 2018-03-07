@@ -7,12 +7,12 @@ use BadMethodCallException;
 
 class USVerifications extends ResourceBase
 {
-    public function verify(array $data)
+    public function verify(array $data, array $query = array())
     {
         return $this->sendRequest(
             'POST',
             'us_verifications',
-            array(),
+            $query,
             $data
         );
     }
