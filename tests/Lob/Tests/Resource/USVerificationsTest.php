@@ -25,6 +25,18 @@ class USVerificationsTest extends TestCase
         $this->assertTrue(array_key_exists('id', $verifiedAddress));
     }
 
+    public function testVerifyCustomCase()
+    {
+        $query = array(
+          'case' => 'proper'
+        );
+
+        $verifiedAddress = $this->lob->usVerifications()->verify($this->usAddress, $query);
+
+        $this->assertTrue(is_array($verifiedAddress));
+        $this->assertTrue(array_key_exists('id', $verifiedAddress));
+    }
+
     /**
      * @expectedException Lob\Exception\ValidationException
      */
