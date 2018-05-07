@@ -24,7 +24,7 @@ use Lob\Exception\UnexpectedErrorException;
 use Lob\Exception\ValidationException;
 use Lob\Exception\RateLimitException;
 
-abstract class Resource implements ResourceInterface
+abstract class LobResource implements ResourceInterface
 {
     protected $lob;
 
@@ -96,7 +96,7 @@ abstract class Resource implements ResourceInterface
             if (!$e->hasResponse()) {
                 throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
             }
-            
+
             $responseErrorBody = strval($e->getResponse()->getBody());
             $errorMessage = $this->errorMessageFromJsonBody($responseErrorBody);
             $statusCode = $e->getResponse()->getStatusCode();

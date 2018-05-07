@@ -2,8 +2,8 @@
 
 namespace Lob\Resource;
 
+use Lob\LobResource as ResourceBase;
 use BadMethodCallException;
-use Lob\Resource as ResourceBase;
 
 class Routes extends ResourceBase
 {

@@ -2,7 +2,7 @@
 
 namespace Lob\Resource;
 
-use Lob\Resource as ResourceBase;
+use Lob\LobResource as ResourceBase;
 
 class Checks extends ResourceBase
 {

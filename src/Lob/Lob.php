@@ -4,7 +4,7 @@ namespace Lob;
 
 use InvalidArgumentException;
 use BadMethodCallException;
-use Lob\Resource;
+use Lob\LobResource;
 use Lob\Resource\Addresses;
 use Lob\Resource\Areas;
 use Lob\Resource\BankAccounts;
