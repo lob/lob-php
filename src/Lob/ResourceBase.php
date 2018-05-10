@@ -24,7 +24,7 @@ use Lob\Exception\UnexpectedErrorException;
 use Lob\Exception\ValidationException;
 use Lob\Exception\RateLimitException;
 
-abstract class LobResource implements ResourceInterface
+abstract class ResourceBase implements ResourceInterface
 {
     protected $lob;
 

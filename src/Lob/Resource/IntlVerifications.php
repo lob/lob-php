@@ -2,7 +2,7 @@
 
 namespace Lob\Resource;
 
-use Lob\LobResource as ResourceBase;
+use Lob\ResourceBase;
 use BadMethodCallException;
 
 class IntlVerifications extends ResourceBase
