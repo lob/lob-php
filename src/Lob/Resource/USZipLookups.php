@@ -2,7 +2,7 @@
 
 namespace Lob\Resource;
 
-use Lob\Resource as ResourceBase;
+use Lob\ResourceBase;
 use BadMethodCallException;
 
 class USZipLookups extends ResourceBase

@@ -2,8 +2,8 @@
 
 namespace Lob\Resource;
 
+use Lob\ResourceBase;
 use BadMethodCallException;
-use Lob\Resource as ResourceBase;
 
 class Areas extends ResourceBase
 {
