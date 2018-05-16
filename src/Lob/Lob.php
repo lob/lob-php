@@ -13,6 +13,7 @@ use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
 use Lob\Resource\Routes;
+use Lob\Resource\USAutocompletions;
 use Lob\Resource\USVerifications;
 use Lob\Resource\USZipLookups;
 
@@ -94,6 +95,11 @@ class Lob
     public function routes()
     {
         return new Routes($this);
+    }
+
+    public function usAutocompletions()
+    {
+        return new USAutocompletions($this);
     }
 
     public function usVerifications()
