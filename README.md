@@ -89,6 +89,10 @@ There are simple scripts to demonstrate how to create all the core Lob objects (
     - [Verify a US Address](https://lob.com/docs/php#us_verifications_create)
     - [The US ZIP Lookup Object](https://lob.com/docs/php#us_zip_lookups_object)
     - [Lookup a US ZIP Code](https://lob.com/docs/php#us_zip_lookups_create)
+  - [US Autocompletion API](https://lob.com/docs/php#us_autocompletions)
+    - [The US Autocompletion Object](https://lob.com/docs/php#us_autocompletions_object)
+    - [Autocomplete a US Address](https://lob.com/docs/php#us_autocompletions_create)
+    - [The US Autocompletion Test Environment](https://lob.com/docs/php#us-autocompletions-test-environment)
 - **Int'l Verification API**
   - [International Verifications](https://lob.com/docs/php#intl_verifications)
     - [Verify an International Address](https://lob.com/docs/php#intl_verifications_create)
