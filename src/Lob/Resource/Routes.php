@@ -7,7 +7,7 @@ use BadMethodCallException;
 
 class Routes extends ResourceBase
 {
-    public function create(array $data)
+    public function create(array $data, array $headers = null)
     {
         throw new BadMethodCallException(__CLASS__.'::'.__FUNCTION__.'() is not supported.');
     }
