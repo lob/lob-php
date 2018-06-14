@@ -22,7 +22,7 @@ class USZipLookups extends ResourceBase
         throw new BadMethodCallException(__CLASS__.'::'.__FUNCTION__.'() is not supported.');
     }
 
-    public function create(array $data)
+    public function create(array $data, array $headers = null)
     {
         throw new BadMethodCallException(__CLASS__.'::'.__FUNCTION__.'() is not supported.');
     }
