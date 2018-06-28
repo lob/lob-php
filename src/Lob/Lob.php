@@ -6,13 +6,11 @@ use InvalidArgumentException;
 use BadMethodCallException;
 use Lob\ResourceBase;
 use Lob\Resource\Addresses;
-use Lob\Resource\Areas;
 use Lob\Resource\BankAccounts;
 use Lob\Resource\Checks;
 use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
-use Lob\Resource\Routes;
 use Lob\Resource\USAutocompletions;
 use Lob\Resource\USVerifications;
 use Lob\Resource\USZipLookups;
@@ -62,11 +60,6 @@ class Lob
         return new Addresses($this);
     }
 
-    public function areas()
-    {
-        return new Areas($this);
-    }
-
     public function bankAccounts()
     {
       return new BankAccounts($this);
@@ -90,11 +83,6 @@ class Lob
     public function postcards()
     {
         return new Postcards($this);
-    }
-
-    public function routes()
-    {
-        return new Routes($this);
     }
 
     public function usAutocompletions()
