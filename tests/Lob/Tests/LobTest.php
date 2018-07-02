@@ -5,13 +5,11 @@ namespace Lob\Tests;
 use InvalidArgumentException;
 use Lob\Lob;
 use Lob\Resource\Addresses;
-use Lob\Resource\Areas;
 use Lob\Resource\BankAccounts;
 use Lob\Resource\Checks;
 use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
-use Lob\Resource\Routes;
 use Lob\Resource\USVerifications;
 use Lob\Resource\USZipLookups;
 
@@ -42,11 +40,6 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->lob->addresses() instanceof Addresses);
     }
 
-    public function testAreasMethod()
-    {
-        $this->assertTrue($this->lob->areas() instanceof Areas);
-    }
-
     public function testBankAccountsMethod()
     {
         $this->assertTrue($this->lob->bankAccounts() instanceof BankAccounts);
@@ -70,11 +63,6 @@ class LobTest extends \PHPUnit_Framework_TestCase
     public function testPostcardsMethod()
     {
         $this->assertTrue($this->lob->postcards() instanceof Postcards);
-    }
-
-    public function testRoutesMethod()
-    {
-        $this->assertTrue($this->lob->routes() instanceof Routes);
     }
 
     public function testUSVerificationsMethod()

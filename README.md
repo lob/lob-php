@@ -21,7 +21,6 @@ Here's a general overview of the Lob services available, click through to read m
 - [Postcards API](https://lob.com/services/postcards)
 - [Letters API](https://lob.com/services/letters)
 - [Checks API](https://lob.com/services/checks)
-- [Area Mail API](https://lob.com/services/area)
 - [Address Verification API](https://lob.com/services/verifications)
 
 Please read through the official [API Documentation](#api-documentation) to get a complete sense of what to expect from each endpoint.
@@ -124,16 +123,6 @@ There are simple scripts to demonstrate how to create all the core Lob objects (
     - [Delete a Bank Account](https://lob.com/docs/php#bankaccounts_delete)
     - [Verify a Bank Account](https://lob.com/docs/php#bankaccounts_verify)
     - [List all Bank Accounts](https://lob.com/docs/php#bankaccounts_list)
-- **Area Mail API**
-  - [Areas](https://lob.com/docs/php#areas)
-    - [The Area Object](https://lob.com/docs/php#areas_object)
-    - [Create an Area Mailing](https://lob.com/docs/php#areas_create)
-    - [Retrieve an Area Mailing](https://lob.com/docs/php#areas_retrieve)
-    - [List all Area Mailings](https://lob.com/docs/php#areas_list)
-  - [Routes](https://lob.com/docs/php#routes)
-    - [The Routes Object](https://lob.com/docs/php#routes_object)
-    - [Retrieve Routes](https://lob.com/docs/php#routes_retrieve)
-    - [List all Routes](https://lob.com/docs/php#routes_list)
 - **Appendix**
   - [API Changelog](https://lob.com/docs/php#changelog)
   - [The Tracking Event Object](https://lob.com/docs/php#tracking_event_object)

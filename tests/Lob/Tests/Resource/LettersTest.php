@@ -68,10 +68,4 @@ class LettersTest extends TestCase
         $this->assertTrue(is_array($deleted));
     }
 
-    public function testAll()
-    {
-        $areas = $this->lob->areas()->all();
-        $this->assertTrue(is_array($areas));
-    }
-
 }

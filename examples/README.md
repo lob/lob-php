@@ -46,8 +46,3 @@ php create_letter.php
 ```
 php create_postcard.php
 ```
-
-### Create simple area mail
-```
-php create_sam.php
-```
