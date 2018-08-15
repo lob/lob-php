@@ -102,10 +102,10 @@ abstract class ResourceBase implements ResourceInterface
             $statusCode = $e->getResponse()->getStatusCode();
 
             if ($statusCode === 401)
-                throw new AuthorizationException('Unauthorized', 401);
+                throw new AuthorizationException($errorMessage, 401);
 
             if ($statusCode === 403)
-                throw new ForbiddenException('Forbidden', 403);
+                throw new ForbiddenException($errorMessage, 403);
 
             if ($statusCode === 422)
                 throw new ValidationException($errorMessage, 422);
