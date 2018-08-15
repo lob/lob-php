@@ -157,6 +157,6 @@ php vendor/bin/coveralls -v
 
 =======================
 
-Copyright &copy; 2016 Lob.com
+Copyright &copy; 2018 Lob.com
 
 Released under the MIT License, which can be found in the repository in `LICENSE.txt`.
