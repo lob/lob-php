@@ -2,6 +2,6 @@
 
 namespace Lob\Exception;
 
-use Exception;
+use Lob\Exception\LobException;
 
-class AuthorizationException extends Exception { }
+class AuthorizationException extends LobException { }

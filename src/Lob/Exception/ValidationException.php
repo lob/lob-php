@@ -2,6 +2,6 @@
 
 namespace Lob\Exception;
 
-use Exception;
+use Lob\Exception\LobException;
 
-class ValidationException extends Exception { }
+class ValidationException extends LobException { }

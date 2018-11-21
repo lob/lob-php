@@ -2,6 +2,6 @@
 
 namespace Lob\Exception;
 
-use Exception;
+use Lob\Exception\LobException;
 
-class ForbiddenException extends Exception { }
+class ForbiddenException extends LobException { }

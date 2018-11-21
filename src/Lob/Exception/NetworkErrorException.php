@@ -2,6 +2,6 @@
 
 namespace Lob\Exception;
 
-use Exception;
+use Lob\Exception\LobException;
 
-class NetworkErrorException extends Exception { }
+class NetworkErrorException extends LobException { }
