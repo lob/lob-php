@@ -2,6 +2,6 @@
 
 namespace Lob\Exception;
 
-use Exception;
+use Lob\Exception\LobException;
 
-class RateLimitException extends Exception { }
+class RateLimitException extends LobException { }

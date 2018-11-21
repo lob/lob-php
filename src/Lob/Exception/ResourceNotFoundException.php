@@ -2,6 +2,6 @@
 
 namespace Lob\Exception;
 
-use Exception;
+use Lob\Exception\LobException;
 
-class ResourceNotFoundException extends Exception { }
+class ResourceNotFoundException extends LobException { }
