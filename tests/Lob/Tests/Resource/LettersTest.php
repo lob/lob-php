@@ -23,14 +23,14 @@ class LettersTest extends TestCase
             'to' => $addressParams,
             'from' => $addressParams,
             'description' => 'This an example message on back of the postcard',
-            'file' => 'https://lob.com/goblue.pdf',
+            'file' => 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/us_letter_1pg.pdf',
             'color' => FALSE
         );
         $this->colorLetterParams = array(
             'to' => $addressParams,
             'from' => $addressParams,
             'description' => 'This an example message on back of the postcard',
-            'file' => 'https://lob.com/goblue.pdf',
+            'file' => 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/us_letter_1pg.pdf',
             'color' => TRUE
         );
     }

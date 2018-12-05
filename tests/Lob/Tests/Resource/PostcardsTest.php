@@ -23,7 +23,7 @@ class PostcardsTest extends TestCase
             'to' => $this->addressParams,
             'from' => $this->addressParams,
             'back' => '<h1>This an example back of the postcard</h1>',
-            'front' => 'https://lob.com/postcardfront.pdf'
+            'front' => 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/pc_4x6_front.pdf'
         );
     }
 
@@ -55,7 +55,7 @@ class PostcardsTest extends TestCase
             'description' => 'Demo Postcard job', // Required
             'to' => $this->addressParams,
             'from' => $this->addressParams,
-            'front' => 'https://lob.com/postcardfront.pdf',
+            'front' => 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/pc_4x6_front.pdf',
             'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/postcardfront.pdf')
         ));
 

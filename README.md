@@ -1,6 +1,6 @@
 # lob-php
 
-[![PHP version](https://badge.fury.io/ph/lob%2Flob-php.svg)](http://badge.fury.io/ph/lob%2Flob-php)
+[![PHP version](https://badge.fury.io/ph/lob%2Flob-php.svg)](https://badge.fury.io/ph/lob%2Flob-php)
 [![Build Status](https://travis-ci.org/lob/lob-php.svg?branch=master)](https://travis-ci.org/lob/lob-php)
 [![Coverage Status](https://img.shields.io/coveralls/lob/lob-php.svg)](https://coveralls.io/r/lob/lob-php?branch=master)
 
@@ -35,7 +35,7 @@ Once you have created an account, you can access your API Keys from the [Setting
 
 ### Installation
 
-The recommended way to install Lob.com PHP Client is through [Composer](http://getcomposer.org).
+The recommended way to install Lob.com PHP Client is through [Composer](https://getcomposer.org).
 
 ```bash
 // Install Composer
