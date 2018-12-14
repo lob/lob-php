@@ -106,6 +106,9 @@ abstract class ResourceBase implements ResourceInterface
 
             if ($statusCode === 403)
                 throw new ForbiddenException($errorMessage, 403);
+            
+            if ($statusCode === 404)
+                throw new ResourceNotFoundException($errorMessage, 404);
 
             if ($statusCode === 422)
                 throw new ValidationException($errorMessage, 422);
