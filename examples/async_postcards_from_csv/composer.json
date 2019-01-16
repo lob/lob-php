@@ -1,0 +1,9 @@
+{
+    "name": "lob/async_postcards_from_csv",
+    "type": "project",
+    "require": {
+        "lob/lob-php": "^3.0",
+        "amphp/parallel": "^1.1",
+        "amphp/parallel-functions": "^0.1.3"
+    }
+}
