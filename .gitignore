@@ -1,7 +1,7 @@
 # Composer
 /vendor/
 composer.phar
-composer.lock
+/composer.lock
 composer-test.lock
 composer-setup.php
 
@@ -31,3 +31,4 @@ project
 *.sublime-project
 .idea
 *.idea/*
+vendor
