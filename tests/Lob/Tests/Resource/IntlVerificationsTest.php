@@ -17,12 +17,12 @@ class IntlVerificationsTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException Lob\Exception\ForbiddenException
-     */
     public function testVerify()
     {
-        $this->lob->intlVerifications()->verify($this->intlAddress);
+        $verifiedAddress = $this->lob->intlVerifications()->verify($this->intlAddress);
+
+        $this->assertTrue(is_array($verifiedAddress));
+        $this->assertTrue(array_key_exists('id', $verifiedAddress));
     }
 
     /**
