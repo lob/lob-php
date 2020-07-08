@@ -36,6 +36,26 @@ class ChecksTest extends TestCase
             'amount'                => '2200',
             'memo'                  => 'rent'
         );
+        $this->mergeVariableBooleanCheckParams = array(
+            'description'           => 'Check with merge variable boolean',
+            'to[name]'              => 'Kobe Bean',
+            'to[address_line1]'     => '123 Test Street',
+            'to[address_city]'      => 'Mountain View',
+            'to[address_state]'     => 'CA',
+            'to[address_zip]'       => '94041',
+            'to[address_country]'   => 'US',
+            'from[name]'            => 'Dwyane Wade',
+            'from[address_line1]'   => '123 Hello Ave',
+            'from[address_city]'    => 'Providence',
+            'from[address_state]'   => 'RI',
+            'from[address_zip]'     => '02912',
+            'from[address_country]' => 'US',
+            'bank_account'          => $this->bankAccount['id'],
+            'amount'                => '2200',
+            'memo'                  => 'rent',
+            'attachment'            => '<html>{{#is_awesome}}You are awesome!{{/is_awesome}}</html>',
+            'merge_variables'       => array('is_awesome' => TRUE)
+        );
     }
 
     public function testCreate()
@@ -44,6 +64,15 @@ class ChecksTest extends TestCase
 
         $this->assertTrue(is_array($check));
         $this->assertTrue(array_key_exists('id', $check));
+    }
+
+    public function testCreateWithMergeVariableBoolean()
+    {
+        $check = $this->lob->checks()->create($this->mergeVariableBooleanCheckParams);
+
+        $this->assertTrue(is_array($check));
+        $this->assertTrue(array_key_exists('id', $check));
+        $this->assertTrue($check['merge_variables']['is_awesome']);
     }
 
     public function testGet()

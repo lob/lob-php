@@ -33,6 +33,18 @@ class LettersTest extends TestCase
             'file' => 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/us_letter_1pg.pdf',
             'color' => TRUE
         );
+        $this->mergeVariableObjectLetterParams = array(
+            'to' => $addressParams,
+            'from' => $addressParams,
+            'description' => 'Letter with merge variable object',
+            'file' => '<html>{{data.name}}</html>',
+            'color' => TRUE,
+            'merge_variables' => array(
+                'data' => array(
+                    'name' => 'Kobe'
+                )
+            )
+        );
     }
 
     public function testCreate()
@@ -49,6 +61,15 @@ class LettersTest extends TestCase
 
         $this->assertTrue(is_array($letter));
         $this->assertTrue(array_key_exists('id', $letter));
+    }
+
+    public function testCreateWithMergeVariableObject()
+    {
+        $letter = $this->lob->letters()->create($this->mergeVariableObjectLetterParams);
+
+        $this->assertTrue(is_array($letter));
+        $this->assertTrue(array_key_exists('id', $letter));
+        $this->assertTrue($letter['merge_variables']['data']['name'] === 'Kobe');
     }
 
     public function testGet()

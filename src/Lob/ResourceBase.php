@@ -49,6 +49,9 @@ abstract class ResourceBase implements ResourceInterface
 
     public function create(array $data, array $headers = null)
     {
+        if (array_key_exists('merge_variables', $data))
+            $data['merge_variables'] = json_encode($data['merge_variables']);
+
         return $this->sendRequest(
             'POST',
             $this->resourceName(),
@@ -106,7 +109,7 @@ abstract class ResourceBase implements ResourceInterface
 
             if ($statusCode === 403)
                 throw new ForbiddenException($errorMessage, 403);
-            
+
             if ($statusCode === 404)
                 throw new ResourceNotFoundException($errorMessage, 404);
 

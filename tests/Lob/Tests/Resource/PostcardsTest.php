@@ -25,6 +25,23 @@ class PostcardsTest extends TestCase
             'back' => '<h1>This an example back of the postcard</h1>',
             'front' => 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/pc_4x6_front.pdf'
         );
+        $this->mergeVariableListPostcardParams = array(
+            'description' => 'Postcard with merge variable list',
+            'to' => $this->addressParams,
+            'from' => $this->addressParams,
+            'front' => '<html>{{#list}} {{name}} {{/list}}</html>',
+            'back' => '<h1>This an example back of the postcard</h1>',
+            'merge_variables' => array(
+                'list' => array(
+                    array(
+                        'name' => 'Larissa'
+                    ),
+                    array(
+                        'name' => 'Larry'
+                    )
+                )
+            )
+        );
     }
 
     public function testCreate()
@@ -33,6 +50,16 @@ class PostcardsTest extends TestCase
 
         $this->assertTrue(is_array($postcard));
         $this->assertTrue(array_key_exists('id', $postcard));
+    }
+
+    public function testCreateWithMergeVariableList()
+    {
+        $postcard = $this->lob->postcards()->create($this->mergeVariableListPostcardParams);
+
+        $this->assertTrue(is_array($postcard));
+        $this->assertTrue(array_key_exists('id', $postcard));
+        $this->assertTrue($postcard['merge_variables']['list'][0]['name'] === 'Larissa');
+        $this->assertTrue($postcard['merge_variables']['list'][1]['name'] === 'Larry');
     }
 
     public function testCreateIdempotent()
