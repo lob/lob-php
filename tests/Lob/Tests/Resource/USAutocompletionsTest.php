@@ -24,14 +24,6 @@ class USAutocompletionsTest extends TestCase
     }
 
     /**
-     * @expectedException Lob\Exception\ValidationException
-     */
-    public function testUnprocessibleEntity()
-    {
-        $this->lob->usAutocompletions()->autocomplete(array());
-    }
-
-    /**
     * @expectedException BadMethodCallException
     */
     public function testGet()
