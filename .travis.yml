@@ -11,7 +11,7 @@ before_install:
   - composer selfupdate
   - composer install
 script:
-  - php vendor/bin/phpunit
+  - XDEBUG_MODE=coverage php vendor/bin/phpunit
 after_script:
   - php vendor/bin/coveralls
 notifications:
