@@ -3,7 +3,7 @@ require '../vendor/autoload.php';
 
 $file = file_get_contents('html/card.html');
 
-$lob = new \Lob\Lob('test_7c5d111af5ccfedb9f0eea91745c93896a1');
+$lob = new \Lob\Lob(getenv('LOB_API_KEY'));
 
 $to_address = $lob->addresses()->create(array(
   'name'          => 'Lob.com',

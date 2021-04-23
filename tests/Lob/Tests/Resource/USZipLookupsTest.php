@@ -7,7 +7,7 @@ class USZipLookupsTest extends TestCase
 {
     protected function setUp()
     {
-        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->usZip = array(
             'zip_code' => '94107'
         );

@@ -7,7 +7,7 @@ class PostcardsTest extends TestCase
 {
     protected function setUp()
     {
-        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->addressParams = array(
             'name' => 'Larry Lobster',
             'address_line1' => '185 Berry St',
