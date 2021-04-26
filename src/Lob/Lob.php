@@ -3,14 +3,13 @@
 namespace Lob;
 
 use InvalidArgumentException;
-use BadMethodCallException;
-use Lob\ResourceBase;
 use Lob\Resource\Addresses;
 use Lob\Resource\BankAccounts;
 use Lob\Resource\Checks;
 use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
+use Lob\Resource\SelfMailers;
 use Lob\Resource\USAutocompletions;
 use Lob\Resource\USVerifications;
 use Lob\Resource\USZipLookups;
@@ -83,6 +82,11 @@ class Lob
     public function postcards()
     {
         return new Postcards($this);
+    }
+
+    public function selfMailers()
+    {
+        return new SelfMailers($this);
     }
 
     public function usAutocompletions()

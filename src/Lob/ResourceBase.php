@@ -30,7 +30,7 @@ abstract class ResourceBase implements ResourceInterface
 
     protected $client;
 
-    private static $file_parameters = array('front', 'back', 'file', 'check_bottom', 'attachment');
+    private static $file_parameters = array('front', 'back', 'file', 'check_bottom', 'attachment', 'inside', 'outside');
 
     public function __construct(Lob $lob)
     {
