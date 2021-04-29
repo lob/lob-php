@@ -125,6 +125,13 @@ There are simple scripts to demonstrate how to create all the core Lob objects (
     - [Delete a Bank Account](https://lob.com/docs/php#bankaccounts_delete)
     - [Verify a Bank Account](https://lob.com/docs/php#bankaccounts_verify)
     - [List all Bank Accounts](https://lob.com/docs/php#bankaccounts_list)
+- **Self Mailers API**
+  - [Self Mailers](https://lob.com/docs/php#self_mailers)
+    - [The Postcard Object](https://lob.com/docs/php#self_mailers_object)
+    - [Create a Postcard](https://lob.com/docs/php#self_mailers_create)
+    - [Retrieve a Postcard](https://lob.com/docs/php#self_mailers_retrieve)
+    - [Cancel a Postcard](https://lob.com/docs/php#self_mailers_delete)
+    - [List all Self Mailers](https://lob.com/docs/php#self_mailers_list)
 - **Appendix**
   - [API Changelog](https://lob.com/docs/php#changelog)
   - [The Tracking Event Object](https://lob.com/docs/php#tracking_event_object)
