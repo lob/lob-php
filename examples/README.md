@@ -18,7 +18,7 @@ In order to run the program enter:
 
 ```
 cd create_postcards_from_csv/
-php create_postcards_from_csv.php input.csv
+LOB_API_KEY=<YOUR_API_KEY_HERE> php create_postcards_from_csv.php input.csv
 ```
 
 ### Verify US addresses from CSV
@@ -29,20 +29,20 @@ Please note that if you are running this with a Test API Key, the verification A
 
 ```
 cd verify_addresses_from_csv/
-php verify.php input.csv
+LOB_API_KEY=<YOUR_API_KEY_HERE> php verify.php input.csv
 ```
 
 ### Create a check
 ```
-php create_check.php
+LOB_API_KEY=<YOUR_API_KEY_HERE> php create_check.php
 ```
 
 ### Create a letter
 ```
-php create_letter.php
+LOB_API_KEY=<YOUR_API_KEY_HERE> php create_letter.php
 ```
 
 ### Create a postcard
 ```
-php create_postcard.php
+LOB_API_KEY=<YOUR_API_KEY_HERE> php create_postcard.php
 ```

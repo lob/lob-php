@@ -7,7 +7,7 @@ class USAutocompletionsTest extends TestCase
 {
     protected function setUp()
     {
-        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->payload = array(
             'address_prefix' => '185 BER',
             'city' => 'SAN FRANCISCO',

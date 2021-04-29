@@ -9,10 +9,6 @@
          convertWarningsToExceptions="true"
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
-    <php>
-        <const name="LOB_TEST_API_KEY" value="test_7c5d111af5ccfedb9f0eea91745c93896a1"/>
-    </php>
-
     <testsuites>
         <testsuite>
             <directory>./tests/Lob/Tests</directory>

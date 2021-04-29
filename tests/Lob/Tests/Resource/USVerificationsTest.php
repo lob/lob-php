@@ -7,7 +7,7 @@ class USVerificationsTest extends TestCase
 {
     protected function setUp()
     {
-        $this->lob = new Lob(LOB_TEST_API_KEY);
+        $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->usAddress = array(
             'recipient' => 'LOB.COM',
             'primary_line' => '185 BERRY ST STE 6600',
