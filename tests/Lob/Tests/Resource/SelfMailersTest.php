@@ -11,8 +11,7 @@ class SelfMailersTest extends TestCase
 
         $this->addressParams = array(
             'name' => 'Larry Lobster',
-            'address_line1' => '185 Berry St',
-            'address_line2' => 'Ste 6100',
+            'address_line1' => '210 King St',
             'address_city' => 'San Francisco',
             'address_state' => 'CA',
             'address_country' => 'US',
