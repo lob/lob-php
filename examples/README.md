@@ -46,3 +46,8 @@ LOB_API_KEY=<YOUR_API_KEY_HERE> php create_letter.php
 ```
 LOB_API_KEY=<YOUR_API_KEY_HERE> php create_postcard.php
 ```
+
+### Create a self mailer
+```
+LOB_API_KEY=<YOUR_API_KEY_HERE> php create_self_mailer.php
+```
