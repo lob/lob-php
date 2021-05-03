@@ -26,7 +26,7 @@ class Lob
             $this->setApiKey($apiKey);
         }
         $this->version = $version;
-        $this->clientVersion = '3.0.6';
+        $this->clientVersion = '3.1.0';
     }
 
     public function getApiKey()
