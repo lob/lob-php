@@ -5,6 +5,8 @@ namespace Lob;
 use InvalidArgumentException;
 use Lob\Resource\Addresses;
 use Lob\Resource\BankAccounts;
+use Lob\Resource\BulkUSVerifications;
+use Lob\Resource\BulkIntlVerifications;
 use Lob\Resource\Checks;
 use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
@@ -62,6 +64,16 @@ class Lob
     public function bankAccounts()
     {
       return new BankAccounts($this);
+    }
+
+    public function bulkIntlVerifications()
+    {
+      return new BulkIntlVerifications($this);
+    }
+
+    public function bulkUSVerifications()
+    {
+      return new BulkUSVerifications($this);
     }
 
     public function checks()
