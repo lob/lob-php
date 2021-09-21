@@ -18,7 +18,7 @@ class USReverseGeocodeLookupsTest extends TestCase
     {
         $reverseGeocoded = $this->lob->usReverseGeocodeLookups()->lookup($this->location);
 
-        $this->assertTrue(is_array($reverseGeocoded->addresses));
+        $this->assertTrue(is_array($reverseGeocoded));
         $this->assertTrue(array_key_exists('id', $reverseGeocoded));
     }
 
@@ -43,7 +43,7 @@ class USReverseGeocodeLookupsTest extends TestCase
     */
     public function testCreate()
     {
-        $this->lob->usReverseGeocodeLookups()->create($this->usZip);
+        $this->lob->usReverseGeocodeLookups()->create($this->location);
     }
 
     /**
