@@ -13,6 +13,7 @@ use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
 use Lob\Resource\SelfMailers;
 use Lob\Resource\USAutocompletions;
+use Lob\Resource\USReverseGeocodeLookups;
 use Lob\Resource\USVerifications;
 use Lob\Resource\USZipLookups;
 
@@ -104,6 +105,11 @@ class Lob
     public function usAutocompletions()
     {
         return new USAutocompletions($this);
+    }
+
+    public function usReverseGeocodeLookups()
+    {
+        return new USReverseGeocodeLookups($this);
     }
 
     public function usVerifications()
