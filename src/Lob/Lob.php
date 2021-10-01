@@ -7,6 +7,8 @@ use Lob\Resource\Addresses;
 use Lob\Resource\BankAccounts;
 use Lob\Resource\BulkUSVerifications;
 use Lob\Resource\BulkIntlVerifications;
+use Lob\Resource\Cards;
+use Lob\Resource\CardOrders;
 use Lob\Resource\Checks;
 use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
@@ -75,6 +77,16 @@ class Lob
     public function bulkUSVerifications()
     {
       return new BulkUSVerifications($this);
+    }
+
+    public function cards()
+    {
+      return new Cards($this);
+    }
+
+    public function cardOrders($card_id)
+    {
+      return new CardOrders($this, $card_id);
     }
 
     public function checks()
