@@ -22,3 +22,4 @@ $self_mailer = $lob->selfMailers()->create(array(
 ));
 
 print_r($self_mailer);
+?>
