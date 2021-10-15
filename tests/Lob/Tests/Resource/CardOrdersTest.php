@@ -9,7 +9,7 @@ class CardOrdersTest extends TestCase
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->cardOrdersParams = array(
-            'quantity_ordered' => 10000
+            'quantity' => 10000
         );
         $this->cardParams = array(
             'front' => '@'.realpath(__DIR__.'/../TestData/pdfs/card.pdf'),
