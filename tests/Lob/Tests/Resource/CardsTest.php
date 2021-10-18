@@ -61,4 +61,16 @@ class CardsTest extends TestCase
         $this->assertTrue(is_array($cards));
     }
 
+    public function testUpdate()
+    {
+        $updateParams = array(
+            'description' => 'This is an updated description'
+        );
+        $id = $this->lob->cards()->create($this->cardParams)['id'];
+        $updatedCard = $this->lob->cards()->update($id, $updateParams);
+
+        $this->assertTrue(is_array($updatedCard));
+        $this->assertTrue($updatedCard['description'] === 'This is an updated description');
+    }
+
 }
