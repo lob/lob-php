@@ -1,11 +1,12 @@
 <?php
 
 use Lob\Lob;
+use Lob\Exception\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 class BulkUSVerificationsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->usAddress = array(
@@ -38,7 +39,7 @@ class BulkUSVerificationsTest extends TestCase
           'case' => 'proper'
         );
 
-        $response = $this->lob->bulkUSVerifications()->verify($this->usAddress, $query);
+        $response = $this->lob->bulkUSVerifications()->verify($this->payload, $query);
         $addresses = $response["addresses"];
         $verifiedAddress = $addresses[0];
         $this->assertTrue(is_array($addresses));
@@ -46,10 +47,11 @@ class BulkUSVerificationsTest extends TestCase
     }
 
     /**
-     * @expectedException Lob\Exception\ValidationException
+     * @expectedException ValidationException
      */
     public function testUnprocessibleEntity()
     {
+        $this->expectException(ValidationException::class);
         $this->lob->bulkUSVerifications()->verify(array());
     }
 
@@ -58,6 +60,7 @@ class BulkUSVerificationsTest extends TestCase
     */
     public function testGet()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->bulkUSVerifications()->get('id');
     }
 
@@ -66,6 +69,7 @@ class BulkUSVerificationsTest extends TestCase
     */
     public function testAll()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->bulkUSVerifications()->all();
     }
 
@@ -74,6 +78,7 @@ class BulkUSVerificationsTest extends TestCase
     */
     public function testCreate()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->bulkUSVerifications()->create($this->usAddress);
     }
 
@@ -82,6 +87,7 @@ class BulkUSVerificationsTest extends TestCase
     */
     public function testDelete()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->bulkUSVerifications()->delete('id');
     }
 

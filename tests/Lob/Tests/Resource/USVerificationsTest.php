@@ -1,11 +1,12 @@
 <?php
 
 use Lob\Lob;
+use Lob\Exception\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 class USVerificationsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->usAddress = array(
@@ -38,10 +39,11 @@ class USVerificationsTest extends TestCase
     }
 
     /**
-     * @expectedException Lob\Exception\ValidationException
+     * @expectedException ValidationException
      */
     public function testUnprocessibleEntity()
     {
+        $this->expectException(ValidationException::class);
         $this->lob->usVerifications()->verify(array());
     }
 
@@ -50,6 +52,7 @@ class USVerificationsTest extends TestCase
     */
     public function testGet()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usVerifications()->get('id');
     }
 
@@ -58,6 +61,7 @@ class USVerificationsTest extends TestCase
     */
     public function testAll()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usVerifications()->all();
     }
 
@@ -66,6 +70,7 @@ class USVerificationsTest extends TestCase
     */
     public function testCreate()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usVerifications()->create($this->usAddress);
     }
 
@@ -74,6 +79,7 @@ class USVerificationsTest extends TestCase
     */
     public function testDelete()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usVerifications()->delete('id');
     }
 

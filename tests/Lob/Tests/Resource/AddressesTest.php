@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class AddressesTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->addressParams = array(

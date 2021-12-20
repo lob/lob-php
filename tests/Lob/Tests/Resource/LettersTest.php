@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class LettersTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $addressParams = array(
             'name' => 'Larry Lobster',
