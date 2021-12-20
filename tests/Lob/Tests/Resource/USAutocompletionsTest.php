@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class USAutocompletionsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->payload = array(
@@ -28,6 +28,7 @@ class USAutocompletionsTest extends TestCase
     */
     public function testGet()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usAutocompletions()->get('id');
     }
 
@@ -36,6 +37,7 @@ class USAutocompletionsTest extends TestCase
     */
     public function testAll()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usAutocompletions()->all();
     }
 
@@ -44,6 +46,7 @@ class USAutocompletionsTest extends TestCase
     */
     public function testCreate()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usAutocompletions()->create($this->payload);
     }
 
@@ -52,6 +55,7 @@ class USAutocompletionsTest extends TestCase
     */
     public function testDelete()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usAutocompletions()->delete('id');
     }
 }

@@ -2,10 +2,11 @@
 
 use Lob\Lob;
 use PHPUnit\Framework\TestCase;
+use BadMethodCallException;
 
 class USZipLookupsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->usZip = array(
@@ -26,6 +27,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testGet()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usZipLookups()->get('id');
     }
 
@@ -34,6 +36,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testAll()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usZipLookups()->all();
     }
 
@@ -42,6 +45,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testCreate()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usZipLookups()->create($this->usZip);
     }
 
@@ -50,6 +54,7 @@ class USZipLookupsTest extends TestCase
     */
     public function testDelete()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usZipLookups()->delete('id');
     }
 

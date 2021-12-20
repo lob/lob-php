@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class IntlVerificationsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->intlAddress = array(
@@ -30,6 +30,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testGet()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->intlVerifications()->get('id');
     }
 
@@ -38,6 +39,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testAll()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->intlVerifications()->all();
     }
 
@@ -46,6 +48,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testCreate()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->intlVerifications()->create($this->intlAddress);
     }
 
@@ -54,6 +57,7 @@ class IntlVerificationsTest extends TestCase
     */
     public function testDelete()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->intlVerifications()->delete('id');
     }
 

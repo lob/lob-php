@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class USReverseGeocodeLookupsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->location = array(
@@ -27,6 +27,7 @@ class USReverseGeocodeLookupsTest extends TestCase
     */
     public function testGet()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usReverseGeocodeLookups()->get('id');
     }
 
@@ -35,6 +36,7 @@ class USReverseGeocodeLookupsTest extends TestCase
     */
     public function testAll()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usReverseGeocodeLookups()->all();
     }
 
@@ -43,6 +45,7 @@ class USReverseGeocodeLookupsTest extends TestCase
     */
     public function testCreate()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usReverseGeocodeLookups()->create($this->location);
     }
 
@@ -51,6 +54,7 @@ class USReverseGeocodeLookupsTest extends TestCase
     */
     public function testDelete()
     {
+        $this->expectException(BadMethodCallException::class);
         $this->lob->usReverseGeocodeLookups()->delete('id');
     }
 

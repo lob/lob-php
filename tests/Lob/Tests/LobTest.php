@@ -3,6 +3,7 @@
 namespace Lob\Tests;
 
 use InvalidArgumentException;
+use Lob\Exception\AuthorizationException;
 use Lob\Lob;
 use Lob\Resource\Addresses;
 use Lob\Resource\BankAccounts;
@@ -13,7 +14,7 @@ use Lob\Resource\Postcards;
 use Lob\Resource\USVerifications;
 use Lob\Resource\USZipLookups;
 
-class LobTest extends \PHPUnit_Framework_TestCase
+class LobTest extends \PHPUnit\Framework\TestCase
 {
     protected $lob;
 
@@ -25,7 +26,7 @@ class LobTest extends \PHPUnit_Framework_TestCase
         $this->badLob = new Lob(1995);
     }
 
-    protected function setUp()
+    protected function setup(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
     }
@@ -88,14 +89,16 @@ class LobTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetNullApiKey()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->lob->setApiKey(null);
     }
 
     /**
-     * @expectedException Lob\Exception\AuthorizationException
+     * @expectedException AuthorizationException
      */
     public function testInvalidApiKey()
     {
+        $this->expectException(AuthorizationException::class);
         $lob = new Lob("bad_api_key");
         $lob->usVerifications()->verify(array(
             "primary_line" => "185 BERRY ST",

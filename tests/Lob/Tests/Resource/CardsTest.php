@@ -1,11 +1,12 @@
 <?php
 
 use Lob\Lob;
+use Lob\Exception\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 class CardsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->cardParams = array(
@@ -26,15 +27,16 @@ class CardsTest extends TestCase
 
     public function testCreateWithLink()
     {
+        $this->expectException(ValidationException::class);
         $card = $this->lob->cards()->create(array(
             'description' => 'Demo Card job',
-            'size' => '2.125x3.375',
+            'size' => '4.25x6.25',
             'front' => 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/pc_4x6_front.pdf', // TODO: Andrew will provide a valid resource to use
             'back' => '@'.realpath(__DIR__.'/../TestData/pdfs/card.pdf')
         ));
 
-        $this->assertTrue(is_array($postcard));
-        $this->assertTrue(array_key_exists('id', $postcard));
+        $this->assertTrue(is_array($card));
+        $this->assertTrue(array_key_exists('id', $card));
     }
 
     public function testDelete()

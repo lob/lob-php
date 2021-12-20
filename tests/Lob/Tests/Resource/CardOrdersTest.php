@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class CardOrdersTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->lob = new Lob(getenv('LOB_API_KEY'));
         $this->cardOrdersParams = array(
