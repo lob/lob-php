@@ -32,3 +32,4 @@ project
 .idea
 *.idea/*
 vendor
+.phpunit.result.cache
