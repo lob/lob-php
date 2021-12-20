@@ -1,6 +1,7 @@
 name: Run tests
 
 on:
+  push:
   pull_request:
     types: [ opened, reopened, edited ]
     branches:
@@ -27,10 +28,14 @@ jobs:
         with:
           php_extensions: xdebug
           configuration: phpunit.xml.dist
-          args: --coverage-clover=clover.xml
         env:
           XDEBUG_MODE: coverage
           LOB_API_KEY: ${{ secrets.LOB_API_KEY }}
+
+      - name: Upload Coverage Report to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: php vendor/bin/coveralls -c .coveralls.yml
 
     env:
       API_KEY: ${{ secrets.API_KEY }}
