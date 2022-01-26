@@ -1,0 +1,39 @@
+name: Run tests from forked repo
+
+on:
+  pull_request_target:
+    types: [labeled]
+
+jobs:
+  php_tests:
+    runs-on: ubuntu-18.04
+    if: contains(github.event.pull_request.labels.*.name, 'Approved')
+    strategy:
+      matrix:
+        php-version: [ '7.4', '8.0', '8.1' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+
+      - name: Composer
+        uses: php-actions/composer@v5
+        with:
+          php_version: ${{ matrix.php-version }}
+
+      - name: Unit Tests
+        uses: php-actions/phpunit@v3
+        with:
+          php_extensions: xdebug
+          configuration: phpunit.xml.dist
+        env:
+          XDEBUG_MODE: coverage
+          LOB_API_KEY: ${{ secrets.LOB_API_KEY }}
+
+      - name: Upload Coverage Report to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: php vendor/bin/coveralls -c .coveralls.yml
+
+    env:
+      API_KEY: ${{ secrets.API_KEY }}
