@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [ opened, reopened, edited ]
     branches:
-      - master
+      - main
 
 jobs:
   php_tests:
