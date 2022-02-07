@@ -42,10 +42,14 @@ The recommended way to install Lob.com PHP Client is through [Composer](https://
 curl -sS https://getcomposer.org/installer | php
 
 // Add Lob.com PHP client as a dependency
-composer require lob/lob-php
+php composer.phar require lob/lob-php
 ```
 
-After installing, you need to require Composer's autoloader:
+// Add all dependencies necessary to run
+php composer.phar install
+```
+
+After installing, you need to require Composer's autoloader in your files:
 
 ```php
 require 'vendor/autoload.php';
