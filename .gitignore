@@ -33,3 +33,5 @@ project
 *.idea/*
 vendor
 .phpunit.result.cache
+
+LOCAL.env
