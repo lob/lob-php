@@ -1,7 +1,6 @@
 # Composer
 /vendor/
 composer.phar
-/composer.lock
 composer-test.lock
 composer-setup.php
 
@@ -33,5 +32,3 @@ project
 *.idea/*
 vendor
 .phpunit.result.cache
-
-LOCAL.env
