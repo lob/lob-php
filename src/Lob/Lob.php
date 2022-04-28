@@ -14,6 +14,7 @@ use Lob\Resource\IntlVerifications;
 use Lob\Resource\Letters;
 use Lob\Resource\Postcards;
 use Lob\Resource\SelfMailers;
+use Lob\Resource\Templates;
 use Lob\Resource\USAutocompletions;
 use Lob\Resource\USReverseGeocodeLookups;
 use Lob\Resource\USVerifications;
@@ -112,6 +113,11 @@ class Lob
     public function selfMailers()
     {
         return new SelfMailers($this);
+    }
+
+    public function templates()
+    {
+      return new Templates($this);
     }
 
     public function usAutocompletions()
