@@ -1,0 +1,29 @@
+name: Run Tests
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+    types: [opened, reopened, edited]
+    branches:
+      - main
+
+jobs:
+  php_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: php-actions/composer@v6
+
+      - name: Run Tests
+        uses: php-actions/phpunit@v3
+        env:
+          LOB_API_TEST_KEY: ${{ secrets.LOB_API_TEST_KEY }}
+          LOB_API_LIVE_KEY: ${{ secrets.LOB_API_LIVE_KEY }}
+          XDEBUG_MODE: coverage
+        with:
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml.dist
+          php_extensions: xdebug
+          args: --coverage-text --coverage-clover=coverage/coverage.xml

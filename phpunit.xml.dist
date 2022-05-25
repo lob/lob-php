@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
-         colors="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         >
-
-    <testsuites>
-        <testsuite name="Tests">
-            <directory>./tests/Lob/Tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src/Lob</directory>
-            <exclude>
-                <file>./src/Lob/ResourceTest.php</file>
-                <directory suffix="Interface.php">./src/Lob</directory>
-                <directory>./src/Lob/Exception</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-
-    <logging>
-      <log type="coverage-clover" target="build/logs/clover.xml"/>
-      <log type="coverage-html" target="build/coverage" title="PHP Coveralls" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
-    </logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">./lib/Api</directory>
+      <directory suffix=".php">./lib/Model</directory>
+    </include>
+    <report>
+      <clover outputFile="clover.xml" />
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="tests">
+      <directory>./test/Api</directory>
+      <directory>./test/Model</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <ini name="error_reporting" value="E_ALL"/>
+  </php>
 </phpunit>

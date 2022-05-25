@@ -1,34 +1,40 @@
 {
     "name": "lob/lob-php",
-    "type": "library",
-    "description": "Lob.com API PHP wrapper.",
-    "keywords": ["lob", "printing", "api", "rest", "web service", "wrapper"],
-    "homepage": "https://www.lob.com/",
-    "license": "MIT",
-    "authors": [{
-        "name": "Lob",
-        "email": "support@lob.com",
-        "homepage": "https://www.lob.com"
-    }],
-    "require": {
-        "php": ">=7.4.0",
-        "guzzlehttp/guzzle": "6.5.5"
-    },
-    "autoload": {
-        "psr-0": {
-            "Lob\\Tests": "tests/",
-            "Lob": "src/"
+    "version": "1.0.0",
+    "description": "The Lob API is organized around REST. Our API is designed to have predictable, resource-oriented URLs and uses HTTP response codes to indicate any API errors. <p> Looking for our [previous documentation](https://lob.github.io/legacy-docs/)?",
+    "keywords": [
+        "openapitools",
+        "openapi-generator",
+        "openapi",
+        "php",
+        "sdk",
+        "rest",
+        "api"
+    ],
+    "homepage": "https://openapi-generator.tech",
+    "license": "unlicense",
+    "authors": [
+        {
+            "name": "OpenAPI-Generator contributors",
+            "homepage": "https://openapi-generator.tech"
         }
+    ],
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "9.5.*",
-        "satooshi/php-coveralls": "2.*||1.*",
-        "dompdf/dompdf": "0.6.* || 1.2.*"
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "friendsofphp/php-cs-fixer": "^2.12"
     },
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
+    "autoload": {
+        "psr-4": { "OpenAPI\\Client\\" : "lib/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "OpenAPI\\Client\\Test\\" : "test/" }
     }
 }
