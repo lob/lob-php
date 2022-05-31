@@ -40,6 +40,7 @@ use OpenAPI\Client\Configuration;
 use OpenAPI\Client\HeaderSelector;
 use OpenAPI\Client\ObjectSerializer;
 use OpenAPI\Client\Model\LobError;
+use Jean85\PrettyVersions;
 
 /**
  * AddressesApi Class Doc Comment
@@ -215,10 +216,11 @@ class AddressesApi
         if (isset($address_editable)) {
             $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($address_editable));
         }
-
+ 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -366,8 +368,9 @@ class AddressesApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -515,8 +518,9 @@ class AddressesApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -699,8 +703,9 @@ class AddressesApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
