@@ -40,6 +40,7 @@ use OpenAPI\Client\Configuration;
 use OpenAPI\Client\HeaderSelector;
 use OpenAPI\Client\ObjectSerializer;
 use OpenAPI\Client\Model\LobError;
+use Jean85\PrettyVersions;
 
 /**
  * TemplateVersionsApi Class Doc Comment
@@ -238,8 +239,9 @@ class TemplateVersionsApi
         }
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -408,8 +410,9 @@ class TemplateVersionsApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -578,8 +581,9 @@ class TemplateVersionsApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -759,8 +763,9 @@ class TemplateVersionsApi
         }
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -950,8 +955,9 @@ class TemplateVersionsApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);

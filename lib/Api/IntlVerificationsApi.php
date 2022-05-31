@@ -40,6 +40,7 @@ use OpenAPI\Client\Configuration;
 use OpenAPI\Client\HeaderSelector;
 use OpenAPI\Client\ObjectSerializer;
 use OpenAPI\Client\Model\LobError;
+use Jean85\PrettyVersions;
 
 /**
  * IntlVerificationsApi Class Doc Comment
@@ -217,8 +218,9 @@ class IntlVerificationsApi
         }
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -363,8 +365,9 @@ class IntlVerificationsApi
         }
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);

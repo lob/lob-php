@@ -40,6 +40,7 @@ use OpenAPI\Client\Configuration;
 use OpenAPI\Client\HeaderSelector;
 use OpenAPI\Client\ObjectSerializer;
 use OpenAPI\Client\Model\LobError;
+use Jean85\PrettyVersions;
 
 /**
  * BankAccountsApi Class Doc Comment
@@ -217,8 +218,9 @@ class BankAccountsApi
         }
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -366,8 +368,9 @@ class BankAccountsApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -515,8 +518,9 @@ class BankAccountsApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -675,8 +679,9 @@ class BankAccountsApi
         }
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
@@ -859,8 +864,9 @@ class BankAccountsApi
 
 
         $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
         }
 
         $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
