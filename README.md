@@ -85,7 +85,7 @@ composer install       # For PHP >= 7.0
 Once the dependencies have been installed, the tests can be run with
 
 ```
-LOB_API_KEY=<YOUR_API_KEY_HERE> php vendor/bin/phpunit
+LOB_API_TEST_KEY=<YOUR_API_KEY_HERE> php vendor/bin/phpunit
 ```
 
 To get a code coverage report after running the test suite, run

@@ -12,7 +12,7 @@ $handle = fopen($argv[1], "r");
 $html_front = file_get_contents('postcard_front.html');
 $html_back = file_get_contents('postcard_back.html');
 
-$lob = new \Lob\Lob(getenv('LOB_API_KEY'));
+$lob = new \Lob\Lob(getenv('LOB_API_TEST_KEY'));
 
 $from_address = $lob->addresses()->create(array(
   'name'          => 'The Big House',

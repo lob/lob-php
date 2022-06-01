@@ -7,7 +7,7 @@ use function Amp\ParallelFunctions\parallelMap;
 require "vendor/autoload.php";
 
 // Setup Lob client
-$apiKey = $_ENV["LOB_API_KEY"];
+$apiKey = $_ENV["LOB_API_TEST_KEY"];
 $lob = new \Lob\Lob($apiKey);
 
 $concurrency = 10;

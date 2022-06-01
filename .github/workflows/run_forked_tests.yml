@@ -28,7 +28,7 @@ jobs:
           configuration: phpunit.xml.dist
         env:
           XDEBUG_MODE: coverage
-          LOB_API_KEY: ${{ secrets.LOB_API_KEY }}
+          LOB_API_TEST_KEY: ${{ secrets.LOB_API_TEST_KEY }}
 
       - name: Upload Coverage Report to Coveralls
         env:

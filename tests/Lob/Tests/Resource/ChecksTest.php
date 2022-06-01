@@ -7,7 +7,7 @@ class ChecksTest extends TestCase
 {
     protected function setUp(): void
     {
-        $this->lob = new Lob(getenv('LOB_API_KEY'));
+        $this->lob = new Lob(getenv('LOB_API_TEST_KEY'));
         $bankAccount = $this->lob->bankAccounts()->create(
             array(
               'routing_number' => 322271627,

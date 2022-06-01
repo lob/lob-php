@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
-$lob = new \Lob\Lob(getenv('LOB_API_KEY'));
+$lob = new \Lob\Lob(getenv('LOB_API_TEST_KEY'));
 
 $from_address = $lob->addresses()->create(array(
   'name'          => 'Lob.com',

@@ -8,7 +8,7 @@
 
 require '../../vendor/autoload.php';
 
-$lob = new \Lob\Lob(getenv('LOB_API_KEY'));
+$lob = new \Lob\Lob(getenv('LOB_API_TEST_KEY'));
 
 $handle = fopen($argv[1], "r");
 $output_file = fopen("output.csv","w");

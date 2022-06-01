@@ -17,5 +17,5 @@ page](https://dashboard.lob.com/#/settings/keys).
 
 ```sh
 $ composer install
-$ LOB_API_KEY=test_XXX php index.php
+$ LOB_API_TEST_KEY=test_XXX php index.php
 ```

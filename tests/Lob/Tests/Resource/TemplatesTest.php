@@ -12,7 +12,7 @@ class TemplatesTest extends TestCase
             'html' => '<html>HTML for {{name}}</html>'
         );
 
-        $this->lob = new Lob(getenv('LOB_API_KEY'));
+        $this->lob = new Lob(getenv('LOB_API_TEST_KEY'));
     }
 
     public function testCreate()

@@ -28,7 +28,7 @@ class LobTest extends \PHPUnit\Framework\TestCase
 
     protected function setup(): void
     {
-        $this->lob = new Lob(getenv('LOB_API_KEY'));
+        $this->lob = new Lob(getenv('LOB_API_TEST_KEY'));
     }
 
     public function testVersionDefaultValueIsNull()
@@ -108,7 +108,7 @@ class LobTest extends \PHPUnit\Framework\TestCase
 
     public function testSpecificApiVersion()
     {
-      $lob = new Lob(getenv('LOB_API_KEY'), "2017-11-08");
+      $lob = new Lob(getenv('LOB_API_TEST_KEY'), "2017-11-08");
       $this->assertEquals($lob->getVersion(), "2017-11-08");
     }
 

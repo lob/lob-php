@@ -18,7 +18,7 @@ class LettersTest extends TestCase
             'email' => 'larry@lob.com'
         );
 
-        $this->lob = new Lob(getenv('LOB_API_KEY'));
+        $this->lob = new Lob(getenv('LOB_API_TEST_KEY'));
         $this->bwLetterParams = array(
             'to' => $addressParams,
             'from' => $addressParams,

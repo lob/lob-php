@@ -7,7 +7,7 @@ class BulkIntlVerificationsTest extends TestCase
 {
     protected function setUp(): void
     {
-        $this->lob = new Lob(getenv('LOB_API_KEY'));
+        $this->lob = new Lob(getenv('LOB_API_TEST_KEY'));
         $this->intlAddress = array(
             'primary_line' => '123 Test St',
             'city' => 'HEARST',
