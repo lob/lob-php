@@ -102,7 +102,6 @@ class UsVerificationsApiSpecTest extends TestCase
     }
 
     public function testUsVerificationsApiInstantiation200() {
-        $this->markTestSkipped();
         try {
             $usvApi200 = new UsVerificationsApi(self::$config);
             $this->assertEquals(gettype($usvApi200), 'object');
@@ -113,7 +112,6 @@ class UsVerificationsApiSpecTest extends TestCase
 
     public function testSingleUsVerificationDeliverable()
     {
-        $this->markTestSkipped();
         try {
             $usVerificationObject = self::$usvApi200->verifySingle(self::$validAddress1);
             $this->assertMatchesRegularExpression('/us_ver_/', $usVerificationObject->getId());
@@ -125,7 +123,6 @@ class UsVerificationsApiSpecTest extends TestCase
 
     public function testSingleUsVerificationUndeliverable()
     {
-        $this->markTestSkipped();
         try {
             $usVerificationObject = self::$usvApi200->verifySingle(self::$undeliverableAddress);
             $this->assertMatchesRegularExpression('/us_ver_/', $usVerificationObject->getId());
@@ -138,7 +135,6 @@ class UsVerificationsApiSpecTest extends TestCase
 
     public function testBulkUsVerificationValid()
     {
-        $this->markTestSkipped();
         try {
             $usVerificationObject = self::$usvApi200->verifyBulk(self::$multipleAddressList);
             $this->assertGreaterThan(1, count($usVerificationObject->getAddresses()));
