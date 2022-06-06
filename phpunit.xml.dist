@@ -11,8 +11,8 @@
   </coverage>
   <testsuites>
     <testsuite name="tests">
-      <directory>./test/Api</directory>
-      <directory>./test/Model</directory>
+      <directory>./test/Integration</directory>
+      <directory>./test/Unit</directory>
     </testsuite>
   </testsuites>
   <php>
