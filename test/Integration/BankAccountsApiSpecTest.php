@@ -52,11 +52,14 @@ class BankAccountsApiSpecTest extends TestCase
      */
     private static $config;
     private static $bankApi;
+    private static $invalidBankApi;
     private static $writableBankAcc;
     private static $errorBank;
     private static $ba1;
     private static $ba2;
     private static $ba3;
+    private static $bankVerify;
+    private static $metadata;
 
     // for teardown post-testing
     private $idsForCleanup = [];
@@ -66,8 +69,12 @@ class BankAccountsApiSpecTest extends TestCase
     {
         // create instance of BankAccountsApi & editable bank accounts for other tests
         self::$config = new Configuration();
-        self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
+        self::$config->setApiKey("basic", getenv("LOB_API_TEST_KEY"));
         self::$bankApi = new BankAccountsApi(self::$config);
+
+        $invalid_config = new Configuration();
+        $invalid_config->setApiKey("basic", "Totally Fake Key");
+        self::$invalidBankApi = new BankAccountsApi($invalid_config);
 
         self::$writableBankAcc = new BankAccountWritable();
         self::$writableBankAcc->setDescription("PHP test bank account");
@@ -81,6 +88,9 @@ class BankAccountsApiSpecTest extends TestCase
         self::$errorBank->setAccountNumber("123456789");
         self::$errorBank->setSignatory("Sinead Connor");
         self::$errorBank->setAccountType(BankTypeEnum::INDIVIDUAL->value);
+
+        self::$bankVerify = new BankAccountVerify();
+        self::$bankVerify->setAmounts([11, 35]);
 
         // for testing list function
         self::$ba1 = new BankAccountWritable();
@@ -103,6 +113,8 @@ class BankAccountsApiSpecTest extends TestCase
         self::$ba3->setAccountNumber("123456789");
         self::$ba3->setSignatory("Niamh Connor");
         self::$ba3->setAccountType(BankTypeEnum::INDIVIDUAL->value);
+        self::$metadata = (object)array("name"=>"Harry");
+        self::$ba3->setMetadata(self::$metadata);
     }
 
     public function tearDown(): void
@@ -113,167 +125,179 @@ class BankAccountsApiSpecTest extends TestCase
     }
 
     public function testBankAccountsApiInstantiation200() {
-        try {
-            $baApi200 = new BankAccountsApi(self::$config);
-            $this->assertEquals(gettype($baApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $baApi200 = new BankAccountsApi(self::$config);
+        $this->assertEquals(gettype($baApi200), "object");
     }
 
     public function testCreate200()
     {
-        try {
-            $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
-            $this->assertMatchesRegularExpression('/bank_/', $createdBankAccount->getId());
-            array_push($this->idsForCleanup, $createdBankAccount->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n,";
-        }
+        $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+        $this->assertMatchesRegularExpression("/bank_/", $createdBankAccount->getId());
+        array_push($this->idsForCleanup, $createdBankAccount->getId());
     }
 
     // does not include required field in request
     public function testCreate422()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/routing_number is required/");
-            $errorResponse = self::$bankApi->create(self::$errorBank);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/routing_number is required/");
+        $errorResponse = self::$bankApi->create(self::$errorBank);
     }
 
     // uses a bad key to attempt to send a request
     public function testBankAccountApi401() {
-        try {
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', 'BAD KEY');
-            $bankApiError = new BankAccountsApi($wrongConfig);
-
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-            $errorResponse = $bankApiError->create(self::$writableBankAcc);
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = self::$invalidBankApi->create(self::$writableBankAcc);
     }
 
-    public function testVerify422()
+    public function testVerify200()
     {
-        try {
-            $bankVerify = new BankAccountVerify();
-            $bankVerify->setAmounts([11, 35]);
+        $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+        $verifiedBankAccount = self::$bankApi->verify($createdBankAccount->getId(), self::$bankVerify);
+        $this->assertMatchesRegularExpression("/bank_/", $createdBankAccount->getId());
+        array_push($this->idsForCleanup, $createdBankAccount->getId());
+    }
 
-            $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
-            $verifiedBankAccount = self::$bankApi->verify($createdBankAccount->getId(), $bankVerify);
-            $this->assertMatchesRegularExpression('/bank_/', $createdBankAccount->getId());
-            array_push($this->idsForCleanup, $createdBankAccount->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n,";
-        }
+    public function testVerify401()
+    {
+        $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+        array_push($this->idsForCleanup, $createdBankAccount->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $verifiedBankAccount = self::$invalidBankApi->verify($createdBankAccount->getId(), self::$bankVerify);
+    }
+
+    public function testVerify404()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/not found/");
+        $verifiedBankAccount = self::$bankApi->verify("bank_fakeId", self::$bankVerify);
     }
 
     public function testGet200()
     {
-        try {
-            $createdAcc = self::$bankApi->create(self::$writableBankAcc);
-            $retrievedAcc = self::$bankApi->get($createdAcc->getId());
-            $this->assertEquals($createdAcc->getRoutingNumber(), $retrievedAcc->getRoutingNumber());
-            array_push($this->idsForCleanup, $createdAcc->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $createdAcc = self::$bankApi->create(self::$writableBankAcc);
+        $retrievedAcc = self::$bankApi->get($createdAcc->getId());
+        $this->assertEquals($createdAcc->getRoutingNumber(), $retrievedAcc->getRoutingNumber());
+        array_push($this->idsForCleanup, $createdAcc->getId());
+    }
+
+    public function testGet401()
+    {
+        $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+        array_push($this->idsForCleanup, $createdBankAccount->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidBankApi->get($createdBankAccount->getId());
     }
 
     public function testGet404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/bank account not found/");
-            $badRetrieval = self::$bankApi->get("bank_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/bank account not found/");
+        $badRetrieval = self::$bankApi->get("bank_NONEXISTENT");
     }
 
     public function testList200()
     {
         $nextUrl = "";
         $previousUrl = "";
-        try {
-            $bank1 = self::$bankApi->create(self::$ba1);
-            $bank2 = self::$bankApi->create(self::$ba2);
-            $bank3 = self::$bankApi->create(self::$ba3);
-            $listedBankAccounts = self::$bankApi->list(3);
-            $this->assertGreaterThan(1, count($listedBankAccounts->getData()));
-            $this->assertLessThanOrEqual(3, count($listedBankAccounts->getData()));
-            $nextUrl = substr($listedBankAccounts->getNextUrl(), strrpos($listedBankAccounts->getNextUrl(), "after=") + 6);
-            $this->assertIsString($nextUrl);
-            array_push($this->idsForCleanup, $bank1->getId());
-            array_push($this->idsForCleanup, $bank2->getId());
-            array_push($this->idsForCleanup, $bank3->getId());
-        } catch (Exception $listError) {
-            echo 'Caught exception: ',  $listError->getMessage(), "\n";
-        }
+        $bank1 = self::$bankApi->create(self::$ba1);
+        $bank2 = self::$bankApi->create(self::$ba2);
+        $bank3 = self::$bankApi->create(self::$ba3);
+        $listedBankAccounts = self::$bankApi->list(3);
+        $this->assertGreaterThan(1, count($listedBankAccounts->getData()));
+        $this->assertLessThanOrEqual(3, count($listedBankAccounts->getData()));
+        $nextUrl = substr($listedBankAccounts->getNextUrl(), strrpos($listedBankAccounts->getNextUrl(), "after=") + 6);
+        $this->assertIsString($nextUrl);
+        array_push($this->idsForCleanup, $bank1->getId());
+        array_push($this->idsForCleanup, $bank2->getId());
+        array_push($this->idsForCleanup, $bank3->getId());
 
         // response using nextUrl
         if ($nextUrl != "") {
-            try {
-                $bank1 = self::$bankApi->create(self::$ba1);
-                $bank2 = self::$bankApi->create(self::$ba2);
-                $bank3 = self::$bankApi->create(self::$ba3);
-                $listedBankAccountsAfter = self::$bankApi->list(3, null, $nextUrl);
-                $this->assertGreaterThan(1, count($listedBankAccountsAfter->getData()));
-                $this->assertLessThanOrEqual(3, count($listedBankAccountsAfter->getData()));
-                $previousUrl = substr($listedBankAccountsAfter->getPreviousUrl(), strrpos($listedBankAccountsAfter->getPreviousUrl(), "before=") + 7);
-                $this->assertIsString($previousUrl);
-                array_push($this->idsForCleanup, $bank1->getId());
-                array_push($this->idsForCleanup, $bank2->getId());
-                array_push($this->idsForCleanup, $bank3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $bank1 = self::$bankApi->create(self::$ba1);
+            $bank2 = self::$bankApi->create(self::$ba2);
+            $bank3 = self::$bankApi->create(self::$ba3);
+            $listedBankAccountsAfter = self::$bankApi->list(3, null, $nextUrl);
+            $this->assertGreaterThan(1, count($listedBankAccountsAfter->getData()));
+            $this->assertLessThanOrEqual(3, count($listedBankAccountsAfter->getData()));
+            $previousUrl = substr($listedBankAccountsAfter->getPreviousUrl(), strrpos($listedBankAccountsAfter->getPreviousUrl(), "before=") + 7);
+            $this->assertIsString($previousUrl);
+            array_push($this->idsForCleanup, $bank1->getId());
+            array_push($this->idsForCleanup, $bank2->getId());
+            array_push($this->idsForCleanup, $bank3->getId());
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            try {
-                $bank1 = self::$bankApi->create(self::$ba1);
-                $bank2 = self::$bankApi->create(self::$ba2);
-                $bank3 = self::$bankApi->create(self::$ba3);
-                $listedBankAccountsBefore = self::$bankApi->list(3, $previousUrl);
-                $this->assertGreaterThan(1, count($listedBankAccountsBefore->getData()));
-                $this->assertLessThanOrEqual(3, count($listedBankAccountsBefore->getData()));
-                array_push($this->idsForCleanup, $bank1->getId());
-                array_push($this->idsForCleanup, $bank2->getId());
-                array_push($this->idsForCleanup, $bank3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $bank1 = self::$bankApi->create(self::$ba1);
+            $bank2 = self::$bankApi->create(self::$ba2);
+            $bank3 = self::$bankApi->create(self::$ba3);
+            $listedBankAccountsBefore = self::$bankApi->list(3, $previousUrl);
+            $this->assertGreaterThan(1, count($listedBankAccountsBefore->getData()));
+            $this->assertLessThanOrEqual(3, count($listedBankAccountsBefore->getData()));
+            array_push($this->idsForCleanup, $bank1->getId());
+            array_push($this->idsForCleanup, $bank2->getId());
+            array_push($this->idsForCleanup, $bank3->getId());
         }
+    }
+
+    public function provider()
+    {
+        return array(
+        //   array(null, null, null, array("total_count"), null, null),
+        //   array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null),
+          array(null, null, null, null, null, self::$metadata),
+        );
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata)
+    {
+        // create bank accounts to list
+        $bank1 = self::$bankApi->create(self::$ba1);
+        $bank2 = self::$bankApi->create(self::$ba2);
+        $bank3 = self::$bankApi->create(self::$ba3);
+        $listedBankAccounts = self::$bankApi->list($limit, $before, $after, $include, $date_created, $metadata);
+
+        $this->assertGreaterThan(0, $listedBankAccounts->getCount());
+        if ($include) $this->assertNotNull($listedBankAccounts->getTotalCount());
+
+        // delete created bank accounts
+        array_push($this->idsForCleanup, $bank1->getId());
+        array_push($this->idsForCleanup, $bank2->getId());
+        array_push($this->idsForCleanup, $bank3->getId());
     }
 
     public function testDelete200()
     {
-        try {
-            $createdAcc = self::$bankApi->create(self::$writableBankAcc);
-            $deletedAcc = self::$bankApi->delete($createdAcc->getId());
-            $this->assertEquals(true, $deletedAcc->getDeleted());
-            $this->assertMatchesRegularExpression('/bank_/', $deletedAcc->getId());
-        } catch (Exception $deleteError) {
-            echo 'Caught exception: ',  $deleteError->getMessage(), "\n";
-        }
+        $createdAcc = self::$bankApi->create(self::$writableBankAcc);
+        $deletedAcc = self::$bankApi->delete($createdAcc->getId());
+        $this->assertEquals(true, $deletedAcc->getDeleted());
+        $this->assertMatchesRegularExpression("/bank_/", $deletedAcc->getId());
     }
+
+    public function testDelete401()
+    {
+        $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+        array_push($this->idsForCleanup, $createdBankAccount->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidBankApi->delete($createdBankAccount->getId());
+    }
+
 
     public function testDelete404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/bank account not found/");
-            $badDeletion = self::$bankApi->delete("bank_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/bank account not found/");
+        $badDeletion = self::$bankApi->delete("bank_NONEXISTENT");
     }
 }
