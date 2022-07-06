@@ -101,6 +101,49 @@ class TemplatesApi
         return $this->config;
     }
 
+    private function modified_build(array $params, $encoding = PHP_QUERY_RFC3986): string
+    {
+        if (!$params) {
+            return '';
+        }
+
+        if ($encoding === false) {
+            $encoder = function (string $str): string {
+                return $str;
+            };
+        } elseif ($encoding === PHP_QUERY_RFC3986) {
+            $encoder = 'rawurlencode';
+        } elseif ($encoding === PHP_QUERY_RFC1738) {
+            $encoder = 'urlencode';
+        } else {
+            throw new \InvalidArgumentException('Invalid type');
+        }
+
+        $qs = '';
+        foreach ($params as $k => $v) {
+            $k = $encoder((string) $k);
+            if (!is_array($v)) {
+                $qs .= $k;
+                $v = is_bool($v) ? (int) $v : $v;
+                if ($v !== null) {
+                    $qs .= '=' . $encoder((string) $v);
+                }
+                $qs .= '&';
+            } else {
+                foreach ($v as $kk=>$vv) {
+                    $qs .= $k;
+                    $vv = is_bool($vv) ? (int) $vv : $vv;
+                    if ($vv !== null) {
+                        $qs .= '[' . $kk . "]=" . $encoder((string) $vv);
+                    }
+                    $qs .= '&';
+                }
+            }
+        }
+
+        return $qs ? (string) substr($qs, 0, -1) : '';
+    }
+
     /**
      * Operation create
      *
@@ -232,7 +275,7 @@ class TemplatesApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        $query = $this->modified_build($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -382,7 +425,7 @@ class TemplatesApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        $query = $this->modified_build($queryParams);
         return new Request(
             'DELETE',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -532,7 +575,7 @@ class TemplatesApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        $query = $this->modified_build($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -693,7 +736,7 @@ class TemplatesApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        $query = $this->modified_build($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -878,7 +921,7 @@ class TemplatesApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        $query = $this->modified_build($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
