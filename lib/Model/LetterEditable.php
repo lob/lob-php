@@ -70,7 +70,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'address_placement' => 'string',
         'return_envelope' => 'mixed',
         'perforated_page' => 'int',
-        'custom_envelope' => '\OpenAPI\Client\Model\LetterCustomEnvelope',
+        'custom_envelope' => '\OpenAPI\Client\Model\LetterEditableCustomEnvelope',
         'to' => 'string',
         'from' => 'string',
         'file' => 'string',
@@ -329,6 +329,9 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
+        if ($this->container['color'] === null) {
+            $invalidProperties[] = "'color' can't be null";
+        }
         $allowedValues = $this->getAddressPlacementAllowableValues();
         if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -338,6 +341,15 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['to'] === null) {
+            $invalidProperties[] = "'to' can't be null";
+        }
+        if ($this->container['from'] === null) {
+            $invalidProperties[] = "'from' can't be null";
+        }
+        if ($this->container['file'] === null) {
+            $invalidProperties[] = "'file' can't be null";
+        }
         $allowedValues = $this->getExtraServiceAllowableValues();
         if (!is_null($this->container['extra_service']) && !in_array($this->container['extra_service'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -507,7 +519,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets color
      *
-     * @return bool|null
+     * @return bool
      */
     public function getColor()
     {
@@ -517,7 +529,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets color
      *
-     * @param bool|null $color Set this key to `true` if you would like to print in color. Set to `false` if you would like to print in black and white.
+     * @param bool $color Set this key to `true` if you would like to print in color. Set to `false` if you would like to print in black and white.
      *
      * @return self
      */
@@ -643,7 +655,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets custom_envelope
      *
-     * @return \OpenAPI\Client\Model\LetterCustomEnvelope|null
+     * @return \OpenAPI\Client\Model\LetterEditableCustomEnvelope|null
      */
     public function getCustomEnvelope()
     {
@@ -653,7 +665,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets custom_envelope
      *
-     * @param \OpenAPI\Client\Model\LetterCustomEnvelope|null $custom_envelope custom_envelope
+     * @param \OpenAPI\Client\Model\LetterEditableCustomEnvelope|null $custom_envelope custom_envelope
      *
      * @return self
      */
@@ -668,7 +680,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string|null
+     * @return string
      */
     public function getTo()
     {
@@ -678,7 +690,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string|null $to Must either be an address ID or an inline object with correct address parameters.
+     * @param string $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -693,7 +705,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string|null
+     * @return string
      */
     public function getFrom()
     {
@@ -703,7 +715,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string|null $from Must either be an address ID or an inline object with correct address parameters.
+     * @param string $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -718,7 +730,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets file
      *
-     * @return string|null
+     * @return string
      */
     public function getFile()
     {
@@ -728,7 +740,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets file
      *
-     * @param string|null $file PDF file containing the letter's formatting.
+     * @param string $file PDF file containing the letter's formatting.
      *
      * @return self
      */

@@ -198,11 +198,17 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['zip_code']) && !preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
+        if ($this->container['zip_code'] === null) {
+            $invalidProperties[] = "'zip_code' can't be null";
+        }
+        if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
             $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
         }
 
-        if (!is_null($this->container['zip_code_plus_4']) && !preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
+        if ($this->container['zip_code_plus_4'] === null) {
+            $invalidProperties[] = "'zip_code_plus_4' can't be null";
+        }
+        if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
             $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^\\d{4}$/.";
         }
 
@@ -225,7 +231,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets zip_code
      *
-     * @return string|null
+     * @return string
      */
     public function getZipCode()
     {
@@ -235,14 +241,14 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets zip_code
      *
-     * @param string|null $zip_code The 5-digit ZIP code
+     * @param string $zip_code The 5-digit ZIP code
      *
      * @return self
      */
     public function setZipCode($zip_code)
     {
 
-        if (!is_null($zip_code) && (!preg_match("/^\\d{5}$/", $zip_code))) {
+        if ((!preg_match("/^\\d{5}$/", $zip_code))) {
             throw new \InvalidArgumentException("invalid value for $zip_code when calling GeocodeComponents., must conform to the pattern /^\\d{5}$/.");
         }
 
@@ -255,7 +261,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets zip_code_plus_4
      *
-     * @return string|null
+     * @return string
      */
     public function getZipCodePlus4()
     {
@@ -265,14 +271,14 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets zip_code_plus_4
      *
-     * @param string|null $zip_code_plus_4 zip_code_plus_4
+     * @param string $zip_code_plus_4 zip_code_plus_4
      *
      * @return self
      */
     public function setZipCodePlus4($zip_code_plus_4)
     {
 
-        if (!is_null($zip_code_plus_4) && (!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
+        if ((!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
             throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling GeocodeComponents., must conform to the pattern /^\\d{4}$/.");
         }
 

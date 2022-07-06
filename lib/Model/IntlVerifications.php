@@ -197,6 +197,12 @@ class IntlVerifications implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
+        if ($this->container['addresses'] === null) {
+            $invalidProperties[] = "'addresses' can't be null";
+        }
+        if ($this->container['errors'] === null) {
+            $invalidProperties[] = "'errors' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -216,7 +222,7 @@ class IntlVerifications implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets addresses
      *
-     * @return \OpenAPI\Client\Model\IntlVerificationOrError[]|null
+     * @return \OpenAPI\Client\Model\IntlVerificationOrError[]
      */
     public function getAddresses()
     {
@@ -226,7 +232,7 @@ class IntlVerifications implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets addresses
      *
-     * @param \OpenAPI\Client\Model\IntlVerificationOrError[]|null $addresses addresses
+     * @param \OpenAPI\Client\Model\IntlVerificationOrError[] $addresses addresses
      *
      * @return self
      */
@@ -248,7 +254,7 @@ class IntlVerifications implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets errors
      *
-     * @return bool|null
+     * @return bool
      */
     public function getErrors()
     {
@@ -258,7 +264,7 @@ class IntlVerifications implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets errors
      *
-     * @param bool|null $errors Indicates whether any errors occurred during the verification process.
+     * @param bool $errors Indicates whether any errors occurred during the verification process.
      *
      * @return self
      */

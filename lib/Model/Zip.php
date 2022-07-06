@@ -232,10 +232,22 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
         }
 
-        if (!is_null($this->container['id']) && !preg_match("/^us_zip_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^us_zip_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_zip_[a-zA-Z0-9]+$/.";
         }
 
+        if ($this->container['cities'] === null) {
+            $invalidProperties[] = "'cities' can't be null";
+        }
+        if ($this->container['zip_code_type'] === null) {
+            $invalidProperties[] = "'zip_code_type' can't be null";
+        }
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -294,7 +306,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -304,14 +316,14 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `us_zip_`.
+     * @param string $id Unique identifier prefixed with `us_zip_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^us_zip_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^us_zip_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Zip., must conform to the pattern /^us_zip_[a-zA-Z0-9]+$/.");
         }
 
@@ -324,7 +336,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets cities
      *
-     * @return \OpenAPI\Client\Model\ZipLookupCity[]|null
+     * @return \OpenAPI\Client\Model\ZipLookupCity[]
      */
     public function getCities()
     {
@@ -334,7 +346,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets cities
      *
-     * @param \OpenAPI\Client\Model\ZipLookupCity[]|null $cities An array of city objects containing valid cities for the `zip_code`. Multiple cities will be returned if more than one city is associated with the input ZIP code.
+     * @param \OpenAPI\Client\Model\ZipLookupCity[] $cities An array of city objects containing valid cities for the `zip_code`. Multiple cities will be returned if more than one city is associated with the input ZIP code.
      *
      * @return self
      */
@@ -356,7 +368,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets zip_code_type
      *
-     * @return \OpenAPI\Client\Model\ZipCodeType|null
+     * @return \OpenAPI\Client\Model\ZipCodeType
      */
     public function getZipCodeType()
     {
@@ -366,7 +378,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets zip_code_type
      *
-     * @param \OpenAPI\Client\Model\ZipCodeType|null $zip_code_type zip_code_type
+     * @param \OpenAPI\Client\Model\ZipCodeType $zip_code_type zip_code_type
      *
      * @return self
      */
@@ -381,7 +393,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -391,14 +403,14 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object object
+     * @param string $object object
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",

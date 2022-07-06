@@ -231,7 +231,10 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
             $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
         }
 
-        if (!is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 500)) {
+        if ($this->container['primary_line'] === null) {
+            $invalidProperties[] = "'primary_line' can't be null";
+        }
+        if ((mb_strlen($this->container['primary_line']) > 500)) {
             $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 500.";
         }
 
@@ -303,7 +306,7 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets primary_line
      *
-     * @return string|null
+     * @return string
      */
     public function getPrimaryLine()
     {
@@ -313,13 +316,13 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets primary_line
      *
-     * @param string|null $primary_line The primary delivery line (usually the street address) of the address. Combination of the following applicable `components`: * `primary_number` * `street_predirection` * `street_name` * `street_suffix` * `street_postdirection` * `secondary_designator` * `secondary_number` * `pmb_designator` * `pmb_number`
+     * @param string $primary_line The primary delivery line (usually the street address) of the address. Combination of the following applicable `components`: * `primary_number` * `street_predirection` * `street_name` * `street_suffix` * `street_postdirection` * `secondary_designator` * `secondary_number` * `pmb_designator` * `pmb_number`
      *
      * @return self
      */
     public function setPrimaryLine($primary_line)
     {
-        if (!is_null($primary_line) && (mb_strlen($primary_line) > 500)) {
+        if ((mb_strlen($primary_line) > 500)) {
             throw new \InvalidArgumentException('invalid length for $primary_line when calling MultipleComponents., must be smaller than or equal to 500.');
         }
 

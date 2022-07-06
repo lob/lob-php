@@ -1,4 +1,5 @@
 .php_cs
+CODE_SNIPPETS.md
 composer.json
 docs/Api/AddressesApi.md
 docs/Api/BankAccountsApi.md
@@ -67,6 +68,7 @@ docs/Model/Letter.md
 docs/Model/LetterCustomEnvelope.md
 docs/Model/LetterDeletion.md
 docs/Model/LetterEditable.md
+docs/Model/LetterEditableCustomEnvelope.md
 docs/Model/LetterList.md
 docs/Model/LobConfidenceScore.md
 docs/Model/LobError.md
@@ -81,6 +83,7 @@ docs/Model/PostcardDeletion.md
 docs/Model/PostcardEditable.md
 docs/Model/PostcardList.md
 docs/Model/PostcardSize.md
+docs/Model/ReturnEnvelope.md
 docs/Model/ReverseGeocode.md
 docs/Model/SelfMailer.md
 docs/Model/SelfMailerDeletion.md
@@ -189,6 +192,7 @@ lib/Model/Letter.php
 lib/Model/LetterCustomEnvelope.php
 lib/Model/LetterDeletion.php
 lib/Model/LetterEditable.php
+lib/Model/LetterEditableCustomEnvelope.php
 lib/Model/LetterList.php
 lib/Model/LobConfidenceScore.php
 lib/Model/LobError.php
@@ -204,6 +208,7 @@ lib/Model/PostcardDeletion.php
 lib/Model/PostcardEditable.php
 lib/Model/PostcardList.php
 lib/Model/PostcardSize.php
+lib/Model/ReturnEnvelope.php
 lib/Model/ReverseGeocode.php
 lib/Model/SelfMailer.php
 lib/Model/SelfMailerDeletion.php

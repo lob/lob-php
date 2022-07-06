@@ -191,11 +191,14 @@ class IntlVerificationsPayload implements ModelInterface, ArrayAccess, \JsonSeri
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['addresses']) && (count($this->container['addresses']) > 10)) {
+        if ($this->container['addresses'] === null) {
+            $invalidProperties[] = "'addresses' can't be null";
+        }
+        if ((count($this->container['addresses']) > 10)) {
             $invalidProperties[] = "invalid value for 'addresses', number of items must be less than or equal to 10.";
         }
 
-        if (!is_null($this->container['addresses']) && (count($this->container['addresses']) < 1)) {
+        if ((count($this->container['addresses']) < 1)) {
             $invalidProperties[] = "invalid value for 'addresses', number of items must be greater than or equal to 1.";
         }
 
@@ -218,7 +221,7 @@ class IntlVerificationsPayload implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets addresses
      *
-     * @return \OpenAPI\Client\Model\MultipleComponentsIntl[]|null
+     * @return \OpenAPI\Client\Model\MultipleComponentsIntl[]
      */
     public function getAddresses()
     {
@@ -228,17 +231,17 @@ class IntlVerificationsPayload implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets addresses
      *
-     * @param \OpenAPI\Client\Model\MultipleComponentsIntl[]|null $addresses addresses
+     * @param \OpenAPI\Client\Model\MultipleComponentsIntl[] $addresses addresses
      *
      * @return self
      */
     public function setAddresses($addresses)
     {
 
-        if (!is_null($addresses) && (count($addresses) > 10)) {
+        if ((count($addresses) > 10)) {
             throw new \InvalidArgumentException('invalid value for $addresses when calling IntlVerificationsPayload., number of items must be less than or equal to 10.');
         }
-        if (!is_null($addresses) && (count($addresses) < 1)) {
+        if ((count($addresses) < 1)) {
             throw new \InvalidArgumentException('invalid length for $addresses when calling IntlVerificationsPayload., number of items must be greater than or equal to 1.');
         }
         $this->container['addresses'] = [];

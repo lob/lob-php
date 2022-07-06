@@ -191,11 +191,14 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['amounts']) && (count($this->container['amounts']) > 2)) {
+        if ($this->container['amounts'] === null) {
+            $invalidProperties[] = "'amounts' can't be null";
+        }
+        if ((count($this->container['amounts']) > 2)) {
             $invalidProperties[] = "invalid value for 'amounts', number of items must be less than or equal to 2.";
         }
 
-        if (!is_null($this->container['amounts']) && (count($this->container['amounts']) < 2)) {
+        if ((count($this->container['amounts']) < 2)) {
             $invalidProperties[] = "invalid value for 'amounts', number of items must be greater than or equal to 2.";
         }
 
@@ -218,7 +221,7 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets amounts
      *
-     * @return int[]|null
+     * @return int[]
      */
     public function getAmounts()
     {
@@ -228,17 +231,17 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets amounts
      *
-     * @param int[]|null $amounts In live mode, an array containing the two micro deposits (in cents) placed in the bank account. In test mode, no micro deposits will be placed, so any two integers between `1` and `100` will work.
+     * @param int[] $amounts In live mode, an array containing the two micro deposits (in cents) placed in the bank account. In test mode, no micro deposits will be placed, so any two integers between `1` and `100` will work.
      *
      * @return self
      */
     public function setAmounts($amounts)
     {
 
-        if (!is_null($amounts) && (count($amounts) > 2)) {
+        if ((count($amounts) > 2)) {
             throw new \InvalidArgumentException('invalid value for $amounts when calling BankAccountVerify., number of items must be less than or equal to 2.');
         }
-        if (!is_null($amounts) && (count($amounts) < 2)) {
+        if ((count($amounts) < 2)) {
             throw new \InvalidArgumentException('invalid length for $amounts when calling BankAccountVerify., number of items must be greater than or equal to 2.');
         }
         $this->container['amounts'] = [];

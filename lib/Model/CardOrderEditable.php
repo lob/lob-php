@@ -191,11 +191,14 @@ class CardOrderEditable implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['quantity']) && ($this->container['quantity'] > 10000000)) {
+        if ($this->container['quantity'] === null) {
+            $invalidProperties[] = "'quantity' can't be null";
+        }
+        if (($this->container['quantity'] > 10000000)) {
             $invalidProperties[] = "invalid value for 'quantity', must be smaller than or equal to 10000000.";
         }
 
-        if (!is_null($this->container['quantity']) && ($this->container['quantity'] < 0)) {
+        if (($this->container['quantity'] < 0)) {
             $invalidProperties[] = "invalid value for 'quantity', must be bigger than or equal to 0.";
         }
 
@@ -218,7 +221,7 @@ class CardOrderEditable implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets quantity
      *
-     * @return int|null
+     * @return int
      */
     public function getQuantity()
     {
@@ -228,17 +231,17 @@ class CardOrderEditable implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets quantity
      *
-     * @param int|null $quantity quantity
+     * @param int $quantity quantity
      *
      * @return self
      */
     public function setQuantity($quantity)
     {
 
-        if (!is_null($quantity) && ($quantity > 10000000)) {
+        if (($quantity > 10000000)) {
             throw new \InvalidArgumentException('invalid value for $quantity when calling CardOrderEditable., must be smaller than or equal to 10000000.');
         }
-        if (!is_null($quantity) && ($quantity < 0)) {
+        if (($quantity < 0)) {
             throw new \InvalidArgumentException('invalid value for $quantity when calling CardOrderEditable., must be bigger than or equal to 0.');
         }
 

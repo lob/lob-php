@@ -251,10 +251,19 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
+        if ($this->container['to'] === null) {
+            $invalidProperties[] = "'to' can't be null";
+        }
         if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
+        if ($this->container['inside'] === null) {
+            $invalidProperties[] = "'inside' can't be null";
+        }
+        if ($this->container['outside'] === null) {
+            $invalidProperties[] = "'outside' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -274,7 +283,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets to
      *
-     * @return string|null
+     * @return string
      */
     public function getTo()
     {
@@ -284,7 +293,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets to
      *
-     * @param string|null $to Must either be an address ID or an inline object with correct address parameters.
+     * @param string $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -482,7 +491,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets inside
      *
-     * @return string|null
+     * @return string
      */
     public function getInside()
     {
@@ -492,7 +501,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets inside
      *
-     * @param string|null $inside The artwork to use as the inside of your self mailer.
+     * @param string $inside The artwork to use as the inside of your self mailer.
      *
      * @return self
      */
@@ -507,7 +516,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets outside
      *
-     * @return string|null
+     * @return string
      */
     public function getOutside()
     {
@@ -517,7 +526,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets outside
      *
-     * @param string|null $outside The artwork to use as the outside of your self mailer.
+     * @param string $outside The artwork to use as the outside of your self mailer.
      *
      * @return self
      */

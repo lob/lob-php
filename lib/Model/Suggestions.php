@@ -228,10 +228,22 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
+        if ($this->container['primary_line'] === null) {
+            $invalidProperties[] = "'primary_line' can't be null";
+        }
+        if ($this->container['city'] === null) {
+            $invalidProperties[] = "'city' can't be null";
+        }
+        if ((mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
+        if ($this->container['state'] === null) {
+            $invalidProperties[] = "'state' can't be null";
+        }
+        if ($this->container['zip_code'] === null) {
+            $invalidProperties[] = "'zip_code' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -260,7 +272,7 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets primary_line
      *
-     * @return string|null
+     * @return string
      */
     public function getPrimaryLine()
     {
@@ -270,7 +282,7 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets primary_line
      *
-     * @param string|null $primary_line The primary delivery line (usually the street address) of the address. Combination of the following applicable `components` (primary number & secondary information may be missing or inaccurate): * `primary_number` * `street_predirection` * `street_name` * `street_suffix` * `street_postdirection` * `secondary_designator` * `secondary_number` * `pmb_designator` * `pmb_number`
+     * @param string $primary_line The primary delivery line (usually the street address) of the address. Combination of the following applicable `components` (primary number & secondary information may be missing or inaccurate): * `primary_number` * `street_predirection` * `street_name` * `street_suffix` * `street_postdirection` * `secondary_designator` * `secondary_number` * `pmb_designator` * `pmb_number`
      *
      * @return self
      */
@@ -285,7 +297,7 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets city
      *
-     * @return string|null
+     * @return string
      */
     public function getCity()
     {
@@ -295,13 +307,13 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets city
      *
-     * @param string|null $city city
+     * @param string $city city
      *
      * @return self
      */
     public function setCity($city)
     {
-        if (!is_null($city) && (mb_strlen($city) > 200)) {
+        if ((mb_strlen($city) > 200)) {
             throw new \InvalidArgumentException('invalid length for $city when calling Suggestions., must be smaller than or equal to 200.');
         }
 
@@ -314,7 +326,7 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets state
      *
-     * @return string|null
+     * @return string
      */
     public function getState()
     {
@@ -324,7 +336,7 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets state
      *
-     * @param string|null $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
+     * @param string $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
      *
      * @return self
      */
@@ -339,7 +351,7 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets zip_code
      *
-     * @return string|null
+     * @return string
      */
     public function getZipCode()
     {
@@ -349,7 +361,7 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets zip_code
      *
-     * @param string|null $zip_code A 5-digit zip code. Left empty if a test key is used.
+     * @param string $zip_code A 5-digit zip code. Left empty if a test key is used.
      *
      * @return self
      */

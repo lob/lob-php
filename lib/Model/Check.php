@@ -380,10 +380,16 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['id']) && !preg_match("/^chk_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^chk_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^chk_[a-zA-Z0-9]+$/.";
         }
 
+        if ($this->container['to'] === null) {
+            $invalidProperties[] = "'to' can't be null";
+        }
         if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
@@ -413,10 +419,16 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'message', the character length must be smaller than or equal to 400.";
         }
 
-        if (!is_null($this->container['amount']) && ($this->container['amount'] > 999999.99)) {
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
+        }
+        if (($this->container['amount'] > 999999.99)) {
             $invalidProperties[] = "invalid value for 'amount', must be smaller than or equal to 999999.99.";
         }
 
+        if ($this->container['bank_account'] === null) {
+            $invalidProperties[] = "'bank_account' can't be null";
+        }
         if (!is_null($this->container['check_bottom_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['check_bottom_template_id'])) {
             $invalidProperties[] = "invalid value for 'check_bottom_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
@@ -433,10 +445,16 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'attachment_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['url']) && !preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
+        }
+        if (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
             $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
         }
 
+        if ($this->container['carrier'] === null) {
+            $invalidProperties[] = "'carrier' can't be null";
+        }
         $allowedValues = $this->getCarrierAllowableValues();
         if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -446,6 +464,9 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -455,6 +476,12 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['date_created'] === null) {
+            $invalidProperties[] = "'date_created' can't be null";
+        }
+        if ($this->container['date_modified'] === null) {
+            $invalidProperties[] = "'date_modified' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -474,7 +501,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -484,14 +511,14 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `chk_`.
+     * @param string $id Unique identifier prefixed with `chk_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^chk_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^chk_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Check., must conform to the pattern /^chk_[a-zA-Z0-9]+$/.");
         }
 
@@ -504,7 +531,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return \OpenAPI\Client\Model\Address|null
+     * @return \OpenAPI\Client\Model\Address
      */
     public function getTo()
     {
@@ -514,7 +541,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param \OpenAPI\Client\Model\Address|null $to to
+     * @param \OpenAPI\Client\Model\Address $to to
      *
      * @return self
      */
@@ -789,7 +816,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets amount
      *
-     * @return float|null
+     * @return float
      */
     public function getAmount()
     {
@@ -799,14 +826,14 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets amount
      *
-     * @param float|null $amount The payment amount to be sent in US dollars.
+     * @param float $amount The payment amount to be sent in US dollars.
      *
      * @return self
      */
     public function setAmount($amount)
     {
 
-        if (!is_null($amount) && ($amount > 999999.99)) {
+        if (($amount > 999999.99)) {
             throw new \InvalidArgumentException('invalid value for $amount when calling Check., must be smaller than or equal to 999999.99.');
         }
 
@@ -819,7 +846,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets bank_account
      *
-     * @return \OpenAPI\Client\Model\BankAccount|null
+     * @return \OpenAPI\Client\Model\BankAccount
      */
     public function getBankAccount()
     {
@@ -829,7 +856,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets bank_account
      *
-     * @param \OpenAPI\Client\Model\BankAccount|null $bank_account bank_account
+     * @param \OpenAPI\Client\Model\BankAccount $bank_account bank_account
      *
      * @return self
      */
@@ -964,7 +991,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets url
      *
-     * @return string|null
+     * @return string
      */
     public function getUrl()
     {
@@ -974,14 +1001,14 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets url
      *
-     * @param string|null $url A [signed link](#section/Asset-URLs) served over HTTPS. The link returned will expire in 30 days to prevent mis-sharing. Each time a GET request is initiated, a new signed URL will be generated.
+     * @param string $url A [signed link](#section/Asset-URLs) served over HTTPS. The link returned will expire in 30 days to prevent mis-sharing. Each time a GET request is initiated, a new signed URL will be generated.
      *
      * @return self
      */
     public function setUrl($url)
     {
 
-        if (!is_null($url) && (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
+        if ((!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
             throw new \InvalidArgumentException("invalid value for $url when calling Check., must conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");
         }
 
@@ -994,7 +1021,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets carrier
      *
-     * @return string|null
+     * @return string
      */
     public function getCarrier()
     {
@@ -1004,14 +1031,14 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets carrier
      *
-     * @param string|null $carrier carrier
+     * @param string $carrier carrier
      *
      * @return self
      */
     public function setCarrier($carrier)
     {
         $allowedValues = $this->getCarrierAllowableValues();
-        if (!is_null($carrier) && !in_array($carrier, $allowedValues, true)) {
+        if (!in_array($carrier, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'carrier', must be one of '%s'",
@@ -1119,7 +1146,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -1129,14 +1156,14 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object object
+     * @param string $object object
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",
@@ -1155,7 +1182,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_created
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -1165,7 +1192,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_created
      *
-     * @param \DateTime|null $date_created A timestamp in ISO 8601 format of the date the resource was created.
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the resource was created.
      *
      * @return self
      */
@@ -1180,7 +1207,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_modified
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -1190,7 +1217,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_modified
      *
-     * @param \DateTime|null $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
+     * @param \DateTime $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
      *
      * @return self
      */

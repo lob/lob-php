@@ -463,6 +463,12 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['primary_number'] === null) {
+            $invalidProperties[] = "'primary_number' can't be null";
+        }
+        if ($this->container['street_predirection'] === null) {
+            $invalidProperties[] = "'street_predirection' can't be null";
+        }
         $allowedValues = $this->getStreetPredirectionAllowableValues();
         if (!is_null($this->container['street_predirection']) && !in_array($this->container['street_predirection'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -472,6 +478,15 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['street_name'] === null) {
+            $invalidProperties[] = "'street_name' can't be null";
+        }
+        if ($this->container['street_suffix'] === null) {
+            $invalidProperties[] = "'street_suffix' can't be null";
+        }
+        if ($this->container['street_postdirection'] === null) {
+            $invalidProperties[] = "'street_postdirection' can't be null";
+        }
         $allowedValues = $this->getStreetPostdirectionAllowableValues();
         if (!is_null($this->container['street_postdirection']) && !in_array($this->container['street_postdirection'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -481,22 +496,61 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
+        if ($this->container['secondary_designator'] === null) {
+            $invalidProperties[] = "'secondary_designator' can't be null";
+        }
+        if ($this->container['secondary_number'] === null) {
+            $invalidProperties[] = "'secondary_number' can't be null";
+        }
+        if ($this->container['pmb_designator'] === null) {
+            $invalidProperties[] = "'pmb_designator' can't be null";
+        }
+        if ($this->container['pmb_number'] === null) {
+            $invalidProperties[] = "'pmb_number' can't be null";
+        }
+        if ($this->container['extra_secondary_designator'] === null) {
+            $invalidProperties[] = "'extra_secondary_designator' can't be null";
+        }
+        if ($this->container['extra_secondary_number'] === null) {
+            $invalidProperties[] = "'extra_secondary_number' can't be null";
+        }
+        if ($this->container['city'] === null) {
+            $invalidProperties[] = "'city' can't be null";
+        }
+        if ((mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 2)) {
+        if ($this->container['state'] === null) {
+            $invalidProperties[] = "'state' can't be null";
+        }
+        if ((mb_strlen($this->container['state']) > 2)) {
             $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 2.";
         }
 
-        if (!is_null($this->container['zip_code']) && !preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
+        if ($this->container['zip_code'] === null) {
+            $invalidProperties[] = "'zip_code' can't be null";
+        }
+        if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
             $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
         }
 
-        if (!is_null($this->container['zip_code_plus_4']) && !preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
+        if ($this->container['zip_code_plus_4'] === null) {
+            $invalidProperties[] = "'zip_code_plus_4' can't be null";
+        }
+        if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
             $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^\\d{4}$/.";
         }
 
+        if ($this->container['zip_code_type'] === null) {
+            $invalidProperties[] = "'zip_code_type' can't be null";
+        }
+        if ($this->container['delivery_point_barcode'] === null) {
+            $invalidProperties[] = "'delivery_point_barcode' can't be null";
+        }
+        if ($this->container['address_type'] === null) {
+            $invalidProperties[] = "'address_type' can't be null";
+        }
         $allowedValues = $this->getAddressTypeAllowableValues();
         if (!is_null($this->container['address_type']) && !in_array($this->container['address_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -506,6 +560,9 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['record_type'] === null) {
+            $invalidProperties[] = "'record_type' can't be null";
+        }
         $allowedValues = $this->getRecordTypeAllowableValues();
         if (!is_null($this->container['record_type']) && !in_array($this->container['record_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -515,10 +572,21 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['county_fips']) && !preg_match("/\\d{5}/", $this->container['county_fips'])) {
-            $invalidProperties[] = "invalid value for 'county_fips', must be conform to the pattern /\\d{5}/.";
+        if ($this->container['default_building_address'] === null) {
+            $invalidProperties[] = "'default_building_address' can't be null";
         }
-
+        if ($this->container['county'] === null) {
+            $invalidProperties[] = "'county' can't be null";
+        }
+        if ($this->container['county_fips'] === null) {
+            $invalidProperties[] = "'county_fips' can't be null";
+        }
+        if ($this->container['carrier_route'] === null) {
+            $invalidProperties[] = "'carrier_route' can't be null";
+        }
+        if ($this->container['carrier_route_type'] === null) {
+            $invalidProperties[] = "'carrier_route_type' can't be null";
+        }
         $allowedValues = $this->getCarrierRouteTypeAllowableValues();
         if (!is_null($this->container['carrier_route_type']) && !in_array($this->container['carrier_route_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -547,7 +615,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets primary_number
      *
-     * @return string|null
+     * @return string
      */
     public function getPrimaryNumber()
     {
@@ -557,7 +625,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets primary_number
      *
-     * @param string|null $primary_number The numeric or alphanumeric part of an address preceding the street name. Often the house, building, or PO Box number.
+     * @param string $primary_number The numeric or alphanumeric part of an address preceding the street name. Often the house, building, or PO Box number.
      *
      * @return self
      */
@@ -572,7 +640,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets street_predirection
      *
-     * @return string|null
+     * @return string
      */
     public function getStreetPredirection()
     {
@@ -582,14 +650,14 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets street_predirection
      *
-     * @param string|null $street_predirection Geographic direction preceding a street name (`N`, `S`, `E`, `W`, `NE`, `SW`, `SE`, `NW`).
+     * @param string $street_predirection Geographic direction preceding a street name (`N`, `S`, `E`, `W`, `NE`, `SW`, `SE`, `NW`).
      *
      * @return self
      */
     public function setStreetPredirection($street_predirection)
     {
         $allowedValues = $this->getStreetPredirectionAllowableValues();
-        if (!is_null($street_predirection) && !in_array($street_predirection, $allowedValues, true)) {
+        if (!in_array($street_predirection, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'street_predirection', must be one of '%s'",
@@ -608,7 +676,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets street_name
      *
-     * @return string|null
+     * @return string
      */
     public function getStreetName()
     {
@@ -618,7 +686,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets street_name
      *
-     * @param string|null $street_name The name of the street.
+     * @param string $street_name The name of the street.
      *
      * @return self
      */
@@ -633,7 +701,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets street_suffix
      *
-     * @return string|null
+     * @return string
      */
     public function getStreetSuffix()
     {
@@ -643,7 +711,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets street_suffix
      *
-     * @param string|null $street_suffix The standard USPS abbreviation for the street suffix (`ST`, `AVE`, `BLVD`, etc).
+     * @param string $street_suffix The standard USPS abbreviation for the street suffix (`ST`, `AVE`, `BLVD`, etc).
      *
      * @return self
      */
@@ -658,7 +726,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets street_postdirection
      *
-     * @return string|null
+     * @return string
      */
     public function getStreetPostdirection()
     {
@@ -668,14 +736,14 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets street_postdirection
      *
-     * @param string|null $street_postdirection Geographic direction following a street name (`N`, `S`, `E`, `W`, `NE`, `SW`, `SE`, `NW`).
+     * @param string $street_postdirection Geographic direction following a street name (`N`, `S`, `E`, `W`, `NE`, `SW`, `SE`, `NW`).
      *
      * @return self
      */
     public function setStreetPostdirection($street_postdirection)
     {
         $allowedValues = $this->getStreetPostdirectionAllowableValues();
-        if (!is_null($street_postdirection) && !in_array($street_postdirection, $allowedValues, true)) {
+        if (!in_array($street_postdirection, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'street_postdirection', must be one of '%s'",
@@ -694,7 +762,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets secondary_designator
      *
-     * @return string|null
+     * @return string
      */
     public function getSecondaryDesignator()
     {
@@ -704,7 +772,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets secondary_designator
      *
-     * @param string|null $secondary_designator The standard USPS abbreviation describing the `components[secondary_number]` (`STE`, `APT`, `BLDG`, etc).
+     * @param string $secondary_designator The standard USPS abbreviation describing the `components[secondary_number]` (`STE`, `APT`, `BLDG`, etc).
      *
      * @return self
      */
@@ -719,7 +787,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets secondary_number
      *
-     * @return string|null
+     * @return string
      */
     public function getSecondaryNumber()
     {
@@ -729,7 +797,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets secondary_number
      *
-     * @param string|null $secondary_number Number of the apartment/unit/etc.
+     * @param string $secondary_number Number of the apartment/unit/etc.
      *
      * @return self
      */
@@ -744,7 +812,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets pmb_designator
      *
-     * @return string|null
+     * @return string
      */
     public function getPmbDesignator()
     {
@@ -754,7 +822,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets pmb_designator
      *
-     * @param string|null $pmb_designator Designator of a [CMRA-authorized](https://en.wikipedia.org/wiki/Commercial_mail_receiving_agency) private mailbox.
+     * @param string $pmb_designator Designator of a [CMRA-authorized](https://en.wikipedia.org/wiki/Commercial_mail_receiving_agency) private mailbox.
      *
      * @return self
      */
@@ -769,7 +837,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets pmb_number
      *
-     * @return string|null
+     * @return string
      */
     public function getPmbNumber()
     {
@@ -779,7 +847,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets pmb_number
      *
-     * @param string|null $pmb_number Number of a [CMRA-authorized](https://en.wikipedia.org/wiki/Commercial_mail_receiving_agency) private mailbox.
+     * @param string $pmb_number Number of a [CMRA-authorized](https://en.wikipedia.org/wiki/Commercial_mail_receiving_agency) private mailbox.
      *
      * @return self
      */
@@ -794,7 +862,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets extra_secondary_designator
      *
-     * @return string|null
+     * @return string
      */
     public function getExtraSecondaryDesignator()
     {
@@ -804,7 +872,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets extra_secondary_designator
      *
-     * @param string|null $extra_secondary_designator An extra (often unnecessary) secondary designator provided with the input address.
+     * @param string $extra_secondary_designator An extra (often unnecessary) secondary designator provided with the input address.
      *
      * @return self
      */
@@ -819,7 +887,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets extra_secondary_number
      *
-     * @return string|null
+     * @return string
      */
     public function getExtraSecondaryNumber()
     {
@@ -829,7 +897,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets extra_secondary_number
      *
-     * @param string|null $extra_secondary_number An extra (often unnecessary) secondary number provided with the input address.
+     * @param string $extra_secondary_number An extra (often unnecessary) secondary number provided with the input address.
      *
      * @return self
      */
@@ -844,7 +912,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets city
      *
-     * @return string|null
+     * @return string
      */
     public function getCity()
     {
@@ -854,13 +922,13 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets city
      *
-     * @param string|null $city city
+     * @param string $city city
      *
      * @return self
      */
     public function setCity($city)
     {
-        if (!is_null($city) && (mb_strlen($city) > 200)) {
+        if ((mb_strlen($city) > 200)) {
             throw new \InvalidArgumentException('invalid length for $city when calling UsComponents., must be smaller than or equal to 200.');
         }
 
@@ -873,7 +941,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets state
      *
-     * @return string|null
+     * @return string
      */
     public function getState()
     {
@@ -883,13 +951,13 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets state
      *
-     * @param string|null $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
+     * @param string $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
      *
      * @return self
      */
     public function setState($state)
     {
-        if (!is_null($state) && (mb_strlen($state) > 2)) {
+        if ((mb_strlen($state) > 2)) {
             throw new \InvalidArgumentException('invalid length for $state when calling UsComponents., must be smaller than or equal to 2.');
         }
 
@@ -902,7 +970,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets zip_code
      *
-     * @return string|null
+     * @return string
      */
     public function getZipCode()
     {
@@ -912,14 +980,14 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets zip_code
      *
-     * @param string|null $zip_code The 5-digit ZIP code
+     * @param string $zip_code The 5-digit ZIP code
      *
      * @return self
      */
     public function setZipCode($zip_code)
     {
 
-        if (!is_null($zip_code) && (!preg_match("/^\\d{5}$/", $zip_code))) {
+        if ((!preg_match("/^\\d{5}$/", $zip_code))) {
             throw new \InvalidArgumentException("invalid value for $zip_code when calling UsComponents., must conform to the pattern /^\\d{5}$/.");
         }
 
@@ -932,7 +1000,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets zip_code_plus_4
      *
-     * @return string|null
+     * @return string
      */
     public function getZipCodePlus4()
     {
@@ -942,14 +1010,14 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets zip_code_plus_4
      *
-     * @param string|null $zip_code_plus_4 zip_code_plus_4
+     * @param string $zip_code_plus_4 zip_code_plus_4
      *
      * @return self
      */
     public function setZipCodePlus4($zip_code_plus_4)
     {
 
-        if (!is_null($zip_code_plus_4) && (!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
+        if ((!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
             throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling UsComponents., must conform to the pattern /^\\d{4}$/.");
         }
 
@@ -962,7 +1030,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets zip_code_type
      *
-     * @return \OpenAPI\Client\Model\ZipCodeType|null
+     * @return \OpenAPI\Client\Model\ZipCodeType
      */
     public function getZipCodeType()
     {
@@ -972,7 +1040,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets zip_code_type
      *
-     * @param \OpenAPI\Client\Model\ZipCodeType|null $zip_code_type zip_code_type
+     * @param \OpenAPI\Client\Model\ZipCodeType $zip_code_type zip_code_type
      *
      * @return self
      */
@@ -987,7 +1055,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets delivery_point_barcode
      *
-     * @return string|null
+     * @return string
      */
     public function getDeliveryPointBarcode()
     {
@@ -997,7 +1065,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets delivery_point_barcode
      *
-     * @param string|null $delivery_point_barcode A 12-digit identifier that uniquely identifies a delivery point (location where mail can be sent and received). It consists of the 5-digit ZIP code (`zip_code`), 4-digit ZIP+4 add-on (`zip_code_plus_4`), 2-digit delivery point, and 1-digit delivery point check digit.
+     * @param string $delivery_point_barcode A 12-digit identifier that uniquely identifies a delivery point (location where mail can be sent and received). It consists of the 5-digit ZIP code (`zip_code`), 4-digit ZIP+4 add-on (`zip_code_plus_4`), 2-digit delivery point, and 1-digit delivery point check digit.
      *
      * @return self
      */
@@ -1012,7 +1080,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets address_type
      *
-     * @return string|null
+     * @return string
      */
     public function getAddressType()
     {
@@ -1022,14 +1090,14 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets address_type
      *
-     * @param string|null $address_type Uses USPS's [Residential Delivery Indicator (RDI)](https://www.usps.com/nationalpremieraccounts/rdi.htm) to identify whether an address is classified as residential or business. Possible values are: * `residential` –– The address is residential or a PO Box. * `commercial` –– The address is commercial. * `''` –– Not enough information provided to be determined.
+     * @param string $address_type Uses USPS's [Residential Delivery Indicator (RDI)](https://www.usps.com/nationalpremieraccounts/rdi.htm) to identify whether an address is classified as residential or business. Possible values are: * `residential` –– The address is residential or a PO Box. * `commercial` –– The address is commercial. * `''` –– Not enough information provided to be determined.
      *
      * @return self
      */
     public function setAddressType($address_type)
     {
         $allowedValues = $this->getAddressTypeAllowableValues();
-        if (!is_null($address_type) && !in_array($address_type, $allowedValues, true)) {
+        if (!in_array($address_type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'address_type', must be one of '%s'",
@@ -1048,7 +1116,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets record_type
      *
-     * @return string|null
+     * @return string
      */
     public function getRecordType()
     {
@@ -1058,14 +1126,14 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets record_type
      *
-     * @param string|null $record_type A description of the type of address. Populated if a DPV match is made (`deliverability_analysis[dpv_confirmation]` is `Y`, `S`, or `D`). For more detailed information about each record type, see [US Verification Details](#tag/US-Verification-Types).
+     * @param string $record_type A description of the type of address. Populated if a DPV match is made (`deliverability_analysis[dpv_confirmation]` is `Y`, `S`, or `D`). For more detailed information about each record type, see [US Verification Details](#tag/US-Verification-Types).
      *
      * @return self
      */
     public function setRecordType($record_type)
     {
         $allowedValues = $this->getRecordTypeAllowableValues();
-        if (!is_null($record_type) && !in_array($record_type, $allowedValues, true)) {
+        if (!in_array($record_type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'record_type', must be one of '%s'",
@@ -1084,7 +1152,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets default_building_address
      *
-     * @return bool|null
+     * @return bool
      */
     public function getDefaultBuildingAddress()
     {
@@ -1094,7 +1162,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets default_building_address
      *
-     * @param bool|null $default_building_address Designates whether or not the address is the default address for a building containing multiple delivery points.
+     * @param bool $default_building_address Designates whether or not the address is the default address for a building containing multiple delivery points.
      *
      * @return self
      */
@@ -1109,7 +1177,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets county
      *
-     * @return string|null
+     * @return string
      */
     public function getCounty()
     {
@@ -1119,7 +1187,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets county
      *
-     * @param string|null $county County name of the address city.
+     * @param string $county County name of the address city.
      *
      * @return self
      */
@@ -1134,7 +1202,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets county_fips
      *
-     * @return string|null
+     * @return string
      */
     public function getCountyFips()
     {
@@ -1144,17 +1212,12 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets county_fips
      *
-     * @param string|null $county_fips A 5-digit [FIPS county code](https://en.wikipedia.org/wiki/FIPS_county_code) which uniquely identifies `components[county]`. It consists of a 2-digit state code and a 3-digit county code.
+     * @param string $county_fips A 5-digit [FIPS county code](https://en.wikipedia.org/wiki/FIPS_county_code) which uniquely identifies `components[county]`. It consists of a 2-digit state code and a 3-digit county code.
      *
      * @return self
      */
     public function setCountyFips($county_fips)
     {
-
-        if (!is_null($county_fips) && (!preg_match("/\\d{5}/", $county_fips))) {
-            throw new \InvalidArgumentException("invalid value for $county_fips when calling UsComponents., must conform to the pattern /\\d{5}/.");
-        }
-
         $this->container['county_fips'] = $county_fips;
 
         return $this;
@@ -1164,7 +1227,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets carrier_route
      *
-     * @return string|null
+     * @return string
      */
     public function getCarrierRoute()
     {
@@ -1174,7 +1237,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets carrier_route
      *
-     * @param string|null $carrier_route A 4-character code assigned to a mail delivery route within a ZIP code.
+     * @param string $carrier_route A 4-character code assigned to a mail delivery route within a ZIP code.
      *
      * @return self
      */
@@ -1189,7 +1252,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets carrier_route_type
      *
-     * @return string|null
+     * @return string
      */
     public function getCarrierRouteType()
     {
@@ -1199,14 +1262,14 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets carrier_route_type
      *
-     * @param string|null $carrier_route_type The type of `components[carrier_route]`. For more detailed information about each carrier route type, see [US Verification Details](#tag/US-Verification-Types).
+     * @param string $carrier_route_type The type of `components[carrier_route]`. For more detailed information about each carrier route type, see [US Verification Details](#tag/US-Verification-Types).
      *
      * @return self
      */
     public function setCarrierRouteType($carrier_route_type)
     {
         $allowedValues = $this->getCarrierRouteTypeAllowableValues();
-        if (!is_null($carrier_route_type) && !in_array($carrier_route_type, $allowedValues, true)) {
+        if (!in_array($carrier_route_type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'carrier_route_type', must be one of '%s'",

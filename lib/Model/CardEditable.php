@@ -224,6 +224,9 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['front'] === null) {
+            $invalidProperties[] = "'front' can't be null";
+        }
         $allowedValues = $this->getSizeAllowableValues();
         if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -256,7 +259,7 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets front
      *
-     * @return string|null
+     * @return string
      */
     public function getFront()
     {
@@ -266,7 +269,7 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets front
      *
-     * @param string|null $front A PDF template for the front of the card
+     * @param string $front A PDF template for the front of the card
      *
      * @return self
      */

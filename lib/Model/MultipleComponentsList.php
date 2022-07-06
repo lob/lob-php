@@ -191,11 +191,14 @@ class MultipleComponentsList implements ModelInterface, ArrayAccess, \JsonSerial
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['addresses']) && (count($this->container['addresses']) > 10)) {
+        if ($this->container['addresses'] === null) {
+            $invalidProperties[] = "'addresses' can't be null";
+        }
+        if ((count($this->container['addresses']) > 10)) {
             $invalidProperties[] = "invalid value for 'addresses', number of items must be less than or equal to 10.";
         }
 
-        if (!is_null($this->container['addresses']) && (count($this->container['addresses']) < 1)) {
+        if ((count($this->container['addresses']) < 1)) {
             $invalidProperties[] = "invalid value for 'addresses', number of items must be greater than or equal to 1.";
         }
 
@@ -218,7 +221,7 @@ class MultipleComponentsList implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets addresses
      *
-     * @return \OpenAPI\Client\Model\MultipleComponents[]|null
+     * @return \OpenAPI\Client\Model\MultipleComponents[]
      */
     public function getAddresses()
     {
@@ -228,17 +231,17 @@ class MultipleComponentsList implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets addresses
      *
-     * @param \OpenAPI\Client\Model\MultipleComponents[]|null $addresses addresses
+     * @param \OpenAPI\Client\Model\MultipleComponents[] $addresses addresses
      *
      * @return self
      */
     public function setAddresses($addresses)
     {
 
-        if (!is_null($addresses) && (count($addresses) > 10)) {
+        if ((count($addresses) > 10)) {
             throw new \InvalidArgumentException('invalid value for $addresses when calling MultipleComponentsList., number of items must be less than or equal to 10.');
         }
-        if (!is_null($addresses) && (count($addresses) < 1)) {
+        if ((count($addresses) < 1)) {
             throw new \InvalidArgumentException('invalid length for $addresses when calling MultipleComponentsList., number of items must be greater than or equal to 1.');
         }
         $this->container['addresses'] = [];

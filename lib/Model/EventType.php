@@ -245,6 +245,15 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['enabled_for_test'] === null) {
+            $invalidProperties[] = "'enabled_for_test' can't be null";
+        }
+        if ($this->container['resource'] === null) {
+            $invalidProperties[] = "'resource' can't be null";
+        }
         $allowedValues = $this->getResourceAllowableValues();
         if (!is_null($this->container['resource']) && !in_array($this->container['resource'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -254,6 +263,9 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -282,7 +294,7 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -292,7 +304,7 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string $id id
      *
      * @return self
      */
@@ -307,7 +319,7 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets enabled_for_test
      *
-     * @return bool|null
+     * @return bool
      */
     public function getEnabledForTest()
     {
@@ -317,7 +329,7 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets enabled_for_test
      *
-     * @param bool|null $enabled_for_test Value is `true` if the event type is enabled in both the test and live environments.
+     * @param bool $enabled_for_test Value is `true` if the event type is enabled in both the test and live environments.
      *
      * @return self
      */
@@ -332,7 +344,7 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets resource
      *
-     * @return string|null
+     * @return string
      */
     public function getResource()
     {
@@ -342,14 +354,14 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets resource
      *
-     * @param string|null $resource resource
+     * @param string $resource resource
      *
      * @return self
      */
     public function setResource($resource)
     {
         $allowedValues = $this->getResourceAllowableValues();
-        if (!is_null($resource) && !in_array($resource, $allowedValues, true)) {
+        if (!in_array($resource, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'resource', must be one of '%s'",
@@ -368,7 +380,7 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -378,14 +390,14 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object Value is resource type.
+     * @param string $object Value is resource type.
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",

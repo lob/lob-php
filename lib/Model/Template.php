@@ -256,10 +256,19 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
 
+        if ($this->container['versions'] === null) {
+            $invalidProperties[] = "'versions' can't be null";
+        }
+        if ($this->container['published_version'] === null) {
+            $invalidProperties[] = "'published_version' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -317,7 +326,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -327,14 +336,14 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `tmpl_`. ID of a saved [HTML template](#section/HTML-Templates).
+     * @param string $id Unique identifier prefixed with `tmpl_`. ID of a saved [HTML template](#section/HTML-Templates).
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Template., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
         }
 
@@ -347,7 +356,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets versions
      *
-     * @return \OpenAPI\Client\Model\TemplateVersion[]|null
+     * @return \OpenAPI\Client\Model\TemplateVersion[]
      */
     public function getVersions()
     {
@@ -357,7 +366,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets versions
      *
-     * @param \OpenAPI\Client\Model\TemplateVersion[]|null $versions An array of all non-deleted [version objects](#tag/Template-Versions) associated with the template.
+     * @param \OpenAPI\Client\Model\TemplateVersion[] $versions An array of all non-deleted [version objects](#tag/Template-Versions) associated with the template.
      *
      * @return self
      */
@@ -379,7 +388,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets published_version
      *
-     * @return \OpenAPI\Client\Model\TemplateVersion|null
+     * @return \OpenAPI\Client\Model\TemplateVersion
      */
     public function getPublishedVersion()
     {
@@ -389,7 +398,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets published_version
      *
-     * @param \OpenAPI\Client\Model\TemplateVersion|null $published_version published_version
+     * @param \OpenAPI\Client\Model\TemplateVersion $published_version published_version
      *
      * @return self
      */
