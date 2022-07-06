@@ -313,10 +313,6 @@ class PostcardsApiSpecTest extends TestCase
         }
     }
 
-    /**
-     * @group failing
-     * Tests the api edit form
-     */
     public function testListSize200()
     {
         $nextUrl = "";
