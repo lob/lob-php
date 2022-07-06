@@ -12,7 +12,7 @@ In this guide we compare how `v3.*.*` and >= `v4.0.0` implement the following me
 
 ## INSTALL
 
-Similar to the legacy version, the lob-php-sdk is available through Composer:
+Similar to the legacy version, the new lob-php SDK is available through Composer:
 
 ```
 $ php composer.phar require lob/lob-php
