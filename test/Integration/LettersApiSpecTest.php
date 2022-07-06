@@ -32,11 +32,11 @@ use \OpenAPI\Client\Configuration;
 use \OpenAPI\Client\ApiException;
 use PHPUnit\Framework\TestCase;
 use \OpenAPI\Client\Model\LetterEditable;
-use \OpenAPI\Client\Model\PostcardSize;
 use \OpenAPI\Client\Api\LettersApi;
 use \OpenAPI\Client\Model\AddressEditable;
 use \OpenAPI\Client\Model\MailType;
 use \OpenAPI\Client\Api\AddressesApi;
+use \OpenAPI\Client\Model\SortBy5;
 
 /**
  * AddressesApiTest Class Doc Comment
@@ -55,11 +55,13 @@ class LettersApiSpecTest extends TestCase
     private static $config;
     private static $addressApi;
     private static $letterApi;
+    private static $invalidLetterApi;
     private static $editableLetter;
     private static $regularLetter;
     private static $certifiedLetter;
     private static $registeredLetter;
     private static $errorLetter;
+    private static $metadata;
 
     // for teardown post-testing
     private $idsForCleanup = [];
@@ -115,6 +117,10 @@ class LettersApiSpecTest extends TestCase
         // create new instance of LettersApi to use in other tests
         self::$letterApi = new LettersApi(self::$config);
 
+        $invalidConfig = new Configuration();
+        $invalidConfig->setApiKey("basic", "Totally Fake Key");
+        self::$invalidLetterApi = new LettersApi($invalidConfig);
+
         // create regular letter
         self::$regularLetter = new LetterEditable();
         self::$regularLetter->setTo(self::$toAddress->getId());
@@ -122,6 +128,8 @@ class LettersApiSpecTest extends TestCase
         self::$regularLetter->setDescription("Dummy Letter (Integration Test)");
         self::$regularLetter->setFile("https://s3-us-west-2.amazonaws.com/public.lob.com/assets/us_letter_1pg.pdf");
         self::$regularLetter->setColor(true);
+        self::$metadata = (object)array("name"=>"Harry");
+        self::$regularLetter->setMetadata(self::$metadata);
 
         // create certified letter
         self::$certifiedLetter = new LetterEditable();
@@ -164,170 +172,175 @@ class LettersApiSpecTest extends TestCase
         self::$addressApi->delete(self::$fromAddress2->getId());
     }
 
-    // include static cleanup for all the addresses?
-
     public function testLettersApiInstantiation200() {
-        try {
-            $lettersApi200 = new LettersApi(self::$config);
-            $this->assertEquals(gettype($lettersApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $lettersApi200 = new LettersApi(self::$config);
+        $this->assertEquals(gettype($lettersApi200), 'object');
     }
 
     public function testCreateRegular200()
     {
-        try {
-            $createdLetter = self::$letterApi->create(self::$regularLetter);
-            $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
-            array_push($this->idsForCleanup, $createdLetter->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $createdLetter = self::$letterApi->create(self::$regularLetter);
+        $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
+        array_push($this->idsForCleanup, $createdLetter->getId());
     }
 
     public function testCreateCertified200()
     {
-        try {
-            $createdLetter = self::$letterApi->create(self::$certifiedLetter);
-            $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
-            array_push($this->idsForCleanup, $createdLetter->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $createdLetter = self::$letterApi->create(self::$certifiedLetter);
+        $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
+        array_push($this->idsForCleanup, $createdLetter->getId());
     }
 
     public function testCreateRegistered200()
     {
-        try {
-            $createdLetter = self::$letterApi->create(self::$registeredLetter);
-            $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
-            array_push($this->idsForCleanup, $createdLetter->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $createdLetter = self::$letterApi->create(self::$registeredLetter);
+        $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
+        array_push($this->idsForCleanup, $createdLetter->getId());
     }
 
     // does not include required field in request
     public function testCreate422()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/to is required/");
-            $errorResponse = self::$letterApi->create(self::$errorLetter);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/to is required/");
+        $errorResponse = self::$letterApi->create(self::$errorLetter);
     }
 
     // uses a bad key to attempt to send a request
     public function testLetterApi401() {
-        try {
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', 'BAD KEY');
-            $letterApiError = new LettersApi($wrongConfig);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        $letterApiError = new LettersApi($wrongConfig);
 
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-            $errorResponse = $letterApiError->create(self::$regularLetter);
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = $letterApiError->create(self::$regularLetter);
     }
 
     public function testGet200()
     {
-        try {
-            $createdLetter = self::$letterApi->create(self::$regularLetter);
-            $retrievedLetter = self::$letterApi->get($createdLetter->getId());
-            $this->assertEquals($createdLetter->getTo(), $retrievedLetter->getTo());
-            array_push($this->idsForCleanup, $createdLetter->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $createdLetter = self::$letterApi->create(self::$regularLetter);
+        $retrievedLetter = self::$letterApi->get($createdLetter->getId());
+        $this->assertEquals($createdLetter->getTo(), $retrievedLetter->getTo());
+        array_push($this->idsForCleanup, $createdLetter->getId());
+    }
+
+    public function testGet0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $badRetrieval = self::$letterApi->get(null);
+    }
+
+    public function testGet401()
+    {
+        $createdLetter = self::$letterApi->create(self::$regularLetter);
+        array_push($this->idsForCleanup, $createdLetter->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidLetterApi->get($createdLetter->getId());
     }
 
     public function testGet404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/letter not found/");
-            $badRetrieval = self::$letterApi->get("ltr_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/letter not found/");
+        $badRetrieval = self::$letterApi->get("ltr_NONEXISTENT");
     }
 
     public function testList200()
     {
         $nextUrl = "";
         $previousUrl = "";
-        try {
-            $ltr1 = self::$letterApi->create(self::$regularLetter);
-            $ltr2 = self::$letterApi->create(self::$registeredLetter);
-            $listedLetters = self::$letterApi->list(2);
-            $this->assertGreaterThan(1, count($listedLetters->getData()));
-            $this->assertLessThanOrEqual(2, count($listedLetters->getData()));
-            $nextUrl = substr($listedLetters->getNextUrl(), strrpos($listedLetters->getNextUrl(), "after=") + 6);
-            $this->assertIsString($nextUrl);
-            array_push($this->idsForCleanup, $ltr1->getId());
-            array_push($this->idsForCleanup, $ltr2->getId());
-        } catch (Exception $listError) {
-            echo 'Caught exception: ',  $listError->getMessage(), "\n";
-        }
+        $ltr1 = self::$letterApi->create(self::$regularLetter);
+        $ltr2 = self::$letterApi->create(self::$registeredLetter);
+        $listedLetters = self::$letterApi->list(2);
+        $this->assertGreaterThan(1, count($listedLetters->getData()));
+        $this->assertLessThanOrEqual(2, count($listedLetters->getData()));
+        $nextUrl = substr($listedLetters->getNextUrl(), strrpos($listedLetters->getNextUrl(), "after=") + 6);
+        $this->assertIsString($nextUrl);
+        array_push($this->idsForCleanup, $ltr1->getId());
+        array_push($this->idsForCleanup, $ltr2->getId());
 
         // response using nextUrl
         if ($nextUrl != "") {
-            try {
-                $ltr1 = self::$letterApi->create(self::$regularLetter);
-                $ltr2 = self::$letterApi->create(self::$registeredLetter);
-                $listedLettersAfter = self::$letterApi->list(2, null, $nextUrl);
-                $this->assertGreaterThan(1, count($listedLettersAfter->getData()));
-                $this->assertLessThanOrEqual(2, count($listedLettersAfter->getData()));
-                $previousUrl = substr($listedLettersAfter->getPreviousUrl(), strrpos($listedLettersAfter->getPreviousUrl(), "before=") + 7);
-                $this->assertIsString($previousUrl);
-                array_push($this->idsForCleanup, $ltr1->getId());
-                array_push($this->idsForCleanup, $ltr2->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $ltr1 = self::$letterApi->create(self::$regularLetter);
+            $ltr2 = self::$letterApi->create(self::$registeredLetter);
+            $listedLettersAfter = self::$letterApi->list(2, null, $nextUrl);
+            $this->assertGreaterThan(1, count($listedLettersAfter->getData()));
+            $this->assertLessThanOrEqual(2, count($listedLettersAfter->getData()));
+            $previousUrl = substr($listedLettersAfter->getPreviousUrl(), strrpos($listedLettersAfter->getPreviousUrl(), "before=") + 7);
+            $this->assertIsString($previousUrl);
+            array_push($this->idsForCleanup, $ltr1->getId());
+            array_push($this->idsForCleanup, $ltr2->getId());
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            try {
-                $ltr1 = self::$letterApi->create(self::$regularLetter);
-                $ltr2 = self::$letterApi->create(self::$registeredLetter);
-                $listedLettersBefore = self::$letterApi->list(2, $previousUrl);
-                $this->assertGreaterThan(1, count($listedLettersBefore->getData()));
-                $this->assertLessThanOrEqual(2, count($listedLettersBefore->getData()));
-                array_push($this->idsForCleanup, $ltr1->getId());
-                array_push($this->idsForCleanup, $ltr2->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $ltr1 = self::$letterApi->create(self::$regularLetter);
+            $ltr2 = self::$letterApi->create(self::$registeredLetter);
+            $listedLettersBefore = self::$letterApi->list(2, $previousUrl);
+            $this->assertGreaterThan(1, count($listedLettersBefore->getData()));
+            $this->assertLessThanOrEqual(2, count($listedLettersBefore->getData()));
+            array_push($this->idsForCleanup, $ltr1->getId());
+            array_push($this->idsForCleanup, $ltr2->getId());
         }
+    }
+
+    public function provider()
+    {
+        return array(
+            // array(null, null, null, array("total_count"), null, null, null, null, null, null, null), // include
+            // array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null, null, null, null, null), // date_created
+            array(null, null, null, null, null, self::$metadata, null, null, null, null, null), // metadata
+            // array(null, null, null, null, null, null, TRUE, null, null, null, null), // color
+            // array(null, null, null, null, null, null, null, TRUE, null, null, null), // scheduled
+            // array(null, null, null, null, null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null), // send_date
+            array(null, null, null, null, null, null, null, null, null, MailType::FIRST_CLASS->value, null), // mail_type
+            array(null, null, null, null, null, null, null, null, null, null, new SortBy5(array("date_created" => "asc"))) // sort_by
+        );
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $color, $scheduled, $send_date, $mail_type, $sort_by)
+    {
+        // create letters to list
+        $ltr1 = self::$letterApi->create(self::$regularLetter);
+        $ltr2 = self::$letterApi->create(self::$registeredLetter);
+        $listedLetters = self::$letterApi->list($limit, $before, $after, $include, $date_created, $metadata, $color, $scheduled, $send_date, $mail_type, $sort_by);
+
+        $this->assertGreaterThan(0, $listedLetters->getCount());
+        if ($include) $this->assertNotNull($listedLetters->getTotalCount());
+
+        // cancel created letters
+        array_push($this->idsForCleanup, $ltr1->getId());
+        array_push($this->idsForCleanup, $ltr2->getId());
     }
 
     public function testCancel200()
     {
-        try {
-            $createdLetter = self::$letterApi->create(self::$regularLetter);
-            $deletedLetter = self::$letterApi->cancel($createdLetter->getId());
-            $this->assertEquals(true, $deletedLetter->getDeleted());
-        } catch (Exception $deleteError) {
-            echo 'Caught exception: ',  $deleteError->getMessage(), "\n";
-        }
+        $createdLetter = self::$letterApi->create(self::$regularLetter);
+        $deletedLetter = self::$letterApi->cancel($createdLetter->getId());
+        $this->assertEquals(true, $deletedLetter->getDeleted());
+    }
+
+    public function testCancel401()
+    {
+        $createdLetter = self::$letterApi->create(self::$regularLetter);
+        array_push($this->idsForCleanup, $createdLetter->getId());
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $deletedLetter = self::$invalidLetterApi->cancel($createdLetter->getId());
     }
 
     public function testCancel404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/letter not found/");
-            $badDeletion = self::$letterApi->cancel("ltr_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/letter not found/");
+        $badDeletion = self::$letterApi->cancel("ltr_NONEXISTENT");
     }
 }
