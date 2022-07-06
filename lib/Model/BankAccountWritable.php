@@ -225,19 +225,31 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['routing_number']) && (mb_strlen($this->container['routing_number']) > 9)) {
+        if ($this->container['routing_number'] === null) {
+            $invalidProperties[] = "'routing_number' can't be null";
+        }
+        if ((mb_strlen($this->container['routing_number']) > 9)) {
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be smaller than or equal to 9.";
         }
 
-        if (!is_null($this->container['routing_number']) && (mb_strlen($this->container['routing_number']) < 9)) {
+        if ((mb_strlen($this->container['routing_number']) < 9)) {
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be bigger than or equal to 9.";
         }
 
-        if (!is_null($this->container['account_number']) && (mb_strlen($this->container['account_number']) > 17)) {
+        if ($this->container['account_number'] === null) {
+            $invalidProperties[] = "'account_number' can't be null";
+        }
+        if ((mb_strlen($this->container['account_number']) > 17)) {
             $invalidProperties[] = "invalid value for 'account_number', the character length must be smaller than or equal to 17.";
         }
 
-        if (!is_null($this->container['signatory']) && (mb_strlen($this->container['signatory']) > 30)) {
+        if ($this->container['account_type'] === null) {
+            $invalidProperties[] = "'account_type' can't be null";
+        }
+        if ($this->container['signatory'] === null) {
+            $invalidProperties[] = "'signatory' can't be null";
+        }
+        if ((mb_strlen($this->container['signatory']) > 30)) {
             $invalidProperties[] = "invalid value for 'signatory', the character length must be smaller than or equal to 30.";
         }
 
@@ -289,7 +301,7 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets routing_number
      *
-     * @return string|null
+     * @return string
      */
     public function getRoutingNumber()
     {
@@ -299,16 +311,16 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets routing_number
      *
-     * @param string|null $routing_number Must be a [valid US routing number](https://www.frbservices.org/index.html).
+     * @param string $routing_number Must be a [valid US routing number](https://www.frbservices.org/index.html).
      *
      * @return self
      */
     public function setRoutingNumber($routing_number)
     {
-        if (!is_null($routing_number) && (mb_strlen($routing_number) > 9)) {
+        if ((mb_strlen($routing_number) > 9)) {
             throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccountWritable., must be smaller than or equal to 9.');
         }
-        if (!is_null($routing_number) && (mb_strlen($routing_number) < 9)) {
+        if ((mb_strlen($routing_number) < 9)) {
             throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccountWritable., must be bigger than or equal to 9.');
         }
 
@@ -321,7 +333,7 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets account_number
      *
-     * @return string|null
+     * @return string
      */
     public function getAccountNumber()
     {
@@ -331,13 +343,13 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets account_number
      *
-     * @param string|null $account_number account_number
+     * @param string $account_number account_number
      *
      * @return self
      */
     public function setAccountNumber($account_number)
     {
-        if (!is_null($account_number) && (mb_strlen($account_number) > 17)) {
+        if ((mb_strlen($account_number) > 17)) {
             throw new \InvalidArgumentException('invalid length for $account_number when calling BankAccountWritable., must be smaller than or equal to 17.');
         }
 
@@ -350,7 +362,7 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets account_type
      *
-     * @return \OpenAPI\Client\Model\BankTypeEnum|null
+     * @return \OpenAPI\Client\Model\BankTypeEnum
      */
     public function getAccountType()
     {
@@ -360,7 +372,7 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets account_type
      *
-     * @param \OpenAPI\Client\Model\BankTypeEnum|null $account_type account_type
+     * @param \OpenAPI\Client\Model\BankTypeEnum $account_type account_type
      *
      * @return self
      */
@@ -375,7 +387,7 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets signatory
      *
-     * @return string|null
+     * @return string
      */
     public function getSignatory()
     {
@@ -385,13 +397,13 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets signatory
      *
-     * @param string|null $signatory The signatory associated with your account. This name will be printed on checks created with this bank account. If you prefer to use a custom signature image on your checks instead, please create your bank account from the [Dashboard](https://dashboard.lob.com/#/login).
+     * @param string $signatory The signatory associated with your account. This name will be printed on checks created with this bank account. If you prefer to use a custom signature image on your checks instead, please create your bank account from the [Dashboard](https://dashboard.lob.com/#/login).
      *
      * @return self
      */
     public function setSignatory($signatory)
     {
-        if (!is_null($signatory) && (mb_strlen($signatory) > 30)) {
+        if ((mb_strlen($signatory) > 30)) {
             throw new \InvalidArgumentException('invalid length for $signatory when calling BankAccountWritable., must be smaller than or equal to 30.');
         }
 

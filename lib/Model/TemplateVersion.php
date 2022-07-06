@@ -258,7 +258,10 @@ class TemplateVersion implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
@@ -266,7 +269,10 @@ class TemplateVersion implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['html']) && (mb_strlen($this->container['html']) > 100000)) {
+        if ($this->container['html'] === null) {
+            $invalidProperties[] = "'html' can't be null";
+        }
+        if ((mb_strlen($this->container['html']) > 100000)) {
             $invalidProperties[] = "invalid value for 'html', the character length must be smaller than or equal to 100000.";
         }
 
@@ -298,7 +304,7 @@ class TemplateVersion implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -308,14 +314,14 @@ class TemplateVersion implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `vrsn_`.
+     * @param string $id Unique identifier prefixed with `vrsn_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling TemplateVersion., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
         }
 
@@ -357,7 +363,7 @@ class TemplateVersion implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets html
      *
-     * @return string|null
+     * @return string
      */
     public function getHtml()
     {
@@ -367,13 +373,13 @@ class TemplateVersion implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets html
      *
-     * @param string|null $html An HTML string of less than 100,000 characters to be used as the `published_version` of this template. See [here](#section/HTML-Examples) for guidance on designing HTML templates. Please see endpoint specific documentation for any other product-specific HTML details: - [Postcards](#operation/postcard_create) - `front` and `back` - [Self Mailers](#operation/self_mailer_create) - `inside` and `outside` - [Letters](#operation/letter_create) - `file` - [Checks](#operation/check_create) - `check_bottom` and `attachment` - [Cards](#operation/card_create) - `front` and `back`  If there is a syntax error with your variable names within your HTML, then an error will be thrown, e.g. using a `{{#users}}` opening tag without the corresponding closing tag `{{/users}}`.
+     * @param string $html An HTML string of less than 100,000 characters to be used as the `published_version` of this template. See [here](#section/HTML-Examples) for guidance on designing HTML templates. Please see endpoint specific documentation for any other product-specific HTML details: - [Postcards](https://docs.lob.com/#tag/Postcards/operation/postcard_create) - `front` and `back` - [Self Mailers](https://docs.lob.com/#tag/Self-Mailers/operation/self_mailer_create) - `inside` and `outside` - [Letters](https://docs.lob.com/#tag/Letters/operation/letter_create) - `file` - [Checks](https://docs.lob.com/#tag/Checks/operation/check_create) - `check_bottom` and `attachment` - [Cards](https://docs.lob.com/#tag/Cards/operation/card_create) - `front` and `back`  If there is a syntax error with your variable names within your HTML, then an error will be thrown, e.g. using a `{{#users}}` opening tag without the corresponding closing tag `{{/users}}`.
      *
      * @return self
      */
     public function setHtml($html)
     {
-        if (!is_null($html) && (mb_strlen($html) > 100000)) {
+        if ((mb_strlen($html) > 100000)) {
             throw new \InvalidArgumentException('invalid length for $html when calling TemplateVersion., must be smaller than or equal to 100000.');
         }
 

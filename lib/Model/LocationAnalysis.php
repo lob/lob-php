@@ -204,22 +204,31 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['latitude']) && ($this->container['latitude'] > 90)) {
+        if ($this->container['latitude'] === null) {
+            $invalidProperties[] = "'latitude' can't be null";
+        }
+        if (($this->container['latitude'] > 90)) {
             $invalidProperties[] = "invalid value for 'latitude', must be smaller than or equal to 90.";
         }
 
-        if (!is_null($this->container['latitude']) && ($this->container['latitude'] < -90)) {
+        if (($this->container['latitude'] < -90)) {
             $invalidProperties[] = "invalid value for 'latitude', must be bigger than or equal to -90.";
         }
 
-        if (!is_null($this->container['longitude']) && ($this->container['longitude'] > 180)) {
+        if ($this->container['longitude'] === null) {
+            $invalidProperties[] = "'longitude' can't be null";
+        }
+        if (($this->container['longitude'] > 180)) {
             $invalidProperties[] = "invalid value for 'longitude', must be smaller than or equal to 180.";
         }
 
-        if (!is_null($this->container['longitude']) && ($this->container['longitude'] < -180)) {
+        if (($this->container['longitude'] < -180)) {
             $invalidProperties[] = "invalid value for 'longitude', must be bigger than or equal to -180.";
         }
 
+        if ($this->container['distance'] === null) {
+            $invalidProperties[] = "'distance' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -239,7 +248,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets latitude
      *
-     * @return float|null
+     * @return float
      */
     public function getLatitude()
     {
@@ -249,17 +258,17 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets latitude
      *
-     * @param float|null $latitude A positive or negative decimal indicating the geographic latitude of the address.
+     * @param float $latitude A positive or negative decimal indicating the geographic latitude of the address.
      *
      * @return self
      */
     public function setLatitude($latitude)
     {
 
-        if (!is_null($latitude) && ($latitude > 90)) {
+        if (($latitude > 90)) {
             throw new \InvalidArgumentException('invalid value for $latitude when calling LocationAnalysis., must be smaller than or equal to 90.');
         }
-        if (!is_null($latitude) && ($latitude < -90)) {
+        if (($latitude < -90)) {
             throw new \InvalidArgumentException('invalid value for $latitude when calling LocationAnalysis., must be bigger than or equal to -90.');
         }
 
@@ -272,7 +281,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets longitude
      *
-     * @return float|null
+     * @return float
      */
     public function getLongitude()
     {
@@ -282,17 +291,17 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets longitude
      *
-     * @param float|null $longitude A positive or negative decimal indicating the geographic longitude of the address.
+     * @param float $longitude A positive or negative decimal indicating the geographic longitude of the address.
      *
      * @return self
      */
     public function setLongitude($longitude)
     {
 
-        if (!is_null($longitude) && ($longitude > 180)) {
+        if (($longitude > 180)) {
             throw new \InvalidArgumentException('invalid value for $longitude when calling LocationAnalysis., must be smaller than or equal to 180.');
         }
-        if (!is_null($longitude) && ($longitude < -180)) {
+        if (($longitude < -180)) {
             throw new \InvalidArgumentException('invalid value for $longitude when calling LocationAnalysis., must be bigger than or equal to -180.');
         }
 
@@ -305,7 +314,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets distance
      *
-     * @return float|null
+     * @return float
      */
     public function getDistance()
     {
@@ -315,7 +324,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets distance
      *
-     * @param float|null $distance The distance from the input location to this exact zip code in miles.
+     * @param float $distance The distance from the input location to this exact zip code in miles.
      *
      * @return self
      */

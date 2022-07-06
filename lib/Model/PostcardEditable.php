@@ -251,10 +251,19 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['to'] === null) {
+            $invalidProperties[] = "'to' can't be null";
+        }
         if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
+        if ($this->container['front'] === null) {
+            $invalidProperties[] = "'front' can't be null";
+        }
+        if ($this->container['back'] === null) {
+            $invalidProperties[] = "'back' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -274,7 +283,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string|null
+     * @return string
      */
     public function getTo()
     {
@@ -284,7 +293,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string|null $to Must either be an address ID or an inline object with correct address parameters.
+     * @param string $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -482,7 +491,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets front
      *
-     * @return string|null
+     * @return string
      */
     public function getFront()
     {
@@ -492,7 +501,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets front
      *
-     * @param string|null $front The artwork to use as the front of your postcard.
+     * @param string $front The artwork to use as the front of your postcard.
      *
      * @return self
      */
@@ -507,7 +516,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets back
      *
-     * @return string|null
+     * @return string
      */
     public function getBack()
     {
@@ -517,7 +526,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets back
      *
-     * @param string|null $back The artwork to use as the back of your postcard.
+     * @param string $back The artwork to use as the back of your postcard.
      *
      * @return self
      */

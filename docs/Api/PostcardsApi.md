@@ -233,7 +233,7 @@ $after = 'after_example'; // string | A reference to a list entry used for pagin
 $include = array('include_example'); // string[] | Request that the response include the total count by specifying `include[]=total_count`.
 $date_created = array('key' => 'date_created_example'); // array<string,string> | Filter by date created.
 $metadata = array('key' => 'metadata_example'); // array<string,string> | Filter by metadata key-value pair`.
-$size = new \OpenAPI\Client\Model\\OpenAPI\Client\Model\PostcardSize(); // \OpenAPI\Client\Model\PostcardSize | Specifies the size of the postcard. Only `4x6` postcards can be sent to international destinations.
+$size = array(new \OpenAPI\Client\Model\\OpenAPI\Client\Model\PostcardSize()); // \OpenAPI\Client\Model\PostcardSize[] | Specifies the size of the postcard. Only `4x6` postcards can be sent to international destinations.
 $scheduled = True; // bool | * `true` - only return orders (past or future) where `send_date` is greater than `date_created` * `false` - only return orders where `send_date` is equal to `date_created`
 $send_date = array('key' => 'send_date_example'); // array<string,string> | Filter by date sent.
 $mail_type = new \OpenAPI\Client\Model\\OpenAPI\Client\Model\MailType(); // \OpenAPI\Client\Model\MailType | A string designating the mail postage type: * `usps_first_class` - (default) * `usps_standard` - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. `usps_standard` cannot be used with `4x6` postcards or for any postcards sent outside of the United States.
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
  **include** | [**string[]**](../Model/string.md)| Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. | [optional]
  **date_created** | [**array<string,string>**](../Model/string.md)| Filter by date created. | [optional]
  **metadata** | [**array<string,string>**](../Model/string.md)| Filter by metadata key-value pair&#x60;. | [optional]
- **size** | [**\OpenAPI\Client\Model\PostcardSize**](../Model/.md)| Specifies the size of the postcard. Only &#x60;4x6&#x60; postcards can be sent to international destinations. | [optional]
+ **size** | [**\OpenAPI\Client\Model\PostcardSize[]**](../Model/\OpenAPI\Client\Model\PostcardSize.md)| Specifies the size of the postcard. Only &#x60;4x6&#x60; postcards can be sent to international destinations. | [optional]
  **scheduled** | **bool**| * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; | [optional]
  **send_date** | [**array<string,string>**](../Model/string.md)| Filter by date sent. | [optional]
  **mail_type** | [**\OpenAPI\Client\Model\MailType**](../Model/.md)| A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. | [optional]

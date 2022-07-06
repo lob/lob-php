@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | Unique identifier prefixed with &#x60;psc_&#x60;. | [optional]
+**id** | **string** | Unique identifier prefixed with &#x60;psc_&#x60;. |
 **to** | [**\OpenAPI\Client\Model\Address**](Address.md) |  | [optional]
 **from** | [**\OpenAPI\Client\Model\AddressDomesticExpanded**](AddressDomesticExpanded.md) |  | [optional]
 **carrier** | **string** |  | [optional] [default to CARRIER_USPS]
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **back_template_version_id** | **string** | The unique ID of the specific version of the HTML template used for the back of the postcard. | [optional]
 **tracking_events** | [**\OpenAPI\Client\Model\TrackingEventNormal[]**](TrackingEventNormal.md) | An array of tracking_event objects ordered by ascending &#x60;time&#x60;. Will not be populated for postcards created in test mode. | [optional]
 **object** | **string** |  | [optional] [default to OBJECT_POSTCARD]
-**url** | **string** | A [signed link](#section/Asset-URLs) served over HTTPS. The link returned will expire in 30 days to prevent mis-sharing. Each time a GET request is initiated, a new signed URL will be generated. | [optional]
+**url** | **string** | A [signed link](#section/Asset-URLs) served over HTTPS. The link returned will expire in 30 days to prevent mis-sharing. Each time a GET request is initiated, a new signed URL will be generated. |
 **description** | **string** | An internal description that identifies this resource. Must be no longer than 255 characters. | [optional]
 **metadata** | **array<string,string>** | Use metadata to store custom information for tagging and labeling back to your internal systems. Must be an object with up to 20 key-value pairs. Keys must be at most 40 characters and values must be at most 500 characters. Neither can contain the characters &#x60;\&quot;&#x60; and &#x60;\\&#x60;. i.e. &#39;{\&quot;customer_id\&quot; : \&quot;NEWYORK2015\&quot;}&#39; Nested objects are not supported.  See [Metadata](#section/Metadata) for more information. | [optional]
 **mail_type** | [**\OpenAPI\Client\Model\MailType**](MailType.md) |  | [optional]

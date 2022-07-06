@@ -234,10 +234,28 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['id']) && !preg_match("/^evt_[a-zA-Z0-9_]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^evt_[a-zA-Z0-9_]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evt_[a-zA-Z0-9_]+$/.";
         }
 
+        if ($this->container['body'] === null) {
+            $invalidProperties[] = "'body' can't be null";
+        }
+        if ($this->container['reference_id'] === null) {
+            $invalidProperties[] = "'reference_id' can't be null";
+        }
+        if ($this->container['event_type'] === null) {
+            $invalidProperties[] = "'event_type' can't be null";
+        }
+        if ($this->container['date_created'] === null) {
+            $invalidProperties[] = "'date_created' can't be null";
+        }
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -266,7 +284,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -276,14 +294,14 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `evt_`.
+     * @param string $id Unique identifier prefixed with `evt_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^evt_[a-zA-Z0-9_]+$/", $id))) {
+        if ((!preg_match("/^evt_[a-zA-Z0-9_]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Events., must conform to the pattern /^evt_[a-zA-Z0-9_]+$/.");
         }
 
@@ -296,7 +314,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets body
      *
-     * @return object|null
+     * @return object
      */
     public function getBody()
     {
@@ -306,7 +324,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets body
      *
-     * @param object|null $body The body of the associated resource as they were at the time of the event, i.e. the [postcard object](#operation/postcard_retrieve), [the letter object](#operation/letter_retrieve), [the check object](#operation/check_retrieve), [the address object](#operation/address_retrieve), or [the bank account object](#operation/bank_account_retrieve). For `.deleted` events, the body matches the response for the corresponding delete endpoint for that resource (e.g. the [postcard delete response](#operation/postcard_delete)).
+     * @param object $body The body of the associated resource as they were at the time of the event, i.e. the [postcard object](https://docs.lob.com/#tag/Postcards/operation/postcard_retrieve), [the letter object](https://docs.lob.com/#tag/Letters/operation/letter_retrieve), [the check object](https://docs.lob.com/#tag/Checks/operation/check_retrieve), [the address object](https://docs.lob.com/#tag/Addresses/operation/address_retrieve), or [the bank account object](https://docs.lob.com/#tag/Bank-Accounts/operation/bank_account_retrieve). For `.deleted` events, the body matches the response for the corresponding delete endpoint for that resource (e.g. the [postcard cancel response](https://docs.lob.com/#tag/Postcards/operation/postcard_delete)).
      *
      * @return self
      */
@@ -321,7 +339,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets reference_id
      *
-     * @return string|null
+     * @return string
      */
     public function getReferenceId()
     {
@@ -331,7 +349,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets reference_id
      *
-     * @param string|null $reference_id Unique identifier of the related resource for the event.
+     * @param string $reference_id Unique identifier of the related resource for the event.
      *
      * @return self
      */
@@ -346,7 +364,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets event_type
      *
-     * @return \OpenAPI\Client\Model\EventType|null
+     * @return \OpenAPI\Client\Model\EventType
      */
     public function getEventType()
     {
@@ -356,7 +374,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets event_type
      *
-     * @param \OpenAPI\Client\Model\EventType|null $event_type event_type
+     * @param \OpenAPI\Client\Model\EventType $event_type event_type
      *
      * @return self
      */
@@ -371,7 +389,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_created
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -381,7 +399,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_created
      *
-     * @param \DateTime|null $date_created A timestamp in ISO 8601 format of the date the resource was created.
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the resource was created.
      *
      * @return self
      */
@@ -396,7 +414,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -406,14 +424,14 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object Value is resource type.
+     * @param string $object Value is resource type.
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",

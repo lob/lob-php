@@ -357,42 +357,75 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['id']) && !preg_match("/^card_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^card_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^card_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['url']) && (mb_strlen($this->container['url']) > 2083)) {
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
+        }
+        if ((mb_strlen($this->container['url']) > 2083)) {
             $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (!is_null($this->container['url']) && (mb_strlen($this->container['url']) < 1)) {
+        if ((mb_strlen($this->container['url']) < 1)) {
             $invalidProperties[] = "invalid value for 'url', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['raw_url']) && (mb_strlen($this->container['raw_url']) > 2083)) {
+        if ($this->container['auto_reorder'] === null) {
+            $invalidProperties[] = "'auto_reorder' can't be null";
+        }
+        if ($this->container['reorder_quantity'] === null) {
+            $invalidProperties[] = "'reorder_quantity' can't be null";
+        }
+        if ($this->container['raw_url'] === null) {
+            $invalidProperties[] = "'raw_url' can't be null";
+        }
+        if ((mb_strlen($this->container['raw_url']) > 2083)) {
             $invalidProperties[] = "invalid value for 'raw_url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (!is_null($this->container['raw_url']) && (mb_strlen($this->container['raw_url']) < 1)) {
+        if ((mb_strlen($this->container['raw_url']) < 1)) {
             $invalidProperties[] = "invalid value for 'raw_url', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['front_original_url']) && (mb_strlen($this->container['front_original_url']) > 2083)) {
+        if ($this->container['front_original_url'] === null) {
+            $invalidProperties[] = "'front_original_url' can't be null";
+        }
+        if ((mb_strlen($this->container['front_original_url']) > 2083)) {
             $invalidProperties[] = "invalid value for 'front_original_url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (!is_null($this->container['front_original_url']) && (mb_strlen($this->container['front_original_url']) < 1)) {
+        if ((mb_strlen($this->container['front_original_url']) < 1)) {
             $invalidProperties[] = "invalid value for 'front_original_url', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['back_original_url']) && (mb_strlen($this->container['back_original_url']) > 2083)) {
+        if ($this->container['back_original_url'] === null) {
+            $invalidProperties[] = "'back_original_url' can't be null";
+        }
+        if ((mb_strlen($this->container['back_original_url']) > 2083)) {
             $invalidProperties[] = "invalid value for 'back_original_url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (!is_null($this->container['back_original_url']) && (mb_strlen($this->container['back_original_url']) < 1)) {
+        if ((mb_strlen($this->container['back_original_url']) < 1)) {
             $invalidProperties[] = "invalid value for 'back_original_url', the character length must be bigger than or equal to 1.";
         }
 
+        if ($this->container['thumbnails'] === null) {
+            $invalidProperties[] = "'thumbnails' can't be null";
+        }
+        if ($this->container['available_quantity'] === null) {
+            $invalidProperties[] = "'available_quantity' can't be null";
+        }
+        if ($this->container['pending_quantity'] === null) {
+            $invalidProperties[] = "'pending_quantity' can't be null";
+        }
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -402,6 +435,9 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['orientation'] === null) {
+            $invalidProperties[] = "'orientation' can't be null";
+        }
         $allowedValues = $this->getOrientationAllowableValues();
         if (!is_null($this->container['orientation']) && !in_array($this->container['orientation'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -411,6 +447,18 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['threshold_amount'] === null) {
+            $invalidProperties[] = "'threshold_amount' can't be null";
+        }
+        if ($this->container['date_created'] === null) {
+            $invalidProperties[] = "'date_created' can't be null";
+        }
+        if ($this->container['date_modified'] === null) {
+            $invalidProperties[] = "'date_modified' can't be null";
+        }
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -452,7 +500,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -462,14 +510,14 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `card_`.
+     * @param string $id Unique identifier prefixed with `card_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^card_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^card_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Card., must conform to the pattern /^card_[a-zA-Z0-9]+$/.");
         }
 
@@ -482,7 +530,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets url
      *
-     * @return string|null
+     * @return string
      */
     public function getUrl()
     {
@@ -492,16 +540,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets url
      *
-     * @param string|null $url The signed link for the card.
+     * @param string $url The signed link for the card.
      *
      * @return self
      */
     public function setUrl($url)
     {
-        if (!is_null($url) && (mb_strlen($url) > 2083)) {
+        if ((mb_strlen($url) > 2083)) {
             throw new \InvalidArgumentException('invalid length for $url when calling Card., must be smaller than or equal to 2083.');
         }
-        if (!is_null($url) && (mb_strlen($url) < 1)) {
+        if ((mb_strlen($url) < 1)) {
             throw new \InvalidArgumentException('invalid length for $url when calling Card., must be bigger than or equal to 1.');
         }
 
@@ -514,7 +562,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets auto_reorder
      *
-     * @return bool|null
+     * @return bool
      */
     public function getAutoReorder()
     {
@@ -524,7 +572,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets auto_reorder
      *
-     * @param bool|null $auto_reorder True if the cards should be auto-reordered.
+     * @param bool $auto_reorder True if the cards should be auto-reordered.
      *
      * @return self
      */
@@ -539,7 +587,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets reorder_quantity
      *
-     * @return int|null
+     * @return int
      */
     public function getReorderQuantity()
     {
@@ -549,7 +597,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets reorder_quantity
      *
-     * @param int|null $reorder_quantity The number of cards to be reordered.
+     * @param int $reorder_quantity The number of cards to be reordered.
      *
      * @return self
      */
@@ -564,7 +612,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets raw_url
      *
-     * @return string|null
+     * @return string
      */
     public function getRawUrl()
     {
@@ -574,16 +622,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets raw_url
      *
-     * @param string|null $raw_url The raw URL of the card.
+     * @param string $raw_url The raw URL of the card.
      *
      * @return self
      */
     public function setRawUrl($raw_url)
     {
-        if (!is_null($raw_url) && (mb_strlen($raw_url) > 2083)) {
+        if ((mb_strlen($raw_url) > 2083)) {
             throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be smaller than or equal to 2083.');
         }
-        if (!is_null($raw_url) && (mb_strlen($raw_url) < 1)) {
+        if ((mb_strlen($raw_url) < 1)) {
             throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be bigger than or equal to 1.');
         }
 
@@ -596,7 +644,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets front_original_url
      *
-     * @return string|null
+     * @return string
      */
     public function getFrontOriginalUrl()
     {
@@ -606,16 +654,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets front_original_url
      *
-     * @param string|null $front_original_url The original URL of the front template.
+     * @param string $front_original_url The original URL of the front template.
      *
      * @return self
      */
     public function setFrontOriginalUrl($front_original_url)
     {
-        if (!is_null($front_original_url) && (mb_strlen($front_original_url) > 2083)) {
+        if ((mb_strlen($front_original_url) > 2083)) {
             throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be smaller than or equal to 2083.');
         }
-        if (!is_null($front_original_url) && (mb_strlen($front_original_url) < 1)) {
+        if ((mb_strlen($front_original_url) < 1)) {
             throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be bigger than or equal to 1.');
         }
 
@@ -628,7 +676,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets back_original_url
      *
-     * @return string|null
+     * @return string
      */
     public function getBackOriginalUrl()
     {
@@ -638,16 +686,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets back_original_url
      *
-     * @param string|null $back_original_url The original URL of the back template.
+     * @param string $back_original_url The original URL of the back template.
      *
      * @return self
      */
     public function setBackOriginalUrl($back_original_url)
     {
-        if (!is_null($back_original_url) && (mb_strlen($back_original_url) > 2083)) {
+        if ((mb_strlen($back_original_url) > 2083)) {
             throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be smaller than or equal to 2083.');
         }
-        if (!is_null($back_original_url) && (mb_strlen($back_original_url) < 1)) {
+        if ((mb_strlen($back_original_url) < 1)) {
             throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be bigger than or equal to 1.');
         }
 
@@ -660,7 +708,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets thumbnails
      *
-     * @return \OpenAPI\Client\Model\Thumbnail[]|null
+     * @return \OpenAPI\Client\Model\Thumbnail[]
      */
     public function getThumbnails()
     {
@@ -670,7 +718,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets thumbnails
      *
-     * @param \OpenAPI\Client\Model\Thumbnail[]|null $thumbnails thumbnails
+     * @param \OpenAPI\Client\Model\Thumbnail[] $thumbnails thumbnails
      *
      * @return self
      */
@@ -692,7 +740,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets available_quantity
      *
-     * @return int|null
+     * @return int
      */
     public function getAvailableQuantity()
     {
@@ -702,7 +750,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets available_quantity
      *
-     * @param int|null $available_quantity The available quantity of cards.
+     * @param int $available_quantity The available quantity of cards.
      *
      * @return self
      */
@@ -717,7 +765,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets pending_quantity
      *
-     * @return int|null
+     * @return int
      */
     public function getPendingQuantity()
     {
@@ -727,7 +775,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets pending_quantity
      *
-     * @param int|null $pending_quantity The pending quantity of cards.
+     * @param int $pending_quantity The pending quantity of cards.
      *
      * @return self
      */
@@ -742,7 +790,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus()
     {
@@ -752,14 +800,14 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string|null $status status
+     * @param string $status status
      *
      * @return self
      */
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
+        if (!in_array($status, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'status', must be one of '%s'",
@@ -778,7 +826,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets orientation
      *
-     * @return string|null
+     * @return string
      */
     public function getOrientation()
     {
@@ -788,14 +836,14 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets orientation
      *
-     * @param string|null $orientation The orientation of the card.
+     * @param string $orientation The orientation of the card.
      *
      * @return self
      */
     public function setOrientation($orientation)
     {
         $allowedValues = $this->getOrientationAllowableValues();
-        if (!is_null($orientation) && !in_array($orientation, $allowedValues, true)) {
+        if (!in_array($orientation, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'orientation', must be one of '%s'",
@@ -814,7 +862,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets threshold_amount
      *
-     * @return int|null
+     * @return int
      */
     public function getThresholdAmount()
     {
@@ -824,7 +872,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets threshold_amount
      *
-     * @param int|null $threshold_amount The threshold amount of the card
+     * @param int $threshold_amount The threshold amount of the card
      *
      * @return self
      */
@@ -839,7 +887,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_created
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -849,7 +897,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_created
      *
-     * @param \DateTime|null $date_created A timestamp in ISO 8601 format of the date the resource was created.
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the resource was created.
      *
      * @return self
      */
@@ -864,7 +912,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_modified
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -874,7 +922,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_modified
      *
-     * @param \DateTime|null $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
+     * @param \DateTime $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
      *
      * @return self
      */
@@ -914,7 +962,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -924,14 +972,14 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object object
+     * @param string $object object
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",

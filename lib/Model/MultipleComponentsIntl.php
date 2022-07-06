@@ -231,7 +231,10 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
             $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
         }
 
-        if (!is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 200)) {
+        if ($this->container['primary_line'] === null) {
+            $invalidProperties[] = "'primary_line' can't be null";
+        }
+        if ((mb_strlen($this->container['primary_line']) > 200)) {
             $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 200.";
         }
 
@@ -247,6 +250,9 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
             $invalidProperties[] = "invalid value for 'postal_code', the character length must be smaller than or equal to 12.";
         }
 
+        if ($this->container['country'] === null) {
+            $invalidProperties[] = "'country' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -295,7 +301,7 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets primary_line
      *
-     * @return string|null
+     * @return string
      */
     public function getPrimaryLine()
     {
@@ -305,13 +311,13 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets primary_line
      *
-     * @param string|null $primary_line The primary delivery line (usually the street address) of the address.
+     * @param string $primary_line The primary delivery line (usually the street address) of the address.
      *
      * @return self
      */
     public function setPrimaryLine($primary_line)
     {
-        if (!is_null($primary_line) && (mb_strlen($primary_line) > 200)) {
+        if ((mb_strlen($primary_line) > 200)) {
             throw new \InvalidArgumentException('invalid length for $primary_line when calling MultipleComponentsIntl., must be smaller than or equal to 200.');
         }
 
@@ -436,7 +442,7 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets country
      *
-     * @return \OpenAPI\Client\Model\CountryExtended|null
+     * @return \OpenAPI\Client\Model\CountryExtended
      */
     public function getCountry()
     {
@@ -446,7 +452,7 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets country
      *
-     * @param \OpenAPI\Client\Model\CountryExtended|null $country country
+     * @param \OpenAPI\Client\Model\CountryExtended $country country
      *
      * @return self
      */

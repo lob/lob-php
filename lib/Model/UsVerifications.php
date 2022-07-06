@@ -197,6 +197,12 @@ class UsVerifications implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['addresses'] === null) {
+            $invalidProperties[] = "'addresses' can't be null";
+        }
+        if ($this->container['errors'] === null) {
+            $invalidProperties[] = "'errors' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -216,7 +222,7 @@ class UsVerifications implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets addresses
      *
-     * @return \OpenAPI\Client\Model\UsVerificationOrError[]|null
+     * @return \OpenAPI\Client\Model\UsVerificationOrError[]
      */
     public function getAddresses()
     {
@@ -226,7 +232,7 @@ class UsVerifications implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets addresses
      *
-     * @param \OpenAPI\Client\Model\UsVerificationOrError[]|null $addresses addresses
+     * @param \OpenAPI\Client\Model\UsVerificationOrError[] $addresses addresses
      *
      * @return self
      */
@@ -248,7 +254,7 @@ class UsVerifications implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets errors
      *
-     * @return bool|null
+     * @return bool
      */
     public function getErrors()
     {
@@ -258,7 +264,7 @@ class UsVerifications implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets errors
      *
-     * @param bool|null $errors Indicates whether any errors occurred during the verification process.
+     * @param bool $errors Indicates whether any errors occurred during the verification process.
      *
      * @return self
      */

@@ -301,6 +301,15 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['date_created'] === null) {
+            $invalidProperties[] = "'date_created' can't be null";
+        }
+        if ($this->container['date_modified'] === null) {
+            $invalidProperties[] = "'date_modified' can't be null";
+        }
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -566,7 +575,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_created
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -576,7 +585,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_created
      *
-     * @param \DateTime|null $date_created A timestamp in ISO 8601 format of the date the resource was created.
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the resource was created.
      *
      * @return self
      */
@@ -591,7 +600,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_modified
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -601,7 +610,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_modified
      *
-     * @param \DateTime|null $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
+     * @param \DateTime $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
      *
      * @return self
      */
@@ -641,7 +650,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -651,7 +660,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object Value is type of resource.
+     * @param string $object Value is type of resource.
      *
      * @return self
      */

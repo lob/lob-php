@@ -301,18 +301,27 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['routing_number']) && (mb_strlen($this->container['routing_number']) > 9)) {
+        if ($this->container['routing_number'] === null) {
+            $invalidProperties[] = "'routing_number' can't be null";
+        }
+        if ((mb_strlen($this->container['routing_number']) > 9)) {
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be smaller than or equal to 9.";
         }
 
-        if (!is_null($this->container['routing_number']) && (mb_strlen($this->container['routing_number']) < 9)) {
+        if ((mb_strlen($this->container['routing_number']) < 9)) {
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be bigger than or equal to 9.";
         }
 
-        if (!is_null($this->container['account_number']) && (mb_strlen($this->container['account_number']) > 17)) {
+        if ($this->container['account_number'] === null) {
+            $invalidProperties[] = "'account_number' can't be null";
+        }
+        if ((mb_strlen($this->container['account_number']) > 17)) {
             $invalidProperties[] = "invalid value for 'account_number', the character length must be smaller than or equal to 17.";
         }
 
+        if ($this->container['account_type'] === null) {
+            $invalidProperties[] = "'account_type' can't be null";
+        }
         $allowedValues = $this->getAccountTypeAllowableValues();
         if (!is_null($this->container['account_type']) && !in_array($this->container['account_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -322,11 +331,17 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['signatory']) && (mb_strlen($this->container['signatory']) > 30)) {
+        if ($this->container['signatory'] === null) {
+            $invalidProperties[] = "'signatory' can't be null";
+        }
+        if ((mb_strlen($this->container['signatory']) > 30)) {
             $invalidProperties[] = "invalid value for 'signatory', the character length must be smaller than or equal to 30.";
         }
 
-        if (!is_null($this->container['id']) && !preg_match("/^bank_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^bank_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^bank_[a-zA-Z0-9]+$/.";
         }
 
@@ -334,6 +349,15 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'signature_url', must be conform to the pattern /^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
         }
 
+        if ($this->container['date_created'] === null) {
+            $invalidProperties[] = "'date_created' can't be null";
+        }
+        if ($this->container['date_modified'] === null) {
+            $invalidProperties[] = "'date_modified' can't be null";
+        }
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -391,7 +415,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets routing_number
      *
-     * @return string|null
+     * @return string
      */
     public function getRoutingNumber()
     {
@@ -401,16 +425,16 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets routing_number
      *
-     * @param string|null $routing_number Must be a [valid US routing number](https://www.frbservices.org/index.html).
+     * @param string $routing_number Must be a [valid US routing number](https://www.frbservices.org/index.html).
      *
      * @return self
      */
     public function setRoutingNumber($routing_number)
     {
-        if (!is_null($routing_number) && (mb_strlen($routing_number) > 9)) {
+        if ((mb_strlen($routing_number) > 9)) {
             throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccount., must be smaller than or equal to 9.');
         }
-        if (!is_null($routing_number) && (mb_strlen($routing_number) < 9)) {
+        if ((mb_strlen($routing_number) < 9)) {
             throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccount., must be bigger than or equal to 9.');
         }
 
@@ -423,7 +447,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets account_number
      *
-     * @return string|null
+     * @return string
      */
     public function getAccountNumber()
     {
@@ -433,13 +457,13 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets account_number
      *
-     * @param string|null $account_number account_number
+     * @param string $account_number account_number
      *
      * @return self
      */
     public function setAccountNumber($account_number)
     {
-        if (!is_null($account_number) && (mb_strlen($account_number) > 17)) {
+        if ((mb_strlen($account_number) > 17)) {
             throw new \InvalidArgumentException('invalid length for $account_number when calling BankAccount., must be smaller than or equal to 17.');
         }
 
@@ -452,7 +476,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets account_type
      *
-     * @return string|null
+     * @return string
      */
     public function getAccountType()
     {
@@ -462,14 +486,14 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets account_type
      *
-     * @param string|null $account_type The type of entity that holds the account.
+     * @param string $account_type The type of entity that holds the account.
      *
      * @return self
      */
     public function setAccountType($account_type)
     {
         $allowedValues = $this->getAccountTypeAllowableValues();
-        if (!is_null($account_type) && !in_array($account_type, $allowedValues, true)) {
+        if (!in_array($account_type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'account_type', must be one of '%s'",
@@ -488,7 +512,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets signatory
      *
-     * @return string|null
+     * @return string
      */
     public function getSignatory()
     {
@@ -498,13 +522,13 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets signatory
      *
-     * @param string|null $signatory The signatory associated with your account. This name will be printed on checks created with this bank account. If you prefer to use a custom signature image on your checks instead, please create your bank account from the [Dashboard](https://dashboard.lob.com/#/login).
+     * @param string $signatory The signatory associated with your account. This name will be printed on checks created with this bank account. If you prefer to use a custom signature image on your checks instead, please create your bank account from the [Dashboard](https://dashboard.lob.com/#/login).
      *
      * @return self
      */
     public function setSignatory($signatory)
     {
-        if (!is_null($signatory) && (mb_strlen($signatory) > 30)) {
+        if ((mb_strlen($signatory) > 30)) {
             throw new \InvalidArgumentException('invalid length for $signatory when calling BankAccount., must be smaller than or equal to 30.');
         }
 
@@ -544,7 +568,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -554,14 +578,14 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `bank_`.
+     * @param string $id Unique identifier prefixed with `bank_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^bank_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^bank_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling BankAccount., must conform to the pattern /^bank_[a-zA-Z0-9]+$/.");
         }
 
@@ -654,7 +678,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_created
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -664,7 +688,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_created
      *
-     * @param \DateTime|null $date_created A timestamp in ISO 8601 format of the date the resource was created.
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the resource was created.
      *
      * @return self
      */
@@ -679,7 +703,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_modified
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -689,7 +713,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_modified
      *
-     * @param \DateTime|null $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
+     * @param \DateTime $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
      *
      * @return self
      */
@@ -729,7 +753,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -739,14 +763,14 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object object
+     * @param string $object object
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",

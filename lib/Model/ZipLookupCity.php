@@ -215,18 +215,29 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
+        if ($this->container['city'] === null) {
+            $invalidProperties[] = "'city' can't be null";
+        }
+        if ((mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 2)) {
+        if ($this->container['state'] === null) {
+            $invalidProperties[] = "'state' can't be null";
+        }
+        if ((mb_strlen($this->container['state']) > 2)) {
             $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 2.";
         }
 
-        if (!is_null($this->container['county_fips']) && !preg_match("/\\d{5}/", $this->container['county_fips'])) {
-            $invalidProperties[] = "invalid value for 'county_fips', must be conform to the pattern /\\d{5}/.";
+        if ($this->container['county'] === null) {
+            $invalidProperties[] = "'county' can't be null";
         }
-
+        if ($this->container['county_fips'] === null) {
+            $invalidProperties[] = "'county_fips' can't be null";
+        }
+        if ($this->container['preferred'] === null) {
+            $invalidProperties[] = "'preferred' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -246,7 +257,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets city
      *
-     * @return string|null
+     * @return string
      */
     public function getCity()
     {
@@ -256,13 +267,13 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets city
      *
-     * @param string|null $city city
+     * @param string $city city
      *
      * @return self
      */
     public function setCity($city)
     {
-        if (!is_null($city) && (mb_strlen($city) > 200)) {
+        if ((mb_strlen($city) > 200)) {
             throw new \InvalidArgumentException('invalid length for $city when calling ZipLookupCity., must be smaller than or equal to 200.');
         }
 
@@ -275,7 +286,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets state
      *
-     * @return string|null
+     * @return string
      */
     public function getState()
     {
@@ -285,13 +296,13 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets state
      *
-     * @param string|null $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
+     * @param string $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
      *
      * @return self
      */
     public function setState($state)
     {
-        if (!is_null($state) && (mb_strlen($state) > 2)) {
+        if ((mb_strlen($state) > 2)) {
             throw new \InvalidArgumentException('invalid length for $state when calling ZipLookupCity., must be smaller than or equal to 2.');
         }
 
@@ -304,7 +315,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets county
      *
-     * @return string|null
+     * @return string
      */
     public function getCounty()
     {
@@ -314,7 +325,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets county
      *
-     * @param string|null $county County name of the address city.
+     * @param string $county County name of the address city.
      *
      * @return self
      */
@@ -329,7 +340,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets county_fips
      *
-     * @return string|null
+     * @return string
      */
     public function getCountyFips()
     {
@@ -339,17 +350,12 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets county_fips
      *
-     * @param string|null $county_fips A 5-digit [FIPS county code](https://en.wikipedia.org/wiki/FIPS_county_code) which uniquely identifies `components[county]`. It consists of a 2-digit state code and a 3-digit county code.
+     * @param string $county_fips A 5-digit [FIPS county code](https://en.wikipedia.org/wiki/FIPS_county_code) which uniquely identifies `components[county]`. It consists of a 2-digit state code and a 3-digit county code.
      *
      * @return self
      */
     public function setCountyFips($county_fips)
     {
-
-        if (!is_null($county_fips) && (!preg_match("/\\d{5}/", $county_fips))) {
-            throw new \InvalidArgumentException("invalid value for $county_fips when calling ZipLookupCity., must conform to the pattern /\\d{5}/.");
-        }
-
         $this->container['county_fips'] = $county_fips;
 
         return $this;
@@ -359,7 +365,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets preferred
      *
-     * @return bool|null
+     * @return bool
      */
     public function getPreferred()
     {
@@ -369,7 +375,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets preferred
      *
-     * @param bool|null $preferred Indicates whether or not the city is the [USPS default city](https://en.wikipedia.org/wiki/ZIP_Code#ZIP_Codes_and_previous_zoning_lines) (preferred city) of a ZIP code. There is only one preferred city per ZIP code, which will always be in position 0 in the array of cities.
+     * @param bool $preferred Indicates whether or not the city is the [USPS default city](https://en.wikipedia.org/wiki/ZIP_Code#ZIP_Codes_and_previous_zoning_lines) (preferred city) of a ZIP code. There is only one preferred city per ZIP code, which will always be in position 0 in the array of cities.
      *
      * @return self
      */

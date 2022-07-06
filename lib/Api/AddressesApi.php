@@ -216,7 +216,7 @@ class AddressesApi
         if (isset($address_editable)) {
             $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($address_editable));
         }
- 
+
         $defaultHeaders = [];
         $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
         if ($this->config->getUserAgent()) {

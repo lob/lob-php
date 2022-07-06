@@ -1,6 +1,6 @@
 <?php
 /**
- * TemplateWritable
+ * ReturnEnvelope
  *
  * PHP version 7.3
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * TemplateWritable Class Doc Comment
+ * ReturnEnvelope Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -43,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
+class ReturnEnvelope implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +52,7 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'template_writable';
+    protected static $openAPIModelName = 'return_envelope';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,10 +60,10 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'description' => 'string',
-        'html' => 'string',
-        'metadata' => 'array<string,string>',
-        'engine' => '\OpenAPI\Client\Model\EngineHtml'
+        'id' => 'string',
+        'alias' => 'string',
+        'url' => 'string',
+        'object' => 'string'
     ];
 
     /**
@@ -74,10 +74,10 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'description' => null,
-        'html' => null,
-        'metadata' => null,
-        'engine' => null
+        'id' => null,
+        'alias' => null,
+        'url' => null,
+        'object' => null
     ];
 
     /**
@@ -107,10 +107,10 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'html' => 'html',
-        'metadata' => 'metadata',
-        'engine' => 'engine'
+        'id' => 'id',
+        'alias' => 'alias',
+        'url' => 'url',
+        'object' => 'object'
     ];
 
     /**
@@ -119,10 +119,10 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'html' => 'setHtml',
-        'metadata' => 'setMetadata',
-        'engine' => 'setEngine'
+        'id' => 'setId',
+        'alias' => 'setAlias',
+        'url' => 'setUrl',
+        'object' => 'setObject'
     ];
 
     /**
@@ -131,10 +131,10 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'html' => 'getHtml',
-        'metadata' => 'getMetadata',
-        'engine' => 'getEngine'
+        'id' => 'getId',
+        'alias' => 'getAlias',
+        'url' => 'getUrl',
+        'object' => 'getObject'
     ];
 
     /**
@@ -194,10 +194,10 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['description'] = $data['description'] ?? null;
-        $this->container['html'] = $data['html'] ?? null;
-        $this->container['metadata'] = $data['metadata'] ?? null;
-        $this->container['engine'] = $data['engine'] ?? null;
+        $this->container['id'] = $data['id'] ?? null;
+        $this->container['alias'] = $data['alias'] ?? null;
+        $this->container['url'] = $data['url'] ?? null;
+        $this->container['object'] = $data['object'] ?? null;
     }
 
     /**
@@ -208,17 +208,6 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
-
-        if ($this->container['html'] === null) {
-            $invalidProperties[] = "'html' can't be null";
-        }
-        if ((mb_strlen($this->container['html']) > 100000)) {
-            $invalidProperties[] = "invalid value for 'html', the character length must be smaller than or equal to 100000.";
-        }
 
         return $invalidProperties;
     }
@@ -237,110 +226,100 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets description
+     * Gets id
      *
      * @return string|null
      */
-    public function getDescription()
+    public function getId()
     {
-        return $this->container['description'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets description
+     * Sets id
      *
-     * @param string|null $description An internal description that identifies this resource. Must be no longer than 255 characters.
+     * @param string|null $id The unique ID of the Return Envelope
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setId($id)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling TemplateWritable., must be smaller than or equal to 255.');
-        }
-
-        $this->container['description'] = $description;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
 
     /**
-     * Gets html
+     * Gets alias
      *
-     * @return string
+     * @return string|null
      */
-    public function getHtml()
+    public function getAlias()
     {
-        return $this->container['html'];
+        return $this->container['alias'];
     }
 
     /**
-     * Sets html
+     * Sets alias
      *
-     * @param string $html An HTML string of less than 100,000 characters to be used as the `published_version` of this template. See [here](#section/HTML-Examples) for guidance on designing HTML templates. Please see endpoint specific documentation for any other product-specific HTML details: - [Postcards](https://docs.lob.com/#tag/Postcards/operation/postcard_create) - `front` and `back` - [Self Mailers](https://docs.lob.com/#tag/Self-Mailers/operation/self_mailer_create) - `inside` and `outside` - [Letters](https://docs.lob.com/#tag/Letters/operation/letter_create) - `file` - [Checks](https://docs.lob.com/#tag/Checks/operation/check_create) - `check_bottom` and `attachment` - [Cards](https://docs.lob.com/#tag/Cards/operation/card_create) - `front` and `back`  If there is a syntax error with your variable names within your HTML, then an error will be thrown, e.g. using a `{{#users}}` opening tag without the corresponding closing tag `{{/users}}`.
+     * @param string|null $alias A quick reference name for the Return Envelope
      *
      * @return self
      */
-    public function setHtml($html)
+    public function setAlias($alias)
     {
-        if ((mb_strlen($html) > 100000)) {
-            throw new \InvalidArgumentException('invalid length for $html when calling TemplateWritable., must be smaller than or equal to 100000.');
-        }
-
-        $this->container['html'] = $html;
+        $this->container['alias'] = $alias;
 
         return $this;
     }
 
 
     /**
-     * Gets metadata
+     * Gets url
      *
-     * @return array<string,string>|null
+     * @return string|null
      */
-    public function getMetadata()
+    public function getUrl()
     {
-        return $this->container['metadata'];
+        return $this->container['url'];
     }
 
     /**
-     * Sets metadata
+     * Sets url
      *
-     * @param array<string,string>|null $metadata Use metadata to store custom information for tagging and labeling back to your internal systems. Must be an object with up to 20 key-value pairs. Keys must be at most 40 characters and values must be at most 500 characters. Neither can contain the characters `\"` and `\\`. i.e. '{\"customer_id\" : \"NEWYORK2015\"}' Nested objects are not supported.  See [Metadata](#section/Metadata) for more information.
+     * @param string|null $url The url of the  return envelope
      *
      * @return self
      */
-    public function setMetadata($metadata)
+    public function setUrl($url)
     {
-
-
-        $this->container['metadata'] = $metadata;
+        $this->container['url'] = $url;
 
         return $this;
     }
 
 
     /**
-     * Gets engine
+     * Gets object
      *
-     * @return \OpenAPI\Client\Model\EngineHtml|null
+     * @return string|null
      */
-    public function getEngine()
+    public function getObject()
     {
-        return $this->container['engine'];
+        return $this->container['object'];
     }
 
     /**
-     * Sets engine
+     * Sets object
      *
-     * @param \OpenAPI\Client\Model\EngineHtml|null $engine engine
+     * @param string|null $object object
      *
      * @return self
      */
-    public function setEngine($engine)
+    public function setObject($object)
     {
-        $this->container['engine'] = $engine;
+        $this->container['object'] = $object;
 
         return $this;
     }

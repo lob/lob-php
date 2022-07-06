@@ -294,6 +294,9 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     {
         $invalidProperties = [];
 
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
+        }
         $allowedValues = $this->getTypeAllowableValues();
         if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -303,6 +306,9 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
             );
         }
 
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
         $allowedValues = $this->getNameAllowableValues();
         if (!is_null($this->container['name']) && !in_array($this->container['name'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -312,10 +318,22 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
             );
         }
 
-        if (!is_null($this->container['id']) && !preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
         }
 
+        if ($this->container['date_created'] === null) {
+            $invalidProperties[] = "'date_created' can't be null";
+        }
+        if ($this->container['date_modified'] === null) {
+            $invalidProperties[] = "'date_modified' can't be null";
+        }
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -344,7 +362,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets type
      *
-     * @return string|null
+     * @return string
      */
     public function getType()
     {
@@ -354,14 +372,14 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets type
      *
-     * @param string|null $type a Certified letter tracking event
+     * @param string $type a Certified letter tracking event
      *
      * @return self
      */
     public function setType($type)
     {
         $allowedValues = $this->getTypeAllowableValues();
-        if (!is_null($type) && !in_array($type, $allowedValues, true)) {
+        if (!in_array($type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'type', must be one of '%s'",
@@ -380,7 +398,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -390,14 +408,14 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets name
      *
-     * @param string|null $name Name of tracking event for Certified letters. Letters sent with USPS Certified Mail are fully tracked by USPS, therefore their tracking events have an additional details object with more detailed information about the tracking event. Some certified tracking event names have multiple meanings, noted in the list here. See the description of the details object for the full set of combined certified tracking event name meanings.    * `Mailed` - Package has been accepted into the carrier network for delivery.    * `In Transit` - Maps to four distinct stages of transit.    * `In Local Area` - Package is at a location near the end destination.    * `Processed for Delivery` - Maps to two distinct stages of delivery.    * `Pickup Available` - Package is available for pickup at carrier location.    * `Delivered` - Package has been delivered.    * `Re-Routed` - Package has been forwarded.    * `Returned to Sender` - Package is to be returned to sender.    * `Issue` - Maps to (at least) 15 possible issues, some of which are actionable.
+     * @param string $name Name of tracking event for Certified letters. Letters sent with USPS Certified Mail are fully tracked by USPS, therefore their tracking events have an additional details object with more detailed information about the tracking event. Some certified tracking event names have multiple meanings, noted in the list here. See the description of the details object for the full set of combined certified tracking event name meanings.    * `Mailed` - Package has been accepted into the carrier network for delivery.    * `In Transit` - Maps to four distinct stages of transit.    * `In Local Area` - Package is at a location near the end destination.    * `Processed for Delivery` - Maps to two distinct stages of delivery.    * `Pickup Available` - Package is available for pickup at carrier location.    * `Delivered` - Package has been delivered.    * `Re-Routed` - Package has been forwarded.    * `Returned to Sender` - Package is to be returned to sender.    * `Issue` - Maps to (at least) 15 possible issues, some of which are actionable.
      *
      * @return self
      */
     public function setName($name)
     {
         $allowedValues = $this->getNameAllowableValues();
-        if (!is_null($name) && !in_array($name, $allowedValues, true)) {
+        if (!in_array($name, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'name', must be one of '%s'",
@@ -466,7 +484,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -476,14 +494,14 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `evnt_`.
+     * @param string $id Unique identifier prefixed with `evnt_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^evnt_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^evnt_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling TrackingEventCertified., must conform to the pattern /^evnt_[a-zA-Z0-9]+$/.");
         }
 
@@ -521,7 +539,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets date_created
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -531,7 +549,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets date_created
      *
-     * @param \DateTime|null $date_created A timestamp in ISO 8601 format of the date the resource was created.
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the resource was created.
      *
      * @return self
      */
@@ -546,7 +564,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets date_modified
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -556,7 +574,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets date_modified
      *
-     * @param \DateTime|null $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
+     * @param \DateTime $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
      *
      * @return self
      */
@@ -571,7 +589,7 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -581,14 +599,14 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets object
      *
-     * @param string|null $object object
+     * @param string $object object
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",

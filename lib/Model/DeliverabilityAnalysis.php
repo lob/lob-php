@@ -346,6 +346,9 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     {
         $invalidProperties = [];
 
+        if ($this->container['dpv_confirmation'] === null) {
+            $invalidProperties[] = "'dpv_confirmation' can't be null";
+        }
         $allowedValues = $this->getDpvConfirmationAllowableValues();
         if (!is_null($this->container['dpv_confirmation']) && !in_array($this->container['dpv_confirmation'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -355,6 +358,9 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
             );
         }
 
+        if ($this->container['dpv_cmra'] === null) {
+            $invalidProperties[] = "'dpv_cmra' can't be null";
+        }
         $allowedValues = $this->getDpvCmraAllowableValues();
         if (!is_null($this->container['dpv_cmra']) && !in_array($this->container['dpv_cmra'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -364,6 +370,9 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
             );
         }
 
+        if ($this->container['dpv_vacant'] === null) {
+            $invalidProperties[] = "'dpv_vacant' can't be null";
+        }
         $allowedValues = $this->getDpvVacantAllowableValues();
         if (!is_null($this->container['dpv_vacant']) && !in_array($this->container['dpv_vacant'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -373,6 +382,9 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
             );
         }
 
+        if ($this->container['dpv_active'] === null) {
+            $invalidProperties[] = "'dpv_active' can't be null";
+        }
         $allowedValues = $this->getDpvActiveAllowableValues();
         if (!is_null($this->container['dpv_active']) && !in_array($this->container['dpv_active'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -382,6 +394,15 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
             );
         }
 
+        if ($this->container['dpv_footnotes'] === null) {
+            $invalidProperties[] = "'dpv_footnotes' can't be null";
+        }
+        if ($this->container['ews_match'] === null) {
+            $invalidProperties[] = "'ews_match' can't be null";
+        }
+        if ($this->container['lacs_indicator'] === null) {
+            $invalidProperties[] = "'lacs_indicator' can't be null";
+        }
         $allowedValues = $this->getLacsIndicatorAllowableValues();
         if (!is_null($this->container['lacs_indicator']) && !in_array($this->container['lacs_indicator'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -391,6 +412,12 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
             );
         }
 
+        if ($this->container['lacs_return_code'] === null) {
+            $invalidProperties[] = "'lacs_return_code' can't be null";
+        }
+        if ($this->container['suite_return_code'] === null) {
+            $invalidProperties[] = "'suite_return_code' can't be null";
+        }
         $allowedValues = $this->getSuiteReturnCodeAllowableValues();
         if (!is_null($this->container['suite_return_code']) && !in_array($this->container['suite_return_code'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -419,7 +446,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets dpv_confirmation
      *
-     * @return string|null
+     * @return string
      */
     public function getDpvConfirmation()
     {
@@ -429,14 +456,14 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets dpv_confirmation
      *
-     * @param string|null $dpv_confirmation Result of Delivery Point Validation (DPV), which determines whether or not the address is deliverable by the USPS. Possible values are: * `Y` –– The address is deliverable by the USPS. * `S` –– The address is deliverable by removing the provided secondary unit designator. This information may be incorrect or unnecessary. * `D` –– The address is deliverable to the building's default address but is missing a secondary unit designator and/or number.   There is a chance the mail will not reach the intended recipient. * `N` –– The address is not deliverable according to the USPS, but parts of the address are valid (such as the street and ZIP code). * `''` –– This address is not deliverable. No matching street could be found within the city or ZIP code.
+     * @param string $dpv_confirmation Result of Delivery Point Validation (DPV), which determines whether or not the address is deliverable by the USPS. Possible values are: * `Y` –– The address is deliverable by the USPS. * `S` –– The address is deliverable by removing the provided secondary unit designator. This information may be incorrect or unnecessary. * `D` –– The address is deliverable to the building's default address but is missing a secondary unit designator and/or number.   There is a chance the mail will not reach the intended recipient. * `N` –– The address is not deliverable according to the USPS, but parts of the address are valid (such as the street and ZIP code). * `''` –– This address is not deliverable. No matching street could be found within the city or ZIP code.
      *
      * @return self
      */
     public function setDpvConfirmation($dpv_confirmation)
     {
         $allowedValues = $this->getDpvConfirmationAllowableValues();
-        if (!is_null($dpv_confirmation) && !in_array($dpv_confirmation, $allowedValues, true)) {
+        if (!in_array($dpv_confirmation, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'dpv_confirmation', must be one of '%s'",
@@ -455,7 +482,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets dpv_cmra
      *
-     * @return string|null
+     * @return string
      */
     public function getDpvCmra()
     {
@@ -465,14 +492,14 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets dpv_cmra
      *
-     * @param string|null $dpv_cmra indicates whether or not the address is [CMRA-authorized](https://en.wikipedia.org/wiki/Commercial_mail_receiving_agency). Possible values are: * `Y` –– Address is CMRA-authorized. * `N` –– Address is not CMRA-authorized. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     * @param string $dpv_cmra indicates whether or not the address is [CMRA-authorized](https://en.wikipedia.org/wiki/Commercial_mail_receiving_agency). Possible values are: * `Y` –– Address is CMRA-authorized. * `N` –– Address is not CMRA-authorized. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
      *
      * @return self
      */
     public function setDpvCmra($dpv_cmra)
     {
         $allowedValues = $this->getDpvCmraAllowableValues();
-        if (!is_null($dpv_cmra) && !in_array($dpv_cmra, $allowedValues, true)) {
+        if (!in_array($dpv_cmra, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'dpv_cmra', must be one of '%s'",
@@ -491,7 +518,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets dpv_vacant
      *
-     * @return string|null
+     * @return string
      */
     public function getDpvVacant()
     {
@@ -501,14 +528,14 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets dpv_vacant
      *
-     * @param string|null $dpv_vacant indicates that an address was once deliverable, but has become vacant and is no longer receiving deliveries. Possible values are: * `Y` –– Address is vacant. * `N` –– Address is not vacant. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     * @param string $dpv_vacant indicates that an address was once deliverable, but has become vacant and is no longer receiving deliveries. Possible values are: * `Y` –– Address is vacant. * `N` –– Address is not vacant. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
      *
      * @return self
      */
     public function setDpvVacant($dpv_vacant)
     {
         $allowedValues = $this->getDpvVacantAllowableValues();
-        if (!is_null($dpv_vacant) && !in_array($dpv_vacant, $allowedValues, true)) {
+        if (!in_array($dpv_vacant, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'dpv_vacant', must be one of '%s'",
@@ -527,7 +554,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets dpv_active
      *
-     * @return string|null
+     * @return string
      */
     public function getDpvActive()
     {
@@ -537,14 +564,14 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets dpv_active
      *
-     * @param string|null $dpv_active Corresponds to the USPS field `dpv_no_stat`. Indicates that an address has been vacated in the recent past, and is no longer receiving deliveries. If it's been unoccupied for 90+ days, or temporarily vacant, this will be flagged. Possible values are: * `Y` –– Address is active. * `N` –– Address is not active. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     * @param string $dpv_active Corresponds to the USPS field `dpv_no_stat`. Indicates that an address has been vacated in the recent past, and is no longer receiving deliveries. If it's been unoccupied for 90+ days, or temporarily vacant, this will be flagged. Possible values are: * `Y` –– Address is active. * `N` –– Address is not active. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
      *
      * @return self
      */
     public function setDpvActive($dpv_active)
     {
         $allowedValues = $this->getDpvActiveAllowableValues();
-        if (!is_null($dpv_active) && !in_array($dpv_active, $allowedValues, true)) {
+        if (!in_array($dpv_active, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'dpv_active', must be one of '%s'",
@@ -563,7 +590,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets dpv_footnotes
      *
-     * @return \OpenAPI\Client\Model\DpvFootnote[]|null
+     * @return \OpenAPI\Client\Model\DpvFootnote[]
      */
     public function getDpvFootnotes()
     {
@@ -573,7 +600,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets dpv_footnotes
      *
-     * @param \OpenAPI\Client\Model\DpvFootnote[]|null $dpv_footnotes An array of 2-character strings that gives more insight into how `deliverability_analysis[dpv_confirmation]` was determined. Will always include at least 1 string, and can include up to 3. For details, see [US Verification Details](#tag/US-Verification-Types).
+     * @param \OpenAPI\Client\Model\DpvFootnote[] $dpv_footnotes An array of 2-character strings that gives more insight into how `deliverability_analysis[dpv_confirmation]` was determined. Will always include at least 1 string, and can include up to 3. For details, see [US Verification Details](#tag/US-Verification-Types).
      *
      * @return self
      */
@@ -595,7 +622,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets ews_match
      *
-     * @return bool|null
+     * @return bool
      */
     public function getEwsMatch()
     {
@@ -605,7 +632,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets ews_match
      *
-     * @param bool|null $ews_match indicates whether or not an address has been flagged in the [Early Warning System](https://docs.informatica.com/data-engineering/data-engineering-quality/10-4-0/address-validator-port-reference/postal-carrier-certification-data-ports/early-warning-system-return-code.html), meaning the address is under development and not yet ready to receive mail. However, it should become available in a few months.
+     * @param bool $ews_match indicates whether or not an address has been flagged in the [Early Warning System](https://docs.informatica.com/data-engineering/data-engineering-quality/10-4-0/address-validator-port-reference/postal-carrier-certification-data-ports/early-warning-system-return-code.html), meaning the address is under development and not yet ready to receive mail. However, it should become available in a few months.
      *
      * @return self
      */
@@ -620,7 +647,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets lacs_indicator
      *
-     * @return string|null
+     * @return string
      */
     public function getLacsIndicator()
     {
@@ -630,14 +657,14 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets lacs_indicator
      *
-     * @param string|null $lacs_indicator indicates whether this address has been converted by [LACS<sup>Link</sup>](https://postalpro.usps.com/address-quality/lacslink). LACS<sup>Link</sup> corrects outdated addresses into their modern counterparts. Possible values are: * `Y` –– New address produced with a matching record in LACS<sup>Link</sup>. * `N` –– New address could not be produced with a matching record in LACS<sup>Link</sup>. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     * @param string $lacs_indicator indicates whether this address has been converted by [LACS<sup>Link</sup>](https://postalpro.usps.com/address-quality/lacslink). LACS<sup>Link</sup> corrects outdated addresses into their modern counterparts. Possible values are: * `Y` –– New address produced with a matching record in LACS<sup>Link</sup>. * `N` –– New address could not be produced with a matching record in LACS<sup>Link</sup>. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
      *
      * @return self
      */
     public function setLacsIndicator($lacs_indicator)
     {
         $allowedValues = $this->getLacsIndicatorAllowableValues();
-        if (!is_null($lacs_indicator) && !in_array($lacs_indicator, $allowedValues, true)) {
+        if (!in_array($lacs_indicator, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'lacs_indicator', must be one of '%s'",
@@ -656,7 +683,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets lacs_return_code
      *
-     * @return string|null
+     * @return string
      */
     public function getLacsReturnCode()
     {
@@ -666,7 +693,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets lacs_return_code
      *
-     * @param string|null $lacs_return_code A code indicating how `deliverability_analysis[lacs_indicator]` was determined. Possible values are: * `A` — A new address was produced because a match was found in LACS<sup>Link</sup>. * `92` — A LACS<sup>Link</sup> record was matched after dropping secondary information. * `14` — A match was found in LACS<sup>Link</sup>, but could not be converted to a deliverable address. * `00` — A match was not found in LACS<sup>Link</sup>, and no new address was produced. * `''` — LACS<sup>Link</sup> was not attempted.
+     * @param string $lacs_return_code A code indicating how `deliverability_analysis[lacs_indicator]` was determined. Possible values are: * `A` — A new address was produced because a match was found in LACS<sup>Link</sup>. * `92` — A LACS<sup>Link</sup> record was matched after dropping secondary information. * `14` — A match was found in LACS<sup>Link</sup>, but could not be converted to a deliverable address. * `00` — A match was not found in LACS<sup>Link</sup>, and no new address was produced. * `''` — LACS<sup>Link</sup> was not attempted.
      *
      * @return self
      */
@@ -681,7 +708,7 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets suite_return_code
      *
-     * @return string|null
+     * @return string
      */
     public function getSuiteReturnCode()
     {
@@ -691,14 +718,14 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets suite_return_code
      *
-     * @param string|null $suite_return_code A return code that indicates whether the address was matched and corrected by [Suite<sup>Link</sup>](https://postalpro.usps.com/address-quality-solutions/suitelink). Suite<sup>Link</sup> attempts to provide secondary information to business addresses. Possible values are: * `A` –– A Suite<sup>Link</sup> match was found and secondary information was added. * `00` –– A Suite<sup>Link</sup> match could not be found and no secondary information was added. * `''` –– Suite<sup>Link</sup> lookup was not attempted.
+     * @param string $suite_return_code A return code that indicates whether the address was matched and corrected by [Suite<sup>Link</sup>](https://postalpro.usps.com/address-quality-solutions/suitelink). Suite<sup>Link</sup> attempts to provide secondary information to business addresses. Possible values are: * `A` –– A Suite<sup>Link</sup> match was found and secondary information was added. * `00` –– A Suite<sup>Link</sup> match could not be found and no secondary information was added. * `''` –– Suite<sup>Link</sup> lookup was not attempted.
      *
      * @return self
      */
     public function setSuiteReturnCode($suite_return_code)
     {
         $allowedValues = $this->getSuiteReturnCodeAllowableValues();
-        if (!is_null($suite_return_code) && !in_array($suite_return_code, $allowedValues, true)) {
+        if (!in_array($suite_return_code, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'suite_return_code', must be one of '%s'",

@@ -1,6 +1,6 @@
 <?php
 /**
- * TemplateWritable
+ * LetterEditableCustomEnvelope
  *
  * PHP version 7.3
  *
@@ -33,9 +33,10 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * TemplateWritable Class Doc Comment
+ * LetterEditableCustomEnvelope Class Doc Comment
  *
  * @category Class
+ * @description A nested custom envelope object containing more information about the custom envelope used or &#x60;null&#x60; if a custom envelope was not used.  Accepts an envelope ID for any customized envelope with available inventory. If no inventory is available for the specified ID, the letter will not be sent, and an error will be returned. If the letter has more than 6 sheets, it will be sent in a blank flat envelope. Custom envelopes may be created and ordered from the dashboard. This feature is exclusive to certain customers. Upgrade to the appropriate [Print &amp; Mail Edition](https://dashboard.lob.com/#/settings/editions) to gain access.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -43,7 +44,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
+class LetterEditableCustomEnvelope implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +53,7 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'template_writable';
+    protected static $openAPIModelName = 'letter_editable_custom_envelope';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,10 +61,9 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'description' => 'string',
-        'html' => 'string',
-        'metadata' => 'array<string,string>',
-        'engine' => '\OpenAPI\Client\Model\EngineHtml'
+        'id' => 'string',
+        'url' => 'string',
+        'object' => 'string'
     ];
 
     /**
@@ -74,10 +74,9 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'description' => null,
-        'html' => null,
-        'metadata' => null,
-        'engine' => null
+        'id' => null,
+        'url' => null,
+        'object' => null
     ];
 
     /**
@@ -107,10 +106,9 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'html' => 'html',
-        'metadata' => 'metadata',
-        'engine' => 'engine'
+        'id' => 'id',
+        'url' => 'url',
+        'object' => 'object'
     ];
 
     /**
@@ -119,10 +117,9 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'html' => 'setHtml',
-        'metadata' => 'setMetadata',
-        'engine' => 'setEngine'
+        'id' => 'setId',
+        'url' => 'setUrl',
+        'object' => 'setObject'
     ];
 
     /**
@@ -131,10 +128,9 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'html' => 'getHtml',
-        'metadata' => 'getMetadata',
-        'engine' => 'getEngine'
+        'id' => 'getId',
+        'url' => 'getUrl',
+        'object' => 'getObject'
     ];
 
     /**
@@ -178,6 +174,19 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    const OBJECT_ENVELOPE = 'envelope';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getObjectAllowableValues()
+    {
+        return [
+            self::OBJECT_ENVELOPE,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -194,10 +203,9 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['description'] = $data['description'] ?? null;
-        $this->container['html'] = $data['html'] ?? null;
-        $this->container['metadata'] = $data['metadata'] ?? null;
-        $this->container['engine'] = $data['engine'] ?? null;
+        $this->container['id'] = $data['id'] ?? null;
+        $this->container['url'] = $data['url'] ?? null;
+        $this->container['object'] = $data['object'] ?? null;
     }
 
     /**
@@ -209,15 +217,26 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ((mb_strlen($this->container['id']) > 40)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 40.";
         }
 
-        if ($this->container['html'] === null) {
-            $invalidProperties[] = "'html' can't be null";
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
         }
-        if ((mb_strlen($this->container['html']) > 100000)) {
-            $invalidProperties[] = "invalid value for 'html', the character length must be smaller than or equal to 100000.";
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
+        $allowedValues = $this->getObjectAllowableValues();
+        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'object', must be one of '%s'",
+                $this->container['object'],
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -237,110 +256,90 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets description
-     *
-     * @return string|null
-     */
-    public function getDescription()
-    {
-        return $this->container['description'];
-    }
-
-    /**
-     * Sets description
-     *
-     * @param string|null $description An internal description that identifies this resource. Must be no longer than 255 characters.
-     *
-     * @return self
-     */
-    public function setDescription($description)
-    {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling TemplateWritable., must be smaller than or equal to 255.');
-        }
-
-        $this->container['description'] = $description;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets html
+     * Gets id
      *
      * @return string
      */
-    public function getHtml()
+    public function getId()
     {
-        return $this->container['html'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets html
+     * Sets id
      *
-     * @param string $html An HTML string of less than 100,000 characters to be used as the `published_version` of this template. See [here](#section/HTML-Examples) for guidance on designing HTML templates. Please see endpoint specific documentation for any other product-specific HTML details: - [Postcards](https://docs.lob.com/#tag/Postcards/operation/postcard_create) - `front` and `back` - [Self Mailers](https://docs.lob.com/#tag/Self-Mailers/operation/self_mailer_create) - `inside` and `outside` - [Letters](https://docs.lob.com/#tag/Letters/operation/letter_create) - `file` - [Checks](https://docs.lob.com/#tag/Checks/operation/check_create) - `check_bottom` and `attachment` - [Cards](https://docs.lob.com/#tag/Cards/operation/card_create) - `front` and `back`  If there is a syntax error with your variable names within your HTML, then an error will be thrown, e.g. using a `{{#users}}` opening tag without the corresponding closing tag `{{/users}}`.
+     * @param string $id The unique identifier of the custom envelope used.
      *
      * @return self
      */
-    public function setHtml($html)
+    public function setId($id)
     {
-        if ((mb_strlen($html) > 100000)) {
-            throw new \InvalidArgumentException('invalid length for $html when calling TemplateWritable., must be smaller than or equal to 100000.');
+        if ((mb_strlen($id) > 40)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling LetterEditableCustomEnvelope., must be smaller than or equal to 40.');
         }
 
-        $this->container['html'] = $html;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
 
     /**
-     * Gets metadata
+     * Gets url
      *
-     * @return array<string,string>|null
+     * @return string
      */
-    public function getMetadata()
+    public function getUrl()
     {
-        return $this->container['metadata'];
+        return $this->container['url'];
     }
 
     /**
-     * Sets metadata
+     * Sets url
      *
-     * @param array<string,string>|null $metadata Use metadata to store custom information for tagging and labeling back to your internal systems. Must be an object with up to 20 key-value pairs. Keys must be at most 40 characters and values must be at most 500 characters. Neither can contain the characters `\"` and `\\`. i.e. '{\"customer_id\" : \"NEWYORK2015\"}' Nested objects are not supported.  See [Metadata](#section/Metadata) for more information.
+     * @param string $url The url of the envelope asset used.
      *
      * @return self
      */
-    public function setMetadata($metadata)
+    public function setUrl($url)
     {
-
-
-        $this->container['metadata'] = $metadata;
+        $this->container['url'] = $url;
 
         return $this;
     }
 
 
     /**
-     * Gets engine
+     * Gets object
      *
-     * @return \OpenAPI\Client\Model\EngineHtml|null
+     * @return string
      */
-    public function getEngine()
+    public function getObject()
     {
-        return $this->container['engine'];
+        return $this->container['object'];
     }
 
     /**
-     * Sets engine
+     * Sets object
      *
-     * @param \OpenAPI\Client\Model\EngineHtml|null $engine engine
+     * @param string $object object
      *
      * @return self
      */
-    public function setEngine($engine)
+    public function setObject($object)
     {
-        $this->container['engine'] = $engine;
+        $allowedValues = $this->getObjectAllowableValues();
+        if (!in_array($object, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'object', must be one of '%s'",
+                    $object,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+
+        $this->container['object'] = $object;
 
         return $this;
     }

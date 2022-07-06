@@ -215,6 +215,9 @@ class UsAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonSer
     {
         $invalidProperties = [];
 
+        if ($this->container['address_prefix'] === null) {
+            $invalidProperties[] = "'address_prefix' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -234,7 +237,7 @@ class UsAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets address_prefix
      *
-     * @return string|null
+     * @return string
      */
     public function getAddressPrefix()
     {
@@ -244,7 +247,7 @@ class UsAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets address_prefix
      *
-     * @param string|null $address_prefix Only accepts numbers and street names in an alphanumeric format.
+     * @param string $address_prefix Only accepts numbers and street names in an alphanumeric format.
      *
      * @return self
      */

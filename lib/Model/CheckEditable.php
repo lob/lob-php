@@ -294,7 +294,19 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['amount']) && ($this->container['amount'] > 999999.99)) {
+        if ($this->container['from'] === null) {
+            $invalidProperties[] = "'from' can't be null";
+        }
+        if ($this->container['to'] === null) {
+            $invalidProperties[] = "'to' can't be null";
+        }
+        if ($this->container['bank_account'] === null) {
+            $invalidProperties[] = "'bank_account' can't be null";
+        }
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
+        }
+        if (($this->container['amount'] > 999999.99)) {
             $invalidProperties[] = "invalid value for 'amount', must be smaller than or equal to 999999.99.";
         }
 
@@ -346,7 +358,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string|null
+     * @return string
      */
     public function getFrom()
     {
@@ -356,7 +368,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string|null $from Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
+     * @param string $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -371,7 +383,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string|null
+     * @return string
      */
     public function getTo()
     {
@@ -381,7 +393,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string|null $to Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
+     * @param string $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -396,7 +408,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets bank_account
      *
-     * @return string|null
+     * @return string
      */
     public function getBankAccount()
     {
@@ -406,7 +418,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets bank_account
      *
-     * @param string|null $bank_account bank_account
+     * @param string $bank_account bank_account
      *
      * @return self
      */
@@ -421,7 +433,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets amount
      *
-     * @return float|null
+     * @return float
      */
     public function getAmount()
     {
@@ -431,14 +443,14 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets amount
      *
-     * @param float|null $amount The payment amount to be sent in US dollars.
+     * @param float $amount The payment amount to be sent in US dollars.
      *
      * @return self
      */
     public function setAmount($amount)
     {
 
-        if (!is_null($amount) && ($amount > 999999.99)) {
+        if (($amount > 999999.99)) {
             throw new \InvalidArgumentException('invalid value for $amount when calling CheckEditable., must be smaller than or equal to 999999.99.');
         }
 

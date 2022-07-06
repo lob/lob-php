@@ -84,7 +84,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'color' => 'bool',
         'double_sided' => 'bool',
         'address_placement' => 'string',
-        'return_envelope' => 'mixed',
+        'return_envelope' => '\OpenAPI\Client\Model\ReturnEnvelope',
         'perforated_page' => 'int',
         'custom_envelope' => '\OpenAPI\Client\Model\LetterCustomEnvelope'
     ];
@@ -392,6 +392,12 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['to'] === null) {
+            $invalidProperties[] = "'to' can't be null";
+        }
+        if ($this->container['from'] === null) {
+            $invalidProperties[] = "'from' can't be null";
+        }
         $allowedValues = $this->getCarrierAllowableValues();
         if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -401,7 +407,16 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['id']) && !preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ($this->container['date_created'] === null) {
+            $invalidProperties[] = "'date_created' can't be null";
+        }
+        if ($this->container['date_modified'] === null) {
+            $invalidProperties[] = "'date_modified' can't be null";
+        }
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^ltr_[a-zA-Z0-9]+$/.";
         }
 
@@ -413,6 +428,9 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -458,7 +476,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return \OpenAPI\Client\Model\Address|null
+     * @return \OpenAPI\Client\Model\Address
      */
     public function getTo()
     {
@@ -468,7 +486,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param \OpenAPI\Client\Model\Address|null $to to
+     * @param \OpenAPI\Client\Model\Address $to to
      *
      * @return self
      */
@@ -483,7 +501,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return \OpenAPI\Client\Model\Address|null
+     * @return \OpenAPI\Client\Model\Address
      */
     public function getFrom()
     {
@@ -493,7 +511,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param \OpenAPI\Client\Model\Address|null $from from
+     * @param \OpenAPI\Client\Model\Address $from from
      *
      * @return self
      */
@@ -601,7 +619,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_created
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -611,7 +629,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_created
      *
-     * @param \DateTime|null $date_created A timestamp in ISO 8601 format of the date the resource was created.
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the resource was created.
      *
      * @return self
      */
@@ -626,7 +644,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets date_modified
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -636,7 +654,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets date_modified
      *
-     * @param \DateTime|null $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
+     * @param \DateTime $date_modified A timestamp in ISO 8601 format of the date the resource was last modified.
      *
      * @return self
      */
@@ -676,7 +694,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -686,14 +704,14 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Unique identifier prefixed with `ltr_`.
+     * @param string $id Unique identifier prefixed with `ltr_`.
      *
      * @return self
      */
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
+        if ((!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Letter., must conform to the pattern /^ltr_[a-zA-Z0-9]+$/.");
         }
 
@@ -766,7 +784,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets object
      *
-     * @return string|null
+     * @return string
      */
     public function getObject()
     {
@@ -776,14 +794,14 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets object
      *
-     * @param string|null $object object
+     * @param string $object object
      *
      * @return self
      */
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+        if (!in_array($object, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value '%s' for 'object', must be one of '%s'",
@@ -1132,7 +1150,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets return_envelope
      *
-     * @return mixed|null
+     * @return \OpenAPI\Client\Model\ReturnEnvelope|null
      */
     public function getReturnEnvelope()
     {
@@ -1142,7 +1160,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets return_envelope
      *
-     * @param mixed|null $return_envelope indicates if a return envelope is requested for the letter. The value corresponding to this field is by default a boolean. But if the account is signed up for custom return envelopes, the value is of type string and is `no_9_single_window` for a standard return envelope and a custom `return_envelope_id` for non-standard return envelopes.  To include a return envelope with your letter, set to `true` and specify the `perforated_page`. See [pricing](https://www.lob.com/pricing/print-mail#compare) for extra costs incurred.
+     * @param \OpenAPI\Client\Model\ReturnEnvelope|null $return_envelope return_envelope
      *
      * @return self
      */

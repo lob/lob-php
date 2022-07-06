@@ -215,6 +215,12 @@ class IntlAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonS
     {
         $invalidProperties = [];
 
+        if ($this->container['address_prefix'] === null) {
+            $invalidProperties[] = "'address_prefix' can't be null";
+        }
+        if ($this->container['country'] === null) {
+            $invalidProperties[] = "'country' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -234,7 +240,7 @@ class IntlAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets address_prefix
      *
-     * @return string|null
+     * @return string
      */
     public function getAddressPrefix()
     {
@@ -244,7 +250,7 @@ class IntlAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets address_prefix
      *
-     * @param string|null $address_prefix Only accepts numbers and street names in an alphanumeric format.
+     * @param string $address_prefix Only accepts numbers and street names in an alphanumeric format.
      *
      * @return self
      */
@@ -334,7 +340,7 @@ class IntlAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets country
      *
-     * @return \OpenAPI\Client\Model\CountryExtended|null
+     * @return \OpenAPI\Client\Model\CountryExtended
      */
     public function getCountry()
     {
@@ -344,7 +350,7 @@ class IntlAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets country
      *
-     * @param \OpenAPI\Client\Model\CountryExtended|null $country country
+     * @param \OpenAPI\Client\Model\CountryExtended $country country
      *
      * @return self
      */

@@ -13,9 +13,9 @@ Name | Type | Description | Notes
 **cancelled_reason** | **string** | The reason for cancellation. | [optional]
 **availability_date** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was created. | [optional]
 **expected_availability_date** | [**\DateTime**](\DateTime.md) | The fixed deadline for the cards to be printed. | [optional]
-**date_created** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was created. | [optional]
-**date_modified** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was last modified. | [optional]
+**date_created** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was created. |
+**date_modified** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was last modified. |
 **deleted** | **bool** | Only returned if the resource has been successfully deleted. | [optional]
-**object** | **string** | Value is type of resource. | [optional]
+**object** | **string** | Value is type of resource. |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

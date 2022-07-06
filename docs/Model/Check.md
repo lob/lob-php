@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | Unique identifier prefixed with &#x60;chk_&#x60;. | [optional]
-**to** | [**\OpenAPI\Client\Model\Address**](Address.md) |  | [optional]
+**id** | **string** | Unique identifier prefixed with &#x60;chk_&#x60;. |
+**to** | [**\OpenAPI\Client\Model\Address**](Address.md) |  |
 **from** | [**\OpenAPI\Client\Model\Address**](Address.md) |  | [optional]
 **description** | **string** | An internal description that identifies this resource. Must be no longer than 255 characters. | [optional]
 **metadata** | **array<string,string>** | Use metadata to store custom information for tagging and labeling back to your internal systems. Must be an object with up to 20 key-value pairs. Keys must be at most 40 characters and values must be at most 500 characters. Neither can contain the characters &#x60;\&quot;&#x60; and &#x60;\\&#x60;. i.e. &#39;{\&quot;customer_id\&quot; : \&quot;NEWYORK2015\&quot;}&#39; Nested objects are not supported.  See [Metadata](#section/Metadata) for more information. | [optional]
@@ -15,20 +15,20 @@ Name | Type | Description | Notes
 **memo** | **string** | Text to include on the memo line of the check. | [optional]
 **check_number** | **int** | An integer that designates the check number. If &#x60;check_number&#x60; is not provided, checks created from a new &#x60;bank_account&#x60; will start at &#x60;10000&#x60; and increment with each check created with the &#x60;bank_account&#x60;. A provided &#x60;check_number&#x60; overrides the defaults. Subsequent checks created with the same &#x60;bank_account&#x60; will increment from the provided check number. | [optional]
 **message** | **string** | Max of 400 characters to be included at the bottom of the check page. | [optional]
-**amount** | **float** | The payment amount to be sent in US dollars. | [optional]
-**bank_account** | [**\OpenAPI\Client\Model\BankAccount**](BankAccount.md) |  | [optional]
+**amount** | **float** | The payment amount to be sent in US dollars. |
+**bank_account** | [**\OpenAPI\Client\Model\BankAccount**](BankAccount.md) |  |
 **check_bottom_template_id** | **string** | Unique identifier prefixed with &#x60;tmpl_&#x60;. ID of a saved [HTML template](#section/HTML-Templates). | [optional]
 **attachment_template_id** | **string** | Unique identifier prefixed with &#x60;tmpl_&#x60;. ID of a saved [HTML template](#section/HTML-Templates). | [optional]
 **check_bottom_template_version_id** | **string** | Unique identifier prefixed with &#x60;vrsn_&#x60;. | [optional]
 **attachment_template_version_id** | **string** | Unique identifier prefixed with &#x60;vrsn_&#x60;. | [optional]
-**url** | **string** | A [signed link](#section/Asset-URLs) served over HTTPS. The link returned will expire in 30 days to prevent mis-sharing. Each time a GET request is initiated, a new signed URL will be generated. | [optional]
-**carrier** | **string** |  | [optional] [default to CARRIER_USPS]
+**url** | **string** | A [signed link](#section/Asset-URLs) served over HTTPS. The link returned will expire in 30 days to prevent mis-sharing. Each time a GET request is initiated, a new signed URL will be generated. |
+**carrier** | **string** |  | [default to CARRIER_USPS]
 **thumbnails** | [**\OpenAPI\Client\Model\Thumbnail[]**](Thumbnail.md) |  | [optional]
 **expected_delivery_date** | [**\DateTime**](\DateTime.md) | A date in YYYY-MM-DD format of the mailpiece&#39;s expected delivery date based on its &#x60;send_date&#x60;. | [optional]
 **tracking_events** | [**\OpenAPI\Client\Model\TrackingEventNormal[]**](TrackingEventNormal.md) | An array of tracking_event objects ordered by ascending &#x60;time&#x60;. Will not be populated for checks created in test mode. | [optional]
-**object** | **string** |  | [optional] [default to OBJECT_CHECK]
-**date_created** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was created. | [optional]
-**date_modified** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was last modified. | [optional]
+**object** | **string** |  | [default to OBJECT_CHECK]
+**date_created** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was created. |
+**date_modified** | [**\DateTime**](\DateTime.md) | A timestamp in ISO 8601 format of the date the resource was last modified. |
 **deleted** | **bool** | Only returned if the resource has been successfully deleted. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
