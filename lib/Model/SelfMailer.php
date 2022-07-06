@@ -305,31 +305,19 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if ($this->container['outside_template_id'] === null) {
-            $invalidProperties[] = "'outside_template_id' can't be null";
-        }
-        if (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['outside_template_id'])) {
+        if (!is_null($this->container['outside_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['outside_template_id'])) {
             $invalidProperties[] = "invalid value for 'outside_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
 
-        if ($this->container['inside_template_id'] === null) {
-            $invalidProperties[] = "'inside_template_id' can't be null";
-        }
-        if (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['inside_template_id'])) {
+        if (!is_null($this->container['inside_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['inside_template_id'])) {
             $invalidProperties[] = "invalid value for 'inside_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
 
-        if ($this->container['outside_template_version_id'] === null) {
-            $invalidProperties[] = "'outside_template_version_id' can't be null";
-        }
-        if (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['outside_template_version_id'])) {
+        if (!is_null($this->container['outside_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['outside_template_version_id'])) {
             $invalidProperties[] = "invalid value for 'outside_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
-        if ($this->container['inside_template_version_id'] === null) {
-            $invalidProperties[] = "'inside_template_version_id' can't be null";
-        }
-        if (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['inside_template_version_id'])) {
+        if (!is_null($this->container['inside_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['inside_template_version_id'])) {
             $invalidProperties[] = "invalid value for 'inside_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
@@ -606,7 +594,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets outside_template_id
      *
-     * @return string
+     * @return string|null
      */
     public function getOutsideTemplateId()
     {
@@ -616,14 +604,14 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets outside_template_id
      *
-     * @param string $outside_template_id The unique ID of the HTML template used for the outside of the self mailer.
+     * @param string|null $outside_template_id The unique ID of the HTML template used for the outside of the self mailer.
      *
      * @return self
      */
     public function setOutsideTemplateId($outside_template_id)
     {
 
-        if ((!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $outside_template_id))) {
+        if (!is_null($outside_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $outside_template_id))) {
             throw new \InvalidArgumentException("invalid value for $outside_template_id when calling SelfMailer., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
         }
 
@@ -636,7 +624,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets inside_template_id
      *
-     * @return string
+     * @return string|null
      */
     public function getInsideTemplateId()
     {
@@ -646,14 +634,14 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets inside_template_id
      *
-     * @param string $inside_template_id The unique ID of the HTML template used for the inside of the self mailer.
+     * @param string|null $inside_template_id The unique ID of the HTML template used for the inside of the self mailer.
      *
      * @return self
      */
     public function setInsideTemplateId($inside_template_id)
     {
 
-        if ((!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $inside_template_id))) {
+        if (!is_null($inside_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $inside_template_id))) {
             throw new \InvalidArgumentException("invalid value for $inside_template_id when calling SelfMailer., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
         }
 
@@ -666,7 +654,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets outside_template_version_id
      *
-     * @return string
+     * @return string|null
      */
     public function getOutsideTemplateVersionId()
     {
@@ -676,14 +664,14 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets outside_template_version_id
      *
-     * @param string $outside_template_version_id The unique ID of the specific version of the HTML template used for the outside of the self mailer.
+     * @param string|null $outside_template_version_id The unique ID of the specific version of the HTML template used for the outside of the self mailer.
      *
      * @return self
      */
     public function setOutsideTemplateVersionId($outside_template_version_id)
     {
 
-        if ((!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $outside_template_version_id))) {
+        if (!is_null($outside_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $outside_template_version_id))) {
             throw new \InvalidArgumentException("invalid value for $outside_template_version_id when calling SelfMailer., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
         }
 
@@ -696,7 +684,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets inside_template_version_id
      *
-     * @return string
+     * @return string|null
      */
     public function getInsideTemplateVersionId()
     {
@@ -706,14 +694,14 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets inside_template_version_id
      *
-     * @param string $inside_template_version_id The unique ID of the specific version of the HTML template used for the inside of the self mailer.
+     * @param string|null $inside_template_version_id The unique ID of the specific version of the HTML template used for the inside of the self mailer.
      *
      * @return self
      */
     public function setInsideTemplateVersionId($inside_template_version_id)
     {
 
-        if ((!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $inside_template_version_id))) {
+        if (!is_null($inside_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $inside_template_version_id))) {
             throw new \InvalidArgumentException("invalid value for $inside_template_version_id when calling SelfMailer., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
         }
 
