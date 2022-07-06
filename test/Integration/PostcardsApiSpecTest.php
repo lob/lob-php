@@ -313,6 +313,58 @@ class PostcardsApiSpecTest extends TestCase
         }
     }
 
+    public function testListSize200()
+    {
+        $nextUrl = "";
+        $previousUrl = "";
+        try {
+            $psc1 = self::$postcardsApi->create(self::$editablePostcard);
+            $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
+            $sizeArray = [PostcardSize::_4X6->value];
+            $listedPostcards = self::$postcardsApi->list(2, null, null, null, null, null, $sizeArray);
+            $this->assertGreaterThan(1, count($listedPostcards->getData()));
+            $this->assertLessThanOrEqual(2, count($listedPostcards->getData()));
+            $nextUrl = substr($listedPostcards->getNextUrl(), strrpos($listedPostcards->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
+            array_push($this->idsForCleanup, $psc1->getId());
+            array_push($this->idsForCleanup, $psc2->getId());
+        } catch (Exception $listError) {
+            echo 'Caught exception: ',  $listError->getMessage(), "\n";
+        }
+
+        // response using nextUrl
+        if ($nextUrl != "") {
+            try {
+                $psc1 = self::$postcardsApi->create(self::$editablePostcard);
+                $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
+                $listedPostcardsAfter = self::$postcardsApi->list(2, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedPostcardsAfter->getData()));
+                $this->assertLessThanOrEqual(2, count($listedPostcardsAfter->getData()));
+                $previousUrl = substr($listedPostcardsAfter->getPreviousUrl(), strrpos($listedPostcardsAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $psc1->getId());
+                array_push($this->idsForCleanup, $psc2->getId());
+            } catch (Exception $listError) {
+                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            }
+        }
+
+        // response using previousUrl
+        if ($previousUrl != "") {
+            try {
+                $psc1 = self::$postcardsApi->create(self::$editablePostcard);
+                $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
+                $listedPostcardsBefore = self::$postcardsApi->list(2, $previousUrl);
+                $this->assertGreaterThan(1, count($listedPostcardsBefore->getData()));
+                $this->assertLessThanOrEqual(2, count($listedPostcardsBefore->getData()));
+                array_push($this->idsForCleanup, $psc1->getId());
+                array_push($this->idsForCleanup, $psc2->getId());
+            } catch (Exception $listError) {
+                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            }
+        }
+    }
+
     public function testCancel200()
     {
         try {

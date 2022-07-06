@@ -72,6 +72,7 @@ class PostcardsApiUnitTest extends TestCase
 
         self::$mockPostcardResponse = new Postcard();
         self::$mockPostcardResponse->setId(self::$mockPostcardId);
+        self::$mockPostcardResponse->setUrl("https://lob-assets.com/postcards/psc_208e45e48d271294.pdf?version=v1&expires=1619218302&signature=NfHHLBSr5tOHA_Z4kij4dKqZG8f3vMDtwvuFVeeF9pV_lylcjLsVVODhNCE5hR6-2slUr6t9WMNsi429Pj7_DA");
 
         // Postcard List Fixture
         self::$mockPostcardList = new PostcardList();
