@@ -217,8 +217,10 @@ class LetterEditableCustomEnvelope implements ModelInterface, ArrayAccess, \Json
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['id']) > 40)) {
@@ -226,19 +228,25 @@ class LetterEditableCustomEnvelope implements ModelInterface, ArrayAccess, \Json
             }
 
         }
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['url'] === null) {
+                $invalidProperties[] = "'url' can't be null";
+            }
         }
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

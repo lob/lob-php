@@ -227,8 +227,10 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
             }
 
         }
-        if ($this->container['routing_number'] === null) {
-            $invalidProperties[] = "'routing_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['routing_number'] === null) {
+                $invalidProperties[] = "'routing_number' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['routing_number']) > 9)) {
@@ -240,8 +242,10 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
             }
 
         }
-        if ($this->container['account_number'] === null) {
-            $invalidProperties[] = "'account_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['account_number'] === null) {
+                $invalidProperties[] = "'account_number' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['account_number']) > 17)) {
@@ -249,11 +253,15 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
             }
 
         }
-        if ($this->container['account_type'] === null) {
-            $invalidProperties[] = "'account_type' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['account_type'] === null) {
+                $invalidProperties[] = "'account_type' can't be null";
+            }
         }
-        if ($this->container['signatory'] === null) {
-            $invalidProperties[] = "'signatory' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['signatory'] === null) {
+                $invalidProperties[] = "'signatory' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['signatory']) > 30)) {

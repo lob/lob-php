@@ -463,59 +463,87 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['primary_number'] === null) {
-            $invalidProperties[] = "'primary_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['primary_number'] === null) {
+                $invalidProperties[] = "'primary_number' can't be null";
+            }
         }
-        if ($this->container['street_predirection'] === null) {
-            $invalidProperties[] = "'street_predirection' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['street_predirection'] === null) {
+                $invalidProperties[] = "'street_predirection' can't be null";
+            }
         }
         $allowedValues = $this->getStreetPredirectionAllowableValues();
-        if (!is_null($this->container['street_predirection']) && !in_array($this->container['street_predirection'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'street_predirection', must be one of '%s'",
-                $this->container['street_predirection'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['street_predirection']) && !in_array($this->container['street_predirection'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'street_predirection', must be one of '%s'",
+                    $this->container['street_predirection'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['street_name'] === null) {
-            $invalidProperties[] = "'street_name' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['street_name'] === null) {
+                $invalidProperties[] = "'street_name' can't be null";
+            }
         }
-        if ($this->container['street_suffix'] === null) {
-            $invalidProperties[] = "'street_suffix' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['street_suffix'] === null) {
+                $invalidProperties[] = "'street_suffix' can't be null";
+            }
         }
-        if ($this->container['street_postdirection'] === null) {
-            $invalidProperties[] = "'street_postdirection' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['street_postdirection'] === null) {
+                $invalidProperties[] = "'street_postdirection' can't be null";
+            }
         }
         $allowedValues = $this->getStreetPostdirectionAllowableValues();
-        if (!is_null($this->container['street_postdirection']) && !in_array($this->container['street_postdirection'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'street_postdirection', must be one of '%s'",
-                $this->container['street_postdirection'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['street_postdirection']) && !in_array($this->container['street_postdirection'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'street_postdirection', must be one of '%s'",
+                    $this->container['street_postdirection'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['secondary_designator'] === null) {
-            $invalidProperties[] = "'secondary_designator' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['secondary_designator'] === null) {
+                $invalidProperties[] = "'secondary_designator' can't be null";
+            }
         }
-        if ($this->container['secondary_number'] === null) {
-            $invalidProperties[] = "'secondary_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['secondary_number'] === null) {
+                $invalidProperties[] = "'secondary_number' can't be null";
+            }
         }
-        if ($this->container['pmb_designator'] === null) {
-            $invalidProperties[] = "'pmb_designator' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['pmb_designator'] === null) {
+                $invalidProperties[] = "'pmb_designator' can't be null";
+            }
         }
-        if ($this->container['pmb_number'] === null) {
-            $invalidProperties[] = "'pmb_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['pmb_number'] === null) {
+                $invalidProperties[] = "'pmb_number' can't be null";
+            }
         }
-        if ($this->container['extra_secondary_designator'] === null) {
-            $invalidProperties[] = "'extra_secondary_designator' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['extra_secondary_designator'] === null) {
+                $invalidProperties[] = "'extra_secondary_designator' can't be null";
+            }
         }
-        if ($this->container['extra_secondary_number'] === null) {
-            $invalidProperties[] = "'extra_secondary_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['extra_secondary_number'] === null) {
+                $invalidProperties[] = "'extra_secondary_number' can't be null";
+            }
         }
-        if ($this->container['city'] === null) {
-            $invalidProperties[] = "'city' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['city'] === null) {
+                $invalidProperties[] = "'city' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['city']) > 200)) {
@@ -523,8 +551,10 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['state'] === null) {
-            $invalidProperties[] = "'state' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['state'] === null) {
+                $invalidProperties[] = "'state' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['state']) > 2)) {
@@ -532,8 +562,10 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['zip_code'] === null) {
-            $invalidProperties[] = "'zip_code' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['zip_code'] === null) {
+                $invalidProperties[] = "'zip_code' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
@@ -541,8 +573,10 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['zip_code_plus_4'] === null) {
-            $invalidProperties[] = "'zip_code_plus_4' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['zip_code_plus_4'] === null) {
+                $invalidProperties[] = "'zip_code_plus_4' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
@@ -550,58 +584,82 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['zip_code_type'] === null) {
-            $invalidProperties[] = "'zip_code_type' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['zip_code_type'] === null) {
+                $invalidProperties[] = "'zip_code_type' can't be null";
+            }
         }
-        if ($this->container['delivery_point_barcode'] === null) {
-            $invalidProperties[] = "'delivery_point_barcode' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['delivery_point_barcode'] === null) {
+                $invalidProperties[] = "'delivery_point_barcode' can't be null";
+            }
         }
-        if ($this->container['address_type'] === null) {
-            $invalidProperties[] = "'address_type' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['address_type'] === null) {
+                $invalidProperties[] = "'address_type' can't be null";
+            }
         }
         $allowedValues = $this->getAddressTypeAllowableValues();
-        if (!is_null($this->container['address_type']) && !in_array($this->container['address_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'address_type', must be one of '%s'",
-                $this->container['address_type'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_type']) && !in_array($this->container['address_type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'address_type', must be one of '%s'",
+                    $this->container['address_type'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['record_type'] === null) {
-            $invalidProperties[] = "'record_type' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['record_type'] === null) {
+                $invalidProperties[] = "'record_type' can't be null";
+            }
         }
         $allowedValues = $this->getRecordTypeAllowableValues();
-        if (!is_null($this->container['record_type']) && !in_array($this->container['record_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'record_type', must be one of '%s'",
-                $this->container['record_type'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['record_type']) && !in_array($this->container['record_type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'record_type', must be one of '%s'",
+                    $this->container['record_type'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['default_building_address'] === null) {
-            $invalidProperties[] = "'default_building_address' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['default_building_address'] === null) {
+                $invalidProperties[] = "'default_building_address' can't be null";
+            }
         }
-        if ($this->container['county'] === null) {
-            $invalidProperties[] = "'county' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['county'] === null) {
+                $invalidProperties[] = "'county' can't be null";
+            }
         }
-        if ($this->container['county_fips'] === null) {
-            $invalidProperties[] = "'county_fips' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['county_fips'] === null) {
+                $invalidProperties[] = "'county_fips' can't be null";
+            }
         }
-        if ($this->container['carrier_route'] === null) {
-            $invalidProperties[] = "'carrier_route' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['carrier_route'] === null) {
+                $invalidProperties[] = "'carrier_route' can't be null";
+            }
         }
-        if ($this->container['carrier_route_type'] === null) {
-            $invalidProperties[] = "'carrier_route_type' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['carrier_route_type'] === null) {
+                $invalidProperties[] = "'carrier_route_type' can't be null";
+            }
         }
         $allowedValues = $this->getCarrierRouteTypeAllowableValues();
-        if (!is_null($this->container['carrier_route_type']) && !in_array($this->container['carrier_route_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'carrier_route_type', must be one of '%s'",
-                $this->container['carrier_route_type'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['carrier_route_type']) && !in_array($this->container['carrier_route_type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'carrier_route_type', must be one of '%s'",
+                    $this->container['carrier_route_type'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

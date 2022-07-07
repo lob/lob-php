@@ -251,8 +251,10 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
@@ -264,11 +266,15 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
         }
-        if ($this->container['inside'] === null) {
-            $invalidProperties[] = "'inside' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['inside'] === null) {
+                $invalidProperties[] = "'inside' can't be null";
+            }
         }
-        if ($this->container['outside'] === null) {
-            $invalidProperties[] = "'outside' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['outside'] === null) {
+                $invalidProperties[] = "'outside' can't be null";
+            }
         }
         return $invalidProperties;
     }

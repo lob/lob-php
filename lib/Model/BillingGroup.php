@@ -240,8 +240,10 @@ class BillingGroup implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['name'] === null) {
+                $invalidProperties[] = "'name' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['name']) > 255)) {
@@ -249,8 +251,10 @@ class BillingGroup implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^bg_[a-zA-Z0-9]+$/", $this->container['id'])) {
@@ -258,22 +262,30 @@ class BillingGroup implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['date_created'] === null) {
-            $invalidProperties[] = "'date_created' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_created'] === null) {
+                $invalidProperties[] = "'date_created' can't be null";
+            }
         }
-        if ($this->container['date_modified'] === null) {
-            $invalidProperties[] = "'date_modified' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_modified'] === null) {
+                $invalidProperties[] = "'date_modified' can't be null";
+            }
         }
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

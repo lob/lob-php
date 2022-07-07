@@ -357,8 +357,10 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^card_[a-zA-Z0-9]+$/", $this->container['id'])) {
@@ -366,8 +368,10 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['url'] === null) {
+                $invalidProperties[] = "'url' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['url']) > 2083)) {
@@ -379,14 +383,20 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['auto_reorder'] === null) {
-            $invalidProperties[] = "'auto_reorder' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['auto_reorder'] === null) {
+                $invalidProperties[] = "'auto_reorder' can't be null";
+            }
         }
-        if ($this->container['reorder_quantity'] === null) {
-            $invalidProperties[] = "'reorder_quantity' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['reorder_quantity'] === null) {
+                $invalidProperties[] = "'reorder_quantity' can't be null";
+            }
         }
-        if ($this->container['raw_url'] === null) {
-            $invalidProperties[] = "'raw_url' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['raw_url'] === null) {
+                $invalidProperties[] = "'raw_url' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['raw_url']) > 2083)) {
@@ -398,8 +408,10 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['front_original_url'] === null) {
-            $invalidProperties[] = "'front_original_url' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['front_original_url'] === null) {
+                $invalidProperties[] = "'front_original_url' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['front_original_url']) > 2083)) {
@@ -411,8 +423,10 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['back_original_url'] === null) {
-            $invalidProperties[] = "'back_original_url' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['back_original_url'] === null) {
+                $invalidProperties[] = "'back_original_url' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['back_original_url']) > 2083)) {
@@ -424,58 +438,82 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['thumbnails'] === null) {
-            $invalidProperties[] = "'thumbnails' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['thumbnails'] === null) {
+                $invalidProperties[] = "'thumbnails' can't be null";
+            }
         }
-        if ($this->container['available_quantity'] === null) {
-            $invalidProperties[] = "'available_quantity' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['available_quantity'] === null) {
+                $invalidProperties[] = "'available_quantity' can't be null";
+            }
         }
-        if ($this->container['pending_quantity'] === null) {
-            $invalidProperties[] = "'pending_quantity' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['pending_quantity'] === null) {
+                $invalidProperties[] = "'pending_quantity' can't be null";
+            }
         }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['status'] === null) {
+                $invalidProperties[] = "'status' can't be null";
+            }
         }
         $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'status', must be one of '%s'",
-                $this->container['status'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'status', must be one of '%s'",
+                    $this->container['status'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['orientation'] === null) {
-            $invalidProperties[] = "'orientation' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['orientation'] === null) {
+                $invalidProperties[] = "'orientation' can't be null";
+            }
         }
         $allowedValues = $this->getOrientationAllowableValues();
-        if (!is_null($this->container['orientation']) && !in_array($this->container['orientation'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'orientation', must be one of '%s'",
-                $this->container['orientation'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['orientation']) && !in_array($this->container['orientation'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'orientation', must be one of '%s'",
+                    $this->container['orientation'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['threshold_amount'] === null) {
-            $invalidProperties[] = "'threshold_amount' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['threshold_amount'] === null) {
+                $invalidProperties[] = "'threshold_amount' can't be null";
+            }
         }
-        if ($this->container['date_created'] === null) {
-            $invalidProperties[] = "'date_created' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_created'] === null) {
+                $invalidProperties[] = "'date_created' can't be null";
+            }
         }
-        if ($this->container['date_modified'] === null) {
-            $invalidProperties[] = "'date_modified' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_modified'] === null) {
+                $invalidProperties[] = "'date_modified' can't be null";
+            }
         }
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
@@ -485,12 +523,14 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         $allowedValues = $this->getSizeAllowableValues();
-        if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'size', must be one of '%s'",
-                $this->container['size'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'size', must be one of '%s'",
+                    $this->container['size'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

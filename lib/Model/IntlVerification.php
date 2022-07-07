@@ -364,39 +364,47 @@ class IntlVerification implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         $allowedValues = $this->getCoverageAllowableValues();
-        if (!is_null($this->container['coverage']) && !in_array($this->container['coverage'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'coverage', must be one of '%s'",
-                $this->container['coverage'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['coverage']) && !in_array($this->container['coverage'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'coverage', must be one of '%s'",
+                    $this->container['coverage'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         $allowedValues = $this->getDeliverabilityAllowableValues();
-        if (!is_null($this->container['deliverability']) && !in_array($this->container['deliverability'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'deliverability', must be one of '%s'",
-                $this->container['deliverability'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['deliverability']) && !in_array($this->container['deliverability'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'deliverability', must be one of '%s'",
+                    $this->container['deliverability'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'status', must be one of '%s'",
-                $this->container['status'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'status', must be one of '%s'",
+                    $this->container['status'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

@@ -215,8 +215,10 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['city'] === null) {
-            $invalidProperties[] = "'city' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['city'] === null) {
+                $invalidProperties[] = "'city' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['city']) > 200)) {
@@ -224,8 +226,10 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['state'] === null) {
-            $invalidProperties[] = "'state' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['state'] === null) {
+                $invalidProperties[] = "'state' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['state']) > 2)) {
@@ -233,14 +237,20 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['county'] === null) {
-            $invalidProperties[] = "'county' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['county'] === null) {
+                $invalidProperties[] = "'county' can't be null";
+            }
         }
-        if ($this->container['county_fips'] === null) {
-            $invalidProperties[] = "'county_fips' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['county_fips'] === null) {
+                $invalidProperties[] = "'county_fips' can't be null";
+            }
         }
-        if ($this->container['preferred'] === null) {
-            $invalidProperties[] = "'preferred' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['preferred'] === null) {
+                $invalidProperties[] = "'preferred' can't be null";
+            }
         }
         return $invalidProperties;
     }

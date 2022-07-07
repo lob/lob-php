@@ -233,8 +233,10 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
             }
 
         }
-        if ($this->container['primary_line'] === null) {
-            $invalidProperties[] = "'primary_line' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['primary_line'] === null) {
+                $invalidProperties[] = "'primary_line' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['primary_line']) > 500)) {

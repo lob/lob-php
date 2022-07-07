@@ -335,34 +335,46 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
         }
-        if ($this->container['color'] === null) {
-            $invalidProperties[] = "'color' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['color'] === null) {
+                $invalidProperties[] = "'color' can't be null";
+            }
         }
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'address_placement', must be one of '%s'",
-                $this->container['address_placement'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'address_placement', must be one of '%s'",
+                    $this->container['address_placement'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
         }
-        if ($this->container['from'] === null) {
-            $invalidProperties[] = "'from' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['from'] === null) {
+                $invalidProperties[] = "'from' can't be null";
+            }
         }
-        if ($this->container['file'] === null) {
-            $invalidProperties[] = "'file' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['file'] === null) {
+                $invalidProperties[] = "'file' can't be null";
+            }
         }
         $allowedValues = $this->getExtraServiceAllowableValues();
-        if (!is_null($this->container['extra_service']) && !in_array($this->container['extra_service'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'extra_service', must be one of '%s'",
-                $this->container['extra_service'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['extra_service']) && !in_array($this->container['extra_service'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'extra_service', must be one of '%s'",
+                    $this->container['extra_service'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {

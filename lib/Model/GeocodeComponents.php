@@ -198,8 +198,10 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if ($this->container['zip_code'] === null) {
-            $invalidProperties[] = "'zip_code' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['zip_code'] === null) {
+                $invalidProperties[] = "'zip_code' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
@@ -207,8 +209,10 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
             }
 
         }
-        if ($this->container['zip_code_plus_4'] === null) {
-            $invalidProperties[] = "'zip_code_plus_4' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['zip_code_plus_4'] === null) {
+                $invalidProperties[] = "'zip_code_plus_4' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {

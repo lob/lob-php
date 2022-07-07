@@ -346,85 +346,115 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     {
         $invalidProperties = [];
 
-        if ($this->container['dpv_confirmation'] === null) {
-            $invalidProperties[] = "'dpv_confirmation' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['dpv_confirmation'] === null) {
+                $invalidProperties[] = "'dpv_confirmation' can't be null";
+            }
         }
         $allowedValues = $this->getDpvConfirmationAllowableValues();
-        if (!is_null($this->container['dpv_confirmation']) && !in_array($this->container['dpv_confirmation'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'dpv_confirmation', must be one of '%s'",
-                $this->container['dpv_confirmation'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['dpv_confirmation']) && !in_array($this->container['dpv_confirmation'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_confirmation', must be one of '%s'",
+                    $this->container['dpv_confirmation'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['dpv_cmra'] === null) {
-            $invalidProperties[] = "'dpv_cmra' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['dpv_cmra'] === null) {
+                $invalidProperties[] = "'dpv_cmra' can't be null";
+            }
         }
         $allowedValues = $this->getDpvCmraAllowableValues();
-        if (!is_null($this->container['dpv_cmra']) && !in_array($this->container['dpv_cmra'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'dpv_cmra', must be one of '%s'",
-                $this->container['dpv_cmra'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['dpv_cmra']) && !in_array($this->container['dpv_cmra'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_cmra', must be one of '%s'",
+                    $this->container['dpv_cmra'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['dpv_vacant'] === null) {
-            $invalidProperties[] = "'dpv_vacant' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['dpv_vacant'] === null) {
+                $invalidProperties[] = "'dpv_vacant' can't be null";
+            }
         }
         $allowedValues = $this->getDpvVacantAllowableValues();
-        if (!is_null($this->container['dpv_vacant']) && !in_array($this->container['dpv_vacant'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'dpv_vacant', must be one of '%s'",
-                $this->container['dpv_vacant'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['dpv_vacant']) && !in_array($this->container['dpv_vacant'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_vacant', must be one of '%s'",
+                    $this->container['dpv_vacant'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['dpv_active'] === null) {
-            $invalidProperties[] = "'dpv_active' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['dpv_active'] === null) {
+                $invalidProperties[] = "'dpv_active' can't be null";
+            }
         }
         $allowedValues = $this->getDpvActiveAllowableValues();
-        if (!is_null($this->container['dpv_active']) && !in_array($this->container['dpv_active'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'dpv_active', must be one of '%s'",
-                $this->container['dpv_active'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['dpv_active']) && !in_array($this->container['dpv_active'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_active', must be one of '%s'",
+                    $this->container['dpv_active'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['dpv_footnotes'] === null) {
-            $invalidProperties[] = "'dpv_footnotes' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['dpv_footnotes'] === null) {
+                $invalidProperties[] = "'dpv_footnotes' can't be null";
+            }
         }
-        if ($this->container['ews_match'] === null) {
-            $invalidProperties[] = "'ews_match' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['ews_match'] === null) {
+                $invalidProperties[] = "'ews_match' can't be null";
+            }
         }
-        if ($this->container['lacs_indicator'] === null) {
-            $invalidProperties[] = "'lacs_indicator' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['lacs_indicator'] === null) {
+                $invalidProperties[] = "'lacs_indicator' can't be null";
+            }
         }
         $allowedValues = $this->getLacsIndicatorAllowableValues();
-        if (!is_null($this->container['lacs_indicator']) && !in_array($this->container['lacs_indicator'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'lacs_indicator', must be one of '%s'",
-                $this->container['lacs_indicator'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['lacs_indicator']) && !in_array($this->container['lacs_indicator'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'lacs_indicator', must be one of '%s'",
+                    $this->container['lacs_indicator'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['lacs_return_code'] === null) {
-            $invalidProperties[] = "'lacs_return_code' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['lacs_return_code'] === null) {
+                $invalidProperties[] = "'lacs_return_code' can't be null";
+            }
         }
-        if ($this->container['suite_return_code'] === null) {
-            $invalidProperties[] = "'suite_return_code' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['suite_return_code'] === null) {
+                $invalidProperties[] = "'suite_return_code' can't be null";
+            }
         }
         $allowedValues = $this->getSuiteReturnCodeAllowableValues();
-        if (!is_null($this->container['suite_return_code']) && !in_array($this->container['suite_return_code'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'suite_return_code', must be one of '%s'",
-                $this->container['suite_return_code'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['suite_return_code']) && !in_array($this->container['suite_return_code'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'suite_return_code', must be one of '%s'",
+                    $this->container['suite_return_code'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

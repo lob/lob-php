@@ -228,11 +228,15 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['primary_line'] === null) {
-            $invalidProperties[] = "'primary_line' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['primary_line'] === null) {
+                $invalidProperties[] = "'primary_line' can't be null";
+            }
         }
-        if ($this->container['city'] === null) {
-            $invalidProperties[] = "'city' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['city'] === null) {
+                $invalidProperties[] = "'city' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['city']) > 200)) {
@@ -240,19 +244,25 @@ class Suggestions implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['state'] === null) {
-            $invalidProperties[] = "'state' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['state'] === null) {
+                $invalidProperties[] = "'state' can't be null";
+            }
         }
-        if ($this->container['zip_code'] === null) {
-            $invalidProperties[] = "'zip_code' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['zip_code'] === null) {
+                $invalidProperties[] = "'zip_code' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

@@ -191,8 +191,10 @@ class CardOrderEditable implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if ($this->container['quantity'] === null) {
-            $invalidProperties[] = "'quantity' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['quantity'] === null) {
+                $invalidProperties[] = "'quantity' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (($this->container['quantity'] > 10000000)) {

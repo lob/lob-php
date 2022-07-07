@@ -215,8 +215,10 @@ class UsAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonSer
     {
         $invalidProperties = [];
 
-        if ($this->container['address_prefix'] === null) {
-            $invalidProperties[] = "'address_prefix' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['address_prefix'] === null) {
+                $invalidProperties[] = "'address_prefix' can't be null";
+            }
         }
         return $invalidProperties;
     }

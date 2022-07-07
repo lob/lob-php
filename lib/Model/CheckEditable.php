@@ -294,17 +294,25 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['from'] === null) {
-            $invalidProperties[] = "'from' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['from'] === null) {
+                $invalidProperties[] = "'from' can't be null";
+            }
         }
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
         }
-        if ($this->container['bank_account'] === null) {
-            $invalidProperties[] = "'bank_account' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['bank_account'] === null) {
+                $invalidProperties[] = "'bank_account' can't be null";
+            }
         }
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['amount'] === null) {
+                $invalidProperties[] = "'amount' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (($this->container['amount'] > 999999.99)) {
@@ -323,12 +331,14 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
         }
         $allowedValues = $this->getMailTypeAllowableValues();
-        if (!is_null($this->container['mail_type']) && !in_array($this->container['mail_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'mail_type', must be one of '%s'",
-                $this->container['mail_type'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['mail_type']) && !in_array($this->container['mail_type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'mail_type', must be one of '%s'",
+                    $this->container['mail_type'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {

@@ -215,8 +215,10 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['html'] === null) {
-            $invalidProperties[] = "'html' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['html'] === null) {
+                $invalidProperties[] = "'html' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['html']) > 100000)) {

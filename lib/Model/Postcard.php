@@ -343,8 +343,10 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^psc_[a-zA-Z0-9]+$/", $this->container['id'])) {
@@ -353,12 +355,14 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         $allowedValues = $this->getCarrierAllowableValues();
-        if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'carrier', must be one of '%s'",
-                $this->container['carrier'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'carrier', must be one of '%s'",
+                    $this->container['carrier'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
@@ -386,16 +390,20 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['url'] === null) {
+                $invalidProperties[] = "'url' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {

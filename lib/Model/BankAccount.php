@@ -303,8 +303,10 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['routing_number'] === null) {
-            $invalidProperties[] = "'routing_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['routing_number'] === null) {
+                $invalidProperties[] = "'routing_number' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['routing_number']) > 9)) {
@@ -316,8 +318,10 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['account_number'] === null) {
-            $invalidProperties[] = "'account_number' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['account_number'] === null) {
+                $invalidProperties[] = "'account_number' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['account_number']) > 17)) {
@@ -325,20 +329,26 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['account_type'] === null) {
-            $invalidProperties[] = "'account_type' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['account_type'] === null) {
+                $invalidProperties[] = "'account_type' can't be null";
+            }
         }
         $allowedValues = $this->getAccountTypeAllowableValues();
-        if (!is_null($this->container['account_type']) && !in_array($this->container['account_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'account_type', must be one of '%s'",
-                $this->container['account_type'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['account_type']) && !in_array($this->container['account_type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'account_type', must be one of '%s'",
+                    $this->container['account_type'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['signatory'] === null) {
-            $invalidProperties[] = "'signatory' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['signatory'] === null) {
+                $invalidProperties[] = "'signatory' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['signatory']) > 30)) {
@@ -348,8 +358,10 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
         }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^bank_[a-zA-Z0-9]+$/", $this->container['id'])) {
@@ -363,22 +375,30 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['date_created'] === null) {
-            $invalidProperties[] = "'date_created' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_created'] === null) {
+                $invalidProperties[] = "'date_created' can't be null";
+            }
         }
-        if ($this->container['date_modified'] === null) {
-            $invalidProperties[] = "'date_modified' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_modified'] === null) {
+                $invalidProperties[] = "'date_modified' can't be null";
+            }
         }
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

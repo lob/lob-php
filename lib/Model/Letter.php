@@ -392,29 +392,41 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
         }
-        if ($this->container['from'] === null) {
-            $invalidProperties[] = "'from' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['from'] === null) {
+                $invalidProperties[] = "'from' can't be null";
+            }
         }
         $allowedValues = $this->getCarrierAllowableValues();
-        if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'carrier', must be one of '%s'",
-                $this->container['carrier'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'carrier', must be one of '%s'",
+                    $this->container['carrier'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['date_created'] === null) {
-            $invalidProperties[] = "'date_created' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_created'] === null) {
+                $invalidProperties[] = "'date_created' can't be null";
+            }
         }
-        if ($this->container['date_modified'] === null) {
-            $invalidProperties[] = "'date_modified' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_modified'] === null) {
+                $invalidProperties[] = "'date_modified' can't be null";
+            }
         }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
@@ -434,16 +446,20 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
@@ -463,12 +479,14 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'address_placement', must be one of '%s'",
-                $this->container['address_placement'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'address_placement', must be one of '%s'",
+                    $this->container['address_placement'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

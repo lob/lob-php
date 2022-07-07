@@ -335,21 +335,25 @@ class LobError implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         $allowedValues = $this->getStatusCodeAllowableValues();
-        if (!is_null($this->container['status_code']) && !in_array($this->container['status_code'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'status_code', must be one of '%s'",
-                $this->container['status_code'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['status_code']) && !in_array($this->container['status_code'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'status_code', must be one of '%s'",
+                    $this->container['status_code'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         $allowedValues = $this->getCodeAllowableValues();
-        if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'code', must be one of '%s'",
-                $this->container['code'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'code', must be one of '%s'",
+                    $this->container['code'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

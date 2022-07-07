@@ -297,22 +297,30 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'status', must be one of '%s'",
-                $this->container['status'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'status', must be one of '%s'",
+                    $this->container['status'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['date_created'] === null) {
-            $invalidProperties[] = "'date_created' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_created'] === null) {
+                $invalidProperties[] = "'date_created' can't be null";
+            }
         }
-        if ($this->container['date_modified'] === null) {
-            $invalidProperties[] = "'date_modified' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['date_modified'] === null) {
+                $invalidProperties[] = "'date_modified' can't be null";
+            }
         }
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         return $invalidProperties;
     }

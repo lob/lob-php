@@ -217,8 +217,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if ($this->container['score'] === null) {
-            $invalidProperties[] = "'score' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['score'] === null) {
+                $invalidProperties[] = "'score' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (($this->container['score'] > 100)) {
@@ -230,16 +232,20 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
             }
 
         }
-        if ($this->container['level'] === null) {
-            $invalidProperties[] = "'level' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['level'] === null) {
+                $invalidProperties[] = "'level' can't be null";
+            }
         }
         $allowedValues = $this->getLevelAllowableValues();
-        if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'level', must be one of '%s'",
-                $this->container['level'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'level', must be one of '%s'",
+                    $this->container['level'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;

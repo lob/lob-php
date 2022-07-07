@@ -224,16 +224,20 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['front'] === null) {
-            $invalidProperties[] = "'front' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['front'] === null) {
+                $invalidProperties[] = "'front' can't be null";
+            }
         }
         $allowedValues = $this->getSizeAllowableValues();
-        if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'size', must be one of '%s'",
-                $this->container['size'],
-                implode("', '", $allowedValues)
-            );
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'size', must be one of '%s'",
+                    $this->container['size'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {

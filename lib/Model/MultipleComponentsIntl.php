@@ -233,8 +233,10 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
             }
 
         }
-        if ($this->container['primary_line'] === null) {
-            $invalidProperties[] = "'primary_line' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['primary_line'] === null) {
+                $invalidProperties[] = "'primary_line' can't be null";
+            }
         }
         if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['primary_line']) > 200)) {
@@ -260,8 +262,10 @@ class MultipleComponentsIntl implements ModelInterface, ArrayAccess, \JsonSerial
             }
 
         }
-        if ($this->container['country'] === null) {
-            $invalidProperties[] = "'country' can't be null";
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+            if ($this->container['country'] === null) {
+                $invalidProperties[] = "'country' can't be null";
+            }
         }
         return $invalidProperties;
     }
