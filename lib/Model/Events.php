@@ -237,7 +237,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if (!preg_match("/^evt_[a-zA-Z0-9_]+$/", $this->container['id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^evt_[a-zA-Z0-9_]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evt_[a-zA-Z0-9_]+$/.";
         }
 
@@ -301,7 +301,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setId($id)
     {
 
-        if ((!preg_match("/^evt_[a-zA-Z0-9_]+$/", $id))) {
+        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^evt_[a-zA-Z0-9_]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Events., must conform to the pattern /^evt_[a-zA-Z0-9_]+$/.");
         }
 

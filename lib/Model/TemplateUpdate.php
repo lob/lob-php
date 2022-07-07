@@ -197,11 +197,11 @@ class TemplateUpdate implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['published_version']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['published_version'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['published_version']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['published_version'])) {
             $invalidProperties[] = "invalid value for 'published_version', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
@@ -240,7 +240,7 @@ class TemplateUpdate implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
             throw new \InvalidArgumentException('invalid length for $description when calling TemplateUpdate., must be smaller than or equal to 255.');
         }
 
@@ -270,7 +270,7 @@ class TemplateUpdate implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setPublishedVersion($published_version)
     {
 
-        if (!is_null($published_version) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $published_version))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($published_version) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $published_version))) {
             throw new \InvalidArgumentException("invalid value for $published_version when calling TemplateUpdate., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
         }
 

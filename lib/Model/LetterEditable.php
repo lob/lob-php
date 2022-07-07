@@ -325,7 +325,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
@@ -359,11 +359,11 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
             $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
         }
 
-        if (!is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
             $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
         }
 
@@ -402,7 +402,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
             throw new \InvalidArgumentException('invalid length for $description when calling LetterEditable., must be smaller than or equal to 255.');
         }
 
@@ -808,10 +808,10 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setCards($cards)
     {
 
-        if (!is_null($cards) && (count($cards) > 1)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($cards) && (count($cards) > 1)) {
             throw new \InvalidArgumentException('invalid value for $cards when calling LetterEditable., number of items must be less than or equal to 1.');
         }
-        if (!is_null($cards) && (count($cards) < 0)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($cards) && (count($cards) < 0)) {
             throw new \InvalidArgumentException('invalid length for $cards when calling LetterEditable., number of items must be greater than or equal to 0.');
         }
         $this->container['cards'] = [];

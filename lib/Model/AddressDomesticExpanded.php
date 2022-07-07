@@ -257,47 +257,47 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 200)) {
             $invalidProperties[] = "invalid value for 'address_line1', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 200)) {
             $invalidProperties[] = "invalid value for 'address_line2', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
             $invalidProperties[] = "invalid value for 'address_city', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['address_state']) && (mb_strlen($this->container['address_state']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_state']) && (mb_strlen($this->container['address_state']) > 200)) {
             $invalidProperties[] = "invalid value for 'address_state', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['address_zip']) && (mb_strlen($this->container['address_zip']) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_zip']) && (mb_strlen($this->container['address_zip']) > 40)) {
             $invalidProperties[] = "invalid value for 'address_zip', the character length must be smaller than or equal to 40.";
         }
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
             $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 40.";
         }
 
-        if (!is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
             $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
             $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 40.";
         }
 
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 100.";
         }
 
-        if (!is_null($this->container['address_country']) && !preg_match("/UNITED STATES/", $this->container['address_country'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_country']) && !preg_match("/UNITED STATES/", $this->container['address_country'])) {
             $invalidProperties[] = "invalid value for 'address_country', must be conform to the pattern /UNITED STATES/.";
         }
 
@@ -336,7 +336,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setAddressLine1($address_line1)
     {
-        if (!is_null($address_line1) && (mb_strlen($address_line1) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($address_line1) && (mb_strlen($address_line1) > 200)) {
             throw new \InvalidArgumentException('invalid length for $address_line1 when calling AddressDomesticExpanded., must be smaller than or equal to 200.');
         }
 
@@ -365,7 +365,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setAddressLine2($address_line2)
     {
-        if (!is_null($address_line2) && (mb_strlen($address_line2) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($address_line2) && (mb_strlen($address_line2) > 200)) {
             throw new \InvalidArgumentException('invalid length for $address_line2 when calling AddressDomesticExpanded., must be smaller than or equal to 200.');
         }
 
@@ -394,7 +394,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setAddressCity($address_city)
     {
-        if (!is_null($address_city) && (mb_strlen($address_city) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($address_city) && (mb_strlen($address_city) > 200)) {
             throw new \InvalidArgumentException('invalid length for $address_city when calling AddressDomesticExpanded., must be smaller than or equal to 200.');
         }
 
@@ -423,7 +423,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setAddressState($address_state)
     {
-        if (!is_null($address_state) && (mb_strlen($address_state) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($address_state) && (mb_strlen($address_state) > 200)) {
             throw new \InvalidArgumentException('invalid length for $address_state when calling AddressDomesticExpanded., must be smaller than or equal to 200.');
         }
 
@@ -452,7 +452,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setAddressZip($address_zip)
     {
-        if (!is_null($address_zip) && (mb_strlen($address_zip) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($address_zip) && (mb_strlen($address_zip) > 40)) {
             throw new \InvalidArgumentException('invalid length for $address_zip when calling AddressDomesticExpanded., must be smaller than or equal to 40.');
         }
 
@@ -481,7 +481,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setDescription($description)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
             throw new \InvalidArgumentException('invalid length for $description when calling AddressDomesticExpanded., must be smaller than or equal to 255.');
         }
 
@@ -510,7 +510,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setName($name)
     {
-        if (!is_null($name) && (mb_strlen($name) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($name) && (mb_strlen($name) > 40)) {
             throw new \InvalidArgumentException('invalid length for $name when calling AddressDomesticExpanded., must be smaller than or equal to 40.');
         }
 
@@ -539,7 +539,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setCompany($company)
     {
-        if (!is_null($company) && (mb_strlen($company) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($company) && (mb_strlen($company) > 40)) {
             throw new \InvalidArgumentException('invalid length for $company when calling AddressDomesticExpanded., must be smaller than or equal to 40.');
         }
 
@@ -568,7 +568,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setPhone($phone)
     {
-        if (!is_null($phone) && (mb_strlen($phone) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($phone) && (mb_strlen($phone) > 40)) {
             throw new \InvalidArgumentException('invalid length for $phone when calling AddressDomesticExpanded., must be smaller than or equal to 40.');
         }
 
@@ -597,7 +597,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setEmail($email)
     {
-        if (!is_null($email) && (mb_strlen($email) > 100)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($email) && (mb_strlen($email) > 100)) {
             throw new \InvalidArgumentException('invalid length for $email when calling AddressDomesticExpanded., must be smaller than or equal to 100.');
         }
 
@@ -627,7 +627,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
     public function setAddressCountry($address_country)
     {
 
-        if (!is_null($address_country) && (!preg_match("/UNITED STATES/", $address_country))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($address_country) && (!preg_match("/UNITED STATES/", $address_country))) {
             throw new \InvalidArgumentException("invalid value for $address_country when calling AddressDomesticExpanded., must conform to the pattern /UNITED STATES/.");
         }
 

@@ -216,15 +216,15 @@ class IntlComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 2)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['state']) && (mb_strlen($this->container['state']) > 2)) {
             $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 2.";
         }
 
-        if (!is_null($this->container['postal_code']) && (mb_strlen($this->container['postal_code']) > 12)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['postal_code']) && (mb_strlen($this->container['postal_code']) > 12)) {
             $invalidProperties[] = "invalid value for 'postal_code', the character length must be smaller than or equal to 12.";
         }
 
@@ -313,7 +313,7 @@ class IntlComponents implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCity($city)
     {
-        if (!is_null($city) && (mb_strlen($city) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($city) && (mb_strlen($city) > 200)) {
             throw new \InvalidArgumentException('invalid length for $city when calling IntlComponents., must be smaller than or equal to 200.');
         }
 
@@ -342,7 +342,7 @@ class IntlComponents implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setState($state)
     {
-        if (!is_null($state) && (mb_strlen($state) > 2)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($state) && (mb_strlen($state) > 2)) {
             throw new \InvalidArgumentException('invalid length for $state when calling IntlComponents., must be smaller than or equal to 2.');
         }
 
@@ -371,7 +371,7 @@ class IntlComponents implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setPostalCode($postal_code)
     {
-        if (!is_null($postal_code) && (mb_strlen($postal_code) > 12)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($postal_code) && (mb_strlen($postal_code) > 12)) {
             throw new \InvalidArgumentException('invalid length for $postal_code when calling IntlComponents., must be smaller than or equal to 12.');
         }
 

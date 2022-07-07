@@ -416,15 +416,15 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^ltr_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['template_id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['template_id'])) {
             $invalidProperties[] = "invalid value for 'template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['template_version_id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['template_version_id'])) {
             $invalidProperties[] = "invalid value for 'template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
@@ -440,11 +440,11 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
             $invalidProperties[] = "invalid value for 'tracking_events', number of items must be less than or equal to 0.";
         }
 
@@ -711,7 +711,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setId($id)
     {
 
-        if ((!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
+        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Letter., must conform to the pattern /^ltr_[a-zA-Z0-9]+$/.");
         }
 
@@ -741,7 +741,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setTemplateId($template_id)
     {
 
-        if (!is_null($template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $template_id))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $template_id))) {
             throw new \InvalidArgumentException("invalid value for $template_id when calling Letter., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
         }
 
@@ -771,7 +771,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setTemplateVersionId($template_version_id)
     {
 
-        if (!is_null($template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $template_version_id))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $template_version_id))) {
             throw new \InvalidArgumentException("invalid value for $template_version_id when calling Letter., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
         }
 
@@ -836,7 +836,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
             throw new \InvalidArgumentException('invalid length for $description when calling Letter., must be smaller than or equal to 255.');
         }
 
@@ -995,7 +995,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setTrackingEvents($tracking_events)
     {
 
-        if (!is_null($tracking_events) && (count($tracking_events) > 0)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($tracking_events) && (count($tracking_events) > 0)) {
             throw new \InvalidArgumentException('invalid value for $tracking_events when calling Letter., number of items must be less than or equal to 0.');
         }
         $this->container['tracking_events'] = [];

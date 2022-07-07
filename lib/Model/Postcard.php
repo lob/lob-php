@@ -346,7 +346,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if (!preg_match("/^psc_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^psc_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^psc_[a-zA-Z0-9]+$/.";
         }
 
@@ -359,19 +359,19 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['front_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['front_template_id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['front_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['front_template_id'])) {
             $invalidProperties[] = "invalid value for 'front_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['back_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['back_template_id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['back_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['back_template_id'])) {
             $invalidProperties[] = "invalid value for 'back_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['front_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['front_template_version_id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['front_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['front_template_version_id'])) {
             $invalidProperties[] = "invalid value for 'front_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['back_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['back_template_version_id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['back_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['back_template_version_id'])) {
             $invalidProperties[] = "invalid value for 'back_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
@@ -387,11 +387,11 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
+        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
             $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
         }
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
@@ -431,7 +431,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setId($id)
     {
 
-        if ((!preg_match("/^psc_[a-zA-Z0-9]+$/", $id))) {
+        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^psc_[a-zA-Z0-9]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling Postcard., must conform to the pattern /^psc_[a-zA-Z0-9]+$/.");
         }
 
@@ -704,7 +704,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setFrontTemplateId($front_template_id)
     {
 
-        if (!is_null($front_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $front_template_id))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($front_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $front_template_id))) {
             throw new \InvalidArgumentException("invalid value for $front_template_id when calling Postcard., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
         }
 
@@ -734,7 +734,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setBackTemplateId($back_template_id)
     {
 
-        if (!is_null($back_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $back_template_id))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($back_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $back_template_id))) {
             throw new \InvalidArgumentException("invalid value for $back_template_id when calling Postcard., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
         }
 
@@ -764,7 +764,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setFrontTemplateVersionId($front_template_version_id)
     {
 
-        if (!is_null($front_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $front_template_version_id))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($front_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $front_template_version_id))) {
             throw new \InvalidArgumentException("invalid value for $front_template_version_id when calling Postcard., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
         }
 
@@ -794,7 +794,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setBackTemplateVersionId($back_template_version_id)
     {
 
-        if (!is_null($back_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $back_template_version_id))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($back_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $back_template_version_id))) {
             throw new \InvalidArgumentException("invalid value for $back_template_version_id when calling Postcard., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
         }
 
@@ -892,7 +892,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setUrl($url)
     {
 
-        if ((!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
+        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
             throw new \InvalidArgumentException("invalid value for $url when calling Postcard., must conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");
         }
 
@@ -921,7 +921,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
             throw new \InvalidArgumentException('invalid length for $description when calling Postcard., must be smaller than or equal to 255.');
         }
 
