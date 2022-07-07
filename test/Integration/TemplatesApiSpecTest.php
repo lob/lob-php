@@ -51,11 +51,13 @@ class TemplatesApiSpecTest extends TestCase
      */
     private static $config;
     private static $templateApi;
+    private static $invalidTemplateApi;
     private static $writableTemplate;
     private static $errorTemplate;
     private static $template1;
     private static $template2;
     private static $template3;
+    private static $metadata;
 
     // for teardown post-testing
     private $idsForCleanup = [];
@@ -67,6 +69,10 @@ class TemplatesApiSpecTest extends TestCase
         self::$config = new Configuration();
         self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
         self::$templateApi = new TemplatesApi(self::$config);
+
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        self::$invalidTemplateApi = new TemplatesApi($wrongConfig);
 
         self::$writableTemplate = new TemplateWritable();
         self::$writableTemplate->setDescription("PHP Test Template");
@@ -87,6 +93,8 @@ class TemplatesApiSpecTest extends TestCase
         self::$template3 = new TemplateWritable();
         self::$template3->setDescription("PHP List Template 3");
         self::$template3->setHtml("<html>Updated HTML 3 for {{name}}</html>");
+        self::$metadata = (object)array("name"=>"Harry");
+        self::$template3->setMetadata(self::$metadata);
     }
 
     public function tearDown(): void
@@ -97,167 +105,203 @@ class TemplatesApiSpecTest extends TestCase
     }
 
     public function testTemplatesApiInstantiation200() {
-        try {
-            $templateApi200 = new TemplatesApi(self::$config);
-            $this->assertEquals(gettype($templateApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $templateApi200 = new TemplatesApi(self::$config);
+        $this->assertEquals(gettype($templateApi200), 'object');
     }
 
     public function testCreate200()
     {
-        try {
-            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-            $this->assertMatchesRegularExpression('/tmpl_/', $createdTemplate->getId());
-            array_push($this->idsForCleanup, $createdTemplate->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+        $this->assertMatchesRegularExpression('/tmpl_/', $createdTemplate->getId());
+        array_push($this->idsForCleanup, $createdTemplate->getId());
     }
 
     // does not include required field in request
     public function testCreate422()
     {
-        
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/html is required/");
-            $errorResponse = self::$templateApi->create(self::$errorTemplate);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/html is required/");
+        $errorResponse = self::$templateApi->create(self::$errorTemplate);
     }
 
     // uses a bad key to attempt to send a request
     public function testTemplateApi401() {
-        try {
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', 'BAD KEY');
-            $templateApiError = new TemplatesApi($wrongConfig);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        $templateApiError = new TemplatesApi($wrongConfig);
 
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-            $errorResponse = $templateApiError->create(self::$writableTemplate);
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = $templateApiError->create(self::$writableTemplate);
     }
 
     public function testGet200()
     {
-        try {
-            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-            $retrievedTemplate = self::$templateApi->get($createdTemplate->getId());
-            $this->assertEquals($createdTemplate->getDescription(), $retrievedTemplate->getDescription());
-            array_push($this->idsForCleanup, $createdTemplate->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+        $retrievedTemplate = self::$templateApi->get($createdTemplate->getId());
+        $this->assertEquals($createdTemplate->getDescription(), $retrievedTemplate->getDescription());
+        array_push($this->idsForCleanup, $createdTemplate->getId());
+    }
+
+    public function testGet0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $badRetrieval = self::$templateApi->get(null);
+    }
+
+    public function testGet401()
+    {
+        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+        array_push($this->idsForCleanup, $createdTemplate->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidTemplateApi->get($createdTemplate->getId());
     }
 
     public function testGet404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/template not found/");
-            $badRetrieval = self::$templateApi->get("tmpl_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/template not found/");
+        $badRetrieval = self::$templateApi->get("tmpl_NONEXISTENT");
     }
 
     public function testUpdate200()
     {
-        try {
-            $templateUpdate = new TemplateUpdate();
-            $templateUpdate->setDescription("Updated Template");
-            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-            $retrievedTemplate = self::$templateApi->update($createdTemplate->getId(), $templateUpdate);
-            $this->assertEquals("Updated Template", $retrievedTemplate->getDescription());
-            array_push($this->idsForCleanup, $createdTemplate->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $templateUpdate = new TemplateUpdate();
+        $templateUpdate->setDescription("Updated Template");
+        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+        $retrievedTemplate = self::$templateApi->update($createdTemplate->getId(), $templateUpdate);
+        $this->assertEquals("Updated Template", $retrievedTemplate->getDescription());
+        array_push($this->idsForCleanup, $createdTemplate->getId());
+    }
+
+    public function testUpdate0()
+    {
+        $templateUpdate = new TemplateUpdate();
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $retrievedTemplate = self::$templateApi->update(null, $templateUpdate);
+    }
+
+    public function testUpdate401()
+    {
+        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+        array_push($this->idsForCleanup, $createdTemplate->getId());
+
+        $templateUpdate = new TemplateUpdate();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $retrievedTemplate = self::$invalidTemplateApi->update($createdTemplate->getId(), $templateUpdate);
+    }
+
+    public function testUpdate404()
+    {
+        $templateUpdate = new TemplateUpdate();
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/template not found/");
+        $retrievedTemplate = self::$templateApi->update("tmpl_fakeId", $templateUpdate);
     }
 
     public function testList200()
     {
         $nextUrl = "";
         $previousUrl = "";
-        try {
-            $tmpl1 = self::$templateApi->create(self::$template1);
-            $tmpl2 = self::$templateApi->create(self::$template2);
-            $tmpl3 = self::$templateApi->create(self::$template3);
-            $listedTemplates = self::$templateApi->list(3);
-            $this->assertGreaterThan(1, count($listedTemplates->getData()));
-            $this->assertLessThanOrEqual(3, count($listedTemplates->getData()));
-            $nextUrl = substr($listedTemplates->getNextUrl(), strrpos($listedTemplates->getNextUrl(), "after=") + 6);
-            $this->assertIsString($nextUrl);
-            array_push($this->idsForCleanup, $tmpl1->getId());
-            array_push($this->idsForCleanup, $tmpl2->getId());
-            array_push($this->idsForCleanup, $tmpl3->getId());
-        } catch (Exception $listError) {
-            echo 'Caught exception: ',  $listError->getMessage(), "\n";
-        }
+        $tmpl1 = self::$templateApi->create(self::$template1);
+        $tmpl2 = self::$templateApi->create(self::$template2);
+        $tmpl3 = self::$templateApi->create(self::$template3);
+        $listedTemplates = self::$templateApi->list(3);
+        $this->assertGreaterThan(1, count($listedTemplates->getData()));
+        $this->assertLessThanOrEqual(3, count($listedTemplates->getData()));
+        $nextUrl = substr($listedTemplates->getNextUrl(), strrpos($listedTemplates->getNextUrl(), "after=") + 6);
+        $this->assertIsString($nextUrl);
+        array_push($this->idsForCleanup, $tmpl1->getId());
+        array_push($this->idsForCleanup, $tmpl2->getId());
+        array_push($this->idsForCleanup, $tmpl3->getId());
 
         // response using nextUrl
         if ($nextUrl != "") {
-            try {
-                $tmpl1 = self::$templateApi->create(self::$template1);
-                $tmpl2 = self::$templateApi->create(self::$template2);
-                $tmpl3 = self::$templateApi->create(self::$template3);
-                $listedTemplatesAfter = self::$templateApi->list(3, null, $nextUrl);
-                $this->assertGreaterThan(1, count($listedTemplatesAfter->getData()));
-                $this->assertLessThanOrEqual(3, count($listedTemplatesAfter->getData()));
-                $previousUrl = substr($listedTemplatesAfter->getPreviousUrl(), strrpos($listedTemplatesAfter->getPreviousUrl(), "before=") + 7);
-                $this->assertIsString($previousUrl);
-                array_push($this->idsForCleanup, $tmpl1->getId());
-                array_push($this->idsForCleanup, $tmpl2->getId());
-                array_push($this->idsForCleanup, $tmpl3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $tmpl1 = self::$templateApi->create(self::$template1);
+            $tmpl2 = self::$templateApi->create(self::$template2);
+            $tmpl3 = self::$templateApi->create(self::$template3);
+            $listedTemplatesAfter = self::$templateApi->list(3, null, $nextUrl);
+            $this->assertGreaterThan(1, count($listedTemplatesAfter->getData()));
+            $this->assertLessThanOrEqual(3, count($listedTemplatesAfter->getData()));
+            $previousUrl = substr($listedTemplatesAfter->getPreviousUrl(), strrpos($listedTemplatesAfter->getPreviousUrl(), "before=") + 7);
+            $this->assertIsString($previousUrl);
+            array_push($this->idsForCleanup, $tmpl1->getId());
+            array_push($this->idsForCleanup, $tmpl2->getId());
+            array_push($this->idsForCleanup, $tmpl3->getId());
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            try {
-                $tmpl1 = self::$templateApi->create(self::$template1);
-                $tmpl2 = self::$templateApi->create(self::$template2);
-                $tmpl3 = self::$templateApi->create(self::$template3);
-                $listedTemplatesBefore = self::$templateApi->list(3, $previousUrl);
-                $this->assertGreaterThan(1, count($listedTemplatesBefore->getData()));
-                $this->assertLessThanOrEqual(3, count($listedTemplatesBefore->getData()));
-                array_push($this->idsForCleanup, $tmpl1->getId());
-                array_push($this->idsForCleanup, $tmpl2->getId());
-                array_push($this->idsForCleanup, $tmpl3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $tmpl1 = self::$templateApi->create(self::$template1);
+            $tmpl2 = self::$templateApi->create(self::$template2);
+            $tmpl3 = self::$templateApi->create(self::$template3);
+            $listedTemplatesBefore = self::$templateApi->list(3, $previousUrl);
+            $this->assertGreaterThan(1, count($listedTemplatesBefore->getData()));
+            $this->assertLessThanOrEqual(3, count($listedTemplatesBefore->getData()));
+            array_push($this->idsForCleanup, $tmpl1->getId());
+            array_push($this->idsForCleanup, $tmpl2->getId());
+            array_push($this->idsForCleanup, $tmpl3->getId());
         }
     }
 
+    public function provider()
+    {
+        return array(
+            // array(null, null, null, array("total_count"), null, null), // include
+            // array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null), // date_created
+            array(null, null, null, null, null, self::$metadata), // metadata
+        );
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata)
+    {
+        // create templates to list
+        $tmpl1 = self::$templateApi->create(self::$template1);
+        $tmpl2 = self::$templateApi->create(self::$template2);
+        $tmpl3 = self::$templateApi->create(self::$template3);
+
+        // cancel created templates
+        array_push($this->idsForCleanup, $tmpl1->getId());
+        array_push($this->idsForCleanup, $tmpl2->getId());
+        array_push($this->idsForCleanup, $tmpl3->getId());
+
+        $listedTemplates = self::$templateApi->list($limit, $before, $after, $include, $date_created, $metadata);
+
+        $this->assertGreaterThan(0, $listedTemplates->getCount());
+        if ($include) $this->assertNotNull($listedTemplates->getTotalCount());
+    }
+
+
     public function testDelete200()
     {
-        try {
-            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-            $deletedTemplate = self::$templateApi->delete($createdTemplate->getId());
-            $this->assertEquals(true, $deletedTemplate->getDeleted());
-            $this->assertMatchesRegularExpression('/tmpl_/', $deletedTemplate->getId());
-        } catch (Exception $deleteError) {
-            echo 'Caught exception: ',  $deleteError->getMessage(), "\n";
-        }
+        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+        $deletedTemplate = self::$templateApi->delete($createdTemplate->getId());
+        $this->assertEquals(true, $deletedTemplate->getDeleted());
+        $this->assertMatchesRegularExpression('/tmpl_/', $deletedTemplate->getId());
+    }
+
+    public function testDelete401()
+    {
+        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+        array_push($this->idsForCleanup, $createdTemplate->getId());
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $deletedTemplate = self::$invalidTemplateApi->delete($createdTemplate->getId());
     }
 
     public function testDelete404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/template cannot be deleted/");
-            $badDeletion = self::$templateApi->delete("tmpl_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/template cannot be deleted/");
+        $badDeletion = self::$templateApi->delete("tmpl_NONEXISTENT");
     }
 }
