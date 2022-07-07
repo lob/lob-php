@@ -217,7 +217,7 @@ class TemplateDeletion implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
             }
@@ -267,7 +267,7 @@ class TemplateDeletion implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (!is_null($id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling TemplateDeletion., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");

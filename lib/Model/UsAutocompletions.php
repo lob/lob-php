@@ -216,13 +216,13 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['id']) && !preg_match("/^us_auto_[a-zA-Z0-9]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.";
             }
 
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['suggestions']) && (count($this->container['suggestions']) > 10)) {
                 $invalidProperties[] = "invalid value for 'suggestions', number of items must be less than or equal to 10.";
             }
@@ -276,7 +276,7 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setId($id)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (!is_null($id) && (!preg_match("/^us_auto_[a-zA-Z0-9]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling UsAutocompletions., must conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.");
@@ -308,7 +308,7 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setSuggestions($suggestions)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (!is_null($suggestions) && (count($suggestions) > 10)) {
                 throw new \InvalidArgumentException('invalid value for $suggestions when calling UsAutocompletions., number of items must be less than or equal to 10.');

@@ -207,7 +207,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['latitude'] === null) {
             $invalidProperties[] = "'latitude' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (($this->container['latitude'] > 90)) {
                 $invalidProperties[] = "invalid value for 'latitude', must be smaller than or equal to 90.";
             }
@@ -220,7 +220,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['longitude'] === null) {
             $invalidProperties[] = "'longitude' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (($this->container['longitude'] > 180)) {
                 $invalidProperties[] = "invalid value for 'longitude', must be smaller than or equal to 180.";
             }
@@ -268,7 +268,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setLatitude($latitude)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (($latitude > 90)) {
                 throw new \InvalidArgumentException('invalid value for $latitude when calling LocationAnalysis., must be smaller than or equal to 90.');
@@ -303,7 +303,7 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setLongitude($longitude)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (($longitude > 180)) {
                 throw new \InvalidArgumentException('invalid value for $longitude when calling LocationAnalysis., must be smaller than or equal to 180.');

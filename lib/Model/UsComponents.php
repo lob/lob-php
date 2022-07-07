@@ -517,7 +517,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['city'] === null) {
             $invalidProperties[] = "'city' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['city']) > 200)) {
                 $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
             }
@@ -526,7 +526,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['state'] === null) {
             $invalidProperties[] = "'state' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['state']) > 2)) {
                 $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 2.";
             }
@@ -535,7 +535,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['zip_code'] === null) {
             $invalidProperties[] = "'zip_code' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
                 $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
             }
@@ -544,7 +544,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['zip_code_plus_4'] === null) {
             $invalidProperties[] = "'zip_code_plus_4' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
                 $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^\\d{4}$/.";
             }
@@ -936,7 +936,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCity($city)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($city) > 200)) {
                 throw new \InvalidArgumentException('invalid length for $city when calling UsComponents., must be smaller than or equal to 200.');
             }
@@ -967,7 +967,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setState($state)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($state) > 2)) {
                 throw new \InvalidArgumentException('invalid length for $state when calling UsComponents., must be smaller than or equal to 2.');
             }
@@ -998,7 +998,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setZipCode($zip_code)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if ((!preg_match("/^\\d{5}$/", $zip_code))) {
                 throw new \InvalidArgumentException("invalid value for $zip_code when calling UsComponents., must conform to the pattern /^\\d{5}$/.");
@@ -1030,7 +1030,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setZipCodePlus4($zip_code_plus_4)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if ((!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
                 throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling UsComponents., must conform to the pattern /^\\d{4}$/.");

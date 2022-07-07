@@ -201,7 +201,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['zip_code'] === null) {
             $invalidProperties[] = "'zip_code' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
                 $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
             }
@@ -210,7 +210,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['zip_code_plus_4'] === null) {
             $invalidProperties[] = "'zip_code_plus_4' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
                 $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^\\d{4}$/.";
             }
@@ -251,7 +251,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setZipCode($zip_code)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if ((!preg_match("/^\\d{5}$/", $zip_code))) {
                 throw new \InvalidArgumentException("invalid value for $zip_code when calling GeocodeComponents., must conform to the pattern /^\\d{5}$/.");
@@ -283,7 +283,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setZipCodePlus4($zip_code_plus_4)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if ((!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
                 throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling GeocodeComponents., must conform to the pattern /^\\d{4}$/.");

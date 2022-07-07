@@ -334,7 +334,7 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
             );
         }
 
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['id']) && !preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
             }
@@ -517,7 +517,7 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setId($id)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (!is_null($id) && (!preg_match("/^evnt_[a-zA-Z0-9]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling TrackingEventNormal., must conform to the pattern /^evnt_[a-zA-Z0-9]+$/.");

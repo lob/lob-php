@@ -285,31 +285,31 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['id']) && !preg_match("/^us_ver_[a-zA-Z0-9_]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_ver_[a-zA-Z0-9_]+$/.";
             }
 
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
                 $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 500)) {
                 $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
                 $invalidProperties[] = "invalid value for 'secondary_line', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['urbanization']) && (mb_strlen($this->container['urbanization']) > 500)) {
                 $invalidProperties[] = "invalid value for 'urbanization', the character length must be smaller than or equal to 500.";
             }
@@ -368,7 +368,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (!is_null($id) && (!preg_match("/^us_ver_[a-zA-Z0-9_]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling UsVerification., must conform to the pattern /^us_ver_[a-zA-Z0-9_]+$/.");
@@ -400,7 +400,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setRecipient($recipient)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($recipient) && (mb_strlen($recipient) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $recipient when calling UsVerification., must be smaller than or equal to 500.');
             }
@@ -431,7 +431,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setPrimaryLine($primary_line)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($primary_line) && (mb_strlen($primary_line) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $primary_line when calling UsVerification., must be smaller than or equal to 500.');
             }
@@ -462,7 +462,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setSecondaryLine($secondary_line)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($secondary_line) && (mb_strlen($secondary_line) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $secondary_line when calling UsVerification., must be smaller than or equal to 500.');
             }
@@ -493,7 +493,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setUrbanization($urbanization)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($urbanization) && (mb_strlen($urbanization) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $urbanization when calling UsVerification., must be smaller than or equal to 500.');
             }

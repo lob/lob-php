@@ -203,13 +203,13 @@ class CardUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
 
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['reorder_quantity']) && ($this->container['reorder_quantity'] > 10000000)) {
                 $invalidProperties[] = "invalid value for 'reorder_quantity', must be smaller than or equal to 10000000.";
             }
@@ -254,7 +254,7 @@ class CardUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
                 throw new \InvalidArgumentException('invalid length for $description when calling CardUpdatable., must be smaller than or equal to 255.');
             }
@@ -310,7 +310,7 @@ class CardUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setReorderQuantity($reorder_quantity)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
             if (!is_null($reorder_quantity) && ($reorder_quantity > 10000000)) {
                 throw new \InvalidArgumentException('invalid value for $reorder_quantity when calling CardUpdatable., must be smaller than or equal to 10000000.');

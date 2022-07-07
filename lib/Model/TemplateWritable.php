@@ -209,7 +209,7 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
@@ -218,13 +218,13 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['html'] === null) {
             $invalidProperties[] = "'html' can't be null";
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($this->container['html']) > 100000)) {
                 $invalidProperties[] = "invalid value for 'html', the character length must be smaller than or equal to 100000.";
             }
 
         }
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
         }
         return $invalidProperties;
     }
@@ -261,7 +261,7 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
                 throw new \InvalidArgumentException('invalid length for $description when calling TemplateWritable., must be smaller than or equal to 255.');
             }
@@ -292,7 +292,7 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setHtml($html)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
             if ((mb_strlen($html) > 100000)) {
                 throw new \InvalidArgumentException('invalid length for $html when calling TemplateWritable., must be smaller than or equal to 100000.');
             }
@@ -323,7 +323,7 @@ class TemplateWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
-        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
 
 
         }
