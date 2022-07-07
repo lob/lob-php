@@ -124,7 +124,9 @@ class CardsApi
             $k = $encoder((string) $k);
             if (!is_array($v)) {
                 $qs .= $k;
-                $v = is_bool($v) ? (int) $v : $v;
+                if (is_bool($v)) {
+                    $v = $v ? 'True' : 'False';
+                }
                 if ($v !== null) {
                     $qs .= '=' . $encoder((string) $v);
                 }
