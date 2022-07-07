@@ -346,10 +346,12 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !preg_match("/^psc_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^psc_[a-zA-Z0-9]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!preg_match("/^psc_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^psc_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         $allowedValues = $this->getCarrierAllowableValues();
         if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -359,22 +361,30 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['front_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['front_template_id'])) {
-            $invalidProperties[] = "invalid value for 'front_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['front_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['front_template_id'])) {
+                $invalidProperties[] = "invalid value for 'front_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['back_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['back_template_id'])) {
-            $invalidProperties[] = "invalid value for 'back_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['back_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['back_template_id'])) {
+                $invalidProperties[] = "invalid value for 'back_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['front_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['front_template_version_id'])) {
-            $invalidProperties[] = "invalid value for 'front_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['front_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['front_template_version_id'])) {
+                $invalidProperties[] = "invalid value for 'front_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['back_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['back_template_version_id'])) {
-            $invalidProperties[] = "invalid value for 'back_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['back_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['back_template_version_id'])) {
+                $invalidProperties[] = "invalid value for 'back_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -387,14 +397,22 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
-            $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
+                $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
         return $invalidProperties;
     }
 

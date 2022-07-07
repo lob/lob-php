@@ -321,10 +321,12 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         if ($this->container['date_created'] === null) {
             $invalidProperties[] = "'date_created' can't be null";
         }

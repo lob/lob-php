@@ -203,18 +203,22 @@ class CardUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['reorder_quantity']) && ($this->container['reorder_quantity'] > 10000000)) {
-            $invalidProperties[] = "invalid value for 'reorder_quantity', must be smaller than or equal to 10000000.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['reorder_quantity']) && ($this->container['reorder_quantity'] > 10000000)) {
+                $invalidProperties[] = "invalid value for 'reorder_quantity', must be smaller than or equal to 10000000.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['reorder_quantity']) && ($this->container['reorder_quantity'] < 10000)) {
-            $invalidProperties[] = "invalid value for 'reorder_quantity', must be bigger than or equal to 10000.";
+            if (!is_null($this->container['reorder_quantity']) && ($this->container['reorder_quantity'] < 10000)) {
+                $invalidProperties[] = "invalid value for 'reorder_quantity', must be bigger than or equal to 10000.";
+            }
+
         }
-
         return $invalidProperties;
     }
 

@@ -416,18 +416,24 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^ltr_[a-zA-Z0-9]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^ltr_[a-zA-Z0-9]+$/.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['template_id'])) {
-            $invalidProperties[] = "invalid value for 'template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['template_id'])) {
+                $invalidProperties[] = "invalid value for 'template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['template_version_id'])) {
-            $invalidProperties[] = "invalid value for 'template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['template_version_id'])) {
+                $invalidProperties[] = "invalid value for 'template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         if ($this->container['object'] === null) {
             $invalidProperties[] = "'object' can't be null";
         }
@@ -440,14 +446,22 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
-            $invalidProperties[] = "invalid value for 'tracking_events', number of items must be less than or equal to 0.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
+                $invalidProperties[] = "invalid value for 'tracking_events', number of items must be less than or equal to 0.";
+            }
 
+        }
         $allowedValues = $this->getAddressPlacementAllowableValues();
         if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(

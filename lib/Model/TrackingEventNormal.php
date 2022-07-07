@@ -334,10 +334,12 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
             );
         }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['id']) && !preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['id']) && !preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(

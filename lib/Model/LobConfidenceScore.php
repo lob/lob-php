@@ -220,14 +220,16 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         if ($this->container['score'] === null) {
             $invalidProperties[] = "'score' can't be null";
         }
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && ($this->container['score'] > 100)) {
-            $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (($this->container['score'] > 100)) {
+                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && ($this->container['score'] < 0)) {
-            $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-        }
+            if (($this->container['score'] < 0)) {
+                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
+            }
 
+        }
         if ($this->container['level'] === null) {
             $invalidProperties[] = "'level' can't be null";
         }

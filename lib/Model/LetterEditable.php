@@ -325,10 +325,16 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
         if ($this->container['color'] === null) {
             $invalidProperties[] = "'color' can't be null";
         }
@@ -359,14 +365,16 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
-            $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
+                $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
-            $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
-        }
+            if (!is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
+                $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
+            }
 
+        }
         return $invalidProperties;
     }
 

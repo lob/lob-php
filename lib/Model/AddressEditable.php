@@ -257,46 +257,68 @@ class AddressEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_line1', the character length must be smaller than or equal to 200.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_line1', the character length must be smaller than or equal to 200.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_line2', the character length must be smaller than or equal to 200.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_line2', the character length must be smaller than or equal to 200.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_city', the character length must be smaller than or equal to 200.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_city', the character length must be smaller than or equal to 200.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_state']) && (mb_strlen($this->container['address_state']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_state', the character length must be smaller than or equal to 200.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_state']) && (mb_strlen($this->container['address_state']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_state', the character length must be smaller than or equal to 200.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_zip']) && (mb_strlen($this->container['address_zip']) > 40)) {
-            $invalidProperties[] = "invalid value for 'address_zip', the character length must be smaller than or equal to 40.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['address_zip']) && (mb_strlen($this->container['address_zip']) > 40)) {
+                $invalidProperties[] = "invalid value for 'address_zip', the character length must be smaller than or equal to 40.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
-            $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 40.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
+                $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 40.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
-            $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
+                $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 40.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
+                $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 40.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 100.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
+                $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 100.";
+            }
 
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
         return $invalidProperties;
     }
 

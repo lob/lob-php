@@ -197,14 +197,18 @@ class TemplateUpdate implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['published_version']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['published_version'])) {
-            $invalidProperties[] = "invalid value for 'published_version', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['published_version']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['published_version'])) {
+                $invalidProperties[] = "invalid value for 'published_version', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         return $invalidProperties;
     }
 

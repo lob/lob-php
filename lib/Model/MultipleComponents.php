@@ -227,37 +227,51 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
-            $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
+                $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
+            }
 
+        }
         if ($this->container['primary_line'] === null) {
             $invalidProperties[] = "'primary_line' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['primary_line']) > 500)) {
-            $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 500.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($this->container['primary_line']) > 500)) {
+                $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 500.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
-            $invalidProperties[] = "invalid value for 'secondary_line', the character length must be smaller than or equal to 500.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
+                $invalidProperties[] = "invalid value for 'secondary_line', the character length must be smaller than or equal to 500.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['urbanization']) && (mb_strlen($this->container['urbanization']) > 500)) {
-            $invalidProperties[] = "invalid value for 'urbanization', the character length must be smaller than or equal to 500.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['urbanization']) && (mb_strlen($this->container['urbanization']) > 500)) {
+                $invalidProperties[] = "invalid value for 'urbanization', the character length must be smaller than or equal to 500.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
-            $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
+                $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['state']) && (mb_strlen($this->container['state']) > 50)) {
-            $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 50.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 50)) {
+                $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 50.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['zip_code']) && !preg_match("/^\\d{5}((-)?\\d{4})?$/", $this->container['zip_code'])) {
-            $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}((-)?\\d{4})?$/.";
         }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['zip_code']) && !preg_match("/^\\d{5}((-)?\\d{4})?$/", $this->container['zip_code'])) {
+                $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}((-)?\\d{4})?$/.";
+            }
 
+        }
         return $invalidProperties;
     }
 

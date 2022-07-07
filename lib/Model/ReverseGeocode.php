@@ -216,10 +216,12 @@ class ReverseGeocode implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['id']) && !preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['id']) && !preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.";
+            }
 
+        }
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(

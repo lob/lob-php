@@ -234,24 +234,30 @@ class BillingGroup implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
+        }
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['name']) > 255)) {
-            $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 255.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($this->container['name']) > 255)) {
+                $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 255.";
+            }
 
+        }
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !preg_match("/^bg_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^bg_[a-zA-Z0-9]+$/.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!preg_match("/^bg_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^bg_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         if ($this->container['date_created'] === null) {
             $invalidProperties[] = "'date_created' can't be null";
         }

@@ -220,10 +220,12 @@ class LetterEditableCustomEnvelope implements ModelInterface, ArrayAccess, \Json
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['id']) > 40)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 40.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($this->container['id']) > 40)) {
+                $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 40.";
+            }
 
+        }
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }

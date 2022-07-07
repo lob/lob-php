@@ -221,38 +221,48 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
+        }
         if ($this->container['routing_number'] === null) {
             $invalidProperties[] = "'routing_number' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['routing_number']) > 9)) {
-            $invalidProperties[] = "invalid value for 'routing_number', the character length must be smaller than or equal to 9.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($this->container['routing_number']) > 9)) {
+                $invalidProperties[] = "invalid value for 'routing_number', the character length must be smaller than or equal to 9.";
+            }
 
-        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (mb_strlen($this->container['routing_number']) < 9)) {
-            $invalidProperties[] = "invalid value for 'routing_number', the character length must be bigger than or equal to 9.";
-        }
+            if ((mb_strlen($this->container['routing_number']) < 9)) {
+                $invalidProperties[] = "invalid value for 'routing_number', the character length must be bigger than or equal to 9.";
+            }
 
+        }
         if ($this->container['account_number'] === null) {
             $invalidProperties[] = "'account_number' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['account_number']) > 17)) {
-            $invalidProperties[] = "invalid value for 'account_number', the character length must be smaller than or equal to 17.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($this->container['account_number']) > 17)) {
+                $invalidProperties[] = "invalid value for 'account_number', the character length must be smaller than or equal to 17.";
+            }
 
+        }
         if ($this->container['account_type'] === null) {
             $invalidProperties[] = "'account_type' can't be null";
         }
         if ($this->container['signatory'] === null) {
             $invalidProperties[] = "'signatory' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['signatory']) > 30)) {
-            $invalidProperties[] = "invalid value for 'signatory', the character length must be smaller than or equal to 30.";
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($this->container['signatory']) > 30)) {
+                $invalidProperties[] = "invalid value for 'signatory', the character length must be smaller than or equal to 30.";
+            }
 
+        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+        }
         return $invalidProperties;
     }
 
