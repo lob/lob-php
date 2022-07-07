@@ -392,69 +392,101 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
         }
-        if ($this->container['from'] === null) {
-            $invalidProperties[] = "'from' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['from'] === null) {
+                $invalidProperties[] = "'from' can't be null";
+            }
         }
         $allowedValues = $this->getCarrierAllowableValues();
-        if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'carrier', must be one of '%s'",
-                $this->container['carrier'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['carrier']) && !in_array($this->container['carrier'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'carrier', must be one of '%s'",
+                    $this->container['carrier'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['date_created'] === null) {
-            $invalidProperties[] = "'date_created' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['date_created'] === null) {
+                $invalidProperties[] = "'date_created' can't be null";
+            }
         }
-        if ($this->container['date_modified'] === null) {
-            $invalidProperties[] = "'date_modified' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['date_modified'] === null) {
+                $invalidProperties[] = "'date_modified' can't be null";
+            }
         }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^ltr_[a-zA-Z0-9]+$/.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^ltr_[a-zA-Z0-9]+$/.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['template_id'])) {
-            $invalidProperties[] = "invalid value for 'template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['template_id'])) {
+                $invalidProperties[] = "invalid value for 'template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['template_version_id'])) {
-            $invalidProperties[] = "invalid value for 'template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['template_version_id'])) {
+                $invalidProperties[] = "invalid value for 'template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+            }
 
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
-            $invalidProperties[] = "invalid value for 'tracking_events', number of items must be less than or equal to 0.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
+                $invalidProperties[] = "invalid value for 'tracking_events', number of items must be less than or equal to 0.";
+            }
 
+        }
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'address_placement', must be one of '%s'",
-                $this->container['address_placement'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'address_placement', must be one of '%s'",
+                    $this->container['address_placement'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;
@@ -543,14 +575,16 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setCarrier($carrier)
     {
         $allowedValues = $this->getCarrierAllowableValues();
-        if (!is_null($carrier) && !in_array($carrier, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'carrier', must be one of '%s'",
-                    $carrier,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($carrier) && !in_array($carrier, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'carrier', must be one of '%s'",
+                        $carrier,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['carrier'] = $carrier;
@@ -710,11 +744,13 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling Letter., must conform to the pattern /^ltr_[a-zA-Z0-9]+$/.");
+            if ((!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling Letter., must conform to the pattern /^ltr_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -740,11 +776,13 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setTemplateId($template_id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $template_id))) {
-            throw new \InvalidArgumentException("invalid value for $template_id when calling Letter., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            if (!is_null($template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $template_id))) {
+                throw new \InvalidArgumentException("invalid value for $template_id when calling Letter., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['template_id'] = $template_id;
 
         return $this;
@@ -770,11 +808,13 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setTemplateVersionId($template_version_id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $template_version_id))) {
-            throw new \InvalidArgumentException("invalid value for $template_version_id when calling Letter., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            if (!is_null($template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $template_version_id))) {
+                throw new \InvalidArgumentException("invalid value for $template_version_id when calling Letter., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['template_version_id'] = $template_version_id;
 
         return $this;
@@ -801,14 +841,16 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;
@@ -836,10 +878,12 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling Letter., must be smaller than or equal to 255.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling Letter., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -865,8 +909,10 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -892,8 +938,10 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMergeVariables($merge_variables)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['merge_variables'] = $merge_variables;
 
         return $this;
@@ -994,9 +1042,11 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setTrackingEvents($tracking_events)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($tracking_events) && (count($tracking_events) > 0)) {
-            throw new \InvalidArgumentException('invalid value for $tracking_events when calling Letter., number of items must be less than or equal to 0.');
+            if (!is_null($tracking_events) && (count($tracking_events) > 0)) {
+                throw new \InvalidArgumentException('invalid value for $tracking_events when calling Letter., number of items must be less than or equal to 0.');
+            }
         }
         $this->container['tracking_events'] = [];
         if ($tracking_events) {
@@ -1131,14 +1181,16 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setAddressPlacement($address_placement)
     {
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!is_null($address_placement) && !in_array($address_placement, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'address_placement', must be one of '%s'",
-                    $address_placement,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_placement) && !in_array($address_placement, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'address_placement', must be one of '%s'",
+                        $address_placement,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['address_placement'] = $address_placement;

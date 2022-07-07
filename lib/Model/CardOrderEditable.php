@@ -191,17 +191,21 @@ class CardOrderEditable implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if ($this->container['quantity'] === null) {
-            $invalidProperties[] = "'quantity' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['quantity'] === null) {
+                $invalidProperties[] = "'quantity' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['quantity'] > 10000000)) {
-            $invalidProperties[] = "invalid value for 'quantity', must be smaller than or equal to 10000000.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (($this->container['quantity'] > 10000000)) {
+                $invalidProperties[] = "invalid value for 'quantity', must be smaller than or equal to 10000000.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['quantity'] < 0)) {
-            $invalidProperties[] = "invalid value for 'quantity', must be bigger than or equal to 0.";
-        }
+            if (($this->container['quantity'] < 0)) {
+                $invalidProperties[] = "invalid value for 'quantity', must be bigger than or equal to 0.";
+            }
 
+        }
         return $invalidProperties;
     }
 
@@ -237,14 +241,16 @@ class CardOrderEditable implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setQuantity($quantity)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($quantity > 10000000)) {
-            throw new \InvalidArgumentException('invalid value for $quantity when calling CardOrderEditable., must be smaller than or equal to 10000000.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && ($quantity < 0)) {
-            throw new \InvalidArgumentException('invalid value for $quantity when calling CardOrderEditable., must be bigger than or equal to 0.');
-        }
+            if (($quantity > 10000000)) {
+                throw new \InvalidArgumentException('invalid value for $quantity when calling CardOrderEditable., must be smaller than or equal to 10000000.');
+            }
+            if (($quantity < 0)) {
+                throw new \InvalidArgumentException('invalid value for $quantity when calling CardOrderEditable., must be bigger than or equal to 0.');
+            }
 
+        }
         $this->container['quantity'] = $quantity;
 
         return $this;

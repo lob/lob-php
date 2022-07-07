@@ -240,35 +240,51 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['primary_number_range'] === null) {
-            $invalidProperties[] = "'primary_number_range' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['primary_number_range'] === null) {
+                $invalidProperties[] = "'primary_number_range' can't be null";
+            }
         }
-        if ($this->container['primary_line'] === null) {
-            $invalidProperties[] = "'primary_line' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['primary_line'] === null) {
+                $invalidProperties[] = "'primary_line' can't be null";
+            }
         }
-        if ($this->container['city'] === null) {
-            $invalidProperties[] = "'city' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['city'] === null) {
+                $invalidProperties[] = "'city' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['city']) > 200)) {
-            $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ((mb_strlen($this->container['city']) > 200)) {
+                $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
+            }
 
-        if ($this->container['state'] === null) {
-            $invalidProperties[] = "'state' can't be null";
         }
-        if ($this->container['country'] === null) {
-            $invalidProperties[] = "'country' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['state'] === null) {
+                $invalidProperties[] = "'state' can't be null";
+            }
         }
-        if ($this->container['zip_code'] === null) {
-            $invalidProperties[] = "'zip_code' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['country'] === null) {
+                $invalidProperties[] = "'country' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['zip_code'] === null) {
+                $invalidProperties[] = "'zip_code' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;
@@ -356,10 +372,12 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCity($city)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($city) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $city when calling IntlSuggestions., must be smaller than or equal to 200.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ((mb_strlen($city) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $city when calling IntlSuggestions., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['city'] = $city;
 
         return $this;
@@ -461,14 +479,16 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

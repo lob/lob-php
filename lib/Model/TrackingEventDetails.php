@@ -274,23 +274,31 @@ class TrackingEventDetails implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if ($this->container['event'] === null) {
-            $invalidProperties[] = "'event' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['event'] === null) {
+                $invalidProperties[] = "'event' can't be null";
+            }
         }
         $allowedValues = $this->getEventAllowableValues();
-        if (!is_null($this->container['event']) && !in_array($this->container['event'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'event', must be one of '%s'",
-                $this->container['event'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['event']) && !in_array($this->container['event'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'event', must be one of '%s'",
+                    $this->container['event'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['description'] === null) {
-            $invalidProperties[] = "'description' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['description'] === null) {
+                $invalidProperties[] = "'description' can't be null";
+            }
         }
-        if ($this->container['action_required'] === null) {
-            $invalidProperties[] = "'action_required' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['action_required'] === null) {
+                $invalidProperties[] = "'action_required' can't be null";
+            }
         }
         return $invalidProperties;
     }
@@ -328,14 +336,16 @@ class TrackingEventDetails implements ModelInterface, ArrayAccess, \JsonSerializ
     public function setEvent($event)
     {
         $allowedValues = $this->getEventAllowableValues();
-        if (!in_array($event, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'event', must be one of '%s'",
-                    $event,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($event, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'event', must be one of '%s'",
+                        $event,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['event'] = $event;

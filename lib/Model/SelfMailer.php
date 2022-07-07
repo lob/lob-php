@@ -294,49 +294,73 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^sfm_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^sfm_[a-zA-Z0-9]+$/.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!preg_match("/^sfm_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^sfm_[a-zA-Z0-9]+$/.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['outside_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['outside_template_id'])) {
-            $invalidProperties[] = "invalid value for 'outside_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
         }
-
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['inside_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['inside_template_id'])) {
-            $invalidProperties[] = "invalid value for 'inside_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
-
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['outside_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['outside_template_version_id'])) {
-            $invalidProperties[] = "invalid value for 'outside_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['outside_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['outside_template_id'])) {
+                $invalidProperties[] = "invalid value for 'outside_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['inside_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['inside_template_version_id'])) {
-            $invalidProperties[] = "invalid value for 'inside_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['inside_template_id']) && !preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['inside_template_id'])) {
+                $invalidProperties[] = "invalid value for 'inside_template_id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
+            }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['outside_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['outside_template_version_id'])) {
+                $invalidProperties[] = "invalid value for 'outside_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+            }
+
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['inside_template_version_id']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['inside_template_version_id'])) {
+                $invalidProperties[] = "invalid value for 'inside_template_version_id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
+            }
+
+        }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['url'] === null) {
+                $invalidProperties[] = "'url' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
-            $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
+                $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
+            }
 
+        }
         return $invalidProperties;
     }
 
@@ -372,11 +396,13 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^sfm_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling SelfMailer., must conform to the pattern /^sfm_[a-zA-Z0-9]+$/.");
+            if ((!preg_match("/^sfm_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling SelfMailer., must conform to the pattern /^sfm_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -477,10 +503,12 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling SelfMailer., must be smaller than or equal to 255.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling SelfMailer., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -506,8 +534,10 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -558,8 +588,10 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMergeVariables($merge_variables)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['merge_variables'] = $merge_variables;
 
         return $this;
@@ -610,11 +642,13 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setOutsideTemplateId($outside_template_id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($outside_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $outside_template_id))) {
-            throw new \InvalidArgumentException("invalid value for $outside_template_id when calling SelfMailer., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            if (!is_null($outside_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $outside_template_id))) {
+                throw new \InvalidArgumentException("invalid value for $outside_template_id when calling SelfMailer., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['outside_template_id'] = $outside_template_id;
 
         return $this;
@@ -640,11 +674,13 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setInsideTemplateId($inside_template_id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($inside_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $inside_template_id))) {
-            throw new \InvalidArgumentException("invalid value for $inside_template_id when calling SelfMailer., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            if (!is_null($inside_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $inside_template_id))) {
+                throw new \InvalidArgumentException("invalid value for $inside_template_id when calling SelfMailer., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['inside_template_id'] = $inside_template_id;
 
         return $this;
@@ -670,11 +706,13 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setOutsideTemplateVersionId($outside_template_version_id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($outside_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $outside_template_version_id))) {
-            throw new \InvalidArgumentException("invalid value for $outside_template_version_id when calling SelfMailer., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            if (!is_null($outside_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $outside_template_version_id))) {
+                throw new \InvalidArgumentException("invalid value for $outside_template_version_id when calling SelfMailer., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['outside_template_version_id'] = $outside_template_version_id;
 
         return $this;
@@ -700,11 +738,13 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setInsideTemplateVersionId($inside_template_version_id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($inside_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $inside_template_version_id))) {
-            throw new \InvalidArgumentException("invalid value for $inside_template_version_id when calling SelfMailer., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            if (!is_null($inside_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $inside_template_version_id))) {
+                throw new \InvalidArgumentException("invalid value for $inside_template_version_id when calling SelfMailer., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['inside_template_version_id'] = $inside_template_version_id;
 
         return $this;
@@ -731,14 +771,16 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;
@@ -798,11 +840,13 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setUrl($url)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
-            throw new \InvalidArgumentException("invalid value for $url when calling SelfMailer., must conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");
+            if ((!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
+                throw new \InvalidArgumentException("invalid value for $url when calling SelfMailer., must conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");
+            }
+
         }
-
         $this->container['url'] = $url;
 
         return $this;

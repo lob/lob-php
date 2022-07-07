@@ -217,27 +217,35 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if ($this->container['score'] === null) {
-            $invalidProperties[] = "'score' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['score'] === null) {
+                $invalidProperties[] = "'score' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['score'] > 100)) {
-            $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (($this->container['score'] > 100)) {
+                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['score'] < 0)) {
-            $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-        }
+            if (($this->container['score'] < 0)) {
+                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
+            }
 
-        if ($this->container['level'] === null) {
-            $invalidProperties[] = "'level' can't be null";
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['level'] === null) {
+                $invalidProperties[] = "'level' can't be null";
+            }
         }
         $allowedValues = $this->getLevelAllowableValues();
-        if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'level', must be one of '%s'",
-                $this->container['level'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'level', must be one of '%s'",
+                    $this->container['level'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;
@@ -275,14 +283,16 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setScore($score)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($score > 100)) {
-            throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && ($score < 0)) {
-            throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
-        }
+            if (($score > 100)) {
+                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
+            }
+            if (($score < 0)) {
+                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
+            }
 
+        }
         $this->container['score'] = $score;
 
         return $this;
@@ -309,14 +319,16 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     public function setLevel($level)
     {
         $allowedValues = $this->getLevelAllowableValues();
-        if (!in_array($level, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'level', must be one of '%s'",
-                    $level,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($level, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'level', must be one of '%s'",
+                        $level,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['level'] = $level;

@@ -224,22 +224,28 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['front'] === null) {
-            $invalidProperties[] = "'front' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['front'] === null) {
+                $invalidProperties[] = "'front' can't be null";
+            }
         }
         $allowedValues = $this->getSizeAllowableValues();
-        if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'size', must be one of '%s'",
-                $this->container['size'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'size', must be one of '%s'",
+                    $this->container['size'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
+        }
         return $invalidProperties;
     }
 
@@ -326,14 +332,16 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setSize($size)
     {
         $allowedValues = $this->getSizeAllowableValues();
-        if (!is_null($size) && !in_array($size, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'size', must be one of '%s'",
-                    $size,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($size) && !in_array($size, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'size', must be one of '%s'",
+                        $size,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['size'] = $size;
@@ -361,10 +369,12 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling CardEditable., must be smaller than or equal to 255.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling CardEditable., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;

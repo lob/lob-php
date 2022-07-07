@@ -325,48 +325,68 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if ($this->container['color'] === null) {
-            $invalidProperties[] = "'color' can't be null";
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['color'] === null) {
+                $invalidProperties[] = "'color' can't be null";
+            }
         }
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'address_placement', must be one of '%s'",
-                $this->container['address_placement'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'address_placement', must be one of '%s'",
+                    $this->container['address_placement'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
         }
-        if ($this->container['from'] === null) {
-            $invalidProperties[] = "'from' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['from'] === null) {
+                $invalidProperties[] = "'from' can't be null";
+            }
         }
-        if ($this->container['file'] === null) {
-            $invalidProperties[] = "'file' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['file'] === null) {
+                $invalidProperties[] = "'file' can't be null";
+            }
         }
         $allowedValues = $this->getExtraServiceAllowableValues();
-        if (!is_null($this->container['extra_service']) && !in_array($this->container['extra_service'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'extra_service', must be one of '%s'",
-                $this->container['extra_service'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['extra_service']) && !in_array($this->container['extra_service'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'extra_service', must be one of '%s'",
+                    $this->container['extra_service'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
-            $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
+                $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
-            $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
-        }
+            if (!is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
+                $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
+            }
 
+        }
         return $invalidProperties;
     }
 
@@ -402,10 +422,12 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling LetterEditable., must be smaller than or equal to 255.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling LetterEditable., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -431,8 +453,10 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -483,8 +507,10 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMergeVariables($merge_variables)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['merge_variables'] = $merge_variables;
 
         return $this;
@@ -586,14 +612,16 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setAddressPlacement($address_placement)
     {
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!is_null($address_placement) && !in_array($address_placement, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'address_placement', must be one of '%s'",
-                    $address_placement,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_placement) && !in_array($address_placement, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'address_placement', must be one of '%s'",
+                        $address_placement,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['address_placement'] = $address_placement;
@@ -772,14 +800,16 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setExtraService($extra_service)
     {
         $allowedValues = $this->getExtraServiceAllowableValues();
-        if (!is_null($extra_service) && !in_array($extra_service, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'extra_service', must be one of '%s'",
-                    $extra_service,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($extra_service) && !in_array($extra_service, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'extra_service', must be one of '%s'",
+                        $extra_service,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['extra_service'] = $extra_service;
@@ -807,12 +837,14 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCards($cards)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($cards) && (count($cards) > 1)) {
-            throw new \InvalidArgumentException('invalid value for $cards when calling LetterEditable., number of items must be less than or equal to 1.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($cards) && (count($cards) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $cards when calling LetterEditable., number of items must be greater than or equal to 0.');
+            if (!is_null($cards) && (count($cards) > 1)) {
+                throw new \InvalidArgumentException('invalid value for $cards when calling LetterEditable., number of items must be less than or equal to 1.');
+            }
+            if (!is_null($cards) && (count($cards) < 0)) {
+                throw new \InvalidArgumentException('invalid length for $cards when calling LetterEditable., number of items must be greater than or equal to 0.');
+            }
         }
         $this->container['cards'] = [];
         if ($cards) {

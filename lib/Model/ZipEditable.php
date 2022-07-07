@@ -191,10 +191,12 @@ class ZipEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['zip_code']) && !preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
-            $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['zip_code']) && !preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
+                $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
+            }
 
+        }
         return $invalidProperties;
     }
 
@@ -230,11 +232,13 @@ class ZipEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setZipCode($zip_code)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($zip_code) && (!preg_match("/^\\d{5}$/", $zip_code))) {
-            throw new \InvalidArgumentException("invalid value for $zip_code when calling ZipEditable., must conform to the pattern /^\\d{5}$/.");
+            if (!is_null($zip_code) && (!preg_match("/^\\d{5}$/", $zip_code))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code when calling ZipEditable., must conform to the pattern /^\\d{5}$/.");
+            }
+
         }
-
         $this->container['zip_code'] = $zip_code;
 
         return $this;

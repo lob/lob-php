@@ -216,17 +216,21 @@ class ReverseGeocode implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['id']) && !preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.";
+            }
 
+        }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;
@@ -264,11 +268,13 @@ class ReverseGeocode implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling ReverseGeocode., must conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.");
+            if (!is_null($id) && (!preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling ReverseGeocode., must conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -327,14 +333,16 @@ class ReverseGeocode implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

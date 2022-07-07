@@ -301,50 +301,64 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     {
         $invalidProperties = [];
 
-        if ($this->container['type'] === null) {
-            $invalidProperties[] = "'type' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['type'] === null) {
+                $invalidProperties[] = "'type' can't be null";
+            }
         }
         $allowedValues = $this->getTypeAllowableValues();
-        if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'type', must be one of '%s'",
-                $this->container['type'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'type', must be one of '%s'",
+                    $this->container['type'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['name'] === null) {
+                $invalidProperties[] = "'name' can't be null";
+            }
         }
         $allowedValues = $this->getNameAllowableValues();
-        if (!is_null($this->container['name']) && !in_array($this->container['name'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'name', must be one of '%s'",
-                $this->container['name'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['name']) && !in_array($this->container['name'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'name', must be one of '%s'",
+                    $this->container['name'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         $allowedValues = $this->getDetailsAllowableValues();
-        if (!is_null($this->container['details']) && !in_array($this->container['details'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'details', must be one of '%s'",
-                $this->container['details'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['details']) && !in_array($this->container['details'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'details', must be one of '%s'",
+                    $this->container['details'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['id']) && !preg_match("/^evnt_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evnt_[a-zA-Z0-9]+$/.";
+            }
 
+        }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;
@@ -383,14 +397,16 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setType($type)
     {
         $allowedValues = $this->getTypeAllowableValues();
-        if (!in_array($type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'type', must be one of '%s'",
-                    $type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'type', must be one of '%s'",
+                        $type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['type'] = $type;
@@ -419,14 +435,16 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setName($name)
     {
         $allowedValues = $this->getNameAllowableValues();
-        if (!in_array($name, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'name', must be one of '%s'",
-                    $name,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($name, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'name', must be one of '%s'",
+                        $name,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['name'] = $name;
@@ -455,14 +473,16 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setDetails($details)
     {
         $allowedValues = $this->getDetailsAllowableValues();
-        if (!is_null($details) && !in_array($details, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'details', must be one of '%s'",
-                    $details,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($details) && !in_array($details, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'details', must be one of '%s'",
+                        $details,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['details'] = $details;
@@ -515,11 +535,13 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setId($id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^evnt_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling TrackingEventNormal., must conform to the pattern /^evnt_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^evnt_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling TrackingEventNormal., must conform to the pattern /^evnt_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -621,14 +643,16 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

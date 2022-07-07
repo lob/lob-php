@@ -197,10 +197,12 @@ class TemplateVersionUpdatable implements ModelInterface, ArrayAccess, \JsonSeri
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
+        }
         return $invalidProperties;
     }
 
@@ -236,10 +238,12 @@ class TemplateVersionUpdatable implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling TemplateVersionUpdatable., must be smaller than or equal to 255.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling TemplateVersionUpdatable., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;

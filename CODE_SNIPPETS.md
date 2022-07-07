@@ -936,7 +936,7 @@ $apiInstance = new OpenAPI\Client\Api\TemplateVersionsApi($config, new GuzzleHtt
 
 try {
     $result = $apiInstance->list(
-      'tmpl_dadaaf7b76c9f25', // tmplId 
+      tmpl_dadaaf7b76c9f25, // tmplId 
       2, // limit 
     );
     print_r($result);
@@ -1149,6 +1149,26 @@ $apiInstance = new OpenAPI\Client\Api\ReverseGeocodeLookupsApi($config, new Guzz
 $coordinates = new OpenAPI\Client\Model\Location(array(
     "latitude" =>  "37.7749",
     "longitude" =>  "122.4194",
+));
+
+try {
+    $result = $apiInstance->lookup($coordinates);
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+### Reverse Geocode Lookup
+```bash
+curl https://api.lob.com/v1/us_reverse_geocode_lookups \
+  -u <YOUR_LIVE_API_KEY>: \
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\ReverseGeocodeLookupsApi($config, new GuzzleHttp\Client());
+
+$coordinates = new OpenAPI\Client\Model\Location(array(
 ));
 
 try {

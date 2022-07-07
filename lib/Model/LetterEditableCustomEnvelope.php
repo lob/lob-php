@@ -217,26 +217,36 @@ class LetterEditableCustomEnvelope implements ModelInterface, ArrayAccess, \Json
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['id']) > 40)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 40.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ((mb_strlen($this->container['id']) > 40)) {
+                $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 40.";
+            }
 
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
         }
-        if ($this->container['object'] === null) {
-            $invalidProperties[] = "'object' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['url'] === null) {
+                $invalidProperties[] = "'url' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['object'] === null) {
+                $invalidProperties[] = "'object' can't be null";
+            }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;
@@ -274,10 +284,12 @@ class LetterEditableCustomEnvelope implements ModelInterface, ArrayAccess, \Json
      */
     public function setId($id)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($id) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling LetterEditableCustomEnvelope., must be smaller than or equal to 40.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ((mb_strlen($id) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $id when calling LetterEditableCustomEnvelope., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['id'] = $id;
 
         return $this;
@@ -329,14 +341,16 @@ class LetterEditableCustomEnvelope implements ModelInterface, ArrayAccess, \Json
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

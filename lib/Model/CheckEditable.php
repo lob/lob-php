@@ -294,51 +294,75 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['from'] === null) {
-            $invalidProperties[] = "'from' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['from'] === null) {
+                $invalidProperties[] = "'from' can't be null";
+            }
         }
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
         }
-        if ($this->container['bank_account'] === null) {
-            $invalidProperties[] = "'bank_account' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['bank_account'] === null) {
+                $invalidProperties[] = "'bank_account' can't be null";
+            }
         }
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['amount'] === null) {
+                $invalidProperties[] = "'amount' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['amount'] > 999999.99)) {
-            $invalidProperties[] = "invalid value for 'amount', must be smaller than or equal to 999999.99.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (($this->container['amount'] > 999999.99)) {
+                $invalidProperties[] = "invalid value for 'amount', must be smaller than or equal to 999999.99.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+        }
         $allowedValues = $this->getMailTypeAllowableValues();
-        if (!is_null($this->container['mail_type']) && !in_array($this->container['mail_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'mail_type', must be one of '%s'",
-                $this->container['mail_type'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['mail_type']) && !in_array($this->container['mail_type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'mail_type', must be one of '%s'",
+                    $this->container['mail_type'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['memo']) && (mb_strlen($this->container['memo']) > 40)) {
-            $invalidProperties[] = "invalid value for 'memo', the character length must be smaller than or equal to 40.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['memo']) && (mb_strlen($this->container['memo']) > 40)) {
+                $invalidProperties[] = "invalid value for 'memo', the character length must be smaller than or equal to 40.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['check_number']) && ($this->container['check_number'] > 500000000)) {
-            $invalidProperties[] = "invalid value for 'check_number', must be smaller than or equal to 500000000.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['check_number']) && ($this->container['check_number'] > 500000000)) {
+                $invalidProperties[] = "invalid value for 'check_number', must be smaller than or equal to 500000000.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['check_number']) && ($this->container['check_number'] < 1)) {
-            $invalidProperties[] = "invalid value for 'check_number', must be bigger than or equal to 1.";
+            if (!is_null($this->container['check_number']) && ($this->container['check_number'] < 1)) {
+                $invalidProperties[] = "invalid value for 'check_number', must be bigger than or equal to 1.";
+            }
+
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['message']) && (mb_strlen($this->container['message']) > 400)) {
+                $invalidProperties[] = "invalid value for 'message', the character length must be smaller than or equal to 400.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['message']) && (mb_strlen($this->container['message']) > 400)) {
-            $invalidProperties[] = "invalid value for 'message', the character length must be smaller than or equal to 400.";
         }
-
         return $invalidProperties;
     }
 
@@ -449,11 +473,13 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAmount($amount)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($amount > 999999.99)) {
-            throw new \InvalidArgumentException('invalid value for $amount when calling CheckEditable., must be smaller than or equal to 999999.99.');
+            if (($amount > 999999.99)) {
+                throw new \InvalidArgumentException('invalid value for $amount when calling CheckEditable., must be smaller than or equal to 999999.99.');
+            }
+
         }
-
         $this->container['amount'] = $amount;
 
         return $this;
@@ -554,10 +580,12 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling CheckEditable., must be smaller than or equal to 255.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling CheckEditable., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -583,8 +611,10 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -610,8 +640,10 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMergeVariables($merge_variables)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['merge_variables'] = $merge_variables;
 
         return $this;
@@ -663,14 +695,16 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setMailType($mail_type)
     {
         $allowedValues = $this->getMailTypeAllowableValues();
-        if (!is_null($mail_type) && !in_array($mail_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'mail_type', must be one of '%s'",
-                    $mail_type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($mail_type) && !in_array($mail_type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'mail_type', must be one of '%s'",
+                        $mail_type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['mail_type'] = $mail_type;
@@ -698,10 +732,12 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMemo($memo)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($memo) && (mb_strlen($memo) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $memo when calling CheckEditable., must be smaller than or equal to 40.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($memo) && (mb_strlen($memo) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $memo when calling CheckEditable., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['memo'] = $memo;
 
         return $this;
@@ -727,14 +763,16 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCheckNumber($check_number)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($check_number) && ($check_number > 500000000)) {
-            throw new \InvalidArgumentException('invalid value for $check_number when calling CheckEditable., must be smaller than or equal to 500000000.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($check_number) && ($check_number < 1)) {
-            throw new \InvalidArgumentException('invalid value for $check_number when calling CheckEditable., must be bigger than or equal to 1.');
-        }
+            if (!is_null($check_number) && ($check_number > 500000000)) {
+                throw new \InvalidArgumentException('invalid value for $check_number when calling CheckEditable., must be smaller than or equal to 500000000.');
+            }
+            if (!is_null($check_number) && ($check_number < 1)) {
+                throw new \InvalidArgumentException('invalid value for $check_number when calling CheckEditable., must be bigger than or equal to 1.');
+            }
 
+        }
         $this->container['check_number'] = $check_number;
 
         return $this;
@@ -760,10 +798,12 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMessage($message)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($message) && (mb_strlen($message) > 400)) {
-            throw new \InvalidArgumentException('invalid length for $message when calling CheckEditable., must be smaller than or equal to 400.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($message) && (mb_strlen($message) > 400)) {
+                throw new \InvalidArgumentException('invalid length for $message when calling CheckEditable., must be smaller than or equal to 400.');
+            }
 
+        }
         $this->container['message'] = $message;
 
         return $this;

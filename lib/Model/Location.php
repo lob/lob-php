@@ -197,28 +197,36 @@ class Location implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['latitude'] === null) {
-            $invalidProperties[] = "'latitude' can't be null";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['latitude'] === null) {
+                $invalidProperties[] = "'latitude' can't be null";
+            }
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['latitude'] > 90)) {
-            $invalidProperties[] = "invalid value for 'latitude', must be smaller than or equal to 90.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (($this->container['latitude'] > 90)) {
+                $invalidProperties[] = "invalid value for 'latitude', must be smaller than or equal to 90.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['latitude'] < -90)) {
-            $invalidProperties[] = "invalid value for 'latitude', must be bigger than or equal to -90.";
-        }
+            if (($this->container['latitude'] < -90)) {
+                $invalidProperties[] = "invalid value for 'latitude', must be bigger than or equal to -90.";
+            }
 
-        if ($this->container['longitude'] === null) {
-            $invalidProperties[] = "'longitude' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['longitude'] > 180)) {
-            $invalidProperties[] = "invalid value for 'longitude', must be smaller than or equal to 180.";
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['longitude'] === null) {
+                $invalidProperties[] = "'longitude' can't be null";
+            }
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (($this->container['longitude'] > 180)) {
+                $invalidProperties[] = "invalid value for 'longitude', must be smaller than or equal to 180.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['longitude'] < -180)) {
-            $invalidProperties[] = "invalid value for 'longitude', must be bigger than or equal to -180.";
-        }
+            if (($this->container['longitude'] < -180)) {
+                $invalidProperties[] = "invalid value for 'longitude', must be bigger than or equal to -180.";
+            }
 
+        }
         return $invalidProperties;
     }
 
@@ -254,14 +262,16 @@ class Location implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setLatitude($latitude)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($latitude > 90)) {
-            throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be smaller than or equal to 90.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && ($latitude < -90)) {
-            throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be bigger than or equal to -90.');
-        }
+            if (($latitude > 90)) {
+                throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be smaller than or equal to 90.');
+            }
+            if (($latitude < -90)) {
+                throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be bigger than or equal to -90.');
+            }
 
+        }
         $this->container['latitude'] = $latitude;
 
         return $this;
@@ -287,14 +297,16 @@ class Location implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setLongitude($longitude)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($longitude > 180)) {
-            throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be smaller than or equal to 180.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && ($longitude < -180)) {
-            throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be bigger than or equal to -180.');
-        }
+            if (($longitude > 180)) {
+                throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be smaller than or equal to 180.');
+            }
+            if (($longitude < -180)) {
+                throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be bigger than or equal to -180.');
+            }
 
+        }
         $this->container['longitude'] = $longitude;
 
         return $this;

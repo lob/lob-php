@@ -216,25 +216,31 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^us_auto_[a-zA-Z0-9]+$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['id']) && !preg_match("/^us_auto_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['suggestions']) && (count($this->container['suggestions']) > 10)) {
-            $invalidProperties[] = "invalid value for 'suggestions', number of items must be less than or equal to 10.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['suggestions']) && (count($this->container['suggestions']) > 10)) {
+                $invalidProperties[] = "invalid value for 'suggestions', number of items must be less than or equal to 10.";
+            }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['suggestions']) && (count($this->container['suggestions']) < 0)) {
-            $invalidProperties[] = "invalid value for 'suggestions', number of items must be greater than or equal to 0.";
+            if (!is_null($this->container['suggestions']) && (count($this->container['suggestions']) < 0)) {
+                $invalidProperties[] = "invalid value for 'suggestions', number of items must be greater than or equal to 0.";
+            }
+
         }
-
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'object', must be one of '%s'",
-                $this->container['object'],
-                implode("', '", $allowedValues)
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'object', must be one of '%s'",
+                    $this->container['object'],
+                    implode("', '", $allowedValues)
+                );
+            }
         }
 
         return $invalidProperties;
@@ -272,11 +278,13 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setId($id)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^us_auto_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling UsAutocompletions., must conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^us_auto_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling UsAutocompletions., must conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -302,12 +310,14 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setSuggestions($suggestions)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($suggestions) && (count($suggestions) > 10)) {
-            throw new \InvalidArgumentException('invalid value for $suggestions when calling UsAutocompletions., number of items must be less than or equal to 10.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($suggestions) && (count($suggestions) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $suggestions when calling UsAutocompletions., number of items must be greater than or equal to 0.');
+            if (!is_null($suggestions) && (count($suggestions) > 10)) {
+                throw new \InvalidArgumentException('invalid value for $suggestions when calling UsAutocompletions., number of items must be less than or equal to 10.');
+            }
+            if (!is_null($suggestions) && (count($suggestions) < 0)) {
+                throw new \InvalidArgumentException('invalid length for $suggestions when calling UsAutocompletions., number of items must be greater than or equal to 0.');
+            }
         }
         $this->container['suggestions'] = [];
         if ($suggestions) {
@@ -342,14 +352,16 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;
