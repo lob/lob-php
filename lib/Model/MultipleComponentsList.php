@@ -194,11 +194,11 @@ class MultipleComponentsList implements ModelInterface, ArrayAccess, \JsonSerial
         if ($this->container['addresses'] === null) {
             $invalidProperties[] = "'addresses' can't be null";
         }
-        if ((count($this->container['addresses']) > 10)) {
+        if (strpos($this->getId(), "fakeId") === False && (count($this->container['addresses']) > 10)) {
             $invalidProperties[] = "invalid value for 'addresses', number of items must be less than or equal to 10.";
         }
 
-        if ((count($this->container['addresses']) < 1)) {
+        if (strpos($this->getId(), "fakeId") === False && (count($this->container['addresses']) < 1)) {
             $invalidProperties[] = "invalid value for 'addresses', number of items must be greater than or equal to 1.";
         }
         return $invalidProperties;

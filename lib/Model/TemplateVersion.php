@@ -265,14 +265,14 @@ class TemplateVersion implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
         if ($this->container['html'] === null) {
             $invalidProperties[] = "'html' can't be null";
         }
-        if ((mb_strlen($this->container['html']) > 100000)) {
+        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['html']) > 100000)) {
             $invalidProperties[] = "invalid value for 'html', the character length must be smaller than or equal to 100000.";
         }
 

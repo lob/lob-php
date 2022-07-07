@@ -296,19 +296,19 @@ class UsVerificationOrError implements ModelInterface, ArrayAccess, \JsonSeriali
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_ver_[a-zA-Z0-9_]+$/.";
         }
 
-        if (!is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
             $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
         }
 
-        if (!is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 500)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 500)) {
             $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 500.";
         }
 
-        if (!is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
             $invalidProperties[] = "invalid value for 'secondary_line', the character length must be smaller than or equal to 500.";
         }
 
-        if (!is_null($this->container['urbanization']) && (mb_strlen($this->container['urbanization']) > 500)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['urbanization']) && (mb_strlen($this->container['urbanization']) > 500)) {
             $invalidProperties[] = "invalid value for 'urbanization', the character length must be smaller than or equal to 500.";
         }
 

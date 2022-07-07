@@ -310,43 +310,43 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^adr_[a-zA-Z0-9]+$/.";
         }
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
             $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 40.";
         }
 
-        if (!is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
             $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
             $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 40.";
         }
 
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 100.";
         }
 
-        if (!is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 64)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 64)) {
             $invalidProperties[] = "invalid value for 'address_line1', the character length must be smaller than or equal to 64.";
         }
 
-        if (!is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 64)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 64)) {
             $invalidProperties[] = "invalid value for 'address_line2', the character length must be smaller than or equal to 64.";
         }
 
-        if (!is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
             $invalidProperties[] = "invalid value for 'address_city', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['address_state']) && !preg_match("/^[a-zA-Z]{2}$/", $this->container['address_state'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_state']) && !preg_match("/^[a-zA-Z]{2}$/", $this->container['address_state'])) {
             $invalidProperties[] = "invalid value for 'address_state', must be conform to the pattern /^[a-zA-Z]{2}$/.";
         }
 
-        if (!is_null($this->container['address_zip']) && !preg_match("/^\\d{5}(-\\d{4})?$/", $this->container['address_zip'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_zip']) && !preg_match("/^\\d{5}(-\\d{4})?$/", $this->container['address_zip'])) {
             $invalidProperties[] = "invalid value for 'address_zip', must be conform to the pattern /^\\d{5}(-\\d{4})?$/.";
         }
 

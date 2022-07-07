@@ -440,11 +440,11 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['tracking_events']) && (count($this->container['tracking_events']) > 0)) {
             $invalidProperties[] = "invalid value for 'tracking_events', number of items must be less than or equal to 0.";
         }
 

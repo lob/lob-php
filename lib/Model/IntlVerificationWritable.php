@@ -233,27 +233,27 @@ class IntlVerificationWritable implements ModelInterface, ArrayAccess, \JsonSeri
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
             $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
         }
 
-        if (!is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 200)) {
             $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
             $invalidProperties[] = "invalid value for 'secondary_line', the character length must be smaller than or equal to 500.";
         }
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['postal_code']) && (mb_strlen($this->container['postal_code']) > 12)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['postal_code']) && (mb_strlen($this->container['postal_code']) > 12)) {
             $invalidProperties[] = "invalid value for 'postal_code', the character length must be smaller than or equal to 12.";
         }
 
-        if (!is_null($this->container['address']) && (mb_strlen($this->container['address']) > 500)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address']) && (mb_strlen($this->container['address']) > 500)) {
             $invalidProperties[] = "invalid value for 'address', the character length must be smaller than or equal to 500.";
         }
 

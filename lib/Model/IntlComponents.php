@@ -216,15 +216,15 @@ class IntlComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
-        if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 2)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['state']) && (mb_strlen($this->container['state']) > 2)) {
             $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 2.";
         }
 
-        if (!is_null($this->container['postal_code']) && (mb_strlen($this->container['postal_code']) > 12)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['postal_code']) && (mb_strlen($this->container['postal_code']) > 12)) {
             $invalidProperties[] = "invalid value for 'postal_code', the character length must be smaller than or equal to 12.";
         }
 
