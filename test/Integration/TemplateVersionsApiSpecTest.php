@@ -54,6 +54,7 @@ class TemplateVersionsApiSpecTest extends TestCase
     private static $config;
     private static $templatesApi;
     private static $templateVersionsApi;
+    private static $invalidTemplateVersionsApi;
     private static $tmplId;
     private static $writableTemplateVersion;
     private static $errorTemplateVersion;
@@ -80,6 +81,9 @@ class TemplateVersionsApiSpecTest extends TestCase
 
         // create instance of TemplateVersionsApi & an editable template for other tests
         self::$templateVersionsApi = new TemplateVersionsApi(self::$config);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        self::$invalidTemplateVersionsApi = new TemplateVersionsApi($wrongConfig);
 
         self::$writableTemplateVersion = new TemplateVersionWritable();
         self::$writableTemplateVersion->setDescription("PHP Test Template");
@@ -116,166 +120,202 @@ class TemplateVersionsApiSpecTest extends TestCase
 
 
     public function testTemplateVersionsApiInstantiation200() {
-        try {
-            $templateVersionsApi200 = new TemplateVersionsApi(self::$config);
-            $this->assertEquals(gettype($templateVersionsApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $templateVersionsApi200 = new TemplateVersionsApi(self::$config);
+        $this->assertEquals(gettype($templateVersionsApi200), 'object');
     }
 
     public function testCreate200()
     {
-        try {
-            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-            $this->assertMatchesRegularExpression('/vrsn_/', $createdTemplateVersion->getId());
-            array_push($this->idsForCleanup, $createdTemplateVersion->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+        $this->assertMatchesRegularExpression('/vrsn_/', $createdTemplateVersion->getId());
+        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
     }
 
     // does not include required field in request
     public function testCreate422()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/html is required/");
-            $errorResponse = self::$templateVersionsApi->create(self::$tmplId, self::$errorTemplateVersion);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/html is required/");
+        $errorResponse = self::$templateVersionsApi->create(self::$tmplId, self::$errorTemplateVersion);
     }
 
     // uses a bad key to attempt to send a request
     public function testTemplateVersionsApi401() {
-        try {
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', 'BAD KEY');
-            $templateVersionsApiError = new TemplateVersionsApi($wrongConfig);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        $templateVersionsApiError = new TemplateVersionsApi($wrongConfig);
 
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-            $errorResponse = $templateVersionsApiError->create(self::$tmplId, self::$writableTemplateVersion);
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = $templateVersionsApiError->create(self::$tmplId, self::$writableTemplateVersion);
     }
 
     public function testGet200()
     {
-        try {
-            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-            $retrievedTemplateVersion = self::$templateVersionsApi->get(self::$tmplId, $createdTemplateVersion->getId());
-            $this->assertEquals($createdTemplateVersion->getDescription(), $retrievedTemplateVersion->getDescription());
-            array_push($this->idsForCleanup, $createdTemplateVersion->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+        $retrievedTemplateVersion = self::$templateVersionsApi->get(self::$tmplId, $createdTemplateVersion->getId());
+        $this->assertEquals($createdTemplateVersion->getDescription(), $retrievedTemplateVersion->getDescription());
+        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+    }
+
+    public function testGet0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $badRetrieval = self::$templateVersionsApi->get(null, null);
+    }
+
+    public function testGet401()
+    {
+        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidTemplateVersionsApi->get(self::$tmplId, $createdTemplateVersion->getId());
     }
 
     public function testGet404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/template version not found/");
-            $badRetrieval = self::$templateVersionsApi->get(self::$tmplId, "vrsn_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/template version not found/");
+        $badRetrieval = self::$templateVersionsApi->get(self::$tmplId, "vrsn_NONEXISTENT");
     }
 
     public function testUpdate200()
     {
-        try {
-            $templateVersionUpdate = new TemplateVersionUpdatable();
-            $templateVersionUpdate->setDescription("Updated Template");
-            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-            $retrievedTemplateVersion = self::$templateVersionsApi->update(self::$tmplId, $createdTemplateVersion->getId(), $templateVersionUpdate);
-            $this->assertEquals("Updated Template", $retrievedTemplateVersion->getDescription());
-            array_push($this->idsForCleanup, $createdTemplateVersion->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $templateVersionUpdate = new TemplateVersionUpdatable();
+        $templateVersionUpdate->setDescription("Updated Template");
+        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+        $retrievedTemplateVersion = self::$templateVersionsApi->update(self::$tmplId, $createdTemplateVersion->getId(), $templateVersionUpdate);
+        $this->assertEquals("Updated Template", $retrievedTemplateVersion->getDescription());
+        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+    }
+
+    public function testUpdate0()
+    {
+        $templateVersionUpdate = new templateVersionUpdatable();
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $retrievedTemplateVersion = self::$templateVersionsApi->update(self::$tmplId, null, $templateVersionUpdate);
+    }
+
+    public function testUpdate401()
+    {
+        $templateVersionUpdate = new TemplateVersionUpdatable();
+        $templateVersionUpdate->setDescription("Updated Template");
+        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+
+        $templateVersionUpdate = new templateVersionUpdatable();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $retrievedTemplateVersion = self::$invalidTemplateVersionsApi->update(self::$tmplId, $createdTemplateVersion->getId(), $templateVersionUpdate);
+    }
+
+    public function testUpdate404()
+    {
+        $templateVersionUpdate = new templateVersionUpdatable();
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/template not found/");
+        $retrievedTemplate = self::$templateVersionsApi->update("tmpl_fakeId", "vrsn_fakeId", $templateVersionUpdate);
     }
 
     public function testList200()
     {
         $nextUrl = "";
         $previousUrl = "";
-        try {
-            $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
-            $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
-            $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
-            $listedTemplateVersions = self::$templateVersionsApi->list(self::$tmplId, 3);
-            $this->assertGreaterThan(1, count($listedTemplateVersions->getData()));
-            $this->assertLessThanOrEqual(3, count($listedTemplateVersions->getData()));
-            $nextUrl = substr($listedTemplateVersions->getNextUrl(), strrpos($listedTemplateVersions->getNextUrl(), "after=") + 6);
-            $this->assertIsString($nextUrl);
-            array_push($this->idsForCleanup, $tv1->getId());
-            array_push($this->idsForCleanup, $tv2->getId());
-            array_push($this->idsForCleanup, $tv3->getId());
-        } catch (Exception $listError) {
-            echo 'Caught exception: ',  $listError->getMessage(), "\n";
-        }
+        $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
+        $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
+        $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
+        $listedTemplateVersions = self::$templateVersionsApi->list(self::$tmplId, 3);
+        $this->assertGreaterThan(1, count($listedTemplateVersions->getData()));
+        $this->assertLessThanOrEqual(3, count($listedTemplateVersions->getData()));
+        $nextUrl = substr($listedTemplateVersions->getNextUrl(), strrpos($listedTemplateVersions->getNextUrl(), "after=") + 6);
+        $this->assertIsString($nextUrl);
+        array_push($this->idsForCleanup, $tv1->getId());
+        array_push($this->idsForCleanup, $tv2->getId());
+        array_push($this->idsForCleanup, $tv3->getId());
 
         // response using nextUrl
         if ($nextUrl != "") {
-            try {
-                $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
-                $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
-                $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
-                $listedTemplateVersionsAfter = self::$templateVersionsApi->list(self::$tmplId, 3, null, $nextUrl);
-                $this->assertGreaterThanOrEqual(1, count($listedTemplateVersionsAfter->getData()));
-                $this->assertLessThanOrEqual(3, count($listedTemplateVersionsAfter->getData()));
-                $previousUrl = substr($listedTemplateVersionsAfter->getPreviousUrl(), strrpos($listedTemplateVersionsAfter->getPreviousUrl(), "before=") + 7);
-                $this->assertIsString($previousUrl);
-                array_push($this->idsForCleanup, $tv1->getId());
-                array_push($this->idsForCleanup, $tv2->getId());
-                array_push($this->idsForCleanup, $tv3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
+            $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
+            $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
+            $listedTemplateVersionsAfter = self::$templateVersionsApi->list(self::$tmplId, 3, null, $nextUrl);
+            $this->assertGreaterThanOrEqual(1, count($listedTemplateVersionsAfter->getData()));
+            $this->assertLessThanOrEqual(3, count($listedTemplateVersionsAfter->getData()));
+            $previousUrl = substr($listedTemplateVersionsAfter->getPreviousUrl(), strrpos($listedTemplateVersionsAfter->getPreviousUrl(), "before=") + 7);
+            $this->assertIsString($previousUrl);
+            array_push($this->idsForCleanup, $tv1->getId());
+            array_push($this->idsForCleanup, $tv2->getId());
+            array_push($this->idsForCleanup, $tv3->getId());
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            try {
-                $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
-                $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
-                $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
-                $listedTemplateVersionsBefore = self::$templateVersionsApi->list(self::$tmplId, 3, $previousUrl);
-                $this->assertGreaterThan(1, count($listedTemplateVersionsBefore->getData()));
-                $this->assertLessThanOrEqual(3, count($listedTemplateVersionsBefore->getData()));
-                array_push($this->idsForCleanup, $tv1->getId());
-                array_push($this->idsForCleanup, $tv2->getId());
-                array_push($this->idsForCleanup, $tv3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
-            }
+            $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
+            $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
+            $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
+            $listedTemplateVersionsBefore = self::$templateVersionsApi->list(self::$tmplId, 3, $previousUrl);
+            $this->assertGreaterThan(1, count($listedTemplateVersionsBefore->getData()));
+            $this->assertLessThanOrEqual(3, count($listedTemplateVersionsBefore->getData()));
+            array_push($this->idsForCleanup, $tv1->getId());
+            array_push($this->idsForCleanup, $tv2->getId());
+            array_push($this->idsForCleanup, $tv3->getId());
         }
     }
 
+    public function provider()
+    {
+        return array(
+            // array(self::$tmplId, null, null, null, array("total_count"), null), // include
+            // array(self::$tmplId, null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400)))), // date_created
+        );
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testListWithParams($tmpl_id, $limit, $before, $after, $include, $date_created)
+    {
+        // create template versions to list
+        $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
+        $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
+        $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
+
+        // cancel created template versions
+        array_push($this->idsForCleanup, $tv1->getId());
+        array_push($this->idsForCleanup, $tv2->getId());
+        array_push($this->idsForCleanup, $tv3->getId());
+
+        $listedTemplateVersions = self::$templateApi->list($tmpl_id, $limit, $before, $after, $include, $date_created);
+
+        $this->assertGreaterThan(0, $listedTemplateVersions->getCount());
+        if ($include) $this->assertNotNull($listedTemplateVersions->getTotalCount());
+    }
     public function testDelete200()
     {
-        try {
-            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-            $deletedTemplateVersion = self::$templateVersionsApi->delete(self::$tmplId, $createdTemplateVersion->getId());
-            $this->assertEquals(true, $deletedTemplateVersion->getDeleted());
-            $this->assertMatchesRegularExpression('/vrsn_/', $deletedTemplateVersion->getId());
-        } catch (Exception $deleteError) {
-            echo 'Caught exception: ',  $deleteError->getMessage(), "\n";
-        }
+        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+        $deletedTemplateVersion = self::$templateVersionsApi->delete(self::$tmplId, $createdTemplateVersion->getId());
+        $this->assertEquals(true, $deletedTemplateVersion->getDeleted());
+        $this->assertMatchesRegularExpression('/vrsn_/', $deletedTemplateVersion->getId());
+    }
+
+    public function testDelete401()
+    {
+        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $deletedTemplateVersion = self::$invalidTemplateVersionsApi->delete(self::$tmplId, $createdTemplateVersion->getId());
     }
 
     public function testDelete404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/template version cannot be deleted/");
-            $badDeletion = self::$templateVersionsApi->delete(self::$tmplId, "vrsn_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/template version cannot be deleted/");
+        $badDeletion = self::$templateVersionsApi->delete(self::$tmplId, "vrsn_NONEXISTENT");
     }
 }
