@@ -306,7 +306,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['amount'] === null) {
             $invalidProperties[] = "'amount' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['amount'] > 999999.99)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && ($this->container['amount'] > 999999.99)) {
             $invalidProperties[] = "invalid value for 'amount', must be smaller than or equal to 999999.99.";
         }
 
@@ -327,11 +327,11 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'memo', the character length must be smaller than or equal to 40.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['check_number']) && ($this->container['check_number'] > 500000000)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['check_number']) && ($this->container['check_number'] > 500000000)) {
             $invalidProperties[] = "invalid value for 'check_number', must be smaller than or equal to 500000000.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['check_number']) && ($this->container['check_number'] < 1)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['check_number']) && ($this->container['check_number'] < 1)) {
             $invalidProperties[] = "invalid value for 'check_number', must be bigger than or equal to 1.";
         }
 

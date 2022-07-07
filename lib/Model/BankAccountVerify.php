@@ -194,13 +194,14 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['amounts'] === null) {
             $invalidProperties[] = "'amounts' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (count($this->container['amounts']) > 2)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (count($this->container['amounts']) > 2)) {
             $invalidProperties[] = "invalid value for 'amounts', number of items must be less than or equal to 2.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && (count($this->container['amounts']) < 2)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (count($this->container['amounts']) < 2)) {
             $invalidProperties[] = "invalid value for 'amounts', number of items must be greater than or equal to 2.";
         }
+
         return $invalidProperties;
     }
 

@@ -297,7 +297,7 @@ class AddressDomesticExpanded implements ModelInterface, ArrayAccess, \JsonSeria
             $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 100.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_country']) && !preg_match("/UNITED STATES/", $this->container['address_country'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['address_country']) && !preg_match("/UNITED STATES/", $this->container['address_country'])) {
             $invalidProperties[] = "invalid value for 'address_country', must be conform to the pattern /UNITED STATES/.";
         }
 

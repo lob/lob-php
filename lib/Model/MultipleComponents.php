@@ -254,7 +254,7 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
             $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 50.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['zip_code']) && !preg_match("/^\\d{5}((-)?\\d{4})?$/", $this->container['zip_code'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['zip_code']) && !preg_match("/^\\d{5}((-)?\\d{4})?$/", $this->container['zip_code'])) {
             $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}((-)?\\d{4})?$/.";
         }
 

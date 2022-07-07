@@ -359,13 +359,14 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
             $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
             $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
         }
+
         return $invalidProperties;
     }
 

@@ -217,7 +217,7 @@ class BankAccountDeletion implements ModelInterface, ArrayAccess, \JsonSerializa
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^bank_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['id']) && !preg_match("/^bank_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^bank_[a-zA-Z0-9]+$/.";
         }
 

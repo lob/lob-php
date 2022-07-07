@@ -207,22 +207,22 @@ class LocationAnalysis implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['latitude'] === null) {
             $invalidProperties[] = "'latitude' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['latitude'] > 90)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && ($this->container['latitude'] > 90)) {
             $invalidProperties[] = "invalid value for 'latitude', must be smaller than or equal to 90.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['latitude'] < -90)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && ($this->container['latitude'] < -90)) {
             $invalidProperties[] = "invalid value for 'latitude', must be bigger than or equal to -90.";
         }
 
         if ($this->container['longitude'] === null) {
             $invalidProperties[] = "'longitude' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['longitude'] > 180)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && ($this->container['longitude'] > 180)) {
             $invalidProperties[] = "invalid value for 'longitude', must be smaller than or equal to 180.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['longitude'] < -180)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && ($this->container['longitude'] < -180)) {
             $invalidProperties[] = "invalid value for 'longitude', must be bigger than or equal to -180.";
         }
 

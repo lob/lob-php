@@ -232,7 +232,7 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be smaller than or equal to 9.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['routing_number']) < 9)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (mb_strlen($this->container['routing_number']) < 9)) {
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be bigger than or equal to 9.";
         }
 

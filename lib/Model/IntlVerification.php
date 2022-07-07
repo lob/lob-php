@@ -339,7 +339,7 @@ class IntlVerification implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^intl_ver_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['id']) && !preg_match("/^intl_ver_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^intl_ver_[a-zA-Z0-9]+$/.";
         }
 

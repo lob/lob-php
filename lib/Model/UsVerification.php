@@ -285,7 +285,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^us_ver_[a-zA-Z0-9_]+$/", $this->container['id'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['id']) && !preg_match("/^us_ver_[a-zA-Z0-9_]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_ver_[a-zA-Z0-9_]+$/.";
         }
 

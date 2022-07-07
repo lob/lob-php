@@ -201,7 +201,7 @@ class TemplateUpdate implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['published_version']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['published_version'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['published_version']) && !preg_match("/^vrsn_[a-zA-Z0-9]+$/", $this->container['published_version'])) {
             $invalidProperties[] = "invalid value for 'published_version', must be conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.";
         }
 

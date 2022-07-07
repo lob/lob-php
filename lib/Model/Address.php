@@ -306,7 +306,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^adr_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['id']) && !preg_match("/^adr_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^adr_[a-zA-Z0-9]+$/.";
         }
 
@@ -342,11 +342,11 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'address_city', the character length must be smaller than or equal to 200.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_state']) && !preg_match("/^[a-zA-Z]{2}$/", $this->container['address_state'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['address_state']) && !preg_match("/^[a-zA-Z]{2}$/", $this->container['address_state'])) {
             $invalidProperties[] = "invalid value for 'address_state', must be conform to the pattern /^[a-zA-Z]{2}$/.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['address_zip']) && !preg_match("/^\\d{5}(-\\d{4})?$/", $this->container['address_zip'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !is_null($this->container['address_zip']) && !preg_match("/^\\d{5}(-\\d{4})?$/", $this->container['address_zip'])) {
             $invalidProperties[] = "invalid value for 'address_zip', must be conform to the pattern /^\\d{5}(-\\d{4})?$/.";
         }
 

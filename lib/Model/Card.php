@@ -360,7 +360,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^card_[a-zA-Z0-9]+$/", $this->container['id'])) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && !preg_match("/^card_[a-zA-Z0-9]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^card_[a-zA-Z0-9]+$/.";
         }
 
@@ -371,7 +371,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['url']) < 1)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (mb_strlen($this->container['url']) < 1)) {
             $invalidProperties[] = "invalid value for 'url', the character length must be bigger than or equal to 1.";
         }
 
@@ -388,7 +388,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'raw_url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['raw_url']) < 1)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (mb_strlen($this->container['raw_url']) < 1)) {
             $invalidProperties[] = "invalid value for 'raw_url', the character length must be bigger than or equal to 1.";
         }
 
@@ -399,7 +399,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'front_original_url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['front_original_url']) < 1)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (mb_strlen($this->container['front_original_url']) < 1)) {
             $invalidProperties[] = "invalid value for 'front_original_url', the character length must be bigger than or equal to 1.";
         }
 
@@ -410,7 +410,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'back_original_url', the character length must be smaller than or equal to 2083.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['back_original_url']) < 1)) {
+        if ((!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) && (mb_strlen($this->container['back_original_url']) < 1)) {
             $invalidProperties[] = "invalid value for 'back_original_url', the character length must be bigger than or equal to 1.";
         }
 
