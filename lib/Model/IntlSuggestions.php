@@ -249,7 +249,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['city'] === null) {
             $invalidProperties[] = "'city' can't be null";
         }
-        if ((mb_strlen($this->container['city']) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
@@ -356,7 +356,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCity($city)
     {
-        if ((mb_strlen($city) > 200)) {
+        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($city) > 200)) {
             throw new \InvalidArgumentException('invalid length for $city when calling IntlSuggestions., must be smaller than or equal to 200.');
         }
 

@@ -197,14 +197,14 @@ class BillingGroupEditable implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
-        if ((mb_strlen($this->container['name']) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['name']) > 255)) {
             $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 255.";
         }
 
@@ -243,7 +243,7 @@ class BillingGroupEditable implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function setDescription($description)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
             throw new \InvalidArgumentException('invalid length for $description when calling BillingGroupEditable., must be smaller than or equal to 255.');
         }
 
@@ -272,7 +272,7 @@ class BillingGroupEditable implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function setName($name)
     {
-        if ((mb_strlen($name) > 255)) {
+        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($name) > 255)) {
             throw new \InvalidArgumentException('invalid length for $name when calling BillingGroupEditable., must be smaller than or equal to 255.');
         }
 

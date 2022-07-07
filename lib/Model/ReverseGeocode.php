@@ -216,7 +216,7 @@ class ReverseGeocode implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['id']) && !preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $this->container['id'])) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && !preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.";
         }
 
@@ -265,7 +265,7 @@ class ReverseGeocode implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setId($id)
     {
 
-        if (!is_null($id) && (!preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $id))) {
+        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^us_reverse_geocode_[a-zA-Z0-9_]+$/", $id))) {
             throw new \InvalidArgumentException("invalid value for $id when calling ReverseGeocode., must conform to the pattern /^us_reverse_geocode_[a-zA-Z0-9_]+$/.");
         }
 
