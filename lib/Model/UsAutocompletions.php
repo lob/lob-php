@@ -220,14 +220,13 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['suggestions']) && (count($this->container['suggestions']) > 10)) {
+        if (!is_null($this->container['suggestions']) && (count($this->container['suggestions']) > 10)) {
             $invalidProperties[] = "invalid value for 'suggestions', number of items must be less than or equal to 10.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['suggestions']) && (count($this->container['suggestions']) < 0)) {
+        if (!is_null($this->container['suggestions']) && (count($this->container['suggestions']) < 0)) {
             $invalidProperties[] = "invalid value for 'suggestions', number of items must be greater than or equal to 0.";
         }
-
         $allowedValues = $this->getObjectAllowableValues();
         if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(

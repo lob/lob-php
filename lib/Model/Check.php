@@ -390,7 +390,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['to'] === null) {
             $invalidProperties[] = "'to' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
@@ -403,26 +403,26 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['memo']) && (mb_strlen($this->container['memo']) > 40)) {
+        if (!is_null($this->container['memo']) && (mb_strlen($this->container['memo']) > 40)) {
             $invalidProperties[] = "invalid value for 'memo', the character length must be smaller than or equal to 40.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['check_number']) && ($this->container['check_number'] > 500000000)) {
+        if (!is_null($this->container['check_number']) && ($this->container['check_number'] > 500000000)) {
             $invalidProperties[] = "invalid value for 'check_number', must be smaller than or equal to 500000000.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['check_number']) && ($this->container['check_number'] < 1)) {
+        if (!is_null($this->container['check_number']) && ($this->container['check_number'] < 1)) {
             $invalidProperties[] = "invalid value for 'check_number', must be bigger than or equal to 1.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['message']) && (mb_strlen($this->container['message']) > 400)) {
+        if (!is_null($this->container['message']) && (mb_strlen($this->container['message']) > 400)) {
             $invalidProperties[] = "invalid value for 'message', the character length must be smaller than or equal to 400.";
         }
 
         if ($this->container['amount'] === null) {
             $invalidProperties[] = "'amount' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && ($this->container['amount'] > 999999.99)) {
+        if (($this->container['amount'] > 999999.99)) {
             $invalidProperties[] = "invalid value for 'amount', must be smaller than or equal to 999999.99.";
         }
 
@@ -448,7 +448,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && !preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
+        if (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
             $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
         }
 

@@ -297,25 +297,25 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
         if ($this->container['routing_number'] === null) {
             $invalidProperties[] = "'routing_number' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['routing_number']) > 9)) {
+        if ((mb_strlen($this->container['routing_number']) > 9)) {
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be smaller than or equal to 9.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['routing_number']) < 9)) {
+        if ((mb_strlen($this->container['routing_number']) < 9)) {
             $invalidProperties[] = "invalid value for 'routing_number', the character length must be bigger than or equal to 9.";
         }
 
         if ($this->container['account_number'] === null) {
             $invalidProperties[] = "'account_number' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['account_number']) > 17)) {
+        if ((mb_strlen($this->container['account_number']) > 17)) {
             $invalidProperties[] = "invalid value for 'account_number', the character length must be smaller than or equal to 17.";
         }
 
@@ -334,7 +334,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['signatory'] === null) {
             $invalidProperties[] = "'signatory' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['signatory']) > 30)) {
+        if ((mb_strlen($this->container['signatory']) > 30)) {
             $invalidProperties[] = "invalid value for 'signatory', the character length must be smaller than or equal to 30.";
         }
 
@@ -345,7 +345,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^bank_[a-zA-Z0-9]+$/.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['signature_url']) && !preg_match("/^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['signature_url'])) {
+        if (!is_null($this->container['signature_url']) && !preg_match("/^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['signature_url'])) {
             $invalidProperties[] = "invalid value for 'signature_url', must be conform to the pattern /^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
         }
 

@@ -218,14 +218,14 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['city'] === null) {
             $invalidProperties[] = "'city' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['city']) > 200)) {
+        if ((mb_strlen($this->container['city']) > 200)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
         }
 
         if ($this->container['state'] === null) {
             $invalidProperties[] = "'state' can't be null";
         }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($this->container['state']) > 2)) {
+        if ((mb_strlen($this->container['state']) > 2)) {
             $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 2.";
         }
 

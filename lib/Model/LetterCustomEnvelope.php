@@ -217,7 +217,7 @@ class LetterCustomEnvelope implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['id']) && (mb_strlen($this->container['id']) > 40)) {
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 40)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 40.";
         }
 

@@ -325,7 +325,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
 
@@ -359,14 +359,13 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
+        if (!is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
             $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
         }
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
+        if (!is_null($this->container['cards']) && (count($this->container['cards']) < 0)) {
             $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
         }
-
         return $invalidProperties;
     }
 
