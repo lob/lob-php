@@ -58,7 +58,7 @@ class UsAutocompletionsApiSpecTest extends TestCase
     {
         // create instance of UsAutocompletionsApiSpecTest & an editable address for other tests
         self::$config = new Configuration();
-        self::$config->setApiKey('basic', getenv('LOB_API_LIVE_KEY'));
+        self::$config->setApiKey("basic", getenv("LOB_API_LIVE_KEY"));
         self::$usAutocompletionApi = new UsAutocompletionsApi(self::$config);
 
         self::$autocompletionWritable = new UsAutocompletionsWritable();
@@ -70,60 +70,66 @@ class UsAutocompletionsApiSpecTest extends TestCase
     }
 
     public function testUsAutocompletionsApiInstantiation200() {
-        try {
-            $usAutocompletionApi = new UsAutocompletionsApi(self::$config);
-            $this->assertEquals(gettype($usAutocompletionApi), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $usAutocompletionApi = new UsAutocompletionsApi(self::$config);
+        $this->assertEquals(gettype($usAutocompletionApi), "object");
     }
 
     public function testUsAutocompletion()
     {
-        try {
-            $usAutocompletionObject = self::$usAutocompletionApi->autocomplete(self::$autocompletionWritable);
-            $this->assertMatchesRegularExpression('/us_auto_/', $usAutocompletionObject->getId());
-            $this->assertGreaterThan(0, count($usAutocompletionObject->getSuggestions()));
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $usAutocompletionObject = self::$usAutocompletionApi->autocomplete(self::$autocompletionWritable);
+        $this->assertMatchesRegularExpression("/us_auto_/", $usAutocompletionObject->getId());
+        $this->assertGreaterThan(0, count($usAutocompletionObject->getSuggestions()));
     }
 
     public function testUsAutocompletionTestKey()
     {
-        try {
-            $testAutocompletion = new UsAutocompletionsWritable();
-            $testAutocompletion->setAddressPrefix("1313 T");
-            $testAutocompletion->setState("NJ");
-            $testAutocompletion->setGeoIpSort(false);
+        $testAutocompletion = new UsAutocompletionsWritable();
+        $testAutocompletion->setAddressPrefix("1313 T");
+        $testAutocompletion->setState("NJ");
+        $testAutocompletion->setGeoIpSort(false);
 
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
-            $autocompletionApiError = new UsAutocompletionsApi($wrongConfig);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey("basic", getenv("LOB_API_TEST_KEY"));
+        $autocompletionApiError = new UsAutocompletionsApi($wrongConfig);
 
-            $usAutocompletionObject = $autocompletionApiError->autocomplete($testAutocompletion);
-            $this->assertEquals("TEST KEYS DO NOT AUTOCOMPLETE US ADDRESSES", $usAutocompletionObject->getSuggestions()[0]->getPrimaryLine());
-
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $usAutocompletionObject = $autocompletionApiError->autocomplete($testAutocompletion);
+        $this->assertEquals("TEST KEYS DO NOT AUTOCOMPLETE US ADDRESSES", $usAutocompletionObject->getSuggestions()[0]->getPrimaryLine());
     }
 
-    public function testUsAutocompletionError()
+    public function testUsAutocompletion0()
     {
-        try {
-            // error autocompletion object
-            $errorAutocompletion = new UsAutocompletionsWritable();
-            $errorAutocompletion->setCity("WESTFIELD");
-            $errorAutocompletion->setState("NJ");
-            $errorAutocompletion->setZipCode("07090");
-            $errorAutocompletion->setGeoIpSort(false);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $errorResponse = self::$usAutocompletionApi->autocomplete(null);
+    }
 
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/address_prefix is required/");
-            $errorResponse = self::$usAutocompletionApi->autocomplete($errorAutocompletion);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+    public function testUsAutocompletion401()
+    {
+        $testAutocompletion = new UsAutocompletionsWritable();
+        $testAutocompletion->setAddressPrefix("1313 T");
+        $testAutocompletion->setState("NJ");
+        $testAutocompletion->setGeoIpSort(false);
+
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey("basic", "Totally Fake Key");
+        $autocompletionApiError = new UsAutocompletionsApi($wrongConfig);
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $usAutocompletionObject = $autocompletionApiError->autocomplete($testAutocompletion);
+    }
+
+    public function testUsAutocompletion422()
+    {
+        // error autocompletion object
+        $errorAutocompletion = new UsAutocompletionsWritable();
+        $errorAutocompletion->setCity("WESTFIELD");
+        $errorAutocompletion->setState("NJ");
+        $errorAutocompletion->setZipCode("07090");
+        $errorAutocompletion->setGeoIpSort(false);
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/address_prefix is required/");
+        $errorResponse = self::$usAutocompletionApi->autocomplete($errorAutocompletion);
     }
 }
