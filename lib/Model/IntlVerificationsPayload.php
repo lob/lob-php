@@ -191,12 +191,12 @@ class IntlVerificationsPayload implements ModelInterface, ArrayAccess, \JsonSeri
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['addresses'] === null) {
                 $invalidProperties[] = "'addresses' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((count($this->container['addresses']) > 10)) {
                 $invalidProperties[] = "invalid value for 'addresses', number of items must be less than or equal to 10.";
             }
@@ -241,7 +241,7 @@ class IntlVerificationsPayload implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setAddresses($addresses)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if ((count($addresses) > 10)) {
                 throw new \InvalidArgumentException('invalid value for $addresses when calling IntlVerificationsPayload., number of items must be less than or equal to 10.');

@@ -284,20 +284,20 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['id']) && !preg_match("/^co_[a-zA-Z0-9]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^co_[a-zA-Z0-9]+$/.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['card_id']) && !preg_match("/^card_[a-zA-Z0-9]+$/", $this->container['card_id'])) {
                 $invalidProperties[] = "invalid value for 'card_id', must be conform to the pattern /^card_[a-zA-Z0-9]+$/.";
             }
 
         }
         $allowedValues = $this->getStatusAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'status', must be one of '%s'",
@@ -307,17 +307,17 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_created'] === null) {
                 $invalidProperties[] = "'date_created' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_modified'] === null) {
                 $invalidProperties[] = "'date_modified' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['object'] === null) {
                 $invalidProperties[] = "'object' can't be null";
             }
@@ -357,7 +357,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if (!is_null($id) && (!preg_match("/^co_[a-zA-Z0-9]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling CardOrder., must conform to the pattern /^co_[a-zA-Z0-9]+$/.");
@@ -389,7 +389,7 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCardId($card_id)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if (!is_null($card_id) && (!preg_match("/^card_[a-zA-Z0-9]+$/", $card_id))) {
                 throw new \InvalidArgumentException("invalid value for $card_id when calling CardOrder., must conform to the pattern /^card_[a-zA-Z0-9]+$/.");

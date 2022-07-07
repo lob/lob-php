@@ -228,7 +228,7 @@ class SortBy4 implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         $allowedValues = $this->getDateCreatedAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['date_created']) && !in_array($this->container['date_created'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'date_created', must be one of '%s'",
@@ -239,7 +239,7 @@ class SortBy4 implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $allowedValues = $this->getSendDateAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['send_date']) && !in_array($this->container['send_date'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'send_date', must be one of '%s'",

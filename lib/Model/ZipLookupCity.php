@@ -215,39 +215,39 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['city'] === null) {
                 $invalidProperties[] = "'city' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($this->container['city']) > 200)) {
                 $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['state'] === null) {
                 $invalidProperties[] = "'state' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($this->container['state']) > 2)) {
                 $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 2.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['county'] === null) {
                 $invalidProperties[] = "'county' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['county_fips'] === null) {
                 $invalidProperties[] = "'county_fips' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['preferred'] === null) {
                 $invalidProperties[] = "'preferred' can't be null";
             }
@@ -287,7 +287,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCity($city)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($city) > 200)) {
                 throw new \InvalidArgumentException('invalid length for $city when calling ZipLookupCity., must be smaller than or equal to 200.');
             }
@@ -318,7 +318,7 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setState($state)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($state) > 2)) {
                 throw new \InvalidArgumentException('invalid length for $state when calling ZipLookupCity., must be smaller than or equal to 2.');
             }

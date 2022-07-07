@@ -297,18 +297,18 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['routing_number'] === null) {
                 $invalidProperties[] = "'routing_number' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($this->container['routing_number']) > 9)) {
                 $invalidProperties[] = "invalid value for 'routing_number', the character length must be smaller than or equal to 9.";
             }
@@ -318,24 +318,24 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['account_number'] === null) {
                 $invalidProperties[] = "'account_number' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($this->container['account_number']) > 17)) {
                 $invalidProperties[] = "invalid value for 'account_number', the character length must be smaller than or equal to 17.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['account_type'] === null) {
                 $invalidProperties[] = "'account_type' can't be null";
             }
         }
         $allowedValues = $this->getAccountTypeAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['account_type']) && !in_array($this->container['account_type'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'account_type', must be one of '%s'",
@@ -345,53 +345,53 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['signatory'] === null) {
                 $invalidProperties[] = "'signatory' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($this->container['signatory']) > 30)) {
                 $invalidProperties[] = "invalid value for 'signatory', the character length must be smaller than or equal to 30.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['id'] === null) {
                 $invalidProperties[] = "'id' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!preg_match("/^bank_[a-zA-Z0-9]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^bank_[a-zA-Z0-9]+$/.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['signature_url']) && !preg_match("/^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['signature_url'])) {
                 $invalidProperties[] = "invalid value for 'signature_url', must be conform to the pattern /^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_created'] === null) {
                 $invalidProperties[] = "'date_created' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_modified'] === null) {
                 $invalidProperties[] = "'date_modified' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['object'] === null) {
                 $invalidProperties[] = "'object' can't be null";
             }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'object', must be one of '%s'",
@@ -436,7 +436,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
                 throw new \InvalidArgumentException('invalid length for $description when calling BankAccount., must be smaller than or equal to 255.');
             }
@@ -467,7 +467,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setRoutingNumber($routing_number)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($routing_number) > 9)) {
                 throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccount., must be smaller than or equal to 9.');
             }
@@ -501,7 +501,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAccountNumber($account_number)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($account_number) > 17)) {
                 throw new \InvalidArgumentException('invalid length for $account_number when calling BankAccount., must be smaller than or equal to 17.');
             }
@@ -568,7 +568,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setSignatory($signatory)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($signatory) > 30)) {
                 throw new \InvalidArgumentException('invalid length for $signatory when calling BankAccount., must be smaller than or equal to 30.');
             }
@@ -599,7 +599,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
         }
@@ -628,7 +628,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if ((!preg_match("/^bank_[a-zA-Z0-9]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling BankAccount., must conform to the pattern /^bank_[a-zA-Z0-9]+$/.");
@@ -660,7 +660,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setSignatureUrl($signature_url)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if (!is_null($signature_url) && (!preg_match("/^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $signature_url))) {
                 throw new \InvalidArgumentException("invalid value for $signature_url when calling BankAccount., must conform to the pattern /^https:\/\/lob-assets\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");

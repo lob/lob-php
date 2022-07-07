@@ -191,12 +191,12 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['amounts'] === null) {
                 $invalidProperties[] = "'amounts' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((count($this->container['amounts']) > 2)) {
                 $invalidProperties[] = "invalid value for 'amounts', number of items must be less than or equal to 2.";
             }
@@ -241,7 +241,7 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setAmounts($amounts)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if ((count($amounts) > 2)) {
                 throw new \InvalidArgumentException('invalid value for $amounts when calling BankAccountVerify., number of items must be less than or equal to 2.');

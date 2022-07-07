@@ -228,40 +228,40 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['zip_code']) && !preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
                 $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['id'] === null) {
                 $invalidProperties[] = "'id' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!preg_match("/^us_zip_[a-zA-Z0-9]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^us_zip_[a-zA-Z0-9]+$/.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['cities'] === null) {
                 $invalidProperties[] = "'cities' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['zip_code_type'] === null) {
                 $invalidProperties[] = "'zip_code_type' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['object'] === null) {
                 $invalidProperties[] = "'object' can't be null";
             }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'object', must be one of '%s'",
@@ -306,7 +306,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setZipCode($zip_code)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if (!is_null($zip_code) && (!preg_match("/^\\d{5}$/", $zip_code))) {
                 throw new \InvalidArgumentException("invalid value for $zip_code when calling Zip., must conform to the pattern /^\\d{5}$/.");
@@ -338,7 +338,7 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if ((!preg_match("/^us_zip_[a-zA-Z0-9]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling Zip., must conform to the pattern /^us_zip_[a-zA-Z0-9]+$/.");

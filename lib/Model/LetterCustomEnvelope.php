@@ -217,14 +217,14 @@ class LetterCustomEnvelope implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 40)) {
                 $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 40.";
             }
 
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'object', must be one of '%s'",
@@ -269,7 +269,7 @@ class LetterCustomEnvelope implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function setId($id)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($id) && (mb_strlen($id) > 40)) {
                 throw new \InvalidArgumentException('invalid length for $id when calling LetterCustomEnvelope., must be smaller than or equal to 40.');
             }

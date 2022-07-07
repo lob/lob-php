@@ -234,44 +234,44 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['id'] === null) {
                 $invalidProperties[] = "'id' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!preg_match("/^evt_[a-zA-Z0-9_]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^evt_[a-zA-Z0-9_]+$/.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['body'] === null) {
                 $invalidProperties[] = "'body' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['reference_id'] === null) {
                 $invalidProperties[] = "'reference_id' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['event_type'] === null) {
                 $invalidProperties[] = "'event_type' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_created'] === null) {
                 $invalidProperties[] = "'date_created' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['object'] === null) {
                 $invalidProperties[] = "'object' can't be null";
             }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'object', must be one of '%s'",
@@ -316,7 +316,7 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if ((!preg_match("/^evt_[a-zA-Z0-9_]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling Events., must conform to the pattern /^evt_[a-zA-Z0-9_]+$/.");

@@ -203,18 +203,18 @@ class TemplateVersionWritable implements ModelInterface, ArrayAccess, \JsonSeria
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['html'] === null) {
                 $invalidProperties[] = "'html' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($this->container['html']) > 100000)) {
                 $invalidProperties[] = "invalid value for 'html', the character length must be smaller than or equal to 100000.";
             }
@@ -255,7 +255,7 @@ class TemplateVersionWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setDescription($description)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
                 throw new \InvalidArgumentException('invalid length for $description when calling TemplateVersionWritable., must be smaller than or equal to 255.');
             }
@@ -286,7 +286,7 @@ class TemplateVersionWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setHtml($html)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ((mb_strlen($html) > 100000)) {
                 throw new \InvalidArgumentException('invalid length for $html when calling TemplateVersionWritable., must be smaller than or equal to 100000.');
             }

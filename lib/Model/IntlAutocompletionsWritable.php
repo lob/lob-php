@@ -215,12 +215,12 @@ class IntlAutocompletionsWritable implements ModelInterface, ArrayAccess, \JsonS
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['address_prefix'] === null) {
                 $invalidProperties[] = "'address_prefix' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['country'] === null) {
                 $invalidProperties[] = "'country' can't be null";
             }

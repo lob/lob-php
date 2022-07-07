@@ -252,35 +252,35 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['id'] === null) {
                 $invalidProperties[] = "'id' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $this->container['id'])) {
                 $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['versions'] === null) {
                 $invalidProperties[] = "'versions' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['published_version'] === null) {
                 $invalidProperties[] = "'published_version' can't be null";
             }
         }
         $allowedValues = $this->getObjectAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'object', must be one of '%s'",
@@ -290,7 +290,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
         return $invalidProperties;
     }
@@ -327,7 +327,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
                 throw new \InvalidArgumentException('invalid length for $description when calling Template., must be smaller than or equal to 255.');
             }
@@ -358,7 +358,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if ((!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $id))) {
                 throw new \InvalidArgumentException("invalid value for $id when calling Template., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
@@ -483,7 +483,7 @@ class Template implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
         }

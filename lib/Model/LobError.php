@@ -335,7 +335,7 @@ class LobError implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         $allowedValues = $this->getStatusCodeAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['status_code']) && !in_array($this->container['status_code'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'status_code', must be one of '%s'",
@@ -346,7 +346,7 @@ class LobError implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $allowedValues = $this->getCodeAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'code', must be one of '%s'",

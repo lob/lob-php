@@ -325,23 +325,23 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['color'] === null) {
                 $invalidProperties[] = "'color' can't be null";
             }
         }
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['address_placement']) && !in_array($this->container['address_placement'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'address_placement', must be one of '%s'",
@@ -351,23 +351,23 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['to'] === null) {
                 $invalidProperties[] = "'to' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['from'] === null) {
                 $invalidProperties[] = "'from' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['file'] === null) {
                 $invalidProperties[] = "'file' can't be null";
             }
         }
         $allowedValues = $this->getExtraServiceAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['extra_service']) && !in_array($this->container['extra_service'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'extra_service', must be one of '%s'",
@@ -377,7 +377,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['cards']) && (count($this->container['cards']) > 1)) {
                 $invalidProperties[] = "invalid value for 'cards', number of items must be less than or equal to 1.";
             }
@@ -422,7 +422,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
                 throw new \InvalidArgumentException('invalid length for $description when calling LetterEditable., must be smaller than or equal to 255.');
             }
@@ -453,7 +453,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
         }
@@ -507,7 +507,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMergeVariables($merge_variables)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
         }
@@ -833,7 +833,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCards($cards)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if (!is_null($cards) && (count($cards) > 1)) {
                 throw new \InvalidArgumentException('invalid value for $cards when calling LetterEditable., number of items must be less than or equal to 1.');

@@ -233,49 +233,49 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['address']) && (mb_strlen($this->container['address']) > 500)) {
                 $invalidProperties[] = "invalid value for 'address', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
                 $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['primary_line']) && (mb_strlen($this->container['primary_line']) > 500)) {
                 $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
                 $invalidProperties[] = "invalid value for 'secondary_line', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['urbanization']) && (mb_strlen($this->container['urbanization']) > 500)) {
                 $invalidProperties[] = "invalid value for 'urbanization', the character length must be smaller than or equal to 500.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
                 $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 50)) {
                 $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 50.";
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['zip_code']) && !preg_match("/^\\d{5}((-)?\\d{4})?$/", $this->container['zip_code'])) {
                 $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}((-)?\\d{4})?$/.";
             }
@@ -316,7 +316,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setAddress($address)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($address) && (mb_strlen($address) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $address when calling UsVerificationsWritable., must be smaller than or equal to 500.');
             }
@@ -347,7 +347,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setRecipient($recipient)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($recipient) && (mb_strlen($recipient) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $recipient when calling UsVerificationsWritable., must be smaller than or equal to 500.');
             }
@@ -378,7 +378,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setPrimaryLine($primary_line)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($primary_line) && (mb_strlen($primary_line) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $primary_line when calling UsVerificationsWritable., must be smaller than or equal to 500.');
             }
@@ -409,7 +409,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setSecondaryLine($secondary_line)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($secondary_line) && (mb_strlen($secondary_line) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $secondary_line when calling UsVerificationsWritable., must be smaller than or equal to 500.');
             }
@@ -440,7 +440,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setUrbanization($urbanization)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($urbanization) && (mb_strlen($urbanization) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $urbanization when calling UsVerificationsWritable., must be smaller than or equal to 500.');
             }
@@ -471,7 +471,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setCity($city)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($city) && (mb_strlen($city) > 200)) {
                 throw new \InvalidArgumentException('invalid length for $city when calling UsVerificationsWritable., must be smaller than or equal to 200.');
             }
@@ -502,7 +502,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setState($state)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($state) && (mb_strlen($state) > 50)) {
                 throw new \InvalidArgumentException('invalid length for $state when calling UsVerificationsWritable., must be smaller than or equal to 50.');
             }
@@ -533,7 +533,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setZipCode($zip_code)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if (!is_null($zip_code) && (!preg_match("/^\\d{5}((-)?\\d{4})?$/", $zip_code))) {
                 throw new \InvalidArgumentException("invalid value for $zip_code when calling UsVerificationsWritable., must conform to the pattern /^\\d{5}((-)?\\d{4})?$/.");

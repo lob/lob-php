@@ -217,12 +217,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['score'] === null) {
                 $invalidProperties[] = "'score' can't be null";
             }
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (($this->container['score'] > 100)) {
                 $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
             }
@@ -232,13 +232,13 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
             }
 
         }
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['level'] === null) {
                 $invalidProperties[] = "'level' can't be null";
             }
         }
         $allowedValues = $this->getLevelAllowableValues();
-        if (!!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'level', must be one of '%s'",
@@ -283,7 +283,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setScore($score)
     {
-        if (!method_exists($this, 'getId') || strpos($this->getId(), "fakeId") === False) {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
             if (($score > 100)) {
                 throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
