@@ -277,14 +277,16 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setScore($score)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($score > 100)) {
-            throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && ($score < 0)) {
-            throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
-        }
+            if (($score > 100)) {
+                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
+            }
+            if (($score < 0)) {
+                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
+            }
 
+        }
         $this->container['score'] = $score;
 
         return $this;

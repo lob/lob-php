@@ -296,11 +296,13 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setZipCode($zip_code)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($zip_code) && (!preg_match("/^\\d{5}$/", $zip_code))) {
-            throw new \InvalidArgumentException("invalid value for $zip_code when calling Zip., must conform to the pattern /^\\d{5}$/.");
+            if (!is_null($zip_code) && (!preg_match("/^\\d{5}$/", $zip_code))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code when calling Zip., must conform to the pattern /^\\d{5}$/.");
+            }
+
         }
-
         $this->container['zip_code'] = $zip_code;
 
         return $this;
@@ -326,11 +328,13 @@ class Zip implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^us_zip_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling Zip., must conform to the pattern /^us_zip_[a-zA-Z0-9]+$/.");
+            if ((!preg_match("/^us_zip_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling Zip., must conform to the pattern /^us_zip_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;

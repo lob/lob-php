@@ -276,11 +276,13 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^us_auto_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling UsAutocompletions., must conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^us_auto_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling UsAutocompletions., must conform to the pattern /^us_auto_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -306,12 +308,14 @@ class UsAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setSuggestions($suggestions)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($suggestions) && (count($suggestions) > 10)) {
-            throw new \InvalidArgumentException('invalid value for $suggestions when calling UsAutocompletions., number of items must be less than or equal to 10.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($suggestions) && (count($suggestions) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $suggestions when calling UsAutocompletions., number of items must be greater than or equal to 0.');
+            if (!is_null($suggestions) && (count($suggestions) > 10)) {
+                throw new \InvalidArgumentException('invalid value for $suggestions when calling UsAutocompletions., number of items must be less than or equal to 10.');
+            }
+            if (!is_null($suggestions) && (count($suggestions) < 0)) {
+                throw new \InvalidArgumentException('invalid length for $suggestions when calling UsAutocompletions., number of items must be greater than or equal to 0.');
+            }
         }
         $this->container['suggestions'] = [];
         if ($suggestions) {

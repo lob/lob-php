@@ -267,11 +267,13 @@ class LetterDeletion implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling LetterDeletion., must conform to the pattern /^ltr_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^ltr_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling LetterDeletion., must conform to the pattern /^ltr_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;

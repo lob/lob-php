@@ -304,10 +304,12 @@ class IntlVerificationWritable implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setRecipient($recipient)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($recipient) && (mb_strlen($recipient) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $recipient when calling IntlVerificationWritable., must be smaller than or equal to 500.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($recipient) && (mb_strlen($recipient) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $recipient when calling IntlVerificationWritable., must be smaller than or equal to 500.');
+            }
 
+        }
         $this->container['recipient'] = $recipient;
 
         return $this;
@@ -333,10 +335,12 @@ class IntlVerificationWritable implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setPrimaryLine($primary_line)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($primary_line) && (mb_strlen($primary_line) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $primary_line when calling IntlVerificationWritable., must be smaller than or equal to 200.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($primary_line) && (mb_strlen($primary_line) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $primary_line when calling IntlVerificationWritable., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['primary_line'] = $primary_line;
 
         return $this;
@@ -362,10 +366,12 @@ class IntlVerificationWritable implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setSecondaryLine($secondary_line)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($secondary_line) && (mb_strlen($secondary_line) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $secondary_line when calling IntlVerificationWritable., must be smaller than or equal to 500.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($secondary_line) && (mb_strlen($secondary_line) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $secondary_line when calling IntlVerificationWritable., must be smaller than or equal to 500.');
+            }
 
+        }
         $this->container['secondary_line'] = $secondary_line;
 
         return $this;
@@ -391,10 +397,12 @@ class IntlVerificationWritable implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setCity($city)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($city) && (mb_strlen($city) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $city when calling IntlVerificationWritable., must be smaller than or equal to 200.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($city) && (mb_strlen($city) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $city when calling IntlVerificationWritable., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['city'] = $city;
 
         return $this;
@@ -445,10 +453,12 @@ class IntlVerificationWritable implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setPostalCode($postal_code)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($postal_code) && (mb_strlen($postal_code) > 12)) {
-            throw new \InvalidArgumentException('invalid length for $postal_code when calling IntlVerificationWritable., must be smaller than or equal to 12.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($postal_code) && (mb_strlen($postal_code) > 12)) {
+                throw new \InvalidArgumentException('invalid length for $postal_code when calling IntlVerificationWritable., must be smaller than or equal to 12.');
+            }
 
+        }
         $this->container['postal_code'] = $postal_code;
 
         return $this;
@@ -499,10 +509,12 @@ class IntlVerificationWritable implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function setAddress($address)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($address) && (mb_strlen($address) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $address when calling IntlVerificationWritable., must be smaller than or equal to 500.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($address) && (mb_strlen($address) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $address when calling IntlVerificationWritable., must be smaller than or equal to 500.');
+            }
 
+        }
         $this->container['address'] = $address;
 
         return $this;

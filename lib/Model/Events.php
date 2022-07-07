@@ -302,11 +302,13 @@ class Events implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^evt_[a-zA-Z0-9_]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling Events., must conform to the pattern /^evt_[a-zA-Z0-9_]+$/.");
+            if ((!preg_match("/^evt_[a-zA-Z0-9_]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling Events., must conform to the pattern /^evt_[a-zA-Z0-9_]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;

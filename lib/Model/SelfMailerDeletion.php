@@ -267,11 +267,13 @@ class SelfMailerDeletion implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^sfm_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling SelfMailerDeletion., must conform to the pattern /^sfm_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^sfm_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling SelfMailerDeletion., must conform to the pattern /^sfm_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;

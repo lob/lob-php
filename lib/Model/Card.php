@@ -528,11 +528,13 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^card_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling Card., must conform to the pattern /^card_[a-zA-Z0-9]+$/.");
+            if ((!preg_match("/^card_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling Card., must conform to the pattern /^card_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -558,13 +560,15 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setUrl($url)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($url) > 2083)) {
-            throw new \InvalidArgumentException('invalid length for $url when calling Card., must be smaller than or equal to 2083.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $url when calling Card., must be bigger than or equal to 1.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($url) > 2083)) {
+                throw new \InvalidArgumentException('invalid length for $url when calling Card., must be smaller than or equal to 2083.');
+            }
+            if ((mb_strlen($url) < 1)) {
+                throw new \InvalidArgumentException('invalid length for $url when calling Card., must be bigger than or equal to 1.');
+            }
 
+        }
         $this->container['url'] = $url;
 
         return $this;
@@ -640,13 +644,15 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setRawUrl($raw_url)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($raw_url) > 2083)) {
-            throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be smaller than or equal to 2083.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($raw_url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be bigger than or equal to 1.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($raw_url) > 2083)) {
+                throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be smaller than or equal to 2083.');
+            }
+            if ((mb_strlen($raw_url) < 1)) {
+                throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be bigger than or equal to 1.');
+            }
 
+        }
         $this->container['raw_url'] = $raw_url;
 
         return $this;
@@ -672,13 +678,15 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setFrontOriginalUrl($front_original_url)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($front_original_url) > 2083)) {
-            throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be smaller than or equal to 2083.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($front_original_url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be bigger than or equal to 1.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($front_original_url) > 2083)) {
+                throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be smaller than or equal to 2083.');
+            }
+            if ((mb_strlen($front_original_url) < 1)) {
+                throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be bigger than or equal to 1.');
+            }
 
+        }
         $this->container['front_original_url'] = $front_original_url;
 
         return $this;
@@ -704,13 +712,15 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setBackOriginalUrl($back_original_url)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($back_original_url) > 2083)) {
-            throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be smaller than or equal to 2083.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($back_original_url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be bigger than or equal to 1.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($back_original_url) > 2083)) {
+                throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be smaller than or equal to 2083.');
+            }
+            if ((mb_strlen($back_original_url) < 1)) {
+                throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be bigger than or equal to 1.');
+            }
 
+        }
         $this->container['back_original_url'] = $back_original_url;
 
         return $this;
@@ -1026,10 +1036,12 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling Card., must be smaller than or equal to 255.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling Card., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;

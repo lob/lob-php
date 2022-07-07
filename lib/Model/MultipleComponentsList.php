@@ -239,12 +239,14 @@ class MultipleComponentsList implements ModelInterface, ArrayAccess, \JsonSerial
      */
     public function setAddresses($addresses)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (count($addresses) > 10)) {
-            throw new \InvalidArgumentException('invalid value for $addresses when calling MultipleComponentsList., number of items must be less than or equal to 10.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && (count($addresses) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $addresses when calling MultipleComponentsList., number of items must be greater than or equal to 1.');
+            if ((count($addresses) > 10)) {
+                throw new \InvalidArgumentException('invalid value for $addresses when calling MultipleComponentsList., number of items must be less than or equal to 10.');
+            }
+            if ((count($addresses) < 1)) {
+                throw new \InvalidArgumentException('invalid length for $addresses when calling MultipleComponentsList., number of items must be greater than or equal to 1.');
+            }
         }
         $this->container['addresses'] = [];
         if ($addresses) {

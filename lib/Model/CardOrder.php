@@ -349,11 +349,13 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^co_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling CardOrder., must conform to the pattern /^co_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^co_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling CardOrder., must conform to the pattern /^co_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -379,11 +381,13 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCardId($card_id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($card_id) && (!preg_match("/^card_[a-zA-Z0-9]+$/", $card_id))) {
-            throw new \InvalidArgumentException("invalid value for $card_id when calling CardOrder., must conform to the pattern /^card_[a-zA-Z0-9]+$/.");
+            if (!is_null($card_id) && (!preg_match("/^card_[a-zA-Z0-9]+$/", $card_id))) {
+                throw new \InvalidArgumentException("invalid value for $card_id when calling CardOrder., must conform to the pattern /^card_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['card_id'] = $card_id;
 
         return $this;

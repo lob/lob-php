@@ -277,10 +277,12 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCity($city)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($city) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $city when calling ZipLookupCity., must be smaller than or equal to 200.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($city) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $city when calling ZipLookupCity., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['city'] = $city;
 
         return $this;
@@ -306,10 +308,12 @@ class ZipLookupCity implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setState($state)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($state) > 2)) {
-            throw new \InvalidArgumentException('invalid length for $state when calling ZipLookupCity., must be smaller than or equal to 2.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($state) > 2)) {
+                throw new \InvalidArgumentException('invalid length for $state when calling ZipLookupCity., must be smaller than or equal to 2.');
+            }
 
+        }
         $this->container['state'] = $state;
 
         return $this;

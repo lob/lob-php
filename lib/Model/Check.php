@@ -543,11 +543,13 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^chk_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling Check., must conform to the pattern /^chk_[a-zA-Z0-9]+$/.");
+            if ((!preg_match("/^chk_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling Check., must conform to the pattern /^chk_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -623,10 +625,12 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling Check., must be smaller than or equal to 255.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling Check., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -652,8 +656,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -679,8 +685,10 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMergeVariables($merge_variables)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
 
+        }
         $this->container['merge_variables'] = $merge_variables;
 
         return $this;
@@ -767,10 +775,12 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMemo($memo)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($memo) && (mb_strlen($memo) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $memo when calling Check., must be smaller than or equal to 40.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($memo) && (mb_strlen($memo) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $memo when calling Check., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['memo'] = $memo;
 
         return $this;
@@ -796,14 +806,16 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCheckNumber($check_number)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($check_number) && ($check_number > 500000000)) {
-            throw new \InvalidArgumentException('invalid value for $check_number when calling Check., must be smaller than or equal to 500000000.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($check_number) && ($check_number < 1)) {
-            throw new \InvalidArgumentException('invalid value for $check_number when calling Check., must be bigger than or equal to 1.');
-        }
+            if (!is_null($check_number) && ($check_number > 500000000)) {
+                throw new \InvalidArgumentException('invalid value for $check_number when calling Check., must be smaller than or equal to 500000000.');
+            }
+            if (!is_null($check_number) && ($check_number < 1)) {
+                throw new \InvalidArgumentException('invalid value for $check_number when calling Check., must be bigger than or equal to 1.');
+            }
 
+        }
         $this->container['check_number'] = $check_number;
 
         return $this;
@@ -829,10 +841,12 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMessage($message)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($message) && (mb_strlen($message) > 400)) {
-            throw new \InvalidArgumentException('invalid length for $message when calling Check., must be smaller than or equal to 400.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($message) && (mb_strlen($message) > 400)) {
+                throw new \InvalidArgumentException('invalid length for $message when calling Check., must be smaller than or equal to 400.');
+            }
 
+        }
         $this->container['message'] = $message;
 
         return $this;
@@ -858,11 +872,13 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAmount($amount)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($amount > 999999.99)) {
-            throw new \InvalidArgumentException('invalid value for $amount when calling Check., must be smaller than or equal to 999999.99.');
+            if (($amount > 999999.99)) {
+                throw new \InvalidArgumentException('invalid value for $amount when calling Check., must be smaller than or equal to 999999.99.');
+            }
+
         }
-
         $this->container['amount'] = $amount;
 
         return $this;
@@ -913,11 +929,13 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCheckBottomTemplateId($check_bottom_template_id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($check_bottom_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $check_bottom_template_id))) {
-            throw new \InvalidArgumentException("invalid value for $check_bottom_template_id when calling Check., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            if (!is_null($check_bottom_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $check_bottom_template_id))) {
+                throw new \InvalidArgumentException("invalid value for $check_bottom_template_id when calling Check., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['check_bottom_template_id'] = $check_bottom_template_id;
 
         return $this;
@@ -943,11 +961,13 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAttachmentTemplateId($attachment_template_id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($attachment_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $attachment_template_id))) {
-            throw new \InvalidArgumentException("invalid value for $attachment_template_id when calling Check., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            if (!is_null($attachment_template_id) && (!preg_match("/^tmpl_[a-zA-Z0-9]+$/", $attachment_template_id))) {
+                throw new \InvalidArgumentException("invalid value for $attachment_template_id when calling Check., must conform to the pattern /^tmpl_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['attachment_template_id'] = $attachment_template_id;
 
         return $this;
@@ -973,11 +993,13 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCheckBottomTemplateVersionId($check_bottom_template_version_id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($check_bottom_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $check_bottom_template_version_id))) {
-            throw new \InvalidArgumentException("invalid value for $check_bottom_template_version_id when calling Check., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            if (!is_null($check_bottom_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $check_bottom_template_version_id))) {
+                throw new \InvalidArgumentException("invalid value for $check_bottom_template_version_id when calling Check., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['check_bottom_template_version_id'] = $check_bottom_template_version_id;
 
         return $this;
@@ -1003,11 +1025,13 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAttachmentTemplateVersionId($attachment_template_version_id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($attachment_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $attachment_template_version_id))) {
-            throw new \InvalidArgumentException("invalid value for $attachment_template_version_id when calling Check., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            if (!is_null($attachment_template_version_id) && (!preg_match("/^vrsn_[a-zA-Z0-9]+$/", $attachment_template_version_id))) {
+                throw new \InvalidArgumentException("invalid value for $attachment_template_version_id when calling Check., must conform to the pattern /^vrsn_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['attachment_template_version_id'] = $attachment_template_version_id;
 
         return $this;
@@ -1033,11 +1057,13 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setUrl($url)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
-            throw new \InvalidArgumentException("invalid value for $url when calling Check., must conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");
+            if ((!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
+                throw new \InvalidArgumentException("invalid value for $url when calling Check., must conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");
+            }
+
         }
-
         $this->container['url'] = $url;
 
         return $this;

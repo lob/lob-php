@@ -258,14 +258,16 @@ class Location implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setLatitude($latitude)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($latitude > 90)) {
-            throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be smaller than or equal to 90.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && ($latitude < -90)) {
-            throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be bigger than or equal to -90.');
-        }
+            if (($latitude > 90)) {
+                throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be smaller than or equal to 90.');
+            }
+            if (($latitude < -90)) {
+                throw new \InvalidArgumentException('invalid value for $latitude when calling Location., must be bigger than or equal to -90.');
+            }
 
+        }
         $this->container['latitude'] = $latitude;
 
         return $this;
@@ -291,14 +293,16 @@ class Location implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setLongitude($longitude)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && ($longitude > 180)) {
-            throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be smaller than or equal to 180.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && ($longitude < -180)) {
-            throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be bigger than or equal to -180.');
-        }
+            if (($longitude > 180)) {
+                throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be smaller than or equal to 180.');
+            }
+            if (($longitude < -180)) {
+                throw new \InvalidArgumentException('invalid value for $longitude when calling Location., must be bigger than or equal to -180.');
+            }
 
+        }
         $this->container['longitude'] = $longitude;
 
         return $this;

@@ -267,10 +267,12 @@ class LetterCustomEnvelope implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function setId($id)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (mb_strlen($id) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling LetterCustomEnvelope., must be smaller than or equal to 40.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($id) && (mb_strlen($id) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $id when calling LetterCustomEnvelope., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['id'] = $id;
 
         return $this;

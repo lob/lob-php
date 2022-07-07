@@ -267,11 +267,13 @@ class BankAccountDeletion implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^bank_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling BankAccountDeletion., must conform to the pattern /^bank_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^bank_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling BankAccountDeletion., must conform to the pattern /^bank_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;

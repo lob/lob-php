@@ -307,10 +307,12 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setRecipient($recipient)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($recipient) && (mb_strlen($recipient) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $recipient when calling MultipleComponents., must be smaller than or equal to 500.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($recipient) && (mb_strlen($recipient) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $recipient when calling MultipleComponents., must be smaller than or equal to 500.');
+            }
 
+        }
         $this->container['recipient'] = $recipient;
 
         return $this;
@@ -336,10 +338,12 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setPrimaryLine($primary_line)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($primary_line) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $primary_line when calling MultipleComponents., must be smaller than or equal to 500.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($primary_line) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $primary_line when calling MultipleComponents., must be smaller than or equal to 500.');
+            }
 
+        }
         $this->container['primary_line'] = $primary_line;
 
         return $this;
@@ -365,10 +369,12 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setSecondaryLine($secondary_line)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($secondary_line) && (mb_strlen($secondary_line) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $secondary_line when calling MultipleComponents., must be smaller than or equal to 500.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($secondary_line) && (mb_strlen($secondary_line) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $secondary_line when calling MultipleComponents., must be smaller than or equal to 500.');
+            }
 
+        }
         $this->container['secondary_line'] = $secondary_line;
 
         return $this;
@@ -394,10 +400,12 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setUrbanization($urbanization)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($urbanization) && (mb_strlen($urbanization) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $urbanization when calling MultipleComponents., must be smaller than or equal to 500.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($urbanization) && (mb_strlen($urbanization) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $urbanization when calling MultipleComponents., must be smaller than or equal to 500.');
+            }
 
+        }
         $this->container['urbanization'] = $urbanization;
 
         return $this;
@@ -423,10 +431,12 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setCity($city)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($city) && (mb_strlen($city) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $city when calling MultipleComponents., must be smaller than or equal to 200.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($city) && (mb_strlen($city) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $city when calling MultipleComponents., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['city'] = $city;
 
         return $this;
@@ -452,10 +462,12 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setState($state)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($state) && (mb_strlen($state) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $state when calling MultipleComponents., must be smaller than or equal to 50.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($state) && (mb_strlen($state) > 50)) {
+                throw new \InvalidArgumentException('invalid length for $state when calling MultipleComponents., must be smaller than or equal to 50.');
+            }
 
+        }
         $this->container['state'] = $state;
 
         return $this;
@@ -481,11 +493,13 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function setZipCode($zip_code)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($zip_code) && (!preg_match("/^\\d{5}((-)?\\d{4})?$/", $zip_code))) {
-            throw new \InvalidArgumentException("invalid value for $zip_code when calling MultipleComponents., must conform to the pattern /^\\d{5}((-)?\\d{4})?$/.");
+            if (!is_null($zip_code) && (!preg_match("/^\\d{5}((-)?\\d{4})?$/", $zip_code))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code when calling MultipleComponents., must conform to the pattern /^\\d{5}((-)?\\d{4})?$/.");
+            }
+
         }
-
         $this->container['zip_code'] = $zip_code;
 
         return $this;

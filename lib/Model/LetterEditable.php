@@ -410,10 +410,12 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling LetterEditable., must be smaller than or equal to 255.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling LetterEditable., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -439,8 +441,10 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -491,8 +495,10 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMergeVariables($merge_variables)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
 
+        }
         $this->container['merge_variables'] = $merge_variables;
 
         return $this;
@@ -815,12 +821,14 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCards($cards)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($cards) && (count($cards) > 1)) {
-            throw new \InvalidArgumentException('invalid value for $cards when calling LetterEditable., number of items must be less than or equal to 1.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($cards) && (count($cards) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $cards when calling LetterEditable., number of items must be greater than or equal to 0.');
+            if (!is_null($cards) && (count($cards) > 1)) {
+                throw new \InvalidArgumentException('invalid value for $cards when calling LetterEditable., number of items must be less than or equal to 1.');
+            }
+            if (!is_null($cards) && (count($cards) < 0)) {
+                throw new \InvalidArgumentException('invalid length for $cards when calling LetterEditable., number of items must be greater than or equal to 0.');
+            }
         }
         $this->container['cards'] = [];
         if ($cards) {

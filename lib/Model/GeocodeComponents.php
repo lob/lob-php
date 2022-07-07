@@ -251,11 +251,13 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setZipCode($zip_code)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^\\d{5}$/", $zip_code))) {
-            throw new \InvalidArgumentException("invalid value for $zip_code when calling GeocodeComponents., must conform to the pattern /^\\d{5}$/.");
+            if ((!preg_match("/^\\d{5}$/", $zip_code))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code when calling GeocodeComponents., must conform to the pattern /^\\d{5}$/.");
+            }
+
         }
-
         $this->container['zip_code'] = $zip_code;
 
         return $this;
@@ -281,11 +283,13 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setZipCodePlus4($zip_code_plus_4)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
-            throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling GeocodeComponents., must conform to the pattern /^\\d{4}$/.");
+            if ((!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling GeocodeComponents., must conform to the pattern /^\\d{4}$/.");
+            }
+
         }
-
         $this->container['zip_code_plus_4'] = $zip_code_plus_4;
 
         return $this;

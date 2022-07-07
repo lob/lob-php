@@ -418,11 +418,13 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^adr_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling Address., must conform to the pattern /^adr_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^adr_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling Address., must conform to the pattern /^adr_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -448,10 +450,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling Address., must be smaller than or equal to 255.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling Address., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -477,10 +481,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setName($name)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($name) && (mb_strlen($name) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $name when calling Address., must be smaller than or equal to 40.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($name) && (mb_strlen($name) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $name when calling Address., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['name'] = $name;
 
         return $this;
@@ -506,10 +512,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCompany($company)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($company) && (mb_strlen($company) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $company when calling Address., must be smaller than or equal to 40.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($company) && (mb_strlen($company) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $company when calling Address., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['company'] = $company;
 
         return $this;
@@ -535,10 +543,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setPhone($phone)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($phone) && (mb_strlen($phone) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling Address., must be smaller than or equal to 40.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($phone) && (mb_strlen($phone) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $phone when calling Address., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['phone'] = $phone;
 
         return $this;
@@ -564,10 +574,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setEmail($email)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($email) && (mb_strlen($email) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling Address., must be smaller than or equal to 100.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($email) && (mb_strlen($email) > 100)) {
+                throw new \InvalidArgumentException('invalid length for $email when calling Address., must be smaller than or equal to 100.');
+            }
 
+        }
         $this->container['email'] = $email;
 
         return $this;
@@ -593,8 +605,10 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -620,10 +634,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressLine1($address_line1)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($address_line1) && (mb_strlen($address_line1) > 64)) {
-            throw new \InvalidArgumentException('invalid length for $address_line1 when calling Address., must be smaller than or equal to 64.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($address_line1) && (mb_strlen($address_line1) > 64)) {
+                throw new \InvalidArgumentException('invalid length for $address_line1 when calling Address., must be smaller than or equal to 64.');
+            }
 
+        }
         $this->container['address_line1'] = $address_line1;
 
         return $this;
@@ -649,10 +665,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressLine2($address_line2)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($address_line2) && (mb_strlen($address_line2) > 64)) {
-            throw new \InvalidArgumentException('invalid length for $address_line2 when calling Address., must be smaller than or equal to 64.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($address_line2) && (mb_strlen($address_line2) > 64)) {
+                throw new \InvalidArgumentException('invalid length for $address_line2 when calling Address., must be smaller than or equal to 64.');
+            }
 
+        }
         $this->container['address_line2'] = $address_line2;
 
         return $this;
@@ -678,10 +696,12 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressCity($address_city)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($address_city) && (mb_strlen($address_city) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $address_city when calling Address., must be smaller than or equal to 200.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($address_city) && (mb_strlen($address_city) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $address_city when calling Address., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['address_city'] = $address_city;
 
         return $this;
@@ -707,11 +727,13 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressState($address_state)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($address_state) && (!preg_match("/^[a-zA-Z]{2}$/", $address_state))) {
-            throw new \InvalidArgumentException("invalid value for $address_state when calling Address., must conform to the pattern /^[a-zA-Z]{2}$/.");
+            if (!is_null($address_state) && (!preg_match("/^[a-zA-Z]{2}$/", $address_state))) {
+                throw new \InvalidArgumentException("invalid value for $address_state when calling Address., must conform to the pattern /^[a-zA-Z]{2}$/.");
+            }
+
         }
-
         $this->container['address_state'] = $address_state;
 
         return $this;
@@ -737,11 +759,13 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressZip($address_zip)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($address_zip) && (!preg_match("/^\\d{5}(-\\d{4})?$/", $address_zip))) {
-            throw new \InvalidArgumentException("invalid value for $address_zip when calling Address., must conform to the pattern /^\\d{5}(-\\d{4})?$/.");
+            if (!is_null($address_zip) && (!preg_match("/^\\d{5}(-\\d{4})?$/", $address_zip))) {
+                throw new \InvalidArgumentException("invalid value for $address_zip when calling Address., must conform to the pattern /^\\d{5}(-\\d{4})?$/.");
+            }
+
         }
-
         $this->container['address_zip'] = $address_zip;
 
         return $this;

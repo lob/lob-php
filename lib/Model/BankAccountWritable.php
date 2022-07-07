@@ -298,10 +298,12 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setDescription($description)
     {
-        if (strpos($this->getId(), "fakeId") === False && !is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling BankAccountWritable., must be smaller than or equal to 255.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling BankAccountWritable., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
@@ -327,13 +329,15 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setRoutingNumber($routing_number)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($routing_number) > 9)) {
-            throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccountWritable., must be smaller than or equal to 9.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($routing_number) < 9)) {
-            throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccountWritable., must be bigger than or equal to 9.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($routing_number) > 9)) {
+                throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccountWritable., must be smaller than or equal to 9.');
+            }
+            if ((mb_strlen($routing_number) < 9)) {
+                throw new \InvalidArgumentException('invalid length for $routing_number when calling BankAccountWritable., must be bigger than or equal to 9.');
+            }
 
+        }
         $this->container['routing_number'] = $routing_number;
 
         return $this;
@@ -359,10 +363,12 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setAccountNumber($account_number)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($account_number) > 17)) {
-            throw new \InvalidArgumentException('invalid length for $account_number when calling BankAccountWritable., must be smaller than or equal to 17.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($account_number) > 17)) {
+                throw new \InvalidArgumentException('invalid length for $account_number when calling BankAccountWritable., must be smaller than or equal to 17.');
+            }
 
+        }
         $this->container['account_number'] = $account_number;
 
         return $this;
@@ -413,10 +419,12 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setSignatory($signatory)
     {
-        if (strpos($this->getId(), "fakeId") === False && (mb_strlen($signatory) > 30)) {
-            throw new \InvalidArgumentException('invalid length for $signatory when calling BankAccountWritable., must be smaller than or equal to 30.');
-        }
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
+            if ((mb_strlen($signatory) > 30)) {
+                throw new \InvalidArgumentException('invalid length for $signatory when calling BankAccountWritable., must be smaller than or equal to 30.');
+            }
 
+        }
         $this->container['signatory'] = $signatory;
 
         return $this;
@@ -442,8 +450,10 @@ class BankAccountWritable implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setMetadata($metadata)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;

@@ -248,11 +248,13 @@ class IntlAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($id) && (!preg_match("/^intl_auto_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling IntlAutocompletions., must conform to the pattern /^intl_auto_[a-zA-Z0-9]+$/.");
+            if (!is_null($id) && (!preg_match("/^intl_auto_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling IntlAutocompletions., must conform to the pattern /^intl_auto_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
@@ -278,12 +280,14 @@ class IntlAutocompletions implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function setSuggestions($suggestions)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && !is_null($suggestions) && (count($suggestions) > 10)) {
-            throw new \InvalidArgumentException('invalid value for $suggestions when calling IntlAutocompletions., number of items must be less than or equal to 10.');
-        }
-        if (strpos($this->getId(), "fakeId") === False && !is_null($suggestions) && (count($suggestions) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $suggestions when calling IntlAutocompletions., number of items must be greater than or equal to 0.');
+            if (!is_null($suggestions) && (count($suggestions) > 10)) {
+                throw new \InvalidArgumentException('invalid value for $suggestions when calling IntlAutocompletions., number of items must be less than or equal to 10.');
+            }
+            if (!is_null($suggestions) && (count($suggestions) < 0)) {
+                throw new \InvalidArgumentException('invalid length for $suggestions when calling IntlAutocompletions., number of items must be greater than or equal to 0.');
+            }
         }
         $this->container['suggestions'] = [];
         if ($suggestions) {

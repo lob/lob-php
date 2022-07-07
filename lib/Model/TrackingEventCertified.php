@@ -502,11 +502,13 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
      */
     public function setId($id)
     {
+        if (!function_exists($this->getId()) || strpos($this->getId(), "fakeId") === False) {
 
-        if (strpos($this->getId(), "fakeId") === False && (!preg_match("/^evnt_[a-zA-Z0-9]+$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for $id when calling TrackingEventCertified., must conform to the pattern /^evnt_[a-zA-Z0-9]+$/.");
+            if ((!preg_match("/^evnt_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling TrackingEventCertified., must conform to the pattern /^evnt_[a-zA-Z0-9]+$/.");
+            }
+
         }
-
         $this->container['id'] = $id;
 
         return $this;
