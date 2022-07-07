@@ -723,14 +723,16 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStreetPredirection($street_predirection)
     {
         $allowedValues = $this->getStreetPredirectionAllowableValues();
-        if (!in_array($street_predirection, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'street_predirection', must be one of '%s'",
-                    $street_predirection,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($street_predirection, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'street_predirection', must be one of '%s'",
+                        $street_predirection,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['street_predirection'] = $street_predirection;
@@ -809,14 +811,16 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStreetPostdirection($street_postdirection)
     {
         $allowedValues = $this->getStreetPostdirectionAllowableValues();
-        if (!in_array($street_postdirection, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'street_postdirection', must be one of '%s'",
-                    $street_postdirection,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($street_postdirection, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'street_postdirection', must be one of '%s'",
+                        $street_postdirection,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['street_postdirection'] = $street_postdirection;
@@ -1171,14 +1175,16 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setAddressType($address_type)
     {
         $allowedValues = $this->getAddressTypeAllowableValues();
-        if (!in_array($address_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'address_type', must be one of '%s'",
-                    $address_type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($address_type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'address_type', must be one of '%s'",
+                        $address_type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['address_type'] = $address_type;
@@ -1207,14 +1213,16 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setRecordType($record_type)
     {
         $allowedValues = $this->getRecordTypeAllowableValues();
-        if (!in_array($record_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'record_type', must be one of '%s'",
-                    $record_type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($record_type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'record_type', must be one of '%s'",
+                        $record_type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['record_type'] = $record_type;
@@ -1343,14 +1351,16 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setCarrierRouteType($carrier_route_type)
     {
         $allowedValues = $this->getCarrierRouteTypeAllowableValues();
-        if (!in_array($carrier_route_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'carrier_route_type', must be one of '%s'",
-                    $carrier_route_type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($carrier_route_type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'carrier_route_type', must be one of '%s'",
+                        $carrier_route_type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['carrier_route_type'] = $carrier_route_type;

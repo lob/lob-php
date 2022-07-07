@@ -285,14 +285,16 @@ class SortBy3 implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setDateCreated($date_created)
     {
         $allowedValues = $this->getDateCreatedAllowableValues();
-        if (!is_null($date_created) && !in_array($date_created, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'date_created', must be one of '%s'",
-                    $date_created,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($date_created) && !in_array($date_created, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'date_created', must be one of '%s'",
+                        $date_created,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['date_created'] = $date_created;
@@ -321,14 +323,16 @@ class SortBy3 implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setSendDate($send_date)
     {
         $allowedValues = $this->getSendDateAllowableValues();
-        if (!is_null($send_date) && !in_array($send_date, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'send_date', must be one of '%s'",
-                    $send_date,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($send_date) && !in_array($send_date, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'send_date', must be one of '%s'",
+                        $send_date,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['send_date'] = $send_date;

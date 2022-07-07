@@ -332,14 +332,16 @@ class CardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setSize($size)
     {
         $allowedValues = $this->getSizeAllowableValues();
-        if (!is_null($size) && !in_array($size, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'size', must be one of '%s'",
-                    $size,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($size) && !in_array($size, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'size', must be one of '%s'",
+                        $size,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['size'] = $size;

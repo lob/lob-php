@@ -764,14 +764,16 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setMailType($mail_type)
     {
         $allowedValues = $this->getMailTypeAllowableValues();
-        if (!is_null($mail_type) && !in_array($mail_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'mail_type', must be one of '%s'",
-                    $mail_type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($mail_type) && !in_array($mail_type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'mail_type', must be one of '%s'",
+                        $mail_type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['mail_type'] = $mail_type;
@@ -1114,14 +1116,16 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setCarrier($carrier)
     {
         $allowedValues = $this->getCarrierAllowableValues();
-        if (!in_array($carrier, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'carrier', must be one of '%s'",
-                    $carrier,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($carrier, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'carrier', must be one of '%s'",
+                        $carrier,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['carrier'] = $carrier;
@@ -1239,14 +1243,16 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

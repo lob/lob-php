@@ -399,14 +399,16 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     public function setType($type)
     {
         $allowedValues = $this->getTypeAllowableValues();
-        if (!in_array($type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'type', must be one of '%s'",
-                    $type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'type', must be one of '%s'",
+                        $type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['type'] = $type;
@@ -435,14 +437,16 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     public function setName($name)
     {
         $allowedValues = $this->getNameAllowableValues();
-        if (!in_array($name, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'name', must be one of '%s'",
-                    $name,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($name, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'name', must be one of '%s'",
+                        $name,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['name'] = $name;
@@ -628,14 +632,16 @@ class TrackingEventCertified implements ModelInterface, ArrayAccess, \JsonSerial
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

@@ -422,14 +422,16 @@ class CardOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'status', must be one of '%s'",
-                    $status,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($status) && !in_array($status, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'status', must be one of '%s'",
+                        $status,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['status'] = $status;

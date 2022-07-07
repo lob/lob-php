@@ -373,14 +373,16 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setResource($resource)
     {
         $allowedValues = $this->getResourceAllowableValues();
-        if (!in_array($resource, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'resource', must be one of '%s'",
-                    $resource,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($resource, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'resource', must be one of '%s'",
+                        $resource,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['resource'] = $resource;
@@ -409,14 +411,16 @@ class EventType implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

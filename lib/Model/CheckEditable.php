@@ -695,14 +695,16 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setMailType($mail_type)
     {
         $allowedValues = $this->getMailTypeAllowableValues();
-        if (!is_null($mail_type) && !in_array($mail_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'mail_type', must be one of '%s'",
-                    $mail_type,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($mail_type) && !in_array($mail_type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'mail_type', must be one of '%s'",
+                        $mail_type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['mail_type'] = $mail_type;

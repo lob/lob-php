@@ -333,14 +333,16 @@ class ReverseGeocode implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

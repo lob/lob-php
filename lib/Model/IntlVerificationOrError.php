@@ -625,14 +625,16 @@ class IntlVerificationOrError implements ModelInterface, ArrayAccess, \JsonSeria
     public function setCoverage($coverage)
     {
         $allowedValues = $this->getCoverageAllowableValues();
-        if (!is_null($coverage) && !in_array($coverage, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'coverage', must be one of '%s'",
-                    $coverage,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($coverage) && !in_array($coverage, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'coverage', must be one of '%s'",
+                        $coverage,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['coverage'] = $coverage;
@@ -661,14 +663,16 @@ class IntlVerificationOrError implements ModelInterface, ArrayAccess, \JsonSeria
     public function setDeliverability($deliverability)
     {
         $allowedValues = $this->getDeliverabilityAllowableValues();
-        if (!is_null($deliverability) && !in_array($deliverability, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'deliverability', must be one of '%s'",
-                    $deliverability,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($deliverability) && !in_array($deliverability, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'deliverability', must be one of '%s'",
+                        $deliverability,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['deliverability'] = $deliverability;
@@ -697,14 +701,16 @@ class IntlVerificationOrError implements ModelInterface, ArrayAccess, \JsonSeria
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'status', must be one of '%s'",
-                    $status,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($status) && !in_array($status, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'status', must be one of '%s'",
+                        $status,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['status'] = $status;
@@ -758,14 +764,16 @@ class IntlVerificationOrError implements ModelInterface, ArrayAccess, \JsonSeria
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

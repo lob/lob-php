@@ -539,14 +539,16 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setCarrier($carrier)
     {
         $allowedValues = $this->getCarrierAllowableValues();
-        if (!is_null($carrier) && !in_array($carrier, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'carrier', must be one of '%s'",
-                    $carrier,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($carrier) && !in_array($carrier, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'carrier', must be one of '%s'",
+                        $carrier,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['carrier'] = $carrier;
@@ -892,14 +894,16 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;

@@ -612,14 +612,16 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setAddressPlacement($address_placement)
     {
         $allowedValues = $this->getAddressPlacementAllowableValues();
-        if (!is_null($address_placement) && !in_array($address_placement, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'address_placement', must be one of '%s'",
-                    $address_placement,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_placement) && !in_array($address_placement, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'address_placement', must be one of '%s'",
+                        $address_placement,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['address_placement'] = $address_placement;
@@ -798,14 +800,16 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setExtraService($extra_service)
     {
         $allowedValues = $this->getExtraServiceAllowableValues();
-        if (!is_null($extra_service) && !in_array($extra_service, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'extra_service', must be one of '%s'",
-                    $extra_service,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($extra_service) && !in_array($extra_service, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'extra_service', must be one of '%s'",
+                        $extra_service,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['extra_service'] = $extra_service;

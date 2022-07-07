@@ -869,14 +869,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!in_array($status, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'status', must be one of '%s'",
-                    $status,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($status, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'status', must be one of '%s'",
+                        $status,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['status'] = $status;
@@ -905,14 +907,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setOrientation($orientation)
     {
         $allowedValues = $this->getOrientationAllowableValues();
-        if (!in_array($orientation, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'orientation', must be one of '%s'",
-                    $orientation,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($orientation, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'orientation', must be one of '%s'",
+                        $orientation,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['orientation'] = $orientation;
@@ -1041,14 +1045,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setObject($object)
     {
         $allowedValues = $this->getObjectAllowableValues();
-        if (!in_array($object, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'object', must be one of '%s'",
-                    $object,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($object, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'object', must be one of '%s'",
+                        $object,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['object'] = $object;
@@ -1108,14 +1114,16 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setSize($size)
     {
         $allowedValues = $this->getSizeAllowableValues();
-        if (!is_null($size) && !in_array($size, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'size', must be one of '%s'",
-                    $size,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($size) && !in_array($size, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'size', must be one of '%s'",
+                        $size,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['size'] = $size;

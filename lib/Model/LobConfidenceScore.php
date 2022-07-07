@@ -319,14 +319,16 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     public function setLevel($level)
     {
         $allowedValues = $this->getLevelAllowableValues();
-        if (!in_array($level, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'level', must be one of '%s'",
-                    $level,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($level, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'level', must be one of '%s'",
+                        $level,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['level'] = $level;

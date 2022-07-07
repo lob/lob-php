@@ -336,14 +336,16 @@ class TrackingEventDetails implements ModelInterface, ArrayAccess, \JsonSerializ
     public function setEvent($event)
     {
         $allowedValues = $this->getEventAllowableValues();
-        if (!in_array($event, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'event', must be one of '%s'",
-                    $event,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($event, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'event', must be one of '%s'",
+                        $event,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['event'] = $event;

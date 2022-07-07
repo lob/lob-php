@@ -417,14 +417,16 @@ class LobError implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStatusCode($status_code)
     {
         $allowedValues = $this->getStatusCodeAllowableValues();
-        if (!is_null($status_code) && !in_array($status_code, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'status_code', must be one of '%s'",
-                    $status_code,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($status_code) && !in_array($status_code, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'status_code', must be one of '%s'",
+                        $status_code,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['status_code'] = $status_code;
@@ -453,14 +455,16 @@ class LobError implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setCode($code)
     {
         $allowedValues = $this->getCodeAllowableValues();
-        if (!is_null($code) && !in_array($code, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'code', must be one of '%s'",
-                    $code,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($code) && !in_array($code, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'code', must be one of '%s'",
+                        $code,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['code'] = $code;

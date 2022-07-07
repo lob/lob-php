@@ -493,14 +493,16 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     public function setDpvConfirmation($dpv_confirmation)
     {
         $allowedValues = $this->getDpvConfirmationAllowableValues();
-        if (!in_array($dpv_confirmation, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'dpv_confirmation', must be one of '%s'",
-                    $dpv_confirmation,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_confirmation, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_confirmation', must be one of '%s'",
+                        $dpv_confirmation,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['dpv_confirmation'] = $dpv_confirmation;
@@ -529,14 +531,16 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     public function setDpvCmra($dpv_cmra)
     {
         $allowedValues = $this->getDpvCmraAllowableValues();
-        if (!in_array($dpv_cmra, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'dpv_cmra', must be one of '%s'",
-                    $dpv_cmra,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_cmra, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_cmra', must be one of '%s'",
+                        $dpv_cmra,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['dpv_cmra'] = $dpv_cmra;
@@ -565,14 +569,16 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     public function setDpvVacant($dpv_vacant)
     {
         $allowedValues = $this->getDpvVacantAllowableValues();
-        if (!in_array($dpv_vacant, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'dpv_vacant', must be one of '%s'",
-                    $dpv_vacant,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_vacant, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_vacant', must be one of '%s'",
+                        $dpv_vacant,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['dpv_vacant'] = $dpv_vacant;
@@ -601,14 +607,16 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     public function setDpvActive($dpv_active)
     {
         $allowedValues = $this->getDpvActiveAllowableValues();
-        if (!in_array($dpv_active, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'dpv_active', must be one of '%s'",
-                    $dpv_active,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_active, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_active', must be one of '%s'",
+                        $dpv_active,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['dpv_active'] = $dpv_active;
@@ -694,14 +702,16 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     public function setLacsIndicator($lacs_indicator)
     {
         $allowedValues = $this->getLacsIndicatorAllowableValues();
-        if (!in_array($lacs_indicator, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'lacs_indicator', must be one of '%s'",
-                    $lacs_indicator,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($lacs_indicator, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'lacs_indicator', must be one of '%s'",
+                        $lacs_indicator,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['lacs_indicator'] = $lacs_indicator;
@@ -755,14 +765,16 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     public function setSuiteReturnCode($suite_return_code)
     {
         $allowedValues = $this->getSuiteReturnCodeAllowableValues();
-        if (!in_array($suite_return_code, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'suite_return_code', must be one of '%s'",
-                    $suite_return_code,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($suite_return_code, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'suite_return_code', must be one of '%s'",
+                        $suite_return_code,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
         }
 
         $this->container['suite_return_code'] = $suite_return_code;
