@@ -127,6 +127,9 @@ class TemplatesApi
                 if (is_bool($v)) {
                     $v = $v ? 'True' : 'False';
                 }
+                if (is_object($v)) {
+                    $v = \GuzzleHttp\json_encode($v);
+                }
                 if ($v !== null) {
                     $qs .= '=' . $encoder((string) $v);
                 }
