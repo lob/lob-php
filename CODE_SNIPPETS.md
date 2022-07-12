@@ -145,6 +145,11 @@ try {
 
 
 
+
+
+
+
+
 ## Postcards Api
 
 ### Retrieve
@@ -1001,6 +1006,38 @@ try {
 ```
 
 
+## IntlVerifications Api
+
+### Single Verify
+```bash
+curl https://api.lob.com/v1/intl_verifications \
+  -u <YOUR_LIVE_API_KEY>: \
+  -d "primary_line=370 Water St" \
+  -d "city=Summerside" \
+  -d "state=Prince Edward Island" \
+  -d "postal_code=C1N 1C4" \
+  -d "country=GB" \
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\IntlVerificationsApi($config, new GuzzleHttp\Client());
+
+$verificationData = new OpenAPI\Client\Model\IntlVerificationWritable(array(
+  'primary_line'     => '370 Water St',
+  'city'     => 'Summerside',
+  'state'     => 'Prince Edward Island',
+  'postal_code'     => 'C1N 1C4',
+  'country'     => 'GB',
+));
+
+try {
+    $result = $apiInstance->verifySingle($verificationData);
+        print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
 ## UsVerifications Api
 
 ### Bulk Verify
@@ -1139,36 +1176,18 @@ try {
 ```bash
 curl https://api.lob.com/v1/us_reverse_geocode_lookups \
   -u <YOUR_LIVE_API_KEY>: \
-  -d "latitude=37.7749" \
-  -d "longitude=122.4194" \
+
+  -d "latitude=37.777456" \
+
+  -d "longitude=-122.393039" \
 ```
 
 ```php
 $apiInstance = new OpenAPI\Client\Api\ReverseGeocodeLookupsApi($config, new GuzzleHttp\Client());
 
 $coordinates = new OpenAPI\Client\Model\Location(array(
-    "latitude" =>  "37.7749",
-    "longitude" =>  "122.4194",
-));
-
-try {
-    $result = $apiInstance->lookup($coordinates);
-    print_r($result);
-} catch (Exception $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
-```
-
-### Reverse Geocode Lookup
-```bash
-curl https://api.lob.com/v1/us_reverse_geocode_lookups \
-  -u <YOUR_LIVE_API_KEY>: \
-```
-
-```php
-$apiInstance = new OpenAPI\Client\Api\ReverseGeocodeLookupsApi($config, new GuzzleHttp\Client());
-
-$coordinates = new OpenAPI\Client\Model\Location(array(
+    "latitude" =>  "37.777456",
+    "longitude" =>  "-122.393039",
 ));
 
 try {
