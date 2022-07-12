@@ -1051,7 +1051,7 @@ curl https://api.lob.com/v1/bulk/intl_verifications \
   --data-urlencode 'addresses[1][city]=Summerside' \
   --data-urlencode 'addresses[1][state]=Prince Edward Island' \
   --data-urlencode 'addresses[1][postal_code]=C1N 1C4' \
-  --data-urlencode 'addresses[1][country]=GB' \
+  --data-urlencode 'addresses[1][country]=CA' \
 ```
 
 ```php
@@ -1068,7 +1068,7 @@ $verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
   'city'     => 'Summerside',
   'state'     => 'Prince Edward Island',
   'postal_code'     => 'C1N 1C4',
-  'country'     => 'GB',
+  'country'     => 'CA',
 ));
 
 $addressList = new OpenAPI\Client\Model\IntlVerificationsPayload(array(
