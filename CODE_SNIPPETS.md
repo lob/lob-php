@@ -1045,12 +1045,12 @@ curl https://api.lob.com/v1/bulk/intl_verifications \
   --header 'Content-Type: application/x-www-form-urlencoded' \
   --data-urlencode 'addresses[0][primary_line]=35 Tower Hill' \
   --data-urlencode 'addresses[0][city]=London' \
-  --data-urlencode 'addresses[0][zip_code]=EC3N 4DR' \
+  --data-urlencode 'addresses[0][postal_code]=EC3N 4DR' \
   --data-urlencode 'addresses[0][country]=GB' \
   --data-urlencode 'addresses[1][primary_line]=370 Water St' \
   --data-urlencode 'addresses[1][city]=Summerside' \
   --data-urlencode 'addresses[1][state]=Prince Edward Island' \
-  --data-urlencode 'addresses[1][zip_code]=C1N 1C4' \
+  --data-urlencode 'addresses[1][postal_code]=C1N 1C4' \
   --data-urlencode 'addresses[1][country]=GB' \
 ```
 
@@ -1059,7 +1059,7 @@ curl https://api.lob.com/v1/bulk/intl_verifications \
 $verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
   'primary_line'     => '35 Tower Hill',
   'city'     => 'London',
-  'zip_code'     => 'EC3N 4DR',
+  'postal_code'     => 'EC3N 4DR',
   'country'     => 'GB',
 ));
 
@@ -1067,7 +1067,7 @@ $verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
   'primary_line'     => '370 Water St',
   'city'     => 'Summerside',
   'state'     => 'Prince Edward Island',
-  'zip_code'     => 'C1N 1C4',
+  'postal_code'     => 'C1N 1C4',
   'country'     => 'GB',
 ));
 
