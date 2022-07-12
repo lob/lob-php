@@ -145,6 +145,11 @@ try {
 
 
 
+
+
+
+
+
 ## Postcards Api
 
 ### Retrieve
@@ -1001,6 +1006,86 @@ try {
 ```
 
 
+## IntlVerifications Api
+
+### Single Verify
+```bash
+curl https://api.lob.com/v1/intl_verifications \
+  -u <YOUR_LIVE_API_KEY>: \
+  -d "primary_line=370 Water St" \
+  -d "city=Summerside" \
+  -d "state=Prince Edward Island" \
+  -d "postal_code=C1N 1C4" \
+  -d "country=CA" \
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\IntlVerificationsApi($config, new GuzzleHttp\Client());
+
+$verificationData = new OpenAPI\Client\Model\IntlVerificationWritable(array(
+  'primary_line'     => '370 Water St',
+  'city'     => 'Summerside',
+  'state'     => 'Prince Edward Island',
+  'postal_code'     => 'C1N 1C4',
+  'country'     => 'CA',
+));
+
+try {
+    $result = $apiInstance->verifySingle($verificationData);
+        print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+### Bulk Verify
+```bash
+curl https://api.lob.com/v1/bulk/intl_verifications \
+  -u <YOUR LIVE API KEY>: \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode 'addresses[0][primary_line]=35 Tower Hill' \
+  --data-urlencode 'addresses[0][city]=London' \
+  --data-urlencode 'addresses[0][postal_code]=EC3N 4DR' \
+  --data-urlencode 'addresses[0][country]=GB' \
+  --data-urlencode 'addresses[1][primary_line]=370 Water St' \
+  --data-urlencode 'addresses[1][city]=Summerside' \
+  --data-urlencode 'addresses[1][state]=Prince Edward Island' \
+  --data-urlencode 'addresses[1][postal_code]=C1N 1C4' \
+  --data-urlencode 'addresses[1][country]=CA' \
+```
+
+```php
+
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+  'primary_line'     => '35 Tower Hill',
+  'city'     => 'London',
+  'postal_code'     => 'EC3N 4DR',
+  'country'     => 'GB',
+));
+
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+  'primary_line'     => '370 Water St',
+  'city'     => 'Summerside',
+  'state'     => 'Prince Edward Island',
+  'postal_code'     => 'C1N 1C4',
+  'country'     => 'CA',
+));
+
+$addressList = new OpenAPI\Client\Model\IntlVerificationsPayload(array(
+  'addresses'     => [
+    $verificationData0,
+    $verificationData1,
+  ]
+));
+
+try {
+    $result = $apiInstance->verifyBulk($addressList);
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
 ## UsVerifications Api
 
 ### Bulk Verify
@@ -1139,36 +1224,18 @@ try {
 ```bash
 curl https://api.lob.com/v1/us_reverse_geocode_lookups \
   -u <YOUR_LIVE_API_KEY>: \
-  -d "latitude=37.7749" \
-  -d "longitude=122.4194" \
+
+  -d "latitude=37.777456" \
+
+  -d "longitude=-122.393039" \
 ```
 
 ```php
 $apiInstance = new OpenAPI\Client\Api\ReverseGeocodeLookupsApi($config, new GuzzleHttp\Client());
 
 $coordinates = new OpenAPI\Client\Model\Location(array(
-    "latitude" =>  "37.7749",
-    "longitude" =>  "122.4194",
-));
-
-try {
-    $result = $apiInstance->lookup($coordinates);
-    print_r($result);
-} catch (Exception $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
-```
-
-### Reverse Geocode Lookup
-```bash
-curl https://api.lob.com/v1/us_reverse_geocode_lookups \
-  -u <YOUR_LIVE_API_KEY>: \
-```
-
-```php
-$apiInstance = new OpenAPI\Client\Api\ReverseGeocodeLookupsApi($config, new GuzzleHttp\Client());
-
-$coordinates = new OpenAPI\Client\Model\Location(array(
+    "latitude" =>  "37.777456",
+    "longitude" =>  "-122.393039",
 ));
 
 try {
