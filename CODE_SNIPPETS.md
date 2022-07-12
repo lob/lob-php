@@ -1016,7 +1016,7 @@ curl https://api.lob.com/v1/intl_verifications \
   -d "city=Summerside" \
   -d "state=Prince Edward Island" \
   -d "postal_code=C1N 1C4" \
-  -d "country=GB" \
+  -d "country=CA" \
 ```
 
 ```php
@@ -1027,7 +1027,7 @@ $verificationData = new OpenAPI\Client\Model\IntlVerificationWritable(array(
   'city'     => 'Summerside',
   'state'     => 'Prince Edward Island',
   'postal_code'     => 'C1N 1C4',
-  'country'     => 'GB',
+  'country'     => 'CA',
 ));
 
 try {
