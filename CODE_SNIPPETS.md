@@ -1038,6 +1038,54 @@ try {
 }
 ```
 
+### Bulk Verify
+```bash
+curl https://api.lob.com/v1/bulk/intl_verifications \
+  -u <YOUR LIVE API KEY>: \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode 'addresses[0][primary_line]=35 Tower Hill' \
+  --data-urlencode 'addresses[0][city]=London' \
+  --data-urlencode 'addresses[0][zip_code]=EC3N 4DR' \
+  --data-urlencode 'addresses[0][country]=GB' \
+  --data-urlencode 'addresses[1][primary_line]=370 Water St' \
+  --data-urlencode 'addresses[1][city]=Summerside' \
+  --data-urlencode 'addresses[1][state]=Prince Edward Island' \
+  --data-urlencode 'addresses[1][zip_code]=C1N 1C4' \
+  --data-urlencode 'addresses[1][country]=GB' \
+```
+
+```php
+
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+  'primary_line'     => '35 Tower Hill',
+  'city'     => 'London',
+  'zip_code'     => 'EC3N 4DR',
+  'country'     => 'GB',
+));
+
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+  'primary_line'     => '370 Water St',
+  'city'     => 'Summerside',
+  'state'     => 'Prince Edward Island',
+  'zip_code'     => 'C1N 1C4',
+  'country'     => 'GB',
+));
+
+$addressList = new OpenAPI\Client\Model\IntlVerificationsPayload(array(
+  'addresses'     => [
+    $verificationData0,
+    $verificationData1,
+  ]
+));
+
+try {
+    $result = $apiInstance->verifyBulk($addressList);
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
 ## UsVerifications Api
 
 ### Bulk Verify
