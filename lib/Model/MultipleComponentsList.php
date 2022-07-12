@@ -197,8 +197,8 @@ class MultipleComponentsList implements ModelInterface, ArrayAccess, \JsonSerial
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((count($this->container['addresses']) > 10)) {
-                $invalidProperties[] = "invalid value for 'addresses', number of items must be less than or equal to 10.";
+            if ((count($this->container['addresses']) > 20)) {
+                $invalidProperties[] = "invalid value for 'addresses', number of items must be less than or equal to 20.";
             }
 
             if ((count($this->container['addresses']) < 1)) {
@@ -243,8 +243,8 @@ class MultipleComponentsList implements ModelInterface, ArrayAccess, \JsonSerial
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-            if ((count($addresses) > 10)) {
-                throw new \InvalidArgumentException('invalid value for $addresses when calling MultipleComponentsList., number of items must be less than or equal to 10.');
+            if ((count($addresses) > 20)) {
+                throw new \InvalidArgumentException('invalid value for $addresses when calling MultipleComponentsList., number of items must be less than or equal to 20.');
             }
             if ((count($addresses) < 1)) {
                 throw new \InvalidArgumentException('invalid length for $addresses when calling MultipleComponentsList., number of items must be greater than or equal to 1.');
