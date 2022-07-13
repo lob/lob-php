@@ -5,16 +5,22 @@
 [![Coverage Status](https://img.shields.io/coveralls/lob/lob-php.svg)](https://coveralls.io/r/lob/lob-php?branch=master)
 
 Lob.com PHP Client is a simple but flexible wrapper for the [Lob.com](https://www.lob.com) API. See full Lob.com documentation [here](https://lob.com/docs/php). For best results, be sure that you're using [the latest version](https://lob.com/docs/php#version) of the Lob API and the latest version of the PHP wrapper.
+******
+Starting a new project, we recommend using <a href="https://github.com/lob/lob-php"><strong>Version 4.0.0</strong></a>!
+    
+Moving your existing project from 3.0.0 to 4.0.0? <a href="https://github.com/lob/lob-php/blob/main/MIGRATION.md">Checkout this migration guide.</a>
+******
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Getting Started](#getting-started)
-  - [Registration](#registration)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Examples](#examples)
-- [Testing](#testing)
+- [lob-php](#lob-php)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Registration](#registration)
+    - [Installation](#installation)
+    - [Usage](#usage)
+  - [Examples](#examples)
+  - [Testing](#testing)
 
 ## Getting Started
 
