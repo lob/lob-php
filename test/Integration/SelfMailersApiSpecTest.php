@@ -26,296 +26,294 @@
  * Please update the test case below to test the endpoint.
  */
 
-// TODO: commented this whole test file since selfMailer objects aren't deserialized properly
+namespace OpenAPI\Client\Test\Api;
 
-// namespace OpenAPI\Client\Test\Api;
+use \OpenAPI\Client\Configuration;
+use \OpenAPI\Client\ApiException;
+use PHPUnit\Framework\TestCase;
+use \OpenAPI\Client\Model\SelfMailerEditable;
+use \OpenAPI\Client\Api\SelfMailersApi;
+use \OpenAPI\Client\Model\AddressEditable;
+use \OpenAPI\Client\Api\AddressesApi;
+use \OpenAPI\Client\Model\SelfMailerSize;
+use \OpenAPI\Client\Model\MailType;
+use \OpenAPI\Client\Model\SortBy5;
+/**
+ * AddressesApiTest Class Doc Comment
+ *
+ * @category Class
+ * @package  OpenAPI\Client
+ * @author   OpenAPI Generator team
+ * @link     https://openapi-generator.tech
+ */
 
-// use \OpenAPI\Client\Configuration;
-// use \OpenAPI\Client\ApiException;
-// use PHPUnit\Framework\TestCase;
-// use \OpenAPI\Client\Model\SelfMailerEditable;
-// use \OpenAPI\Client\Api\SelfMailersApi;
-// use \OpenAPI\Client\Model\AddressEditable;
-// use \OpenAPI\Client\Api\AddressesApi;
-// use \OpenAPI\Client\Model\SelfMailerSize;
-// use \OpenAPI\Client\Model\MailType;
-// use \OpenAPI\Client\Model\SortBy5;
-// /**
-//  * AddressesApiTest Class Doc Comment
-//  *
-//  * @category Class
-//  * @package  OpenAPI\Client
-//  * @author   OpenAPI Generator team
-//  * @link     https://openapi-generator.tech
-//  */
+class SelfMailersApiSpecTest extends TestCase
+{
+    /**
+     * Setup before running any test cases
+     */
+    private static $config;
+    private static $addressApi;
+    private static $selfMailersApi;
+    private static $invalidSelfMailerApi;
+    private static $editableSelfMailer;
+    private static $editableSelfMailer2;
+    private static $errorSelfMailer;
+    private static $metadata;
 
-// class SelfMailersApiSpecTest extends TestCase
-// {
-//     /**
-//      * Setup before running any test cases
-//      */
-//     private static $config;
-//     private static $addressApi;
-//     private static $selfMailersApi;
-//     private static $invalidSelfMailerApi;
-//     private static $editableSelfMailer;
-//     private static $editableSelfMailer2;
-//     private static $errorSelfMailer;
-//     private static $metadata;
+    // for teardown post-testing
+    private $idsForCleanup = [];
+    private static $toAddress;
+    private static $fromAddress;
+    private static $toAddress2;
+    private static $fromAddress2;
 
-//     // for teardown post-testing
-//     private $idsForCleanup = [];
-//     private static $toAddress;
-//     private static $fromAddress;
-//     private static $toAddress2;
-//     private static $fromAddress2;
+    // set up constant fixtures
+    public static function setUpBeforeClass(): void
+    {
+        // create instance of AddressesApi & addresses to use for other tests
+        self::$config = new Configuration();
+        self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
+        self::$addressApi = new AddressesApi(self::$config);
 
-//     // set up constant fixtures
-//     public static function setUpBeforeClass(): void
-//     {
-//         // create instance of AddressesApi & addresses to use for other tests
-//         self::$config = new Configuration();
-//         self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
-//         self::$addressApi = new AddressesApi(self::$config);
+        $address1 = new AddressEditable();
+        $address1->setName("THING T. THING");
+        $address1->setAddressLine1("1313 CEMETERY LN");
+        $address1->setAddressCity("WESTFIELD");
+        $address1->setAddressState("NJ");
+        $address1->setAddressZip("07000");
 
-//         $address1 = new AddressEditable();
-//         $address1->setName("THING T. THING");
-//         $address1->setAddressLine1("1313 CEMETERY LN");
-//         $address1->setAddressCity("WESTFIELD");
-//         $address1->setAddressState("NJ");
-//         $address1->setAddressZip("07000");
+        $address2 = new AddressEditable();
+        $address2->setName("FESTER");
+        $address2->setAddressLine1("001 CEMETERY LN");
+        $address2->setAddressLine2("SUITE 666");
+        $address2->setAddressCity("WESTFIELD");
+        $address2->setAddressState("NJ");
+        $address2->setAddressZip("07000");
 
-//         $address2 = new AddressEditable();
-//         $address2->setName("FESTER");
-//         $address2->setAddressLine1("001 CEMETERY LN");
-//         $address2->setAddressLine2("SUITE 666");
-//         $address2->setAddressCity("WESTFIELD");
-//         $address2->setAddressState("NJ");
-//         $address2->setAddressZip("07000");
+        self::$toAddress = self::$addressApi->create($address1);
+        self::$fromAddress = self::$addressApi->create($address2);
 
-//         self::$toAddress = self::$addressApi->create($address1);
-//         self::$fromAddress = self::$addressApi->create($address2);
+        $address3 = new AddressEditable();
+        $address3->setName("MORTICIA ADDAMS");
+        $address3->setAddressLine1("1212 CEMETERY LN");
+        $address3->setAddressCity("WESTFIELD");
+        $address3->setAddressState("NJ");
+        $address3->setAddressZip("07000");
 
-//         $address3 = new AddressEditable();
-//         $address3->setName("MORTICIA ADDAMS");
-//         $address3->setAddressLine1("1212 CEMETERY LN");
-//         $address3->setAddressCity("WESTFIELD");
-//         $address3->setAddressState("NJ");
-//         $address3->setAddressZip("07000");
+        $address4 = new AddressEditable();
+        $address4->setName("COUSIN ITT");
+        $address4->setAddressLine1("1515 CEMETERY LN");
+        $address4->setAddressLine2("FLOOR 0");
+        $address4->setAddressCity("WESTFIELD");
+        $address4->setAddressState("NJ");
+        $address4->setAddressZip("07000");
 
-//         $address4 = new AddressEditable();
-//         $address4->setName("COUSIN ITT");
-//         $address4->setAddressLine1("1515 CEMETERY LN");
-//         $address4->setAddressLine2("FLOOR 0");
-//         $address4->setAddressCity("WESTFIELD");
-//         $address4->setAddressState("NJ");
-//         $address4->setAddressZip("07000");
+        self::$toAddress2 = self::$addressApi->create($address3);
+        self::$fromAddress2 = self::$addressApi->create($address4);
 
-//         self::$toAddress2 = self::$addressApi->create($address3);
-//         self::$fromAddress2 = self::$addressApi->create($address4);
+        // create new instance of SelfMailersApi to use in other tests
+        self::$selfMailersApi = new SelfMailersApi(self::$config);
 
-//         // create new instance of SelfMailersApi to use in other tests
-//         self::$selfMailersApi = new SelfMailersApi(self::$config);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        self::$invalidSelfMailerApi = new SelfMailersApi($wrongConfig);
 
-//         $wrongConfig = new Configuration();
-//         $wrongConfig->setApiKey('basic', 'BAD KEY');
-//         $invalidSelfMailerApi = new SelfMailersApi($wrongConfig);
+        // create editable self-mailer
+        self::$editableSelfMailer = new SelfMailerEditable();
+        self::$editableSelfMailer->setTo(self::$toAddress->getId());
+        self::$editableSelfMailer->setFrom(self::$fromAddress->getId());
+        self::$editableSelfMailer->setDescription("Dummy Self-Mailer (Integration Test)");
+        self::$editableSelfMailer->setInside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
+        self::$editableSelfMailer->setOutside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
 
-//         // create editable self-mailer
-//         self::$editableSelfMailer = new SelfMailerEditable();
-//         self::$editableSelfMailer->setTo(self::$toAddress->getId());
-//         self::$editableSelfMailer->setFrom(self::$fromAddress->getId());
-//         self::$editableSelfMailer->setDescription("Dummy Self-Mailer (Integration Test)");
-//         self::$editableSelfMailer->setInside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
-//         self::$editableSelfMailer->setOutside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
+        // create second editable self-mailer
+        self::$editableSelfMailer2 = new SelfMailerEditable();
+        self::$editableSelfMailer2->setTo(self::$toAddress2->getId());
+        self::$editableSelfMailer2->setFrom(self::$fromAddress2->getId());
+        self::$editableSelfMailer2->setDescription("Dummy Self-Mailer (Integration Test)");
+        self::$editableSelfMailer2->setInside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
+        self::$editableSelfMailer2->setOutside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
+        self::$metadata = (object)array("name"=>"Harry");
+        self::$editableSelfMailer2->setMetadata(self::$metadata);
 
-//         // create second editable self-mailer
-//         self::$editableSelfMailer2 = new SelfMailerEditable();
-//         self::$editableSelfMailer2->setTo(self::$toAddress2->getId());
-//         self::$editableSelfMailer2->setFrom(self::$fromAddress2->getId());
-//         self::$editableSelfMailer2->setDescription("Dummy Self-Mailer (Integration Test)");
-//         self::$editableSelfMailer2->setInside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
-//         self::$editableSelfMailer2->setOutside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
-//         self::$metadata = (object)array("name"=>"Harry");
-//         self::$editableSelfMailer2->setMetadata(self::$metadata);
+        // create error self-mailer
+        self::$errorSelfMailer = new SelfMailerEditable();
+        self::$errorSelfMailer->setFrom(self::$fromAddress->getId());
+        self::$errorSelfMailer->setDescription("Dummy Self-Mailer (Integration Test)");
+        self::$errorSelfMailer->setInside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
+        self::$errorSelfMailer->setOutside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
+    }
 
-//         // create error self-mailer
-//         self::$errorSelfMailer = new SelfMailerEditable();
-//         self::$errorSelfMailer->setFrom(self::$fromAddress->getId());
-//         self::$errorSelfMailer->setDescription("Dummy Self-Mailer (Integration Test)");
-//         self::$errorSelfMailer->setInside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
-//         self::$errorSelfMailer->setOutside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
-//     }
+    public function tearDown(): void
+    {
+        foreach ($this->idsForCleanup as $id) {
+            self::$selfMailersApi->delete($id);
+        }
+    }
 
-//     public function tearDown(): void
-//     {
-//         foreach ($this->idsForCleanup as $id) {
-//             self::$selfMailersApi->delete($id);
-//         }
-//     }
+    public static function tearDownAfterClass(): void {
+        self::$addressApi->delete(self::$toAddress->getId());
+        self::$addressApi->delete(self::$toAddress2->getId());
+        self::$addressApi->delete(self::$fromAddress->getId());
+        self::$addressApi->delete(self::$fromAddress2->getId());
+    }
 
-//     public static function tearDownAfterClass(): void {
-//         self::$addressApi->delete(self::$toAddress->getId());
-//         self::$addressApi->delete(self::$toAddress2->getId());
-//         self::$addressApi->delete(self::$fromAddress->getId());
-//         self::$addressApi->delete(self::$fromAddress2->getId());
-//     }
+    public function testSelfMailersApiInstantiation200() {
+        $selfMailersApi200 = new SelfMailersApi(self::$config);
+        $this->assertEquals(gettype($selfMailersApi200), 'object');
+    }
 
-//     public function testSelfMailersApiInstantiation200() {
-//         $selfMailersApi200 = new SelfMailersApi(self::$config);
-//         $this->assertEquals(gettype($selfMailersApi200), 'object');
-//     }
+    public function testCreate200()
+    {
+        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+        $this->assertMatchesRegularExpression('/sfm_/', $createdSelfMailer->getId());
+        array_push($this->idsForCleanup, $createdSelfMailer->getId());
+    }
 
-//     public function testCreate200()
-//     {
-//         $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-//         $this->assertMatchesRegularExpression('/sfm_/', $createdSelfMailer->getId());
-//         array_push($this->idsForCleanup, $createdSelfMailer->getId());
-//     }
+    // does not include required field in request
+    public function testCreate422()
+    {
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/to is required/");
+        $errorResponse = self::$selfMailersApi->create(self::$errorSelfMailer);
+    }
 
-//     // does not include required field in request
-//     public function testCreate422()
-//     {
-//         $this->expectException(ApiException::class);
-//         $this->expectExceptionMessageMatches("/to is required/");
-//         $errorResponse = self::$selfMailersApi->create(self::$errorSelfMailer);
-//     }
+    // uses a bad key to attempt to send a request
+    public function testSelfMailerApi401() {
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        $selfMailersApiError = new SelfMailersApi($wrongConfig);
 
-//     // uses a bad key to attempt to send a request
-//     public function testSelfMailerApi401() {
-//         $wrongConfig = new Configuration();
-//         $wrongConfig->setApiKey('basic', 'BAD KEY');
-//         $selfMailersApiError = new SelfMailersApi($wrongConfig);
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = $selfMailersApiError->create(self::$editableSelfMailer);
+    }
 
-//         $this->expectException(ApiException::class);
-//         $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-//         $errorResponse = $selfMailersApiError->create(self::$editableSelfMailer);
-//     }
+    public function testGet200()
+    {
+        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+        $retrievedSelfMailer = self::$selfMailersApi->get($createdSelfMailer->getId());
+        $this->assertEquals($createdSelfMailer->getTo(), $retrievedSelfMailer->getTo());
+        array_push($this->idsForCleanup, $createdSelfMailer->getId());
+    }
 
-//     public function testGet200()
-//     {
-//         $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-//         $retrievedSelfMailer = self::$selfMailersApi->get($createdSelfMailer->getId());
-//         $this->assertEquals($createdSelfMailer->getTo(), $retrievedSelfMailer->getTo());
-//         array_push($this->idsForCleanup, $createdSelfMailer->getId());
-//     }
+    public function testGet0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $badRetrieval = self::$selfMailersApi->get(null);
+    }
 
-//     public function testGet0()
-//     {
-//         $this->expectException(\InvalidArgumentException::class);
-//         $this->expectExceptionMessageMatches("/Missing the required parameter/");
-//         $badRetrieval = self::$selfMailersApi->get(null);
-//     }
+    public function testGet401()
+    {
+        $createdSelfMailers = self::$selfMailersApi->create(self::$editableSelfMailer);
+        array_push($this->idsForCleanup, $createdSelfMailers->getId());
 
-//     public function testGet401()
-//     {
-//         $createdSelfMailers = self::$selfMailersApi->create(self::$regularSelfMailers);
-//         array_push($this->idsForCleanup, $createdSelfMailers->getId());
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidSelfMailerApi->get($createdSelfMailers->getId());
+    }
 
-//         $this->expectException(\Exception::class);
-//         $this->expectExceptionMessageMatches("/Your API key is not valid/");
-//         $badRetrieval = self::$invalidSelfMailerApi->get($createdSelfMailers->getId());
-//     }
+    public function testGet404()
+    {
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/self mailer not found/");
+        $badRetrieval = self::$selfMailersApi->get("sfm_NONEXISTENT");
+    }
 
-//     public function testGet404()
-//     {
-//         $this->expectException(ApiException::class);
-//         $this->expectExceptionMessageMatches("/self mailer not found/");
-//         $badRetrieval = self::$selfMailersApi->get("sfm_NONEXISTENT");
-//     }
+    public function testList200()
+    {
+        $nextUrl = "";
+        $previousUrl = "";
+        $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+        $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+        $listedSelfMailers = self::$selfMailersApi->list(2);
+        $this->assertGreaterThan(1, count($listedSelfMailers->getData()));
+        $this->assertLessThanOrEqual(2, count($listedSelfMailers->getData()));
+        $nextUrl = substr($listedSelfMailers->getNextUrl(), strrpos($listedSelfMailers->getNextUrl(), "after=") + 6);
+        $this->assertIsString($nextUrl);
+        array_push($this->idsForCleanup, $sfm1->getId());
+        array_push($this->idsForCleanup, $sfm2->getId());
 
-//     public function testList200()
-//     {
-//         $nextUrl = "";
-//         $previousUrl = "";
-//         $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-//         $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-//         $listedSelfMailers = self::$selfMailersApi->list(2);
-//         $this->assertGreaterThan(1, count($listedSelfMailers->getData()));
-//         $this->assertLessThanOrEqual(2, count($listedSelfMailers->getData()));
-//         $nextUrl = substr($listedSelfMailers->getNextUrl(), strrpos($listedSelfMailers->getNextUrl(), "after=") + 6);
-//         $this->assertIsString($nextUrl);
-//         array_push($this->idsForCleanup, $sfm1->getId());
-//         array_push($this->idsForCleanup, $sfm2->getId());
+        // response using nextUrl
+        if ($nextUrl != "") {
+            $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+            $listedSelfMailersAfter = self::$selfMailersApi->list(2, null, $nextUrl);
+            $this->assertGreaterThan(1, count($listedSelfMailersAfter->getData()));
+            $this->assertLessThanOrEqual(2, count($listedSelfMailersAfter->getData()));
+            $previousUrl = substr($listedSelfMailersAfter->getPreviousUrl(), strrpos($listedSelfMailersAfter->getPreviousUrl(), "before=") + 7);
+            $this->assertIsString($previousUrl);
+            array_push($this->idsForCleanup, $sfm1->getId());
+            array_push($this->idsForCleanup, $sfm2->getId());
+        }
 
-//         // response using nextUrl
-//         if ($nextUrl != "") {
-//             $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-//             $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-//             $listedSelfMailersAfter = self::$selfMailersApi->list(2, null, $nextUrl);
-//             $this->assertGreaterThan(1, count($listedSelfMailersAfter->getData()));
-//             $this->assertLessThanOrEqual(2, count($listedSelfMailersAfter->getData()));
-//             $previousUrl = substr($listedSelfMailersAfter->getPreviousUrl(), strrpos($listedSelfMailersAfter->getPreviousUrl(), "before=") + 7);
-//             $this->assertIsString($previousUrl);
-//             array_push($this->idsForCleanup, $sfm1->getId());
-//             array_push($this->idsForCleanup, $sfm2->getId());
-//         }
+        // response using previousUrl
+        if ($previousUrl != "") {
+            $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+            $listedSelfMailersBefore = self::$selfMailersApi->list(2, $previousUrl);
+            $this->assertGreaterThan(1, count($listedSelfMailersBefore->getData()));
+            $this->assertLessThanOrEqual(2, count($listedSelfMailersBefore->getData()));
+            array_push($this->idsForCleanup, $sfm1->getId());
+            array_push($this->idsForCleanup, $sfm2->getId());
+        }
+    }
 
-//         // response using previousUrl
-//         if ($previousUrl != "") {
-//             $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-//             $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-//             $listedSelfMailersBefore = self::$selfMailersApi->list(2, $previousUrl);
-//             $this->assertGreaterThan(1, count($listedSelfMailersBefore->getData()));
-//             $this->assertLessThanOrEqual(2, count($listedSelfMailersBefore->getData()));
-//             array_push($this->idsForCleanup, $sfm1->getId());
-//             array_push($this->idsForCleanup, $sfm2->getId());
-//         }
-//     }
+    public function provider()
+    {
+        return array(
+            // array(null, null, null, array("total_count"), null, null, null, null, null, null, null), // include
+            // array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null, null, null, null, null), // date_created
+            array(null, null, null, null, null, self::$metadata, null, null, null, null, null), // metadata
+            // array(null, null, null, null, null, null, [SelfMailerSize::_6X18_BIFOLD->value], null, null, null, null), // size
+            // array(null, null, null, null, null, null, null, TRUE, null, null, null), // scheduled
+            // array(null, null, null, null, null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null), // send_date
+            array(null, null, null, null, null, null, null, null, null, MailType::FIRST_CLASS->value, null), // mail_type
+            array(null, null, null, null, null, null, null, null, null, null, new SortBy5(array("date_created" => "asc"))) // sort_by
+        );
+    }
 
-//     public function provider()
-//     {
-//         return array(
-//             // array(null, null, null, array("total_count"), null, null, null, null, null, null, null), // include
-//             // array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null, null, null, null, null), // date_created
-//             array(null, null, null, null, null, self::$metadata, null, null, null, null, null), // metadata
-//             // array(null, null, null, null, null, null, [SelfMailerSize::_6X18_BIFOLD->value], null, null, null, null), // size
-//             // array(null, null, null, null, null, null, null, TRUE, null, null, null), // scheduled
-//             // array(null, null, null, null, null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null), // send_date
-//             array(null, null, null, null, null, null, null, null, null, MailType::FIRST_CLASS->value, null), // mail_type
-//             array(null, null, null, null, null, null, null, null, null, null, new SortBy5(array("date_created" => "asc"))) // sort_by
-//         );
-//     }
+    /**
+     * @dataProvider provider
+     */
+    public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by)
+    {
+        // create self mailers to list
+        $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+        $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+        $listedSelfMailers = self::$selfMailersApi->list($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by);
 
-//     /**
-//      * @dataProvider provider
-//      */
-//     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by)
-//     {
-//         // create self mailers to list
-//         $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-//         $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-//         $listedSelfMailers = self::$selfMailersApi->list($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by);
+        $this->assertGreaterThan(0, $listedSelfMailers->getCount());
+        if ($include) $this->assertNotNull($listedSelfMailers->getTotalCount());
 
-//         $this->assertGreaterThan(0, $listedSelfMailers->getCount());
-//         if ($include) $this->assertNotNull($listedSelfMailers->getTotalCount());
+        // delete created self mailers
+        array_push($this->idsForCleanup, $sfm1->getId());
+        array_push($this->idsForCleanup, $sfm2->getId());
+    }
 
-//         // delete created self mailers
-//         array_push($this->idsForCleanup, $sfm1->getId());
-//         array_push($this->idsForCleanup, $sfm2->getId());
-//     }
+    public function testDelete200()
+    {
+        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+        $deletedSelfMailer = self::$selfMailersApi->delete($createdSelfMailer->getId());
+        $this->assertEquals(true, $deletedSelfMailer->getDeleted());
+    }
 
-//     public function testDelete200()
-//     {
-//         $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-//         $deletedSelfMailer = self::$selfMailersApi->delete($createdSelfMailer->getId());
-//         $this->assertEquals(true, $deletedSelfMailer->getDeleted());
-//     }
+    public function testDelete401()
+    {
+        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+        array_push($this->idsForCleanup, $createdSelfMailer->getId());
 
-//     public function testDelete401()
-//     {
-//         $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-//         array_push($this->idsForCleanup, $createdSelfMailer->getId());
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $deletedSelfMailer = self::$invalidSelfMailerApi->delete($createdSelfMailer->getId());
+    }
 
-//         $this->expectException(ApiException::class);
-//         $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-//         $deletedSelfMailer = self::$invalidSelfMailerApi->delete($createdSelfMailer->getId());
-//     }
-
-//     public function testDelete404()
-//     {
-//         $this->expectException(ApiException::class);
-//         $this->expectExceptionMessageMatches("/self mailer not found/");
-//         $badDeletion = self::$selfMailersApi->delete("sfm_NONEXISTENT");
-//     }
-// }
+    public function testDelete404()
+    {
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/self mailer not found/");
+        $badDeletion = self::$selfMailersApi->delete("sfm_NONEXISTENT");
+    }
+}
