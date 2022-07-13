@@ -106,18 +106,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         self::$templateVersion3->setHtml("<html>Updated HTML 3 for {{name}}</html>");
     }
 
-    public function tearDown(): void
-    {
-        foreach ($this->idsForCleanup as $id) {
-            self::$templateVersionsApi->delete(self::$tmplId, $id);
-        }
-    }
-
     public static function tearDownAfterClass(): void
     {
         self::$templatesApi->delete(self::$tmplId);
     }
-
 
     public function testTemplateVersionsApiInstantiation200() {
         $templateVersionsApi200 = new TemplateVersionsApi(self::$config);
@@ -268,16 +260,20 @@ class TemplateVersionsApiSpecTest extends TestCase
 
     public function provider()
     {
+        date_default_timezone_set('America/Los_Angeles');
+        $date_str = date("Y-m-d", strtotime("-1 months"));
+        $date_obj = (object) array("gt" => $date_str);
+
         return array(
-            // array(self::$tmplId, null, null, null, array("total_count"), null), // include
-            // array(self::$tmplId, null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400)))), // date_created
+            array(null, null, null, array("total_count"), null), // include
+            array(null, null, null, null, $date_obj), // date_created
         );
     }
 
     /**
      * @dataProvider provider
      */
-    public function testListWithParams($tmpl_id, $limit, $before, $after, $include, $date_created)
+    public function testListWithParams($limit, $before, $after, $include, $date_created)
     {
         // create template versions to list
         $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
@@ -289,11 +285,12 @@ class TemplateVersionsApiSpecTest extends TestCase
         array_push($this->idsForCleanup, $tv2->getId());
         array_push($this->idsForCleanup, $tv3->getId());
 
-        $listedTemplateVersions = self::$templateApi->list($tmpl_id, $limit, $before, $after, $include, $date_created);
+        $listedTemplateVersions = self::$templateVersionsApi->list(self::$tmplId, $limit, $before, $after, $include, $date_created);
 
         $this->assertGreaterThan(0, $listedTemplateVersions->getCount());
         if ($include) $this->assertNotNull($listedTemplateVersions->getTotalCount());
     }
+
     public function testDelete200()
     {
         $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);

@@ -209,9 +209,13 @@ class AddressesApiSpecTest extends TestCase
 
     public function provider()
     {
+        date_default_timezone_set('America/Los_Angeles');
+        $date_str = date("Y-m-d", strtotime("-1 months"));
+        $date_obj = (object) array("gt" => $date_str);
+
         return array(
-          // array(null, null, null, array("total_count"), null, null),
-        //   array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null),
+          array(null, null, null, array("total_count"), null, null),
+          array(null, null, null, null, $date_obj, null),
           array(null, null, null, null, null, self::$metadata),
         );
     }

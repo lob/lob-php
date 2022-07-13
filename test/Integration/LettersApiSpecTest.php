@@ -290,13 +290,17 @@ class LettersApiSpecTest extends TestCase
 
     public function provider()
     {
+        date_default_timezone_set('America/Los_Angeles');
+        $date_str = date("Y-m-d", strtotime("-1 months"));
+        $date_obj = (object) array("gt" => $date_str);
+
         return array(
-            // array(null, null, null, array("total_count"), null, null, null, null, null, null, null), // include
-            // array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null, null, null, null, null), // date_created
+            array(null, null, null, array("total_count"), null, null, null, null, null, null, null), // include
+            array(null, null, null, null, $date_obj, null, null, null, null, null, null), // date_created
             array(null, null, null, null, null, self::$metadata, null, null, null, null, null), // metadata
-            // array(null, null, null, null, null, null, TRUE, null, null, null, null), // color
-            // array(null, null, null, null, null, null, null, TRUE, null, null, null), // scheduled
-            // array(null, null, null, null, null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null, null), // send_date
+            array(null, null, null, null, null, null, TRUE, null, null, null, null), // color
+            array(null, null, null, null, null, null, null, TRUE, null, null, null), // scheduled
+            array(null, null, null, null, null, null, null, null, $date_obj, null, null), // send_date
             array(null, null, null, null, null, null, null, null, null, MailType::FIRST_CLASS->value, null), // mail_type
             array(null, null, null, null, null, null, null, null, null, null, new SortBy5(array("date_created" => "asc"))) // sort_by
         );

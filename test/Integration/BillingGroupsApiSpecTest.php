@@ -196,11 +196,15 @@ class BillingGroupsApiSpecTest extends TestCase
 
     public function provider()
     {
+        date_default_timezone_set('America/Los_Angeles');
+        $date_str = date("Y-m-d", strtotime("-1 months"));
+        $date_obj = (object) array("gt" => $date_str);
+
         return array(
             array(null, 1, null, null, null, null),
             // array(null, null, array("total_count"), null, null, null),
-            // array(null, null, null, array("gt" => (string)date("c"), "lt" => (string)(date("c", time() + 86400))), null, null),
-            // array(null, null, null, null, array("gt" => (string)(date("c")), "lt" => (string)(date("c", time() + 86400))), null),
+            array(null, null, null, $date_obj, null, null),
+            array(null, null, null, null, $date_obj, null),
             array(null, null, null, null, null, new SortBy5(array("date_created" => "asc"))),
         );
     }
