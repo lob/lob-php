@@ -39,3 +39,4 @@
         "psr-4": { "OpenAPI\\Client\\Test\\" : "test/" }
     }
 }
+
