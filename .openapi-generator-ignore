@@ -26,5 +26,7 @@
 git_push.sh
 .travis.yml
 test/**/*
+composer.json
+phpunit.xml.dist
 
 README.md
