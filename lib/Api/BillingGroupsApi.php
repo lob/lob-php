@@ -608,7 +608,7 @@ class BillingGroupsApi
      * @param  int $limit How many results to return. (optional, default to 10)
      * @param  int $offset An integer that designates the offset at which to begin returning results. Defaults to 0. (optional, default to 0)
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,string> $date_created Filter by date created. (optional)
+     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $date_modified Filter by date modified. (optional)
      * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
      *
@@ -630,7 +630,7 @@ class BillingGroupsApi
      * @param  int $limit How many results to return. (optional, default to 10)
      * @param  int $offset An integer that designates the offset at which to begin returning results. Defaults to 0. (optional, default to 0)
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,string> $date_created Filter by date created. (optional)
+     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $date_modified Filter by date modified. (optional)
      * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
      *
@@ -695,7 +695,7 @@ class BillingGroupsApi
      * @param  int $limit How many results to return. (optional, default to 10)
      * @param  int $offset An integer that designates the offset at which to begin returning results. Defaults to 0. (optional, default to 0)
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,string> $date_created Filter by date created. (optional)
+     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $date_modified Filter by date modified. (optional)
      * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
      *
