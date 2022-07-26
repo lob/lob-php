@@ -389,51 +389,31 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['reorder_quantity'] === null) {
-                $invalidProperties[] = "'reorder_quantity' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['raw_url'] === null) {
-                $invalidProperties[] = "'raw_url' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($this->container['raw_url']) > 2083)) {
+            if (!is_null($this->container['raw_url']) && (mb_strlen($this->container['raw_url']) > 2083)) {
                 $invalidProperties[] = "invalid value for 'raw_url', the character length must be smaller than or equal to 2083.";
             }
 
-            if ((mb_strlen($this->container['raw_url']) < 1)) {
+            if (!is_null($this->container['raw_url']) && (mb_strlen($this->container['raw_url']) < 1)) {
                 $invalidProperties[] = "invalid value for 'raw_url', the character length must be bigger than or equal to 1.";
             }
 
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['front_original_url'] === null) {
-                $invalidProperties[] = "'front_original_url' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($this->container['front_original_url']) > 2083)) {
+            if (!is_null($this->container['front_original_url']) && (mb_strlen($this->container['front_original_url']) > 2083)) {
                 $invalidProperties[] = "invalid value for 'front_original_url', the character length must be smaller than or equal to 2083.";
             }
 
-            if ((mb_strlen($this->container['front_original_url']) < 1)) {
+            if (!is_null($this->container['front_original_url']) && (mb_strlen($this->container['front_original_url']) < 1)) {
                 $invalidProperties[] = "invalid value for 'front_original_url', the character length must be bigger than or equal to 1.";
             }
 
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['back_original_url'] === null) {
-                $invalidProperties[] = "'back_original_url' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($this->container['back_original_url']) > 2083)) {
+            if (!is_null($this->container['back_original_url']) && (mb_strlen($this->container['back_original_url']) > 2083)) {
                 $invalidProperties[] = "invalid value for 'back_original_url', the character length must be smaller than or equal to 2083.";
             }
 
-            if ((mb_strlen($this->container['back_original_url']) < 1)) {
+            if (!is_null($this->container['back_original_url']) && (mb_strlen($this->container['back_original_url']) < 1)) {
                 $invalidProperties[] = "invalid value for 'back_original_url', the character length must be bigger than or equal to 1.";
             }
 
@@ -453,11 +433,6 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
                 $invalidProperties[] = "'pending_quantity' can't be null";
             }
         }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['status'] === null) {
-                $invalidProperties[] = "'status' can't be null";
-            }
-        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
@@ -469,11 +444,6 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
 
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['orientation'] === null) {
-                $invalidProperties[] = "'orientation' can't be null";
-            }
-        }
         $allowedValues = $this->getOrientationAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['orientation']) && !in_array($this->container['orientation'], $allowedValues, true)) {
@@ -521,6 +491,11 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['size'] === null) {
+                $invalidProperties[] = "'size' can't be null";
+            }
         }
         $allowedValues = $this->getSizeAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
@@ -643,7 +618,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets reorder_quantity
      *
-     * @return int
+     * @return int|null
      */
     public function getReorderQuantity()
     {
@@ -653,7 +628,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets reorder_quantity
      *
-     * @param int $reorder_quantity The number of cards to be reordered.
+     * @param int|null $reorder_quantity The number of cards to be reordered. Only present when auto_reorder is True.
      *
      * @return self
      */
@@ -668,7 +643,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets raw_url
      *
-     * @return string
+     * @return string|null
      */
     public function getRawUrl()
     {
@@ -678,17 +653,17 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets raw_url
      *
-     * @param string $raw_url The raw URL of the card.
+     * @param string|null $raw_url The raw URL of the card.
      *
      * @return self
      */
     public function setRawUrl($raw_url)
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($raw_url) > 2083)) {
+            if (!is_null($raw_url) && (mb_strlen($raw_url) > 2083)) {
                 throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be smaller than or equal to 2083.');
             }
-            if ((mb_strlen($raw_url) < 1)) {
+            if (!is_null($raw_url) && (mb_strlen($raw_url) < 1)) {
                 throw new \InvalidArgumentException('invalid length for $raw_url when calling Card., must be bigger than or equal to 1.');
             }
 
@@ -702,7 +677,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets front_original_url
      *
-     * @return string
+     * @return string|null
      */
     public function getFrontOriginalUrl()
     {
@@ -712,17 +687,17 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets front_original_url
      *
-     * @param string $front_original_url The original URL of the front template.
+     * @param string|null $front_original_url The original URL of the front template.
      *
      * @return self
      */
     public function setFrontOriginalUrl($front_original_url)
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($front_original_url) > 2083)) {
+            if (!is_null($front_original_url) && (mb_strlen($front_original_url) > 2083)) {
                 throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be smaller than or equal to 2083.');
             }
-            if ((mb_strlen($front_original_url) < 1)) {
+            if (!is_null($front_original_url) && (mb_strlen($front_original_url) < 1)) {
                 throw new \InvalidArgumentException('invalid length for $front_original_url when calling Card., must be bigger than or equal to 1.');
             }
 
@@ -736,7 +711,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets back_original_url
      *
-     * @return string
+     * @return string|null
      */
     public function getBackOriginalUrl()
     {
@@ -746,17 +721,17 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets back_original_url
      *
-     * @param string $back_original_url The original URL of the back template.
+     * @param string|null $back_original_url The original URL of the back template.
      *
      * @return self
      */
     public function setBackOriginalUrl($back_original_url)
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($back_original_url) > 2083)) {
+            if (!is_null($back_original_url) && (mb_strlen($back_original_url) > 2083)) {
                 throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be smaller than or equal to 2083.');
             }
-            if ((mb_strlen($back_original_url) < 1)) {
+            if (!is_null($back_original_url) && (mb_strlen($back_original_url) < 1)) {
                 throw new \InvalidArgumentException('invalid length for $back_original_url when calling Card., must be bigger than or equal to 1.');
             }
 
@@ -852,7 +827,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status
      *
-     * @return string
+     * @return string|null
      */
     public function getStatus()
     {
@@ -862,7 +837,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string $status status
+     * @param string|null $status status
      *
      * @return self
      */
@@ -870,7 +845,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $allowedValues = $this->getStatusAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!in_array($status, $allowedValues, true)) {
+            if (!is_null($status) && !in_array($status, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         "Invalid value '%s' for 'status', must be one of '%s'",
@@ -890,7 +865,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets orientation
      *
-     * @return string
+     * @return string|null
      */
     public function getOrientation()
     {
@@ -900,7 +875,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets orientation
      *
-     * @param string $orientation The orientation of the card.
+     * @param string|null $orientation The orientation of the card.
      *
      * @return self
      */
@@ -908,7 +883,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $allowedValues = $this->getOrientationAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!in_array($orientation, $allowedValues, true)) {
+            if (!is_null($orientation) && !in_array($orientation, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         "Invalid value '%s' for 'orientation', must be one of '%s'",
@@ -1097,7 +1072,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets size
      *
-     * @return string|null
+     * @return string
      */
     public function getSize()
     {
@@ -1107,7 +1082,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets size
      *
-     * @param string|null $size The size of the card
+     * @param string $size The size of the card
      *
      * @return self
      */
@@ -1115,7 +1090,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $allowedValues = $this->getSizeAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($size) && !in_array($size, $allowedValues, true)) {
+            if (!in_array($size, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         "Invalid value '%s' for 'size', must be one of '%s'",

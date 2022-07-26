@@ -598,7 +598,7 @@ class AddressesApi
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,string> $date_created Filter by date created. (optional)
+     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
@@ -620,7 +620,7 @@ class AddressesApi
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,string> $date_created Filter by date created. (optional)
+     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
@@ -685,7 +685,7 @@ class AddressesApi
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,string> $date_created Filter by date created. (optional)
+     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
      *
      * @throws \InvalidArgumentException

@@ -231,7 +231,7 @@ $limit = 10; // int | How many results to return.
 $before = 'before_example'; // string | A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the `previous_url` field in the return response.
 $after = 'after_example'; // string | A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the `next_url` field in the return response.
 $include = array('include_example'); // string[] | Request that the response include the total count by specifying `include[]=total_count`.
-$date_created = array('key' => 'date_created_example'); // array<string,string> | Filter by date created.
+$date_created = array('key' => new \DateTime("2013-10-20T19:20:30+01:00")); // array<string,\DateTime> | Filter by date created.
 $metadata = array('key' => 'metadata_example'); // array<string,string> | Filter by metadata key-value pair`.
 $size = array(new \OpenAPI\Client\Model\\OpenAPI\Client\Model\SelfMailerSize()); // \OpenAPI\Client\Model\SelfMailerSize[] | The self mailer sizes to be returned.
 $scheduled = True; // bool | * `true` - only return orders (past or future) where `send_date` is greater than `date_created` * `false` - only return orders where `send_date` is equal to `date_created`
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
  **before** | **string**| A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. | [optional]
  **after** | **string**| A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. | [optional]
  **include** | [**string[]**](../Model/string.md)| Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. | [optional]
- **date_created** | [**array<string,string>**](../Model/string.md)| Filter by date created. | [optional]
+ **date_created** | [**array<string,\DateTime>**](../Model/\DateTime.md)| Filter by date created. | [optional]
  **metadata** | [**array<string,string>**](../Model/string.md)| Filter by metadata key-value pair&#x60;. | [optional]
  **size** | [**\OpenAPI\Client\Model\SelfMailerSize[]**](../Model/\OpenAPI\Client\Model\SelfMailerSize.md)| The self mailer sizes to be returned. | [optional]
  **scheduled** | **bool**| * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; | [optional]

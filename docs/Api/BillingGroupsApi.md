@@ -230,7 +230,7 @@ $apiInstance = new OpenAPI\Client\Api\BillingGroupsApi(
 $limit = 10; // int | How many results to return.
 $offset = 0; // int | An integer that designates the offset at which to begin returning results. Defaults to 0.
 $include = array('include_example'); // string[] | Request that the response include the total count by specifying `include[]=total_count`.
-$date_created = array('key' => 'date_created_example'); // array<string,string> | Filter by date created.
+$date_created = array('key' => new \DateTime("2013-10-20T19:20:30+01:00")); // array<string,\DateTime> | Filter by date created.
 $date_modified = array('key' => 'date_modified_example'); // array<string,string> | Filter by date modified.
 $sort_by = new \OpenAPI\Client\Model\SortBy5(); // SortBy5 | Sorts items by ascending or descending dates. Use either `date_created` or `send_date`, not both.
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| How many results to return. | [optional] [default to 10]
  **offset** | **int**| An integer that designates the offset at which to begin returning results. Defaults to 0. | [optional] [default to 0]
  **include** | [**string[]**](../Model/string.md)| Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. | [optional]
- **date_created** | [**array<string,string>**](../Model/string.md)| Filter by date created. | [optional]
+ **date_created** | [**array<string,\DateTime>**](../Model/\DateTime.md)| Filter by date created. | [optional]
  **date_modified** | [**array<string,string>**](../Model/string.md)| Filter by date modified. | [optional]
  **sort_by** | [**SortBy5**](../Model/.md)| Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. | [optional]
 
