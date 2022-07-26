@@ -1,6 +1,5 @@
 .php_cs
 CODE_SNIPPETS.md
-composer.json
 docs/Api/AddressesApi.md
 docs/Api/BankAccountsApi.md
 docs/Api/BillingGroupsApi.md
@@ -248,4 +247,3 @@ lib/Model/ZipCodeType.php
 lib/Model/ZipEditable.php
 lib/Model/ZipLookupCity.php
 lib/ObjectSerializer.php
-phpunit.xml.dist
