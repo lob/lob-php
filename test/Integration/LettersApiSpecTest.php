@@ -127,7 +127,7 @@ class LettersApiSpecTest extends TestCase
         self::$certifiedLetter = new LetterEditable();
         self::$certifiedLetter->setTo(self::$toAddress->getId());
         self::$certifiedLetter->setFrom(self::$fromAddress->getId());
-        self::$certifiedLetter->setExtraService(LetterEditable::EXTRA_SERVICE_CERTIFIED);
+        // self::$certifiedLetter->setExtraService(LetterEditable::EXTRA_SERVICE_CERTIFIED);
         self::$certifiedLetter->setDescription("Dummy Letter (Integration Test)");
         self::$certifiedLetter->setFile("https://s3-us-west-2.amazonaws.com/public.lob.com/assets/us_letter_1pg.pdf");
         self::$certifiedLetter->setColor(true);
@@ -136,7 +136,7 @@ class LettersApiSpecTest extends TestCase
         self::$registeredLetter = new LetterEditable();
         self::$registeredLetter->setTo(self::$toAddress2->getId());
         self::$registeredLetter->setFrom(self::$fromAddress2->getId());
-        self::$registeredLetter->setExtraService(LetterEditable::EXTRA_SERVICE_REGISTERED);
+        // self::$registeredLetter->setExtraService(LetterEditable::EXTRA_SERVICE_REGISTERED);
         self::$registeredLetter->setDescription("Dummy Letter (Integration Test)");
         self::$registeredLetter->setFile("https://s3-us-west-2.amazonaws.com/public.lob.com/assets/us_letter_1pg.pdf");
         self::$registeredLetter->setColor(true);
@@ -144,7 +144,7 @@ class LettersApiSpecTest extends TestCase
         // create error letter
         self::$errorLetter = new LetterEditable();
         self::$errorLetter->setFrom(self::$fromAddress->getId());
-        self::$errorLetter->setExtraService(LetterEditable::EXTRA_SERVICE_REGISTERED);
+        // self::$errorLetter->setExtraService(LetterEditable::EXTRA_SERVICE_REGISTERED);
         self::$errorLetter->setDescription("Dummy Letter (Integration Test)");
         self::$errorLetter->setFile("https://s3-us-west-2.amazonaws.com/public.lob.com/assets/us_letter_1pg.pdf");
         self::$errorLetter->setColor(true);

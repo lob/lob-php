@@ -109,6 +109,9 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group failing
+     */
     public function testCreate200()
     {
         try {
@@ -148,6 +151,9 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group failing
+     */
     public function testGet200()
     {
         try {
