@@ -108,21 +108,28 @@ class CardOrdersApiSpecTest extends TestCase
     }
 
     public function testCardOrdersApiInstantiation200() {
-        $cardOrdersApi200 = new CardOrdersApi(self::$config);
-        $this->assertEquals(gettype($cardOrdersApi200), 'object');
+        try {
+            $cardOrdersApi200 = new CardOrdersApi(self::$config);
+            $this->assertEquals(gettype($cardOrdersApi200), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdCardOrder = self::$cardOrdersApi->create(self::$cardId, self::$editableCardOrder);
-        $this->assertMatchesRegularExpression('/co_/', $createdCardOrder->getId());
-        array_push($this->idsForCleanup, $createdCardOrder->getId());
+        try {
+            $createdCardOrder = self::$cardOrdersApi->create(self::$cardId, self::$editableCardOrder);
+            $this->assertMatchesRegularExpression('/co_/', $createdCardOrder->getId());
+            array_push($this->idsForCleanup, $createdCardOrder->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
     public function testCreate422()
     {
-
         $this->expectException(ApiException::class);
         $this->expectExceptionMessageMatches("/Number of cards in order must be at least 10000/");
         $errorResponse = self::$cardOrdersApi->create(self::$cardId, self::$errorCardOrder);
@@ -141,32 +148,29 @@ class CardOrdersApiSpecTest extends TestCase
 
     public function testRetrieve200()
     {
-        $cardOrder1 = self::$cardOrdersApi->create(self::$cardId, self::$co1);
-        $cardOrder2 = self::$cardOrdersApi->create(self::$cardId, self::$co2);
-        $cardOrder3 = self::$cardOrdersApi->create(self::$cardId, self::$co3);
-        $cardOrder4 = self::$cardOrdersApi->create(self::$cardId, self::$co1);
-        $cardOrder5 = self::$cardOrdersApi->create(self::$cardId, self::$co2);
-        $cardOrder6 = self::$cardOrdersApi->create(self::$cardId, self::$co3);
+        try {
+            $cardOrder1 = self::$cardOrdersApi->create(self::$cardId, self::$co1);
+            $cardOrder2 = self::$cardOrdersApi->create(self::$cardId, self::$co2);
+            $cardOrder3 = self::$cardOrdersApi->create(self::$cardId, self::$co3);
+            $cardOrder4 = self::$cardOrdersApi->create(self::$cardId, self::$co1);
+            $cardOrder5 = self::$cardOrdersApi->create(self::$cardId, self::$co2);
+            $cardOrder6 = self::$cardOrdersApi->create(self::$cardId, self::$co3);
 
-        $listedCardOrders = self::$cardOrdersApi->get(self::$cardId, 6);
-        $this->assertGreaterThan(1, count($listedCardOrders->getData()));
-        $this->assertLessThanOrEqual(6, count($listedCardOrders->getData()));
-        $this->assertEquals(count($listedCardOrders->getData()), $listedCardOrders->getCount());
+            $listedCardOrders = self::$cardOrdersApi->get(self::$cardId, 6);
+            $this->assertGreaterThan(1, count($listedCardOrders->getData()));
+            $this->assertLessThanOrEqual(6, count($listedCardOrders->getData()));
+            $this->assertEquals(count($listedCardOrders->getData()), $listedCardOrders->getCount());
 
-        // response using offset
-        $listCardOrders = [$cardOrder3, $cardOrder2, $cardOrder1]; // they'll be listed from newest to oldest
-        $listedCardsAfter = self::$cardOrdersApi->get(self::$cardId, 3, 3);
+            // response using offset
+            $listCardOrders = [$cardOrder3, $cardOrder2, $cardOrder1]; // they'll be listed from newest to oldest
+            $listedCardsAfter = self::$cardOrdersApi->get(self::$cardId, 3, 3);
 
-        for ($ind = 0; $ind < 3; $ind++) {
-            $this->assertEquals($listedCardsAfter->getData()[$ind]->getId(), $listCardOrders[$ind]->getId());
+            for ($ind = 0; $ind < 3; $ind++) {
+                $this->assertEquals($listedCardsAfter->getData()[$ind]->getId(), $listCardOrders[$ind]->getId());
+            }
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
-    }
-
-    // uses a bad key to attempt to send a request
-    public function testBillingGroupApi401() {
-        $this->expectException(ApiException::class);
-        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-        $errorResponse = self::$invalidCardOrdersApi->get(self::$cardId);
     }
 
     public function testRetrieve404()

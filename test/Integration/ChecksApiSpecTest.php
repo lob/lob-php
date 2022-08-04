@@ -186,15 +186,23 @@ class ChecksApiSpecTest extends TestCase
 
     // include static cleanup for all the checks?
     public function testChecksApiInstantiation200() {
-        $checksApi200 = new ChecksApi(self::$config);
-        $this->assertEquals(gettype($checksApi200), "object");
+        try {
+            $checksApi200 = new ChecksApi(self::$config);
+            $this->assertEquals(gettype($checksApi200), "object");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdCheck = self::$checksApi->create(self::$editableCheck);
-        $this->assertMatchesRegularExpression("/chk_/", $createdCheck->getId());
-        array_push($this->idsForCleanup, $createdCheck->getId());
+        try {
+            $createdCheck = self::$checksApi->create(self::$editableCheck);
+            $this->assertMatchesRegularExpression("/chk_/", $createdCheck->getId());
+            array_push($this->idsForCleanup, $createdCheck->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -218,10 +226,14 @@ class ChecksApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdCheck = self::$checksApi->create(self::$editableCheck);
-        $retrievedCheck = self::$checksApi->get($createdCheck->getId());
-        $this->assertEquals($createdCheck->getTo(), $retrievedCheck->getTo());
-        array_push($this->idsForCleanup, $createdCheck->getId());
+        try {
+            $createdCheck = self::$checksApi->create(self::$editableCheck);
+            $retrievedCheck = self::$checksApi->get($createdCheck->getId());
+            $this->assertEquals($createdCheck->getTo(), $retrievedCheck->getTo());
+            array_push($this->idsForCleanup, $createdCheck->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet0()
@@ -253,38 +265,50 @@ class ChecksApiSpecTest extends TestCase
         $nextUrl = "";
         $previousUrl = "";
 
-        $chk1 = self::$checksApi->create(self::$editableCheck);
-        $chk2 = self::$checksApi->create(self::$editableCheck2);
-        $listedChecks = self::$checksApi->list(2);
-        $this->assertGreaterThan(1, count($listedChecks->getData()));
-        $this->assertLessThanOrEqual(2, count($listedChecks->getData()));
-        $nextUrl = substr($listedChecks->getNextUrl(), strrpos($listedChecks->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $chk1->getId());
-        array_push($this->idsForCleanup, $chk2->getId());
+        try {
+            $chk1 = self::$checksApi->create(self::$editableCheck);
+            $chk2 = self::$checksApi->create(self::$editableCheck2);
+            $listedChecks = self::$checksApi->list(2);
+            $this->assertGreaterThan(1, count($listedChecks->getData()));
+            $this->assertLessThanOrEqual(2, count($listedChecks->getData()));
+            $nextUrl = substr($listedChecks->getNextUrl(), strrpos($listedChecks->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
+            array_push($this->idsForCleanup, $chk1->getId());
+            array_push($this->idsForCleanup, $chk2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
 
         // response using nextUrl
         if ($nextUrl != "") {
-            $chk1 = self::$checksApi->create(self::$editableCheck);
-            $chk2 = self::$checksApi->create(self::$editableCheck2);
-            $listedChecksAfter = self::$checksApi->list(2, null, $nextUrl);
-            $this->assertGreaterThan(1, count($listedChecksAfter->getData()));
-            $this->assertLessThanOrEqual(2, count($listedChecksAfter->getData()));
-            $previousUrl = substr($listedChecksAfter->getPreviousUrl(), strrpos($listedChecksAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
-            array_push($this->idsForCleanup, $chk1->getId());
-            array_push($this->idsForCleanup, $chk2->getId());
+            try {
+                $chk1 = self::$checksApi->create(self::$editableCheck);
+                $chk2 = self::$checksApi->create(self::$editableCheck2);
+                $listedChecksAfter = self::$checksApi->list(2, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedChecksAfter->getData()));
+                $this->assertLessThanOrEqual(2, count($listedChecksAfter->getData()));
+                $previousUrl = substr($listedChecksAfter->getPreviousUrl(), strrpos($listedChecksAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $chk1->getId());
+                array_push($this->idsForCleanup, $chk2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $chk1 = self::$checksApi->create(self::$editableCheck);
-            $chk2 = self::$checksApi->create(self::$editableCheck2);
-            $listedChecksBefore = self::$checksApi->list(2, $previousUrl);
-            $this->assertGreaterThan(1, count($listedChecksBefore->getData()));
-            $this->assertLessThanOrEqual(2, count($listedChecksBefore->getData()));
-            array_push($this->idsForCleanup, $chk1->getId());
-            array_push($this->idsForCleanup, $chk2->getId());
+            try {
+                $chk1 = self::$checksApi->create(self::$editableCheck);
+                $chk2 = self::$checksApi->create(self::$editableCheck2);
+                $listedChecksBefore = self::$checksApi->list(2, $previousUrl);
+                $this->assertGreaterThan(1, count($listedChecksBefore->getData()));
+                $this->assertLessThanOrEqual(2, count($listedChecksBefore->getData()));
+                array_push($this->idsForCleanup, $chk1->getId());
+                array_push($this->idsForCleanup, $chk2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -310,24 +334,32 @@ class ChecksApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by)
     {
-        // create checks to list
-        $chk1 = self::$checksApi->create(self::$editableCheck);
-        $chk2 = self::$checksApi->create(self::$editableCheck2);
-        $listedChecks = self::$checksApi->list($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by);
+        try {
+            // create checks to list
+            $chk1 = self::$checksApi->create(self::$editableCheck);
+            $chk2 = self::$checksApi->create(self::$editableCheck2);
+            $listedChecks = self::$checksApi->list($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by);
 
-        $this->assertGreaterThan(0, $listedChecks->getCount());
-        if ($include) $this->assertNotNull($listedChecks->getTotalCount());
+            $this->assertGreaterThan(0, $listedChecks->getCount());
+            if ($include) $this->assertNotNull($listedChecks->getTotalCount());
 
-        // cancel created checks
-        array_push($this->idsForCleanup, $chk1->getId());
-        array_push($this->idsForCleanup, $chk2->getId());
+            // cancel created checks
+            array_push($this->idsForCleanup, $chk1->getId());
+            array_push($this->idsForCleanup, $chk2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCancel200()
     {
-        $createdCheck = self::$checksApi->create(self::$editableCheck);
-        $deletedCheck = self::$checksApi->cancel($createdCheck->getId());
-        $this->assertEquals(true, $deletedCheck->getDeleted());
+        try {
+            $createdCheck = self::$checksApi->create(self::$editableCheck);
+            $deletedCheck = self::$checksApi->cancel($createdCheck->getId());
+            $this->assertEquals(true, $deletedCheck->getDeleted());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCancel401()

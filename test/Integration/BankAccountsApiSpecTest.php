@@ -125,15 +125,23 @@ class BankAccountsApiSpecTest extends TestCase
     }
 
     public function testBankAccountsApiInstantiation200() {
-        $baApi200 = new BankAccountsApi(self::$config);
-        $this->assertEquals(gettype($baApi200), "object");
+        try {
+            $baApi200 = new BankAccountsApi(self::$config);
+            $this->assertEquals(gettype($baApi200), "object");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
-        $this->assertMatchesRegularExpression("/bank_/", $createdBankAccount->getId());
-        array_push($this->idsForCleanup, $createdBankAccount->getId());
+        try {
+            $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+            $this->assertMatchesRegularExpression("/bank_/", $createdBankAccount->getId());
+            array_push($this->idsForCleanup, $createdBankAccount->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -153,10 +161,14 @@ class BankAccountsApiSpecTest extends TestCase
 
     public function testVerify200()
     {
-        $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
-        $verifiedBankAccount = self::$bankApi->verify($createdBankAccount->getId(), self::$bankVerify);
-        $this->assertMatchesRegularExpression("/bank_/", $createdBankAccount->getId());
-        array_push($this->idsForCleanup, $createdBankAccount->getId());
+        try {
+            $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+            $verifiedBankAccount = self::$bankApi->verify($createdBankAccount->getId(), self::$bankVerify);
+            $this->assertMatchesRegularExpression("/bank_/", $createdBankAccount->getId());
+            array_push($this->idsForCleanup, $createdBankAccount->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testVerify401()
@@ -178,10 +190,14 @@ class BankAccountsApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdAcc = self::$bankApi->create(self::$writableBankAcc);
-        $retrievedAcc = self::$bankApi->get($createdAcc->getId());
-        $this->assertEquals($createdAcc->getRoutingNumber(), $retrievedAcc->getRoutingNumber());
-        array_push($this->idsForCleanup, $createdAcc->getId());
+        try {
+            $createdAcc = self::$bankApi->create(self::$writableBankAcc);
+            $retrievedAcc = self::$bankApi->get($createdAcc->getId());
+            $this->assertEquals($createdAcc->getRoutingNumber(), $retrievedAcc->getRoutingNumber());
+            array_push($this->idsForCleanup, $createdAcc->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet401()
@@ -205,44 +221,56 @@ class BankAccountsApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
-        $bank1 = self::$bankApi->create(self::$ba1);
-        $bank2 = self::$bankApi->create(self::$ba2);
-        $bank3 = self::$bankApi->create(self::$ba3);
-        $listedBankAccounts = self::$bankApi->list(3);
-        $this->assertGreaterThan(1, count($listedBankAccounts->getData()));
-        $this->assertLessThanOrEqual(3, count($listedBankAccounts->getData()));
-        $nextUrl = substr($listedBankAccounts->getNextUrl(), strrpos($listedBankAccounts->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $bank1->getId());
-        array_push($this->idsForCleanup, $bank2->getId());
-        array_push($this->idsForCleanup, $bank3->getId());
-
-        // response using nextUrl
-        if ($nextUrl != "") {
+        try {
             $bank1 = self::$bankApi->create(self::$ba1);
             $bank2 = self::$bankApi->create(self::$ba2);
             $bank3 = self::$bankApi->create(self::$ba3);
-            $listedBankAccountsAfter = self::$bankApi->list(3, null, $nextUrl);
-            $this->assertGreaterThan(1, count($listedBankAccountsAfter->getData()));
-            $this->assertLessThanOrEqual(3, count($listedBankAccountsAfter->getData()));
-            $previousUrl = substr($listedBankAccountsAfter->getPreviousUrl(), strrpos($listedBankAccountsAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
+            $listedBankAccounts = self::$bankApi->list(3);
+            $this->assertGreaterThan(1, count($listedBankAccounts->getData()));
+            $this->assertLessThanOrEqual(3, count($listedBankAccounts->getData()));
+            $nextUrl = substr($listedBankAccounts->getNextUrl(), strrpos($listedBankAccounts->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
             array_push($this->idsForCleanup, $bank1->getId());
             array_push($this->idsForCleanup, $bank2->getId());
             array_push($this->idsForCleanup, $bank3->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+        // response using nextUrl
+        if ($nextUrl != "") {
+            try {
+                $bank1 = self::$bankApi->create(self::$ba1);
+                $bank2 = self::$bankApi->create(self::$ba2);
+                $bank3 = self::$bankApi->create(self::$ba3);
+                $listedBankAccountsAfter = self::$bankApi->list(3, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedBankAccountsAfter->getData()));
+                $this->assertLessThanOrEqual(3, count($listedBankAccountsAfter->getData()));
+                $previousUrl = substr($listedBankAccountsAfter->getPreviousUrl(), strrpos($listedBankAccountsAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $bank1->getId());
+                array_push($this->idsForCleanup, $bank2->getId());
+                array_push($this->idsForCleanup, $bank3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $bank1 = self::$bankApi->create(self::$ba1);
-            $bank2 = self::$bankApi->create(self::$ba2);
-            $bank3 = self::$bankApi->create(self::$ba3);
-            $listedBankAccountsBefore = self::$bankApi->list(3, $previousUrl);
-            $this->assertGreaterThan(1, count($listedBankAccountsBefore->getData()));
-            $this->assertLessThanOrEqual(3, count($listedBankAccountsBefore->getData()));
-            array_push($this->idsForCleanup, $bank1->getId());
-            array_push($this->idsForCleanup, $bank2->getId());
-            array_push($this->idsForCleanup, $bank3->getId());
+            try {
+                $bank1 = self::$bankApi->create(self::$ba1);
+                $bank2 = self::$bankApi->create(self::$ba2);
+                $bank3 = self::$bankApi->create(self::$ba3);
+                $listedBankAccountsBefore = self::$bankApi->list(3, $previousUrl);
+                $this->assertGreaterThan(1, count($listedBankAccountsBefore->getData()));
+                $this->assertLessThanOrEqual(3, count($listedBankAccountsBefore->getData()));
+                array_push($this->idsForCleanup, $bank1->getId());
+                array_push($this->idsForCleanup, $bank2->getId());
+                array_push($this->idsForCleanup, $bank3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -264,27 +292,35 @@ class BankAccountsApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata)
     {
-        // create bank accounts to list
-        $bank1 = self::$bankApi->create(self::$ba1);
-        $bank2 = self::$bankApi->create(self::$ba2);
-        $bank3 = self::$bankApi->create(self::$ba3);
-        $listedBankAccounts = self::$bankApi->list($limit, $before, $after, $include, $date_created, $metadata);
+        try {
+            // create bank accounts to list
+            $bank1 = self::$bankApi->create(self::$ba1);
+            $bank2 = self::$bankApi->create(self::$ba2);
+            $bank3 = self::$bankApi->create(self::$ba3);
+            $listedBankAccounts = self::$bankApi->list($limit, $before, $after, $include, $date_created, $metadata);
 
-        $this->assertGreaterThan(0, $listedBankAccounts->getCount());
-        if ($include) $this->assertNotNull($listedBankAccounts->getTotalCount());
+            $this->assertGreaterThan(0, $listedBankAccounts->getCount());
+            if ($include) $this->assertNotNull($listedBankAccounts->getTotalCount());
 
-        // delete created bank accounts
-        array_push($this->idsForCleanup, $bank1->getId());
-        array_push($this->idsForCleanup, $bank2->getId());
-        array_push($this->idsForCleanup, $bank3->getId());
+            // delete created bank accounts
+            array_push($this->idsForCleanup, $bank1->getId());
+            array_push($this->idsForCleanup, $bank2->getId());
+            array_push($this->idsForCleanup, $bank3->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete200()
     {
-        $createdAcc = self::$bankApi->create(self::$writableBankAcc);
-        $deletedAcc = self::$bankApi->delete($createdAcc->getId());
-        $this->assertEquals(true, $deletedAcc->getDeleted());
-        $this->assertMatchesRegularExpression("/bank_/", $deletedAcc->getId());
+        try {
+            $createdAcc = self::$bankApi->create(self::$writableBankAcc);
+            $deletedAcc = self::$bankApi->delete($createdAcc->getId());
+            $this->assertEquals(true, $deletedAcc->getDeleted());
+            $this->assertMatchesRegularExpression("/bank_/", $deletedAcc->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete401()

@@ -107,15 +107,23 @@ class CardsApiSpecTest extends TestCase
     }
 
     public function testCardsApiInstantiation200() {
-        $cardApi200 = new CardsApi(self::$config);
-        $this->assertEquals(gettype($cardApi200), 'object');
+        try {
+            $cardApi200 = new CardsApi(self::$config);
+            $this->assertEquals(gettype($cardApi200), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdCard = self::$cardApi->create(self::$editableCard);
-        $this->assertMatchesRegularExpression('/card_/', $createdCard->getId());
-        array_push($this->idsForCleanup, $createdCard->getId());
+        try {
+            $createdCard = self::$cardApi->create(self::$editableCard);
+            $this->assertMatchesRegularExpression('/card_/', $createdCard->getId());
+            array_push($this->idsForCleanup, $createdCard->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // uses a bad key to attempt to send a request
@@ -135,10 +143,14 @@ class CardsApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdCard = self::$cardApi->create(self::$editableCard);
-        $retrievedCard = self::$cardApi->get($createdCard->getId());
-        $this->assertEquals($createdCard->getDescription(), $retrievedCard->getDescription());
-        array_push($this->idsForCleanup, $createdCard->getId());
+        try {
+            $createdCard = self::$cardApi->create(self::$editableCard);
+            $retrievedCard = self::$cardApi->get($createdCard->getId());
+            $this->assertEquals($createdCard->getDescription(), $retrievedCard->getDescription());
+            array_push($this->idsForCleanup, $createdCard->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet0()
@@ -168,12 +180,16 @@ class CardsApiSpecTest extends TestCase
 
     public function testUpdate200()
     {
-        $cardUpdatable = new CardUpdatable();
-        $cardUpdatable->setDescription("Updated Card");
-        $createdCard = self::$cardApi->create(self::$editableCard);
-        $retrievedCard = self::$cardApi->update($createdCard->getId(), $cardUpdatable);
-        $this->assertEquals("Updated Card", $retrievedCard->getDescription());
-        array_push($this->idsForCleanup, $createdCard->getId());
+        try {
+            $cardUpdatable = new CardUpdatable();
+            $cardUpdatable->setDescription("Updated Card");
+            $createdCard = self::$cardApi->create(self::$editableCard);
+            $retrievedCard = self::$cardApi->update($createdCard->getId(), $cardUpdatable);
+            $this->assertEquals("Updated Card", $retrievedCard->getDescription());
+            array_push($this->idsForCleanup, $createdCard->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testUpdate0()
@@ -210,70 +226,90 @@ class CardsApiSpecTest extends TestCase
         $nextUrl = "";
         $previousUrl = "";
 
-        $cr1 = self::$cardApi->create(self::$card1);
-        $cr2 = self::$cardApi->create(self::$card2);
-        $cr3 = self::$cardApi->create(self::$card3);
-        $listedCards = self::$cardApi->list(3);
-        $this->assertGreaterThan(1, count($listedCards->getData()));
-        $this->assertLessThanOrEqual(3, count($listedCards->getData()));
-        $nextUrl = substr($listedCards->getNextUrl(), strrpos($listedCards->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $cr1->getId());
-        array_push($this->idsForCleanup, $cr2->getId());
-        array_push($this->idsForCleanup, $cr3->getId());
-
-        // response using nextUrl
-        if ($nextUrl != "") {
+        try {
             $cr1 = self::$cardApi->create(self::$card1);
             $cr2 = self::$cardApi->create(self::$card2);
             $cr3 = self::$cardApi->create(self::$card3);
-            $listedCardsAfter = self::$cardApi->list(3, null, $nextUrl);
-            $this->assertGreaterThan(1, count($listedCardsAfter->getData()));
-            $this->assertLessThanOrEqual(3, count($listedCardsAfter->getData()));
-            $previousUrl = substr($listedCardsAfter->getPreviousUrl(), strrpos($listedCardsAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
+            $listedCards = self::$cardApi->list(3);
+            $this->assertGreaterThan(1, count($listedCards->getData()));
+            $this->assertLessThanOrEqual(3, count($listedCards->getData()));
+            $nextUrl = substr($listedCards->getNextUrl(), strrpos($listedCards->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
             array_push($this->idsForCleanup, $cr1->getId());
             array_push($this->idsForCleanup, $cr2->getId());
             array_push($this->idsForCleanup, $cr3->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+        // response using nextUrl
+        if ($nextUrl != "") {
+            try {
+                $cr1 = self::$cardApi->create(self::$card1);
+                $cr2 = self::$cardApi->create(self::$card2);
+                $cr3 = self::$cardApi->create(self::$card3);
+                $listedCardsAfter = self::$cardApi->list(3, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedCardsAfter->getData()));
+                $this->assertLessThanOrEqual(3, count($listedCardsAfter->getData()));
+                $previousUrl = substr($listedCardsAfter->getPreviousUrl(), strrpos($listedCardsAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $cr1->getId());
+                array_push($this->idsForCleanup, $cr2->getId());
+                array_push($this->idsForCleanup, $cr3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $cr1 = self::$cardApi->create(self::$card1);
-            $cr2 = self::$cardApi->create(self::$card2);
-            $cr3 = self::$cardApi->create(self::$card3);
-            $listedCardsBefore = self::$cardApi->list(3, $previousUrl);
-            $this->assertGreaterThan(1, count($listedCardsBefore->getData()));
-            $this->assertLessThanOrEqual(3, count($listedCardsBefore->getData()));
-            array_push($this->idsForCleanup, $cr1->getId());
-            array_push($this->idsForCleanup, $cr2->getId());
-            array_push($this->idsForCleanup, $cr3->getId());
+            try {
+                $cr1 = self::$cardApi->create(self::$card1);
+                $cr2 = self::$cardApi->create(self::$card2);
+                $cr3 = self::$cardApi->create(self::$card3);
+                $listedCardsBefore = self::$cardApi->list(3, $previousUrl);
+                $this->assertGreaterThan(1, count($listedCardsBefore->getData()));
+                $this->assertLessThanOrEqual(3, count($listedCardsBefore->getData()));
+                array_push($this->idsForCleanup, $cr1->getId());
+                array_push($this->idsForCleanup, $cr2->getId());
+                array_push($this->idsForCleanup, $cr3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
     public function testListWithSortByParam()
     {
         $this->markTestSkipped("Cannot properly test this until the SDK is regenerated and all bugs are solved");
-        // create bank accounts to list
-        $cr1 = self::$cardApi->create(self::$card1);
-        $cr2 = self::$cardApi->create(self::$card2);
-        $cr3 = self::$cardApi->create(self::$card3);
-        $listedCards = self::$cardApi->list(10, null, null, new SortBy5(array("date_created" => "asc")));
+        try {
+            // create bank accounts to list
+            $cr1 = self::$cardApi->create(self::$card1);
+            $cr2 = self::$cardApi->create(self::$card2);
+            $cr3 = self::$cardApi->create(self::$card3);
+            $listedCards = self::$cardApi->list(10, null, null, new SortBy5(array("date_created" => "asc")));
 
-        $this->assertGreaterThan(0, $listedCards->getCount());
+            $this->assertGreaterThan(0, $listedCards->getCount());
 
-        // delete created bank accounts
-        array_push($this->idsForCleanup, $cr1->getId());
-        array_push($this->idsForCleanup, $cr2->getId());
-        array_push($this->idsForCleanup, $cr3->getId());
+            // delete created bank accounts
+            array_push($this->idsForCleanup, $cr1->getId());
+            array_push($this->idsForCleanup, $cr2->getId());
+            array_push($this->idsForCleanup, $cr3->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete200()
     {
-        $createdCard = self::$cardApi->create(self::$editableCard);
-        $deletedCard = self::$cardApi->delete($createdCard->getId());
-        $this->assertEquals(true, $deletedCard->getDeleted());
-        $this->assertMatchesRegularExpression('/card_/', $deletedCard->getId());
+        try {
+            $createdCard = self::$cardApi->create(self::$editableCard);
+            $deletedCard = self::$cardApi->delete($createdCard->getId());
+            $this->assertEquals(true, $deletedCard->getDeleted());
+            $this->assertMatchesRegularExpression('/card_/', $deletedCard->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete401()

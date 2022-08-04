@@ -105,15 +105,23 @@ class TemplatesApiSpecTest extends TestCase
     }
 
     public function testTemplatesApiInstantiation200() {
-        $templateApi200 = new TemplatesApi(self::$config);
-        $this->assertEquals(gettype($templateApi200), 'object');
+        try {
+            $templateApi200 = new TemplatesApi(self::$config);
+            $this->assertEquals(gettype($templateApi200), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-        $this->assertMatchesRegularExpression('/tmpl_/', $createdTemplate->getId());
-        array_push($this->idsForCleanup, $createdTemplate->getId());
+        try {
+            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+            $this->assertMatchesRegularExpression('/tmpl_/', $createdTemplate->getId());
+            array_push($this->idsForCleanup, $createdTemplate->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -137,10 +145,14 @@ class TemplatesApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-        $retrievedTemplate = self::$templateApi->get($createdTemplate->getId());
-        $this->assertEquals($createdTemplate->getDescription(), $retrievedTemplate->getDescription());
-        array_push($this->idsForCleanup, $createdTemplate->getId());
+        try {
+            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+            $retrievedTemplate = self::$templateApi->get($createdTemplate->getId());
+            $this->assertEquals($createdTemplate->getDescription(), $retrievedTemplate->getDescription());
+            array_push($this->idsForCleanup, $createdTemplate->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet0()
@@ -169,12 +181,16 @@ class TemplatesApiSpecTest extends TestCase
 
     public function testUpdate200()
     {
-        $templateUpdate = new TemplateUpdate();
-        $templateUpdate->setDescription("Updated Template");
-        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-        $retrievedTemplate = self::$templateApi->update($createdTemplate->getId(), $templateUpdate);
-        $this->assertEquals("Updated Template", $retrievedTemplate->getDescription());
-        array_push($this->idsForCleanup, $createdTemplate->getId());
+        try {
+            $templateUpdate = new TemplateUpdate();
+            $templateUpdate->setDescription("Updated Template");
+            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+            $retrievedTemplate = self::$templateApi->update($createdTemplate->getId(), $templateUpdate);
+            $this->assertEquals("Updated Template", $retrievedTemplate->getDescription());
+            array_push($this->idsForCleanup, $createdTemplate->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testUpdate0()
@@ -208,44 +224,56 @@ class TemplatesApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
-        $tmpl1 = self::$templateApi->create(self::$template1);
-        $tmpl2 = self::$templateApi->create(self::$template2);
-        $tmpl3 = self::$templateApi->create(self::$template3);
-        $listedTemplates = self::$templateApi->list(3);
-        $this->assertGreaterThan(1, count($listedTemplates->getData()));
-        $this->assertLessThanOrEqual(3, count($listedTemplates->getData()));
-        $nextUrl = substr($listedTemplates->getNextUrl(), strrpos($listedTemplates->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $tmpl1->getId());
-        array_push($this->idsForCleanup, $tmpl2->getId());
-        array_push($this->idsForCleanup, $tmpl3->getId());
-
-        // response using nextUrl
-        if ($nextUrl != "") {
+        try {
             $tmpl1 = self::$templateApi->create(self::$template1);
             $tmpl2 = self::$templateApi->create(self::$template2);
             $tmpl3 = self::$templateApi->create(self::$template3);
-            $listedTemplatesAfter = self::$templateApi->list(3, null, $nextUrl);
-            $this->assertGreaterThan(1, count($listedTemplatesAfter->getData()));
-            $this->assertLessThanOrEqual(3, count($listedTemplatesAfter->getData()));
-            $previousUrl = substr($listedTemplatesAfter->getPreviousUrl(), strrpos($listedTemplatesAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
+            $listedTemplates = self::$templateApi->list(3);
+            $this->assertGreaterThan(1, count($listedTemplates->getData()));
+            $this->assertLessThanOrEqual(3, count($listedTemplates->getData()));
+            $nextUrl = substr($listedTemplates->getNextUrl(), strrpos($listedTemplates->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
             array_push($this->idsForCleanup, $tmpl1->getId());
             array_push($this->idsForCleanup, $tmpl2->getId());
             array_push($this->idsForCleanup, $tmpl3->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+        // response using nextUrl
+        if ($nextUrl != "") {
+            try {
+                $tmpl1 = self::$templateApi->create(self::$template1);
+                $tmpl2 = self::$templateApi->create(self::$template2);
+                $tmpl3 = self::$templateApi->create(self::$template3);
+                $listedTemplatesAfter = self::$templateApi->list(3, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedTemplatesAfter->getData()));
+                $this->assertLessThanOrEqual(3, count($listedTemplatesAfter->getData()));
+                $previousUrl = substr($listedTemplatesAfter->getPreviousUrl(), strrpos($listedTemplatesAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $tmpl1->getId());
+                array_push($this->idsForCleanup, $tmpl2->getId());
+                array_push($this->idsForCleanup, $tmpl3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $tmpl1 = self::$templateApi->create(self::$template1);
-            $tmpl2 = self::$templateApi->create(self::$template2);
-            $tmpl3 = self::$templateApi->create(self::$template3);
-            $listedTemplatesBefore = self::$templateApi->list(3, $previousUrl);
-            $this->assertGreaterThan(1, count($listedTemplatesBefore->getData()));
-            $this->assertLessThanOrEqual(3, count($listedTemplatesBefore->getData()));
-            array_push($this->idsForCleanup, $tmpl1->getId());
-            array_push($this->idsForCleanup, $tmpl2->getId());
-            array_push($this->idsForCleanup, $tmpl3->getId());
+            try {
+                $tmpl1 = self::$templateApi->create(self::$template1);
+                $tmpl2 = self::$templateApi->create(self::$template2);
+                $tmpl3 = self::$templateApi->create(self::$template3);
+                $listedTemplatesBefore = self::$templateApi->list(3, $previousUrl);
+                $this->assertGreaterThan(1, count($listedTemplatesBefore->getData()));
+                $this->assertLessThanOrEqual(3, count($listedTemplatesBefore->getData()));
+                array_push($this->idsForCleanup, $tmpl1->getId());
+                array_push($this->idsForCleanup, $tmpl2->getId());
+                array_push($this->idsForCleanup, $tmpl3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -267,28 +295,36 @@ class TemplatesApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata)
     {
-        // create templates to list
-        $tmpl1 = self::$templateApi->create(self::$template1);
-        $tmpl2 = self::$templateApi->create(self::$template2);
-        $tmpl3 = self::$templateApi->create(self::$template3);
+        try {
+            // create templates to list
+            $tmpl1 = self::$templateApi->create(self::$template1);
+            $tmpl2 = self::$templateApi->create(self::$template2);
+            $tmpl3 = self::$templateApi->create(self::$template3);
 
-        // cancel created templates
-        array_push($this->idsForCleanup, $tmpl1->getId());
-        array_push($this->idsForCleanup, $tmpl2->getId());
-        array_push($this->idsForCleanup, $tmpl3->getId());
+            // cancel created templates
+            array_push($this->idsForCleanup, $tmpl1->getId());
+            array_push($this->idsForCleanup, $tmpl2->getId());
+            array_push($this->idsForCleanup, $tmpl3->getId());
 
-        $listedTemplates = self::$templateApi->list($limit, $before, $after, $include, $date_created, $metadata);
+            $listedTemplates = self::$templateApi->list($limit, $before, $after, $include, $date_created, $metadata);
 
-        $this->assertGreaterThan(0, $listedTemplates->getCount());
-        if ($include) $this->assertNotNull($listedTemplates->getTotalCount());
+            $this->assertGreaterThan(0, $listedTemplates->getCount());
+            if ($include) $this->assertNotNull($listedTemplates->getTotalCount());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete200()
     {
-        $createdTemplate = self::$templateApi->create(self::$writableTemplate);
-        $deletedTemplate = self::$templateApi->delete($createdTemplate->getId());
-        $this->assertEquals(true, $deletedTemplate->getDeleted());
-        $this->assertMatchesRegularExpression('/tmpl_/', $deletedTemplate->getId());
+        try {
+            $createdTemplate = self::$templateApi->create(self::$writableTemplate);
+            $deletedTemplate = self::$templateApi->delete($createdTemplate->getId());
+            $this->assertEquals(true, $deletedTemplate->getDeleted());
+            $this->assertMatchesRegularExpression('/tmpl_/', $deletedTemplate->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete401()

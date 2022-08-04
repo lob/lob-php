@@ -107,22 +107,34 @@ class UsVerificationsApiSpecTest extends TestCase
     }
 
     public function testUsVerificationsApiInstantiation200() {
-        $usvApi200 = new UsVerificationsApi(self::$config);
-        $this->assertEquals(gettype($usvApi200), "object");
+        try {
+            $usvApi200 = new UsVerificationsApi(self::$config);
+            $this->assertEquals(gettype($usvApi200), "object");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testSingleUsVerificationDeliverable()
     {
-        $usVerificationObject = self::$usvApi200->verifySingle(self::$validAddress1);
-        $this->assertMatchesRegularExpression("/us_ver_/", $usVerificationObject->getId());
-        $this->assertEquals("deliverable", $usVerificationObject->getDeliverability());
+        try {
+            $usVerificationObject = self::$usvApi200->verifySingle(self::$validAddress1);
+            $this->assertMatchesRegularExpression("/us_ver_/", $usVerificationObject->getId());
+            $this->assertEquals("deliverable", $usVerificationObject->getDeliverability());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testSingleUsVerificationUndeliverable()
     {
+        try {
         $usVerificationObject = self::$usvApi200->verifySingle(self::$undeliverableAddress);
         $this->assertMatchesRegularExpression("/us_ver_/", $usVerificationObject->getId());
         $this->assertEquals("undeliverable", $usVerificationObject->getDeliverability());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testSingleUsVerification0()
@@ -141,35 +153,43 @@ class UsVerificationsApiSpecTest extends TestCase
 
     public function testBulkUsVerificationValid()
     {
+        try {
         $usVerificationObject = self::$usvApi200->verifyBulk(self::$multipleAddressList);
         $this->assertGreaterThan(1, count($usVerificationObject->getAddresses()));
         $this->assertEquals("deliverable", $usVerificationObject->getAddresses()[0]->getDeliverability());
         $this->assertEquals("undeliverable", $usVerificationObject->getAddresses()[1]->getDeliverability());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testBulkUsVerificationError()
     {
-        $mc1 = new MultipleComponents();
-        $mc1->setPrimaryLine("210 KING ST");
-        $mc1->setCity("SAN FRANCISCO");
-        $mc1->setState("CA");
-        $mc1->setZipCode("94107");
+        try {
+            $mc1 = new MultipleComponents();
+            $mc1->setPrimaryLine("210 KING ST");
+            $mc1->setCity("SAN FRANCISCO");
+            $mc1->setState("CA");
+            $mc1->setZipCode("94107");
 
-        // second entry has no primary line, should error
-        $mc2 = new MultipleComponents();
-        $mc2->setSecondaryLine("SUITE 666");
-        $mc2->setCity("WESTFIELD");
-        $mc2->setState("NJ");
-        $mc2->setZipCode("07000");
+            // second entry has no primary line, should error
+            $mc2 = new MultipleComponents();
+            $mc2->setSecondaryLine("SUITE 666");
+            $mc2->setCity("WESTFIELD");
+            $mc2->setState("NJ");
+            $mc2->setZipCode("07000");
 
-        // multiple components list for bulk verification test
-        $errorAddressList = new MultipleComponentsList();
-        $errorAddressList->setAddresses([$mc1, $mc2]);
+            // multiple components list for bulk verification test
+            $errorAddressList = new MultipleComponentsList();
+            $errorAddressList->setAddresses([$mc1, $mc2]);
 
-        $errorVerificationObject = self::$usvApi200->verifyBulk($errorAddressList);
+            $errorVerificationObject = self::$usvApi200->verifyBulk($errorAddressList);
 
-        $this->assertEquals("primary_line is required or address is required", $errorVerificationObject->getAddresses()[1]->getError()->getError()->getMessage());
-        $this->assertEquals(1, $errorVerificationObject->getErrors());
+            $this->assertEquals("primary_line is required or address is required", $errorVerificationObject->getAddresses()[1]->getError()->getError()->getMessage());
+            $this->assertEquals(1, $errorVerificationObject->getErrors());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testBulkUsVerification0()

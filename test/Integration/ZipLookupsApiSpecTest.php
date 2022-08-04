@@ -63,17 +63,25 @@ class ZipLookupsApiSpecTest extends TestCase
     }
 
     public function testZipLookupsApiInstantiation200() {
-        $zipApi = new ZipLookupsApi(self::$config);
-        $this->assertEquals(gettype($zipApi), 'object');
+        try {
+            $zipApi = new ZipLookupsApi(self::$config);
+            $this->assertEquals(gettype($zipApi), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testLookup()
     {
-        $zipEditable = new ZipEditable();
-        $zipEditable->setZipCode("94107");
-        $zipObject = self::$zipApi->lookup($zipEditable);
-        $this->assertMatchesRegularExpression('/us_zip_/', $zipObject->getId());
-        $this->assertGreaterThanOrEqual(1, count($zipObject->getCities()));
+        try {
+            $zipEditable = new ZipEditable();
+            $zipEditable->setZipCode("94107");
+            $zipObject = self::$zipApi->lookup($zipEditable);
+            $this->assertMatchesRegularExpression('/us_zip_/', $zipObject->getId());
+            $this->assertGreaterThanOrEqual(1, count($zipObject->getCities()));
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testLookup0()

@@ -181,15 +181,23 @@ class PostcardsApiSpecTest extends TestCase
     // include static cleanup for all the addresses?
 
     public function testPostcardsApiInstantiation200() {
-        $postcardsApi200 = new PostcardsApi(self::$config);
-        $this->assertEquals(gettype($postcardsApi200), 'object');
+        try {
+            $postcardsApi200 = new PostcardsApi(self::$config);
+            $this->assertEquals(gettype($postcardsApi200), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdPostcard = self::$postcardsApi->create(self::$editablePostcard);
-        $this->assertMatchesRegularExpression('/psc_/', $createdPostcard->getId());
-        array_push($this->idsForCleanup, $createdPostcard->getId());
+        try {
+            $createdPostcard = self::$postcardsApi->create(self::$editablePostcard);
+            $this->assertMatchesRegularExpression('/psc_/', $createdPostcard->getId());
+            array_push($this->idsForCleanup, $createdPostcard->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -231,10 +239,14 @@ class PostcardsApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdPostcard = self::$postcardsApi->create(self::$editablePostcard);
-        $retrievedPostcard = self::$postcardsApi->get($createdPostcard->getId());
-        $this->assertEquals($createdPostcard->getTo(), $retrievedPostcard->getTo());
-        array_push($this->idsForCleanup, $createdPostcard->getId());
+        try {
+            $createdPostcard = self::$postcardsApi->create(self::$editablePostcard);
+            $retrievedPostcard = self::$postcardsApi->get($createdPostcard->getId());
+            $this->assertEquals($createdPostcard->getTo(), $retrievedPostcard->getTo());
+            array_push($this->idsForCleanup, $createdPostcard->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet0()
@@ -265,38 +277,50 @@ class PostcardsApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
-        $psc1 = self::$postcardsApi->create(self::$editablePostcard);
-        $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
-        $listedPostcards = self::$postcardsApi->list(2);
-        $this->assertGreaterThan(1, count($listedPostcards->getData()));
-        $this->assertLessThanOrEqual(2, count($listedPostcards->getData()));
-        $nextUrl = substr($listedPostcards->getNextUrl(), strrpos($listedPostcards->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $psc1->getId());
-        array_push($this->idsForCleanup, $psc2->getId());
+        try {
+            $psc1 = self::$postcardsApi->create(self::$editablePostcard);
+            $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
+            $listedPostcards = self::$postcardsApi->list(2);
+            $this->assertGreaterThan(1, count($listedPostcards->getData()));
+            $this->assertLessThanOrEqual(2, count($listedPostcards->getData()));
+            $nextUrl = substr($listedPostcards->getNextUrl(), strrpos($listedPostcards->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
+            array_push($this->idsForCleanup, $psc1->getId());
+            array_push($this->idsForCleanup, $psc2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
 
         // response using nextUrl
         if ($nextUrl != "") {
-            $psc1 = self::$postcardsApi->create(self::$editablePostcard);
-            $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
-            $listedPostcardsAfter = self::$postcardsApi->list(2, null, $nextUrl);
-            $this->assertGreaterThan(1, count($listedPostcardsAfter->getData()));
-            $this->assertLessThanOrEqual(2, count($listedPostcardsAfter->getData()));
-            $previousUrl = substr($listedPostcardsAfter->getPreviousUrl(), strrpos($listedPostcardsAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
-            array_push($this->idsForCleanup, $psc1->getId());
-            array_push($this->idsForCleanup, $psc2->getId());
+            try {
+                $psc1 = self::$postcardsApi->create(self::$editablePostcard);
+                $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
+                $listedPostcardsAfter = self::$postcardsApi->list(2, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedPostcardsAfter->getData()));
+                $this->assertLessThanOrEqual(2, count($listedPostcardsAfter->getData()));
+                $previousUrl = substr($listedPostcardsAfter->getPreviousUrl(), strrpos($listedPostcardsAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $psc1->getId());
+                array_push($this->idsForCleanup, $psc2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $psc1 = self::$postcardsApi->create(self::$editablePostcard);
-            $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
-            $listedPostcardsBefore = self::$postcardsApi->list(2, $previousUrl);
-            $this->assertGreaterThan(1, count($listedPostcardsBefore->getData()));
-            $this->assertLessThanOrEqual(2, count($listedPostcardsBefore->getData()));
-            array_push($this->idsForCleanup, $psc1->getId());
-            array_push($this->idsForCleanup, $psc2->getId());
+            try {
+                $psc1 = self::$postcardsApi->create(self::$editablePostcard);
+                $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
+                $listedPostcardsBefore = self::$postcardsApi->list(2, $previousUrl);
+                $this->assertGreaterThan(1, count($listedPostcardsBefore->getData()));
+                $this->assertLessThanOrEqual(2, count($listedPostcardsBefore->getData()));
+                array_push($this->idsForCleanup, $psc1->getId());
+                array_push($this->idsForCleanup, $psc2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -323,24 +347,32 @@ class PostcardsApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by)
     {
-        // create postcards to list
-        $psc1 = self::$postcardsApi->create(self::$editablePostcard);
-        $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
+        try {
+            // create postcards to list
+            $psc1 = self::$postcardsApi->create(self::$editablePostcard);
+            $psc2 = self::$postcardsApi->create(self::$editablePostcard2);
 
-        // cancel created postcards
-        array_push($this->idsForCleanup, $psc1->getId());
-        array_push($this->idsForCleanup, $psc2->getId());
-        $listedPostcards = self::$postcardsApi->list($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by);
+            // cancel created postcards
+            array_push($this->idsForCleanup, $psc1->getId());
+            array_push($this->idsForCleanup, $psc2->getId());
+            $listedPostcards = self::$postcardsApi->list($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by);
 
-        $this->assertGreaterThan(0, $listedPostcards->getCount());
-        if ($include) $this->assertNotNull($listedPostcards->getTotalCount());
+            $this->assertGreaterThan(0, $listedPostcards->getCount());
+            if ($include) $this->assertNotNull($listedPostcards->getTotalCount());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCancel200()
     {
-        $createdPostcard = self::$postcardsApi->create(self::$editablePostcard);
-        $deletedPostcard = self::$postcardsApi->cancel($createdPostcard->getId());
-        $this->assertEquals(true, $deletedPostcard->getDeleted());
+        try {
+            $createdPostcard = self::$postcardsApi->create(self::$editablePostcard);
+            $deletedPostcard = self::$postcardsApi->cancel($createdPostcard->getId());
+            $this->assertEquals(true, $deletedPostcard->getDeleted());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCancel401()

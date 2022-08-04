@@ -173,29 +173,45 @@ class LettersApiSpecTest extends TestCase
     }
 
     public function testLettersApiInstantiation200() {
-        $lettersApi200 = new LettersApi(self::$config);
-        $this->assertEquals(gettype($lettersApi200), 'object');
+        try {
+            $lettersApi200 = new LettersApi(self::$config);
+            $this->assertEquals(gettype($lettersApi200), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreateRegular200()
     {
-        $createdLetter = self::$letterApi->create(self::$regularLetter);
-        $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
-        array_push($this->idsForCleanup, $createdLetter->getId());
+        try {
+            $createdLetter = self::$letterApi->create(self::$regularLetter);
+            $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
+            array_push($this->idsForCleanup, $createdLetter->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreateCertified200()
     {
-        $createdLetter = self::$letterApi->create(self::$certifiedLetter);
-        $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
-        array_push($this->idsForCleanup, $createdLetter->getId());
+        try {
+            $createdLetter = self::$letterApi->create(self::$certifiedLetter);
+            $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
+            array_push($this->idsForCleanup, $createdLetter->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreateRegistered200()
     {
-        $createdLetter = self::$letterApi->create(self::$registeredLetter);
-        $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
-        array_push($this->idsForCleanup, $createdLetter->getId());
+        try {
+            $createdLetter = self::$letterApi->create(self::$registeredLetter);
+            $this->assertMatchesRegularExpression('/ltr_/', $createdLetter->getId());
+            array_push($this->idsForCleanup, $createdLetter->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -219,10 +235,14 @@ class LettersApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdLetter = self::$letterApi->create(self::$regularLetter);
-        $retrievedLetter = self::$letterApi->get($createdLetter->getId());
-        $this->assertEquals($createdLetter->getTo(), $retrievedLetter->getTo());
-        array_push($this->idsForCleanup, $createdLetter->getId());
+        try {
+            $createdLetter = self::$letterApi->create(self::$regularLetter);
+            $retrievedLetter = self::$letterApi->get($createdLetter->getId());
+            $this->assertEquals($createdLetter->getTo(), $retrievedLetter->getTo());
+            array_push($this->idsForCleanup, $createdLetter->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet0()
@@ -253,38 +273,50 @@ class LettersApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
-        $ltr1 = self::$letterApi->create(self::$regularLetter);
-        $ltr2 = self::$letterApi->create(self::$registeredLetter);
-        $listedLetters = self::$letterApi->list(2);
-        $this->assertGreaterThan(1, count($listedLetters->getData()));
-        $this->assertLessThanOrEqual(2, count($listedLetters->getData()));
-        $nextUrl = substr($listedLetters->getNextUrl(), strrpos($listedLetters->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $ltr1->getId());
-        array_push($this->idsForCleanup, $ltr2->getId());
+        try {
+            $ltr1 = self::$letterApi->create(self::$regularLetter);
+            $ltr2 = self::$letterApi->create(self::$registeredLetter);
+            $listedLetters = self::$letterApi->list(2);
+            $this->assertGreaterThan(1, count($listedLetters->getData()));
+            $this->assertLessThanOrEqual(2, count($listedLetters->getData()));
+            $nextUrl = substr($listedLetters->getNextUrl(), strrpos($listedLetters->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
+            array_push($this->idsForCleanup, $ltr1->getId());
+            array_push($this->idsForCleanup, $ltr2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
 
         // response using nextUrl
         if ($nextUrl != "") {
-            $ltr1 = self::$letterApi->create(self::$regularLetter);
-            $ltr2 = self::$letterApi->create(self::$registeredLetter);
-            $listedLettersAfter = self::$letterApi->list(2, null, $nextUrl);
-            $this->assertGreaterThan(1, count($listedLettersAfter->getData()));
-            $this->assertLessThanOrEqual(2, count($listedLettersAfter->getData()));
-            $previousUrl = substr($listedLettersAfter->getPreviousUrl(), strrpos($listedLettersAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
-            array_push($this->idsForCleanup, $ltr1->getId());
-            array_push($this->idsForCleanup, $ltr2->getId());
+            try {
+                $ltr1 = self::$letterApi->create(self::$regularLetter);
+                $ltr2 = self::$letterApi->create(self::$registeredLetter);
+                $listedLettersAfter = self::$letterApi->list(2, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedLettersAfter->getData()));
+                $this->assertLessThanOrEqual(2, count($listedLettersAfter->getData()));
+                $previousUrl = substr($listedLettersAfter->getPreviousUrl(), strrpos($listedLettersAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $ltr1->getId());
+                array_push($this->idsForCleanup, $ltr2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $ltr1 = self::$letterApi->create(self::$regularLetter);
-            $ltr2 = self::$letterApi->create(self::$registeredLetter);
-            $listedLettersBefore = self::$letterApi->list(2, $previousUrl);
-            $this->assertGreaterThan(1, count($listedLettersBefore->getData()));
-            $this->assertLessThanOrEqual(2, count($listedLettersBefore->getData()));
-            array_push($this->idsForCleanup, $ltr1->getId());
-            array_push($this->idsForCleanup, $ltr2->getId());
+            try {
+                $ltr1 = self::$letterApi->create(self::$regularLetter);
+                $ltr2 = self::$letterApi->create(self::$registeredLetter);
+                $listedLettersBefore = self::$letterApi->list(2, $previousUrl);
+                $this->assertGreaterThan(1, count($listedLettersBefore->getData()));
+                $this->assertLessThanOrEqual(2, count($listedLettersBefore->getData()));
+                array_push($this->idsForCleanup, $ltr1->getId());
+                array_push($this->idsForCleanup, $ltr2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -311,24 +343,32 @@ class LettersApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $color, $scheduled, $send_date, $mail_type, $sort_by)
     {
-        // create letters to list
-        $ltr1 = self::$letterApi->create(self::$regularLetter);
-        $ltr2 = self::$letterApi->create(self::$registeredLetter);
-        $listedLetters = self::$letterApi->list($limit, $before, $after, $include, $date_created, $metadata, $color, $scheduled, $send_date, $mail_type, $sort_by);
+        try {
+            // create letters to list
+            $ltr1 = self::$letterApi->create(self::$regularLetter);
+            $ltr2 = self::$letterApi->create(self::$registeredLetter);
+            $listedLetters = self::$letterApi->list($limit, $before, $after, $include, $date_created, $metadata, $color, $scheduled, $send_date, $mail_type, $sort_by);
 
-        $this->assertGreaterThan(0, $listedLetters->getCount());
-        if ($include) $this->assertNotNull($listedLetters->getTotalCount());
+            $this->assertGreaterThan(0, $listedLetters->getCount());
+            if ($include) $this->assertNotNull($listedLetters->getTotalCount());
 
-        // cancel created letters
-        array_push($this->idsForCleanup, $ltr1->getId());
-        array_push($this->idsForCleanup, $ltr2->getId());
+            // cancel created letters
+            array_push($this->idsForCleanup, $ltr1->getId());
+            array_push($this->idsForCleanup, $ltr2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCancel200()
     {
-        $createdLetter = self::$letterApi->create(self::$regularLetter);
-        $deletedLetter = self::$letterApi->cancel($createdLetter->getId());
-        $this->assertEquals(true, $deletedLetter->getDeleted());
+        try {
+            $createdLetter = self::$letterApi->create(self::$regularLetter);
+            $deletedLetter = self::$letterApi->cancel($createdLetter->getId());
+            $this->assertEquals(true, $deletedLetter->getDeleted());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCancel401()

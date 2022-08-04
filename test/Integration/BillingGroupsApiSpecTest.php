@@ -98,8 +98,12 @@ class BillingGroupsApiSpecTest extends TestCase
 
     public function testCreate200()
     {
-        $createdBillingGroup = self::$billingApi->create(self::$editableBillingGroup);
-        $this->assertMatchesRegularExpression("/bg_/", $createdBillingGroup->getId());
+        try {
+            $createdBillingGroup = self::$billingApi->create(self::$editableBillingGroup);
+            $this->assertMatchesRegularExpression("/bg_/", $createdBillingGroup->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -119,9 +123,13 @@ class BillingGroupsApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdBillingGroup = self::$billingApi->create(self::$editableBillingGroup);
-        $retrievedBillingGroup = self::$billingApi->get($createdBillingGroup->getId());
-        $this->assertEquals($createdBillingGroup->getDescription(), $retrievedBillingGroup->getDescription());
+        try {
+            $createdBillingGroup = self::$billingApi->create(self::$editableBillingGroup);
+            $retrievedBillingGroup = self::$billingApi->get($createdBillingGroup->getId());
+            $this->assertEquals($createdBillingGroup->getDescription(), $retrievedBillingGroup->getDescription());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet404()
@@ -133,11 +141,15 @@ class BillingGroupsApiSpecTest extends TestCase
 
     public function testUpdate200()
     {
-        $bgUpdatable = new BillingGroupEditable();
-        $bgUpdatable->setDescription("Updated Billing Group");
-        $createdBillingGroup = self::$billingApi->create(self::$editableBillingGroup);
-        $retrievedBillingGroup = self::$billingApi->update($createdBillingGroup->getId(), $bgUpdatable);
-        $this->assertEquals("Updated Billing Group", $retrievedBillingGroup->getDescription());
+        try {
+            $bgUpdatable = new BillingGroupEditable();
+            $bgUpdatable->setDescription("Updated Billing Group");
+            $createdBillingGroup = self::$billingApi->create(self::$editableBillingGroup);
+            $retrievedBillingGroup = self::$billingApi->update($createdBillingGroup->getId(), $bgUpdatable);
+            $this->assertEquals("Updated Billing Group", $retrievedBillingGroup->getDescription());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testUpdate404()
@@ -157,41 +169,18 @@ class BillingGroupsApiSpecTest extends TestCase
         $retrievedBillingGroup = self::$billingApi->update($createdBillingGroup->getId(), null);
     }
 
-    // commented out some parts of this test because of a bug in the billijng groups endpoint
     public function testList200()
     {
-        $nextUrl = "";
-        $previousUrl = "";
-        $billing1 = self::$billingApi->create(self::$bg1);
-        $billing2 = self::$billingApi->create(self::$bg2);
-        $billing3 = self::$billingApi->create(self::$bg3);
-        $listedBillingGroups = self::$billingApi->list(3);
-        $this->assertGreaterThan(1, count($listedBillingGroups->getData()));
-        $this->assertLessThanOrEqual(3, count($listedBillingGroups->getData()));
-        // $nextUrl = substr($listedBillingGroups->getNextUrl(), strrpos($listedBillingGroups->getNextUrl(), "after=") + 6);
-        // $this->assertIsString($nextUrl);
-
-        // // response using nextUrl
-        // if ($nextUrl != "") {
-        //     $billing1 = self::$billingApi->create(self::$bg1);
-        //     $billing2 = self::$billingApi->create(self::$bg2);
-        //     $billing3 = self::$billingApi->create(self::$bg3);
-        //     $listedBillingGroupsAfter = self::$billingApi->list(3, null, $nextUrl);
-        //     $this->assertGreaterThan(1, count($listedBillingGroupsAfter->getData()));
-        //     $this->assertLessThanOrEqual(3, count($listedBillingGroupsAfter->getData()));
-        //     $previousUrl = substr($listedBillingGroupsAfter->getPreviousUrl(), strrpos($listedBillingGroupsAfter->getPreviousUrl(), "before=") + 7);
-        //     $this->assertIsString($previousUrl);
-        // }
-
-        // // response using previousUrl
-        // if ($previousUrl != "") {
-        //     $billing1 = self::$billingApi->create(self::$bg1);
-        //     $billing2 = self::$billingApi->create(self::$bg2);
-        //     $billing3 = self::$billingApi->create(self::$bg3);
-        //     $listedBillingGroupsBefore = self::$billingApi->list(3, $previousUrl);
-        //     $this->assertGreaterThan(1, count($listedBillingGroupsBefore->getData()));
-        //     $this->assertLessThanOrEqual(3, count($listedBillingGroupsBefore->getData()));
-        // }
+        try {
+            $billing1 = self::$billingApi->create(self::$bg1);
+            $billing2 = self::$billingApi->create(self::$bg2);
+            $billing3 = self::$billingApi->create(self::$bg3);
+            $listedBillingGroups = self::$billingApi->list(3);
+            $this->assertGreaterThan(1, count($listedBillingGroups->getData()));
+            $this->assertLessThanOrEqual(3, count($listedBillingGroups->getData()));
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function provider()
@@ -214,13 +203,17 @@ class BillingGroupsApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $offset, $include, $date_created, $date_modified, $sort_by)
     {
-        // create billing groups to list
-        $billing1 = self::$billingApi->create(self::$bg1);
-        $billing2 = self::$billingApi->create(self::$bg2);
-        $billing3 = self::$billingApi->create(self::$bg3);
-        $listedBillingGroups = self::$billingApi->list($limit, $offset, $include, $date_created, $date_modified, $sort_by);
+        try {
+            // create billing groups to list
+            $billing1 = self::$billingApi->create(self::$bg1);
+            $billing2 = self::$billingApi->create(self::$bg2);
+            $billing3 = self::$billingApi->create(self::$bg3);
+            $listedBillingGroups = self::$billingApi->list($limit, $offset, $include, $date_created, $date_modified, $sort_by);
 
-        $this->assertGreaterThan(0, $listedBillingGroups->getCount());
-        if ($include) $this->assertNotNull($listedBillingGroups->getTotalCount());
+            $this->assertGreaterThan(0, $listedBillingGroups->getCount());
+            if ($include) $this->assertNotNull($listedBillingGroups->getTotalCount());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 }

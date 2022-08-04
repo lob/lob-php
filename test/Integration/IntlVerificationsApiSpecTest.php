@@ -104,62 +104,61 @@ class IntlVerificationsApiSpecTest extends TestCase
         try {
             $intlvApi200 = new IntlVerificationsApi(self::$config);
             $this->assertEquals(gettype($intlvApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    public function testSingleUsVerificationDeliverable()
+    public function testSingleIntlVerificationDeliverable()
     {
         try {
             $intlVerificationObject = self::$intlvApi200->verifySingle(self::$validAddress1);
             $this->assertMatchesRegularExpression('/intl_ver_/', $intlVerificationObject->getId());
             $this->assertEquals('deliverable', $intlVerificationObject->getDeliverability());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    public function testSingleUsVerificationUndeliverable()
+    public function testSingleIntlVerificationUndeliverable()
     {
         try {
             $intlVerificationObject = self::$intlvApi200->verifySingle(self::$undeliverableAddress);
             $this->assertMatchesRegularExpression('/intl_ver_/', $intlVerificationObject->getId());
             $this->assertEquals('undeliverable', $intlVerificationObject->getDeliverability());
-
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    public function testBulkUsVerificationValid()
+    public function testBulkIntlVerificationValid()
     {
         try {
             $intlVerificationObject = self::$intlvApi200->verifyBulk(self::$multipleAddressList);
             $this->assertGreaterThan(1, count($intlVerificationObject->getAddresses()));
             $this->assertEquals('deliverable', $intlVerificationObject->getAddresses()[0]->getDeliverability());
             $this->assertEquals('undeliverable', $intlVerificationObject->getAddresses()[1]->getDeliverability());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    public function testBulkUsVerificationError()
+    public function testBulkIntlVerificationError()
     {
         try {
             $mc1 = new MultipleComponentsIntl();
             $mc1->setPrimaryLine("10 DOWNING ST");
             $mc1->setCity("LONDON");
             $mc1->setPostalCode("SW1A 2AA");
-            $mc1->setCountry("GB");    
-    
+            $mc1->setCountry("GB");
+
             // second entry has nonexistent country, should error
             $mc2 = new MultipleComponentsIntl();
             $mc2->setPrimaryLine("35 TOWER HILL");
             $mc2->setCity("LONDON");
             $mc2->setPostalCode("EC3N 4DR");
             $mc2->setCountry("ZZ");
-    
+
             // multiple components list for bulk verification test
             $errorAddressList = new IntlVerificationsPayload();
             $errorAddressList->setAddresses([$mc1, $mc2]);
@@ -168,8 +167,8 @@ class IntlVerificationsApiSpecTest extends TestCase
 
             $this->assertMatchesRegularExpression('/country must be one of/', $errorVerificationObject->getAddresses()[1]->getError()->getError()->getMessage());
             $this->assertEquals(1, $errorVerificationObject->getErrors());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 }

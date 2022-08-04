@@ -69,18 +69,26 @@ class ReverseGeocodeLookupsApiSpecTest extends TestCase
     }
 
     public function testReverseGeocodeLookupsApiInstantiation200() {
-        $reverseGeocodeApi = new ReverseGeocodeLookupsApi(self::$config);
-        $this->assertEquals(gettype($reverseGeocodeApi), 'object');
+        try {
+            $reverseGeocodeApi = new ReverseGeocodeLookupsApi(self::$config);
+            $this->assertEquals(gettype($reverseGeocodeApi), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testLookup()
     {
-        $location = new Location();
-        $location->setLatitude(37.777456);
-        $location->setLongitude(-122.393039);
-        $reverseGeocodeObject = self::$reverseGeocodeApi->lookup($location, self::$size);
-        $this->assertMatchesRegularExpression('/us_reverse_geocode_/', $reverseGeocodeObject->getId());
-        $this->assertGreaterThanOrEqual(1, count($reverseGeocodeObject->getAddresses()));
+        try {
+            $location = new Location();
+            $location->setLatitude(37.777456);
+            $location->setLongitude(-122.393039);
+            $reverseGeocodeObject = self::$reverseGeocodeApi->lookup($location, self::$size);
+            $this->assertMatchesRegularExpression('/us_reverse_geocode_/', $reverseGeocodeObject->getId());
+            $this->assertGreaterThanOrEqual(1, count($reverseGeocodeObject->getAddresses()));
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testLookup0()

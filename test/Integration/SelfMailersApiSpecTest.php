@@ -160,15 +160,23 @@ class SelfMailersApiSpecTest extends TestCase
     }
 
     public function testSelfMailersApiInstantiation200() {
-        $selfMailersApi200 = new SelfMailersApi(self::$config);
-        $this->assertEquals(gettype($selfMailersApi200), 'object');
+        try {
+            $selfMailersApi200 = new SelfMailersApi(self::$config);
+            $this->assertEquals(gettype($selfMailersApi200), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-        $this->assertMatchesRegularExpression('/sfm_/', $createdSelfMailer->getId());
-        array_push($this->idsForCleanup, $createdSelfMailer->getId());
+        try {
+            $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $this->assertMatchesRegularExpression('/sfm_/', $createdSelfMailer->getId());
+            array_push($this->idsForCleanup, $createdSelfMailer->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -192,10 +200,14 @@ class SelfMailersApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-        $retrievedSelfMailer = self::$selfMailersApi->get($createdSelfMailer->getId());
-        $this->assertEquals($createdSelfMailer->getTo(), $retrievedSelfMailer->getTo());
-        array_push($this->idsForCleanup, $createdSelfMailer->getId());
+        try {
+            $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $retrievedSelfMailer = self::$selfMailersApi->get($createdSelfMailer->getId());
+            $this->assertEquals($createdSelfMailer->getTo(), $retrievedSelfMailer->getTo());
+            array_push($this->idsForCleanup, $createdSelfMailer->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet0()
@@ -226,38 +238,50 @@ class SelfMailersApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
-        $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-        $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-        $listedSelfMailers = self::$selfMailersApi->list(2);
-        $this->assertGreaterThan(1, count($listedSelfMailers->getData()));
-        $this->assertLessThanOrEqual(2, count($listedSelfMailers->getData()));
-        $nextUrl = substr($listedSelfMailers->getNextUrl(), strrpos($listedSelfMailers->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $sfm1->getId());
-        array_push($this->idsForCleanup, $sfm2->getId());
+        try {
+            $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+            $listedSelfMailers = self::$selfMailersApi->list(2);
+            $this->assertGreaterThan(1, count($listedSelfMailers->getData()));
+            $this->assertLessThanOrEqual(2, count($listedSelfMailers->getData()));
+            $nextUrl = substr($listedSelfMailers->getNextUrl(), strrpos($listedSelfMailers->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
+            array_push($this->idsForCleanup, $sfm1->getId());
+            array_push($this->idsForCleanup, $sfm2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
 
         // response using nextUrl
         if ($nextUrl != "") {
-            $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-            $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-            $listedSelfMailersAfter = self::$selfMailersApi->list(2, null, $nextUrl);
-            $this->assertGreaterThan(1, count($listedSelfMailersAfter->getData()));
-            $this->assertLessThanOrEqual(2, count($listedSelfMailersAfter->getData()));
-            $previousUrl = substr($listedSelfMailersAfter->getPreviousUrl(), strrpos($listedSelfMailersAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
-            array_push($this->idsForCleanup, $sfm1->getId());
-            array_push($this->idsForCleanup, $sfm2->getId());
+            try {
+                $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+                $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+                $listedSelfMailersAfter = self::$selfMailersApi->list(2, null, $nextUrl);
+                $this->assertGreaterThan(1, count($listedSelfMailersAfter->getData()));
+                $this->assertLessThanOrEqual(2, count($listedSelfMailersAfter->getData()));
+                $previousUrl = substr($listedSelfMailersAfter->getPreviousUrl(), strrpos($listedSelfMailersAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $sfm1->getId());
+                array_push($this->idsForCleanup, $sfm2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-            $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-            $listedSelfMailersBefore = self::$selfMailersApi->list(2, $previousUrl);
-            $this->assertGreaterThan(1, count($listedSelfMailersBefore->getData()));
-            $this->assertLessThanOrEqual(2, count($listedSelfMailersBefore->getData()));
-            array_push($this->idsForCleanup, $sfm1->getId());
-            array_push($this->idsForCleanup, $sfm2->getId());
+            try {
+                $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+                $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+                $listedSelfMailersBefore = self::$selfMailersApi->list(2, $previousUrl);
+                $this->assertGreaterThan(1, count($listedSelfMailersBefore->getData()));
+                $this->assertLessThanOrEqual(2, count($listedSelfMailersBefore->getData()));
+                array_push($this->idsForCleanup, $sfm1->getId());
+                array_push($this->idsForCleanup, $sfm2->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -284,24 +308,32 @@ class SelfMailersApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by)
     {
+        try {
         // create self mailers to list
-        $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
-        $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
-        $listedSelfMailers = self::$selfMailersApi->list($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by);
+            $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+            $listedSelfMailers = self::$selfMailersApi->list($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by);
 
-        $this->assertGreaterThan(0, $listedSelfMailers->getCount());
-        if ($include) $this->assertNotNull($listedSelfMailers->getTotalCount());
+            $this->assertGreaterThan(0, $listedSelfMailers->getCount());
+            if ($include) $this->assertNotNull($listedSelfMailers->getTotalCount());
 
-        // delete created self mailers
-        array_push($this->idsForCleanup, $sfm1->getId());
-        array_push($this->idsForCleanup, $sfm2->getId());
+            // delete created self mailers
+            array_push($this->idsForCleanup, $sfm1->getId());
+            array_push($this->idsForCleanup, $sfm2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete200()
     {
-        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-        $deletedSelfMailer = self::$selfMailersApi->delete($createdSelfMailer->getId());
-        $this->assertEquals(true, $deletedSelfMailer->getDeleted());
+        try {
+            $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $deletedSelfMailer = self::$selfMailersApi->delete($createdSelfMailer->getId());
+            $this->assertEquals(true, $deletedSelfMailer->getDeleted());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete401()

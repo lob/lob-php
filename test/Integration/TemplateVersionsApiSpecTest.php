@@ -112,15 +112,23 @@ class TemplateVersionsApiSpecTest extends TestCase
     }
 
     public function testTemplateVersionsApiInstantiation200() {
-        $templateVersionsApi200 = new TemplateVersionsApi(self::$config);
-        $this->assertEquals(gettype($templateVersionsApi200), 'object');
+        try {
+            $templateVersionsApi200 = new TemplateVersionsApi(self::$config);
+            $this->assertEquals(gettype($templateVersionsApi200), 'object');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testCreate200()
     {
-        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-        $this->assertMatchesRegularExpression('/vrsn_/', $createdTemplateVersion->getId());
-        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+        try {
+            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+            $this->assertMatchesRegularExpression('/vrsn_/', $createdTemplateVersion->getId());
+            array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     // does not include required field in request
@@ -144,10 +152,14 @@ class TemplateVersionsApiSpecTest extends TestCase
 
     public function testGet200()
     {
-        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-        $retrievedTemplateVersion = self::$templateVersionsApi->get(self::$tmplId, $createdTemplateVersion->getId());
-        $this->assertEquals($createdTemplateVersion->getDescription(), $retrievedTemplateVersion->getDescription());
-        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+        try {
+            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+            $retrievedTemplateVersion = self::$templateVersionsApi->get(self::$tmplId, $createdTemplateVersion->getId());
+            $this->assertEquals($createdTemplateVersion->getDescription(), $retrievedTemplateVersion->getDescription());
+            array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testGet0()
@@ -176,12 +188,16 @@ class TemplateVersionsApiSpecTest extends TestCase
 
     public function testUpdate200()
     {
-        $templateVersionUpdate = new TemplateVersionUpdatable();
-        $templateVersionUpdate->setDescription("Updated Template");
-        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-        $retrievedTemplateVersion = self::$templateVersionsApi->update(self::$tmplId, $createdTemplateVersion->getId(), $templateVersionUpdate);
-        $this->assertEquals("Updated Template", $retrievedTemplateVersion->getDescription());
-        array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+        try {
+            $templateVersionUpdate = new TemplateVersionUpdatable();
+            $templateVersionUpdate->setDescription("Updated Template");
+            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+            $retrievedTemplateVersion = self::$templateVersionsApi->update(self::$tmplId, $createdTemplateVersion->getId(), $templateVersionUpdate);
+            $this->assertEquals("Updated Template", $retrievedTemplateVersion->getDescription());
+            array_push($this->idsForCleanup, $createdTemplateVersion->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testUpdate0()
@@ -217,44 +233,56 @@ class TemplateVersionsApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
-        $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
-        $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
-        $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
-        $listedTemplateVersions = self::$templateVersionsApi->list(self::$tmplId, 3);
-        $this->assertGreaterThan(1, count($listedTemplateVersions->getData()));
-        $this->assertLessThanOrEqual(3, count($listedTemplateVersions->getData()));
-        $nextUrl = substr($listedTemplateVersions->getNextUrl(), strrpos($listedTemplateVersions->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $tv1->getId());
-        array_push($this->idsForCleanup, $tv2->getId());
-        array_push($this->idsForCleanup, $tv3->getId());
-
-        // response using nextUrl
-        if ($nextUrl != "") {
+        try {
             $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
             $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
             $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
-            $listedTemplateVersionsAfter = self::$templateVersionsApi->list(self::$tmplId, 3, null, $nextUrl);
-            $this->assertGreaterThanOrEqual(1, count($listedTemplateVersionsAfter->getData()));
-            $this->assertLessThanOrEqual(3, count($listedTemplateVersionsAfter->getData()));
-            $previousUrl = substr($listedTemplateVersionsAfter->getPreviousUrl(), strrpos($listedTemplateVersionsAfter->getPreviousUrl(), "before=") + 7);
-            $this->assertIsString($previousUrl);
+            $listedTemplateVersions = self::$templateVersionsApi->list(self::$tmplId, 3);
+            $this->assertGreaterThan(1, count($listedTemplateVersions->getData()));
+            $this->assertLessThanOrEqual(3, count($listedTemplateVersions->getData()));
+            $nextUrl = substr($listedTemplateVersions->getNextUrl(), strrpos($listedTemplateVersions->getNextUrl(), "after=") + 6);
+            $this->assertIsString($nextUrl);
             array_push($this->idsForCleanup, $tv1->getId());
             array_push($this->idsForCleanup, $tv2->getId());
             array_push($this->idsForCleanup, $tv3->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+        // response using nextUrl
+        if ($nextUrl != "") {
+            try {
+                $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
+                $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
+                $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
+                $listedTemplateVersionsAfter = self::$templateVersionsApi->list(self::$tmplId, 3, null, $nextUrl);
+                $this->assertGreaterThanOrEqual(1, count($listedTemplateVersionsAfter->getData()));
+                $this->assertLessThanOrEqual(3, count($listedTemplateVersionsAfter->getData()));
+                $previousUrl = substr($listedTemplateVersionsAfter->getPreviousUrl(), strrpos($listedTemplateVersionsAfter->getPreviousUrl(), "before=") + 7);
+                $this->assertIsString($previousUrl);
+                array_push($this->idsForCleanup, $tv1->getId());
+                array_push($this->idsForCleanup, $tv2->getId());
+                array_push($this->idsForCleanup, $tv3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-            $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
-            $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
-            $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
-            $listedTemplateVersionsBefore = self::$templateVersionsApi->list(self::$tmplId, 3, $previousUrl);
-            $this->assertGreaterThan(1, count($listedTemplateVersionsBefore->getData()));
-            $this->assertLessThanOrEqual(3, count($listedTemplateVersionsBefore->getData()));
-            array_push($this->idsForCleanup, $tv1->getId());
-            array_push($this->idsForCleanup, $tv2->getId());
-            array_push($this->idsForCleanup, $tv3->getId());
+            try {
+                $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
+                $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
+                $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
+                $listedTemplateVersionsBefore = self::$templateVersionsApi->list(self::$tmplId, 3, $previousUrl);
+                $this->assertGreaterThan(1, count($listedTemplateVersionsBefore->getData()));
+                $this->assertLessThanOrEqual(3, count($listedTemplateVersionsBefore->getData()));
+                array_push($this->idsForCleanup, $tv1->getId());
+                array_push($this->idsForCleanup, $tv2->getId());
+                array_push($this->idsForCleanup, $tv3->getId());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -275,28 +303,36 @@ class TemplateVersionsApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created)
     {
-        // create template versions to list
-        $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
-        $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
-        $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
+        try {
+            // create template versions to list
+            $tv1 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion1);
+            $tv2 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion2);
+            $tv3 = self::$templateVersionsApi->create(self::$tmplId, self::$templateVersion3);
 
-        // cancel created template versions
-        array_push($this->idsForCleanup, $tv1->getId());
-        array_push($this->idsForCleanup, $tv2->getId());
-        array_push($this->idsForCleanup, $tv3->getId());
+            // cancel created template versions
+            array_push($this->idsForCleanup, $tv1->getId());
+            array_push($this->idsForCleanup, $tv2->getId());
+            array_push($this->idsForCleanup, $tv3->getId());
 
-        $listedTemplateVersions = self::$templateVersionsApi->list(self::$tmplId, $limit, $before, $after, $include, $date_created);
+            $listedTemplateVersions = self::$templateVersionsApi->list(self::$tmplId, $limit, $before, $after, $include, $date_created);
 
-        $this->assertGreaterThan(0, $listedTemplateVersions->getCount());
-        if ($include) $this->assertNotNull($listedTemplateVersions->getTotalCount());
+            $this->assertGreaterThan(0, $listedTemplateVersions->getCount());
+            if ($include) $this->assertNotNull($listedTemplateVersions->getTotalCount());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete200()
     {
-        $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
-        $deletedTemplateVersion = self::$templateVersionsApi->delete(self::$tmplId, $createdTemplateVersion->getId());
-        $this->assertEquals(true, $deletedTemplateVersion->getDeleted());
-        $this->assertMatchesRegularExpression('/vrsn_/', $deletedTemplateVersion->getId());
+        try {
+            $createdTemplateVersion = self::$templateVersionsApi->create(self::$tmplId, self::$writableTemplateVersion);
+            $deletedTemplateVersion = self::$templateVersionsApi->delete(self::$tmplId, $createdTemplateVersion->getId());
+            $this->assertEquals(true, $deletedTemplateVersion->getDeleted());
+            $this->assertMatchesRegularExpression('/vrsn_/', $deletedTemplateVersion->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testDelete401()

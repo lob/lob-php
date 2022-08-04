@@ -70,30 +70,42 @@ class UsAutocompletionsApiSpecTest extends TestCase
     }
 
     public function testUsAutocompletionsApiInstantiation200() {
-        $usAutocompletionApi = new UsAutocompletionsApi(self::$config);
-        $this->assertEquals(gettype($usAutocompletionApi), "object");
+        try {
+            $usAutocompletionApi = new UsAutocompletionsApi(self::$config);
+            $this->assertEquals(gettype($usAutocompletionApi), "object");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testUsAutocompletion()
     {
-        $usAutocompletionObject = self::$usAutocompletionApi->autocomplete(self::$autocompletionWritable);
-        $this->assertMatchesRegularExpression("/us_auto_/", $usAutocompletionObject->getId());
-        $this->assertGreaterThan(0, count($usAutocompletionObject->getSuggestions()));
+        try {
+            $usAutocompletionObject = self::$usAutocompletionApi->autocomplete(self::$autocompletionWritable);
+            $this->assertMatchesRegularExpression("/us_auto_/", $usAutocompletionObject->getId());
+            $this->assertGreaterThan(0, count($usAutocompletionObject->getSuggestions()));
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testUsAutocompletionTestKey()
     {
-        $testAutocompletion = new UsAutocompletionsWritable();
-        $testAutocompletion->setAddressPrefix("1313 T");
-        $testAutocompletion->setState("NJ");
-        $testAutocompletion->setGeoIpSort(false);
+        try {
+            $testAutocompletion = new UsAutocompletionsWritable();
+            $testAutocompletion->setAddressPrefix("1313 T");
+            $testAutocompletion->setState("NJ");
+            $testAutocompletion->setGeoIpSort(false);
 
-        $wrongConfig = new Configuration();
-        $wrongConfig->setApiKey("basic", getenv("LOB_API_TEST_KEY"));
-        $autocompletionApiError = new UsAutocompletionsApi($wrongConfig);
+            $wrongConfig = new Configuration();
+            $wrongConfig->setApiKey("basic", getenv("LOB_API_TEST_KEY"));
+            $autocompletionApiError = new UsAutocompletionsApi($wrongConfig);
 
-        $usAutocompletionObject = $autocompletionApiError->autocomplete($testAutocompletion);
-        $this->assertEquals("TEST KEYS DO NOT AUTOCOMPLETE US ADDRESSES", $usAutocompletionObject->getSuggestions()[0]->getPrimaryLine());
+            $usAutocompletionObject = $autocompletionApiError->autocomplete($testAutocompletion);
+            $this->assertEquals("TEST KEYS DO NOT AUTOCOMPLETE US ADDRESSES", $usAutocompletionObject->getSuggestions()[0]->getPrimaryLine());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function testUsAutocompletion0()

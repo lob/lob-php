@@ -117,15 +117,23 @@ class AddressesApiSpecTest extends TestCase
     }
 
     public function testAddressesApiInstantiation200() {
-      $addressApi200 = new AddressesApi(self::$config);
-      $this->assertEquals(gettype($addressApi200), 'object');
+      try {
+        $addressApi200 = new AddressesApi(self::$config);
+        $this->assertEquals(gettype($addressApi200), 'object');
+      } catch (\Exception $e) {
+        throw new \Exception($e->getMessage());
+      }
     }
 
     public function testCreate200()
     {
-      $createdAddress = self::$addressApi->create(self::$editableAddress);
-      $this->assertMatchesRegularExpression('/adr_/', $createdAddress->getId());
-      array_push($this->idsForCleanup, $createdAddress->getId());
+      try {
+        $createdAddress = self::$addressApi->create(self::$editableAddress);
+        $this->assertMatchesRegularExpression('/adr_/', $createdAddress->getId());
+        array_push($this->idsForCleanup, $createdAddress->getId());
+      } catch (\Exception $e) {
+        throw new \Exception($e->getMessage());
+      }
     }
 
     // does not include required field in request
@@ -149,10 +157,14 @@ class AddressesApiSpecTest extends TestCase
 
     public function testGet200()
     {
-      $createdAddress = self::$addressApi->create(self::$editableAddress);
-      $retrievedAddress = self::$addressApi->get($createdAddress->getId());
-      $this->assertEquals($createdAddress->getAddressLine1(), $retrievedAddress->getAddressLine1());
-      array_push($this->idsForCleanup, $createdAddress->getId());
+      try {
+        $createdAddress = self::$addressApi->create(self::$editableAddress);
+        $retrievedAddress = self::$addressApi->get($createdAddress->getId());
+        $this->assertEquals($createdAddress->getAddressLine1(), $retrievedAddress->getAddressLine1());
+        array_push($this->idsForCleanup, $createdAddress->getId());
+      } catch (\Exception $e) {
+        throw new \Exception($e->getMessage());
+      }
     }
 
     public function testGet404()
@@ -166,44 +178,56 @@ class AddressesApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
-        $add1 = self::$addressApi->create(self::$address1);
-        $add2 = self::$addressApi->create(self::$address2);
-        $add3 = self::$addressApi->create(self::$address3);
-        $listedAddresses = self::$addressApi->list(3);
-        $this->assertGreaterThan(1, count($listedAddresses->getData()));
-        $this->assertLessThanOrEqual(3, count($listedAddresses->getData()));
-        $nextUrl = substr($listedAddresses->getNextUrl(), strrpos($listedAddresses->getNextUrl(), "after=") + 6);
-        $this->assertIsString($nextUrl);
-        array_push($this->idsForCleanup, $add1->getId());
-        array_push($this->idsForCleanup, $add2->getId());
-        array_push($this->idsForCleanup, $add3->getId());
-
-        // response using nextUrl
-        if ($nextUrl != "") {
+        try {
           $add1 = self::$addressApi->create(self::$address1);
           $add2 = self::$addressApi->create(self::$address2);
           $add3 = self::$addressApi->create(self::$address3);
-          $listedAddressesAfter = self::$addressApi->list(3, null, $nextUrl);
-          $this->assertGreaterThan(1, count($listedAddressesAfter->getData()));
-          $this->assertLessThanOrEqual(3, count($listedAddressesAfter->getData()));
-          $previousUrl = substr($listedAddressesAfter->getPreviousUrl(), strrpos($listedAddressesAfter->getPreviousUrl(), "before=") + 7);
-          $this->assertIsString($previousUrl);
+          $listedAddresses = self::$addressApi->list(3);
+          $this->assertGreaterThan(1, count($listedAddresses->getData()));
+          $this->assertLessThanOrEqual(3, count($listedAddresses->getData()));
+          $nextUrl = substr($listedAddresses->getNextUrl(), strrpos($listedAddresses->getNextUrl(), "after=") + 6);
+          $this->assertIsString($nextUrl);
           array_push($this->idsForCleanup, $add1->getId());
           array_push($this->idsForCleanup, $add2->getId());
           array_push($this->idsForCleanup, $add3->getId());
+        } catch (\Exception $e) {
+          throw new \Exception($e->getMessage());
+        }
+
+        // response using nextUrl
+        if ($nextUrl != "") {
+          try {
+            $add1 = self::$addressApi->create(self::$address1);
+            $add2 = self::$addressApi->create(self::$address2);
+            $add3 = self::$addressApi->create(self::$address3);
+            $listedAddressesAfter = self::$addressApi->list(3, null, $nextUrl);
+            $this->assertGreaterThan(1, count($listedAddressesAfter->getData()));
+            $this->assertLessThanOrEqual(3, count($listedAddressesAfter->getData()));
+            $previousUrl = substr($listedAddressesAfter->getPreviousUrl(), strrpos($listedAddressesAfter->getPreviousUrl(), "before=") + 7);
+            $this->assertIsString($previousUrl);
+            array_push($this->idsForCleanup, $add1->getId());
+            array_push($this->idsForCleanup, $add2->getId());
+            array_push($this->idsForCleanup, $add3->getId());
+          } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+          }
         }
 
         // response using previousUrl
         if ($previousUrl != "") {
-          $add1 = self::$addressApi->create(self::$address1);
-          $add2 = self::$addressApi->create(self::$address2);
-          $add3 = self::$addressApi->create(self::$address3);
-          $listedAddressesBefore = self::$addressApi->list(3, $previousUrl);
-          $this->assertGreaterThan(1, count($listedAddressesBefore->getData()));
-          $this->assertLessThanOrEqual(3, count($listedAddressesBefore->getData()));
-          array_push($this->idsForCleanup, $add1->getId());
-          array_push($this->idsForCleanup, $add2->getId());
-          array_push($this->idsForCleanup, $add3->getId());
+          try {
+            $add1 = self::$addressApi->create(self::$address1);
+            $add2 = self::$addressApi->create(self::$address2);
+            $add3 = self::$addressApi->create(self::$address3);
+            $listedAddressesBefore = self::$addressApi->list(3, $previousUrl);
+            $this->assertGreaterThan(1, count($listedAddressesBefore->getData()));
+            $this->assertLessThanOrEqual(3, count($listedAddressesBefore->getData()));
+            array_push($this->idsForCleanup, $add1->getId());
+            array_push($this->idsForCleanup, $add2->getId());
+            array_push($this->idsForCleanup, $add3->getId());
+          } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+          }
         }
     }
 
@@ -225,6 +249,7 @@ class AddressesApiSpecTest extends TestCase
      */
     public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata)
     {
+      try {
         // create addresses to list
         $add1 = self::$addressApi->create(self::$address1);
         $add2 = self::$addressApi->create(self::$address2);
@@ -238,14 +263,21 @@ class AddressesApiSpecTest extends TestCase
         array_push($this->idsForCleanup, $add1->getId());
         array_push($this->idsForCleanup, $add2->getId());
         array_push($this->idsForCleanup, $add3->getId());
+      } catch (\Exception $e) {
+        throw new \Exception($e->getMessage());
+      }
     }
 
     public function testDelete200()
     {
-      $createdAddress = self::$addressApi->create(self::$editableAddress);
-      $deletedAddress = self::$addressApi->delete($createdAddress->getId());
-      $this->assertEquals(true, $deletedAddress->getDeleted());
-      $this->assertMatchesRegularExpression('/adr_/', $deletedAddress->getId());
+      try {
+        $createdAddress = self::$addressApi->create(self::$editableAddress);
+        $deletedAddress = self::$addressApi->delete($createdAddress->getId());
+        $this->assertEquals(true, $deletedAddress->getDeleted());
+        $this->assertMatchesRegularExpression('/adr_/', $deletedAddress->getId());
+      } catch (\Exception $e) {
+        throw new \Exception($e->getMessage());
+      }
     }
 
     public function testDelete404()
