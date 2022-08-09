@@ -71,7 +71,7 @@ class CardOrdersApiSpecTest extends TestCase
         self::$config = new Configuration();
         self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
         self::$cardOrdersApi = new CardOrdersApi(self::$config);
-        
+
         // create a card which the card orders will be affiliated with
         self::$cardApi = new CardsApi(self::$config);
         $editableCard = new CardEditable();
@@ -102,6 +102,10 @@ class CardOrdersApiSpecTest extends TestCase
         self::$cardApi->delete(self::$cardId);
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     public function testCardOrdersApiInstantiation200() {
         try {
             $cardOrdersApi200 = new CardOrdersApi(self::$config);
@@ -111,6 +115,10 @@ class CardOrdersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     public function testCreate200()
     {
         try {
@@ -122,10 +130,14 @@ class CardOrdersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     // does not include required field in request
     public function testCreate422()
     {
-        
+
         try {
             $this->expectException(ApiException::class);
             $this->expectExceptionMessageMatches("/Number of cards in order must be at least 10000/");
@@ -135,6 +147,10 @@ class CardOrdersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     // uses a bad key to attempt to send a request
     public function testCardOrdersApi401() {
         try {
@@ -150,6 +166,10 @@ class CardOrdersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     public function testRetrieve200()
     {
         $this->markTestSkipped("Cannot properly test this until the SDK is regenerated and all bugs are solved");

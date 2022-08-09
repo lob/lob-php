@@ -100,6 +100,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testCardsApiInstantiation200() {
         try {
             $cardApi200 = new CardsApi(self::$config);
@@ -109,6 +113,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testCreate200()
     {
         try {
@@ -120,10 +128,14 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     // does not include required field in request
     public function testCreate422()
     {
-        
+
         try {
             $this->expectException(ApiException::class);
             $this->expectExceptionMessageMatches("/front is required/");
@@ -133,6 +145,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     // uses a bad key to attempt to send a request
     public function testCardApi401() {
         try {
@@ -148,6 +164,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testGet200()
     {
         try {
@@ -160,6 +180,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testGet404()
     {
         try {
@@ -171,6 +195,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testUpdate200()
     {
         try {
@@ -185,6 +213,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -242,6 +274,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testDelete200()
     {
         try {
@@ -254,6 +290,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testDelete404()
     {
         try {

@@ -114,7 +114,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         self::$templatesApi->delete(self::$tmplId);
     }
 
-
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testTemplateVersionsApiInstantiation200() {
         try {
             $templateVersionsApi200 = new TemplateVersionsApi(self::$config);
@@ -124,6 +127,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testCreate200()
     {
         try {
@@ -135,6 +142,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -147,6 +158,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     // uses a bad key to attempt to send a request
     public function testTemplateVersionsApi401() {
         try {
@@ -162,6 +177,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testGet200()
     {
         try {
@@ -174,6 +193,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testGet404()
     {
         try {
@@ -185,6 +208,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testUpdate200()
     {
         try {
@@ -199,6 +226,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -256,6 +287,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testDelete200()
     {
         try {
@@ -268,6 +303,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testDelete404()
     {
         try {

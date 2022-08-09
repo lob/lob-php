@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -71,7 +71,7 @@ class SelfMailersApiUnitTest extends TestCase
     {
         self::$mockSelfMailerEditableId = "sfm_fakeId";
         self::$mockSelfMailerEditable = new SelfMailerEditable();
-        
+
         self::$mockSelfMailerResponse = new SelfMailer();
         self::$mockSelfMailerResponse->setId(self::$mockSelfMailerEditableId);
 
@@ -83,7 +83,7 @@ class SelfMailersApiUnitTest extends TestCase
         $item1->setId("sfm_fakeId1");
         $item2->setId("sfm_fakeId2");
         $item3->setId("sfm_fakeId3");
-        
+
         self::$mockSelfMailerList->setData(array ($item1, $item2, $item3));
         self::$mockSelfMailerList->setObject("list");
         self::$mockSelfMailerList->setCount("3");
@@ -100,7 +100,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testCreateConnectionError()
     {
@@ -123,13 +123,13 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testCreate()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $selfMailerApi = new SelfMailersApi($config, $client);
@@ -147,7 +147,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testCreateWithIdempotency()
     {
@@ -169,7 +169,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testCreateFailBadSelfMailer()
     {
@@ -190,7 +190,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testCreateMalformedRequest()
     {
@@ -213,7 +213,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testCreateFailApiError()
     {
@@ -236,7 +236,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testCreateFailStatusCode()
     {
@@ -259,10 +259,10 @@ class SelfMailersApiUnitTest extends TestCase
     /** ***** ***** *****
      * Get
      * ***** ***** *****/
-    
+
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testGetConnectionError()
     {
@@ -285,13 +285,13 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testGet()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $selfMailerApi = new SelfMailersApi($config, $client);
@@ -307,7 +307,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testGetFailNullId()
     {
@@ -328,7 +328,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testGetFailBadId()
     {
@@ -349,7 +349,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testGetFail()
     {
@@ -372,7 +372,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testGetApiError()
     {
@@ -395,7 +395,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testGetFailStatusCode()
     {
@@ -421,7 +421,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testListConnectionError()
     {
@@ -444,13 +444,13 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testList()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $selfMailerApi = new SelfMailersApi($config, $client);
@@ -470,7 +470,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testListFailBadParamsLargeLimit()
     {
@@ -491,7 +491,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testListFailBadParamsNegativeLimit()
     {
@@ -512,7 +512,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testListFailBadParamsLargeMetadata()
     {
@@ -533,7 +533,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testListFailApiError()
     {
@@ -556,7 +556,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testListFailStatusCode()
     {
@@ -577,15 +577,15 @@ class SelfMailersApiUnitTest extends TestCase
     }
 
     // ToDo: public function testListPagination()
-    
-    
+
+
     /** ***** ***** *****
      * Delete
      * ***** ***** *****/
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testDeleteConnectionError()
     {
@@ -608,13 +608,13 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testDelete()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $selfMailerApi = new SelfMailersApi($config, $client);
@@ -630,7 +630,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testDeleteFailMissingId()
     {
@@ -651,7 +651,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testDeleteFailBadId()
     {
@@ -672,7 +672,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testDeleteFailApiError()
     {
@@ -695,7 +695,7 @@ class SelfMailersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group templates
+     * @group selfMailers
      */
     public function testDeleteFailStatusCode()
     {

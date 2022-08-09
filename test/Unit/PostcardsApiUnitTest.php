@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -100,7 +100,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCreateConnectionError()
     {
@@ -123,13 +123,13 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCreate()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $postcardsApi = new PostcardsApi($config, $client);
@@ -148,7 +148,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCreateWithIdempotency()
     {
@@ -170,7 +170,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCreateFailBadAddress()
     {
@@ -188,10 +188,10 @@ class PostcardsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $createError->getMessage(), "\n";
         }
     }
-    
+
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCreateMalformedRequest()
     {
@@ -214,7 +214,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCreateFailApiError()
     {
@@ -238,7 +238,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCreateFailStatusCode()
     {
@@ -264,7 +264,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testGetConnectionError()
     {
@@ -287,7 +287,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testGet()
     {
@@ -309,7 +309,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testGetFailNullId()
     {
@@ -330,7 +330,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testGetFailBadId()
     {
@@ -351,7 +351,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testGetFail()
     {
@@ -374,7 +374,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testGetApiError()
     {
@@ -397,7 +397,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testGetFailStatusCode()
     {
@@ -423,7 +423,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testListConnectionError()
     {
@@ -443,10 +443,10 @@ class PostcardsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $createError->getMessage(), "\n";
         }
     }
-    
+
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testList()
     {
@@ -473,7 +473,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testListFailBadParamsLargeLimit()
     {
@@ -494,7 +494,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testListFailBadParamsNegativeLimit()
     {
@@ -515,7 +515,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testListFailBadParamsLargeMetadata()
     {
@@ -536,7 +536,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testListFailApiError()
     {
@@ -559,7 +559,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testListFailStatusCode()
     {
@@ -578,7 +578,7 @@ class PostcardsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
         }
     }
-    
+
     // ToDo: public function testListPagination()
 
     /** ***** ***** *****
@@ -587,7 +587,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCancelConnectionError()
     {
@@ -607,10 +607,10 @@ class PostcardsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $createError->getMessage(), "\n";
         }
     }
-    
+
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCancel()
     {
@@ -633,7 +633,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCancelFailMissingId()
     {
@@ -654,7 +654,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCancelFailBadId()
     {
@@ -675,7 +675,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCancelFailApiError()
     {
@@ -698,7 +698,7 @@ class PostcardsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group postcard
+     * @group postcards
      */
     public function testCancelFailStatusCode()
     {

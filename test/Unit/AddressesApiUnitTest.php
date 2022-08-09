@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -99,7 +99,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreateConnectionError()
     {
@@ -122,13 +122,13 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreate()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $addressesApi = new AddressesApi($config, $client);
@@ -146,7 +146,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreateWithIdempotency()
     {
@@ -168,7 +168,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreateFailBadAddress()
     {
@@ -189,7 +189,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreateMalformedRequest()
     {
@@ -212,7 +212,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreateFailApiError()
     {
@@ -235,7 +235,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreateFailStatusCode()
     {
@@ -258,10 +258,10 @@ class AddressesApiUnitTest extends TestCase
     /** ***** ***** *****
      * Get
      * ***** ***** *****/
-    
+
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testGetConnectionError()
     {
@@ -284,13 +284,13 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testGet()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $addressesApi = new AddressesApi($config, $client);
@@ -306,7 +306,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testGetFailNullId()
     {
@@ -327,7 +327,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testGetFailBadId()
     {
@@ -348,7 +348,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testGetFail()
     {
@@ -371,7 +371,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testGetApiError()
     {
@@ -394,7 +394,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testGetFailStatusCode()
     {
@@ -420,7 +420,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testListConnectionError()
     {
@@ -443,13 +443,13 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testList()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $addressesApi = new AddressesApi($config, $client);
@@ -469,7 +469,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testListFailBadParamsLargeLimit()
     {
@@ -490,7 +490,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testListFailBadParamsNegativeLimit()
     {
@@ -511,7 +511,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testListFailBadParamsLargeMetadata()
     {
@@ -532,7 +532,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testListFailApiError()
     {
@@ -555,7 +555,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testListFailStatusCode()
     {
@@ -583,7 +583,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testDeleteConnectionError()
     {
@@ -606,13 +606,13 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testDelete()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $addressesApi = new AddressesApi($config, $client);
@@ -628,7 +628,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testDeleteFailMissingId()
     {
@@ -649,7 +649,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testDeleteFailBadId()
     {
@@ -670,7 +670,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testDeleteFailApiError()
     {
@@ -693,7 +693,7 @@ class AddressesApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testDeleteFailStatusCode()
     {

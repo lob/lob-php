@@ -112,6 +112,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testAddressesApiInstantiation200() {
         try {
             $addressApi200 = new AddressesApi(self::$config);
@@ -121,6 +125,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testCreate200()
     {
         try {
@@ -132,10 +140,14 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     // does not include required field in request
     public function testCreate422()
     {
-        
+
         try {
             $this->expectException(ApiException::class);
             $this->expectExceptionMessageMatches("/address_line1 is required/");
@@ -145,6 +157,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     // uses a bad key to attempt to send a request
     public function testAddressApi401() {
         try {
@@ -160,6 +176,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testGet200()
     {
         try {
@@ -172,6 +192,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testGet404()
     {
         try {
@@ -183,6 +207,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -240,6 +268,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testDelete200()
     {
         try {
@@ -252,6 +284,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testDelete404()
     {
         try {

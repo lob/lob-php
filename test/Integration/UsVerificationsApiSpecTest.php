@@ -101,6 +101,10 @@ class UsVerificationsApiSpecTest extends TestCase
         self::$undeliverableAddress->setZipCode("07000");
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testUsVerificationsApiInstantiation200() {
         try {
             $usvApi200 = new UsVerificationsApi(self::$config);
@@ -110,6 +114,10 @@ class UsVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testSingleUsVerificationDeliverable()
     {
         try {
@@ -121,6 +129,10 @@ class UsVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testSingleUsVerificationUndeliverable()
     {
         try {
@@ -133,6 +145,10 @@ class UsVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testBulkUsVerificationValid()
     {
         try {
@@ -145,6 +161,10 @@ class UsVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testBulkUsVerificationError()
     {
         try {
@@ -153,14 +173,14 @@ class UsVerificationsApiSpecTest extends TestCase
             $mc1->setCity("SAN FRANCISCO");
             $mc1->setState("CA");
             $mc1->setZipCode("94107");
-    
+
             // second entry has no primary line, should error
             $mc2 = new MultipleComponents();
             $mc2->setSecondaryLine("SUITE 666");
             $mc2->setCity("WESTFIELD");
             $mc2->setState("NJ");
             $mc2->setZipCode("07000");
-    
+
             // multiple components list for bulk verification test
             $errorAddressList = new MultipleComponentsList();
             $errorAddressList->setAddresses([$mc1, $mc2]);

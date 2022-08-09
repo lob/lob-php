@@ -94,6 +94,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testCreate200()
     {
         try {
@@ -104,10 +108,14 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     // does not include required field in request
     public function testCreate422()
     {
-        
+
         try {
             $this->expectException(ApiException::class);
             $this->expectExceptionMessageMatches("/name is required/");
@@ -117,6 +125,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     // uses a bad key to attempt to send a request
     public function testBillingGroupApi401() {
         try {
@@ -132,6 +144,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testGet200()
     {
         try {
@@ -143,6 +159,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testGet404()
     {
         try {
@@ -154,6 +174,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testUpdate200()
     {
         try {
@@ -167,6 +191,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     // commented out some parts of this test because of a bug in the billijng groups endpoint
     public function testList200()
     {

@@ -176,6 +176,10 @@ class ChecksApiSpecTest extends TestCase
 
     // include static cleanup for all the addresses?
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testChecksApiInstantiation200() {
         try {
             $checksApi200 = new ChecksApi(self::$config);
@@ -185,6 +189,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testCreate200()
     {
         try {
@@ -196,6 +204,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -208,6 +220,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     // uses a bad key to attempt to send a request
     public function testCheckApi401() {
         try {
@@ -223,6 +239,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testGet200()
     {
         try {
@@ -235,6 +255,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testGet404()
     {
         try {
@@ -246,6 +270,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -297,6 +325,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testCancel200()
     {
         try {
@@ -308,6 +340,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testCancel404()
     {
         try {

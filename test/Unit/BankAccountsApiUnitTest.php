@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -99,7 +99,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testCreateConnectionError()
     {
@@ -122,13 +122,13 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testCreate()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $bankAccountsApi = new BankAccountsApi($config, $client);
@@ -146,7 +146,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testCreateFailBadBankAccount()
     {
@@ -167,7 +167,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testCreateMalformedRequest()
     {
@@ -190,7 +190,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testCreateFailApiError()
     {
@@ -214,7 +214,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group address
+     * @group addresses
      */
     public function testCreateFailStatusCode()
     {
@@ -240,7 +240,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testGetConnectionError()
     {
@@ -263,7 +263,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testGet()
     {
@@ -285,7 +285,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testGetFailNullId()
     {
@@ -306,7 +306,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testGetFailBadId()
     {
@@ -327,7 +327,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testGetFail()
     {
@@ -350,7 +350,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testGetApiError()
     {
@@ -373,7 +373,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testGetFailStatusCode()
     {
@@ -399,7 +399,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testListConnectionError()
     {
@@ -422,7 +422,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testList()
     {
@@ -449,7 +449,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testListFailBadParamsLargeLimit()
     {
@@ -470,7 +470,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testListFailBadParamsNegativeLimit()
     {
@@ -491,7 +491,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testListFailBadParamsLargeMetadata()
     {
@@ -512,7 +512,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testListFailApiError()
     {
@@ -535,7 +535,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testListFailStatusCode()
     {
@@ -563,7 +563,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testDeleteConnectionError()
     {
@@ -586,7 +586,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testDelete()
     {
@@ -608,7 +608,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testDeleteFailMissingId()
     {
@@ -629,7 +629,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testDeleteFailBadId()
     {
@@ -650,7 +650,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testDeleteFailApiError()
     {
@@ -673,7 +673,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testDeleteFailStatusCode()
     {
@@ -699,7 +699,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testVerifyConnectionError()
     {
@@ -723,7 +723,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testVerify() {
         $guzzleMock = new MockHandler();
@@ -745,7 +745,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testVerifyFail() {
         $guzzleMock = new MockHandler();
@@ -769,7 +769,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testVerifyFailBadId()
     {
@@ -792,7 +792,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testVerifyFailApiError()
     {
@@ -816,7 +816,7 @@ class BankAccountsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group bank_account
+     * @group bankAccounts
      */
     public function testVerifyFailStatusCode()
     {

@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -95,7 +95,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testCreateConnectionError()
     {
@@ -115,16 +115,16 @@ class BillingGroupsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $createError->getMessage(), "\n";
         }
     }
-    
+
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testCreate()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $billingGroupsApi = new BillingGroupsApi($config, $client);
@@ -142,7 +142,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testCreateMalformedRequest()
     {
@@ -165,7 +165,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testCreateFailApiError()
     {
@@ -189,7 +189,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testCreateFailStatusCode()
     {
@@ -215,7 +215,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testGetConnectionError()
     {
@@ -235,10 +235,10 @@ class BillingGroupsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $createError->getMessage(), "\n";
         }
     }
-    
+
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testGet()
     {
@@ -260,7 +260,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testGetFailNullId()
     {
@@ -281,7 +281,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testGetFailBadId()
     {
@@ -299,10 +299,10 @@ class BillingGroupsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $creationError->getMessage(), "\n";
         }
     }
-    
+
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testGetFail()
     {
@@ -325,7 +325,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testGetApiError()
     {
@@ -348,7 +348,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testGetFailStatusCode()
     {
@@ -374,7 +374,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testListConnectionError()
     {
@@ -394,10 +394,10 @@ class BillingGroupsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $createError->getMessage(), "\n";
         }
     }
-    
+
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testList()
     {
@@ -424,7 +424,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testListFailBadParamsLargeLimit()
     {
@@ -445,7 +445,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testListFailBadParamsNegativeLimit()
     {
@@ -466,7 +466,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testListFailApiError()
     {
@@ -489,7 +489,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testListFailStatusCode()
     {
@@ -517,7 +517,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testUpdateConnectionError()
     {
@@ -540,7 +540,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testUpdate()
     {
@@ -562,7 +562,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testUpdateFailNullId()
     {
@@ -583,7 +583,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testUpdateFailBadId()
     {
@@ -604,7 +604,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testUpdateFail()
     {
@@ -627,7 +627,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testUpdateApiError()
     {
@@ -650,7 +650,7 @@ class BillingGroupsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group billinggroups
+     * @group billingGroups
      */
     public function testUpdateFailStatusCode()
     {

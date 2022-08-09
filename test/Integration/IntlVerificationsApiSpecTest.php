@@ -100,6 +100,10 @@ class IntlVerificationsApiSpecTest extends TestCase
         self::$undeliverableAddress->setCountry("GB");
     }
 
+    /**
+     * @group integration
+     * @group intlVerifications
+     */
     public function testIntlVerificationsApiInstantiation200() {
         try {
             $intlvApi200 = new IntlVerificationsApi(self::$config);
@@ -109,6 +113,10 @@ class IntlVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group intlVerifications
+     */
     public function testSingleUsVerificationDeliverable()
     {
         try {
@@ -120,6 +128,10 @@ class IntlVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group intlVerifications
+     */
     public function testSingleUsVerificationUndeliverable()
     {
         try {
@@ -132,6 +144,10 @@ class IntlVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group intlVerifications
+     */
     public function testBulkUsVerificationValid()
     {
         try {
@@ -144,6 +160,10 @@ class IntlVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group intlVerifications
+     */
     public function testBulkUsVerificationError()
     {
         try {
@@ -151,15 +171,15 @@ class IntlVerificationsApiSpecTest extends TestCase
             $mc1->setPrimaryLine("10 DOWNING ST");
             $mc1->setCity("LONDON");
             $mc1->setPostalCode("SW1A 2AA");
-            $mc1->setCountry("GB");    
-    
+            $mc1->setCountry("GB");
+
             // second entry has nonexistent country, should error
             $mc2 = new MultipleComponentsIntl();
             $mc2->setPrimaryLine("35 TOWER HILL");
             $mc2->setCity("LONDON");
             $mc2->setPostalCode("EC3N 4DR");
             $mc2->setCountry("ZZ");
-    
+
             // multiple components list for bulk verification test
             $errorAddressList = new IntlVerificationsPayload();
             $errorAddressList->setAddresses([$mc1, $mc2]);

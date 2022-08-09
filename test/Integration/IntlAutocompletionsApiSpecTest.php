@@ -68,6 +68,10 @@ class IntlAutocompletionsApiSpecTest extends TestCase
         self::$autocompletionWritable->setCountry("GB");
     }
 
+    /**
+     * @group integration
+     * @group intlAutocompletions
+     */
     public function testIntlAutocompletionsApiInstantiation200() {
         try {
             $intlAutocompletionApi = new IntlAutocompletionsApi(self::$config);
@@ -77,6 +81,10 @@ class IntlAutocompletionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group intlAutocompletions
+     */
     public function testIntlAutocompletion()
     {
         try {
@@ -88,6 +96,10 @@ class IntlAutocompletionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group intlAutocompletions
+     */
     public function testIntlAutocompletionTestKey()
     {
         try {
@@ -108,6 +120,10 @@ class IntlAutocompletionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group intlAutocompletions
+     */
     public function testIntlAutocompletionError()
     {
         try {

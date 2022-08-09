@@ -151,6 +151,10 @@ class SelfMailersApiSpecTest extends TestCase
 
     // include static cleanup for all the addresses?
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testSelfMailersApiInstantiation200() {
         try {
             $selfMailersApi200 = new SelfMailersApi(self::$config);
@@ -160,6 +164,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testCreate200()
     {
         try {
@@ -171,6 +179,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -183,6 +195,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     // uses a bad key to attempt to send a request
     public function testSelfMailerApi401() {
         try {
@@ -198,6 +214,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testGet200()
     {
         try {
@@ -210,6 +230,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testGet404()
     {
         try {
@@ -221,6 +245,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -272,6 +300,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testDelete200()
     {
         try {
@@ -283,6 +315,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testDelete404()
     {
         try {

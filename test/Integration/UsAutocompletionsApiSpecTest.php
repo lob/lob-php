@@ -69,6 +69,10 @@ class UsAutocompletionsApiSpecTest extends TestCase
         self::$autocompletionWritable->setGeoIpSort(false);
     }
 
+    /**
+     * @group integration
+     * @group usAutocompletions
+     */
     public function testUsAutocompletionsApiInstantiation200() {
         try {
             $usAutocompletionApi = new UsAutocompletionsApi(self::$config);
@@ -78,6 +82,10 @@ class UsAutocompletionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usAutocompletions
+     */
     public function testUsAutocompletion()
     {
         try {
@@ -89,6 +97,10 @@ class UsAutocompletionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usAutocompletions
+     */
     public function testUsAutocompletionTestKey()
     {
         try {
@@ -109,6 +121,10 @@ class UsAutocompletionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usAutocompletions
+     */
     public function testUsAutocompletionError()
     {
         try {

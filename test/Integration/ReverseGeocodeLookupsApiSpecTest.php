@@ -68,6 +68,10 @@ class ReverseGeocodeLookupsApiSpecTest extends TestCase
         $size = 3;
     }
 
+    /**
+     * @group integration
+     * @group reverseGeocodeLookups
+     */
     public function testReverseGeocodeLookupsApiInstantiation200() {
         try {
             $reverseGeocodeApi = new ReverseGeocodeLookupsApi(self::$config);
@@ -77,6 +81,10 @@ class ReverseGeocodeLookupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group reverseGeocodeLookups
+     */
     public function testLookup()
     {
         try {
@@ -91,6 +99,10 @@ class ReverseGeocodeLookupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group reverseGeocodeLookups
+     */
     public function testLookupError()
     {
         $location = new Location();

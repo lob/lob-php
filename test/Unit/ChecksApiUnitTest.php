@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -99,7 +99,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCreateConnectionError()
     {
@@ -122,7 +122,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCreate()
     {
@@ -146,7 +146,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCreateWithIdempotency()
     {
@@ -168,7 +168,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCreateFailBadAddress()
     {
@@ -189,7 +189,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCreateMalformedRequest()
     {
@@ -212,7 +212,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCreateFailApiError()
     {
@@ -235,7 +235,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCreateFailStatusCode()
     {
@@ -261,7 +261,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testGetConnectionError()
     {
@@ -284,7 +284,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testGet()
     {
@@ -306,7 +306,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testGetFailNullId()
     {
@@ -327,7 +327,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testGetFailBadId()
     {
@@ -348,7 +348,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testGetFail()
     {
@@ -371,7 +371,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testGetApiError()
     {
@@ -394,7 +394,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testGetFailStatusCode()
     {
@@ -413,14 +413,14 @@ class ChecksApiUnitTest extends TestCase
             echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
         }
     }
-    
+
     /** ***** ***** *****
      * List
      * ***** ***** *****/
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testListConnectionError()
     {
@@ -443,7 +443,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testList()
     {
@@ -469,7 +469,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testListFailBadParamsLargeLimit()
     {
@@ -490,7 +490,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testListFailBadParamsNegativeLimit()
     {
@@ -511,7 +511,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testListFailBadParamsLargeMetadata()
     {
@@ -532,7 +532,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testListFailApiError()
     {
@@ -555,7 +555,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testListFailStatusCode()
     {
@@ -583,7 +583,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCancelConnectionError()
     {
@@ -606,7 +606,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCancel()
     {
@@ -628,7 +628,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCancelFailMissingId()
     {
@@ -649,7 +649,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCancelFailBadId()
     {
@@ -670,7 +670,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCancelFailApiError()
     {
@@ -693,7 +693,7 @@ class ChecksApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group check
+     * @group checks
      */
     public function testCancelFailStatusCode()
     {

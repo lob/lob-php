@@ -112,6 +112,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testBankAccountsApiInstantiation200() {
         try {
             $baApi200 = new BankAccountsApi(self::$config);
@@ -121,6 +125,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testCreate200()
     {
         try {
@@ -132,6 +140,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -144,6 +156,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     // uses a bad key to attempt to send a request
     public function testBankAccountApi401() {
         try {
@@ -159,6 +175,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testVerify422()
     {
         try {
@@ -174,6 +194,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testGet200()
     {
         try {
@@ -186,6 +210,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testGet404()
     {
         try {
@@ -197,6 +225,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -254,6 +286,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testDelete200()
     {
         try {
@@ -266,6 +302,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testDelete404()
     {
         try {

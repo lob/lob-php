@@ -166,6 +166,10 @@ class LettersApiSpecTest extends TestCase
 
     // include static cleanup for all the addresses?
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testLettersApiInstantiation200() {
         try {
             $lettersApi200 = new LettersApi(self::$config);
@@ -175,6 +179,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCreateRegular200()
     {
         try {
@@ -186,6 +194,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCreateCertified200()
     {
         try {
@@ -197,6 +209,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCreateRegistered200()
     {
         try {
@@ -208,6 +224,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -220,6 +240,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     // uses a bad key to attempt to send a request
     public function testLetterApi401() {
         try {
@@ -235,6 +259,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testGet200()
     {
         try {
@@ -247,6 +275,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testGet404()
     {
         try {
@@ -258,6 +290,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -309,6 +345,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCancel200()
     {
         try {
@@ -320,6 +360,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCancel404()
     {
         try {

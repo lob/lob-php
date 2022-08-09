@@ -62,6 +62,10 @@ class ZipLookupsApiSpecTest extends TestCase
         self::$zipApi = new ZipLookupsApi(self::$config);
     }
 
+    /**
+     * @group integration
+     * @group zipLookups
+     */
     public function testZipLookupsApiInstantiation200() {
         try {
             $zipApi = new ZipLookupsApi(self::$config);
@@ -71,6 +75,10 @@ class ZipLookupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group zipLookups
+     */
     public function testLookup()
     {
         try {
@@ -84,6 +92,10 @@ class ZipLookupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group zipLookups
+     */
     public function testLookupError()
     {
         $zipEditable = new ZipEditable();

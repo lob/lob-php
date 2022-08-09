@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -81,7 +81,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testCreateConnectionError()
     {
@@ -104,7 +104,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testCreate()
     {
@@ -128,7 +128,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testCreateWithIdempotency()
     {
@@ -150,7 +150,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testCreateFailBadRecord()
     {
@@ -171,7 +171,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testCreateMalformedRequest()
     {
@@ -194,7 +194,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testCreateFailApiError()
     {
@@ -217,7 +217,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testCreateFailStatusCode()
     {
@@ -243,7 +243,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testGetConnectionError()
     {
@@ -268,7 +268,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testGetFailNullId()
     {
@@ -289,7 +289,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testGetFailBadId()
     {
@@ -310,7 +310,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testGetFail()
     {
@@ -333,7 +333,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testGetApiError()
     {
@@ -356,7 +356,7 @@ class CardOrdersApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group cardorder
+     * @group cardOrders
      */
     public function testGetFailStatusCode()
     {
