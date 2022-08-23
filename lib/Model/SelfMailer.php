@@ -61,8 +61,8 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
-        'to' => 'string',
-        'from' => 'string',
+        'to' => 'mixed',
+        'from' => 'mixed',
         'size' => '\OpenAPI\Client\Model\SelfMailerSize',
         'description' => 'string',
         'metadata' => 'array<string,string>',
@@ -306,6 +306,11 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['to'] === null) {
+                $invalidProperties[] = "'to' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
@@ -412,7 +417,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string|null
+     * @return mixed
      */
     public function getTo()
     {
@@ -422,7 +427,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string|null $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to to
      *
      * @return self
      */
@@ -437,7 +442,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getFrom()
     {
@@ -447,7 +452,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string|null $from Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed|null $from from
      *
      * @return self
      */

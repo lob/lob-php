@@ -64,7 +64,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'to' => 'string',
         'bank_account' => 'string',
         'amount' => 'float',
-        'logo' => 'mixed',
+        'logo' => 'string',
         'check_bottom' => 'string',
         'attachment' => 'string',
         'description' => 'string',
@@ -489,7 +489,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets logo
      *
-     * @return mixed|null
+     * @return string|null
      */
     public function getLogo()
     {
@@ -499,7 +499,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets logo
      *
-     * @param mixed|null $logo Accepts a remote URL or local file upload to an image to print (in grayscale) in the upper-left corner of your check.
+     * @param string|null $logo Accepts a remote URL or local file upload to an image to print (in grayscale) in the upper-left corner of your check.
      *
      * @return self
      */
