@@ -32,7 +32,7 @@ use \OpenAPI\Client\Configuration;
 use \OpenAPI\Client\ApiException;
 use PHPUnit\Framework\TestCase;
 use \OpenAPI\Client\Api\ChecksApi;
-use \OpenAPI\Client\Model\AddressEditable;
+use \OpenAPI\Client\Model\AddressDomestic;
 use \OpenAPI\Client\Model\CheckEditable;
 use \OpenAPI\Client\Api\AddressesApi;
 use \OpenAPI\Client\Model\BankTypeEnum;
@@ -100,14 +100,14 @@ class ChecksApiSpecTest extends TestCase
         // create instance of AddressesApi & checks to use for tests
         self::$addressApi = new AddressesApi(self::$config);
 
-        $address1 = new AddressEditable();
+        $address1 = new AddressDomestic();
         $address1->setName("THING T. THING");
         $address1->setAddressLine1("1313 CEMETERY LN");
         $address1->setAddressCity("WESTFIELD");
         $address1->setAddressState("NJ");
         $address1->setAddressZip("07000");
 
-        $address2 = new AddressEditable();
+        $address2 = new AddressDomestic();
         $address2->setName("FESTER");
         $address2->setAddressLine1("001 CEMETERY LN");
         $address2->setAddressLine2("SUITE 666");
@@ -118,14 +118,14 @@ class ChecksApiSpecTest extends TestCase
         self::$toAddress = self::$addressApi->create($address1);
         self::$fromAddress = self::$addressApi->create($address2);
 
-        $address3 = new AddressEditable();
+        $address3 = new AddressDomestic();
         $address3->setName("MORTICIA ADDAMS");
         $address3->setAddressLine1("1212 CEMETERY LN");
         $address3->setAddressCity("WESTFIELD");
         $address3->setAddressState("NJ");
         $address3->setAddressZip("07000");
 
-        $address4 = new AddressEditable();
+        $address4 = new AddressDomestic();
         $address4->setName("COUSIN ITT");
         $address4->setAddressLine1("1515 CEMETERY LN");
         $address4->setAddressLine2("FLOOR 0");

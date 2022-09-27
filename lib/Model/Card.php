@@ -456,11 +456,6 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['threshold_amount'] === null) {
-                $invalidProperties[] = "'threshold_amount' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_created'] === null) {
                 $invalidProperties[] = "'date_created' can't be null";
             }
@@ -903,7 +898,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets threshold_amount
      *
-     * @return int
+     * @return int|null
      */
     public function getThresholdAmount()
     {
@@ -913,7 +908,7 @@ class Card implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets threshold_amount
      *
-     * @param int $threshold_amount The threshold amount of the card
+     * @param int|null $threshold_amount The threshold amount of the card
      *
      * @return self
      */
