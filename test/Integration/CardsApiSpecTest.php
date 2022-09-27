@@ -34,6 +34,7 @@ use PHPUnit\Framework\TestCase;
 use \OpenAPI\Client\Model\CardEditable;
 use \OpenAPI\Client\Model\CardUpdatable;
 use \OpenAPI\Client\Api\CardsApi;
+use \OpenAPI\Client\Model\SortBy5;
 
 /**
  * CardsApiSpecTest Class Doc Comment
@@ -51,6 +52,7 @@ class CardsApiSpecTest extends TestCase
      */
     private static $config;
     private static $cardApi;
+    private static $invalidCardApi;
     private static $editableCard;
     private static $errorCard;
     private static $card1;
@@ -67,6 +69,10 @@ class CardsApiSpecTest extends TestCase
         self::$config = new Configuration();
         self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
         self::$cardApi = new CardsApi(self::$config);
+
+        $invalid_config = new Configuration();
+        $invalid_config->setApiKey("basic", "Totally Fake Key");
+        self::$invalidCardApi = new CardsApi($invalid_config);
 
         self::$editableCard = new CardEditable();
         self::$editableCard->setFront("https://s3-us-west-2.amazonaws.com/public.lob.com/assets/card_horizontal.pdf");
@@ -108,8 +114,8 @@ class CardsApiSpecTest extends TestCase
         try {
             $cardApi200 = new CardsApi(self::$config);
             $this->assertEquals(gettype($cardApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -123,45 +129,24 @@ class CardsApiSpecTest extends TestCase
             $createdCard = self::$cardApi->create(self::$editableCard);
             $this->assertMatchesRegularExpression('/card_/', $createdCard->getId());
             array_push($this->idsForCleanup, $createdCard->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group cards
-     */
+    // uses a bad key to attempt to send a request
+    public function testCreate401() {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = self::$invalidCardApi->create(self::$editableCard);
+    }
+
     // does not include required field in request
     public function testCreate422()
     {
-
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/front is required/");
-            $errorResponse = self::$cardApi->create(self::$errorCard);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
-    }
-
-    /**
-     * @group integration
-     * @group cards
-     */
-    // uses a bad key to attempt to send a request
-    public function testCardApi401() {
-        try {
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', 'BAD KEY');
-            $cardApiError = new CardsApi($wrongConfig);
-
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-            $errorResponse = $cardApiError->create(self::$editableCard);
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/front is required/");
+        $errorResponse = self::$cardApi->create(self::$errorCard);
     }
 
     /**
@@ -175,24 +160,34 @@ class CardsApiSpecTest extends TestCase
             $retrievedCard = self::$cardApi->get($createdCard->getId());
             $this->assertEquals($createdCard->getDescription(), $retrievedCard->getDescription());
             array_push($this->idsForCleanup, $createdCard->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group cards
-     */
+    public function testGet0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $cardRetrieval = self::$cardApi->get(null);
+    }
+
+    public function testGet401()
+    {
+        $createdCard = self::$cardApi->create(self::$editableCard);
+        array_push($this->idsForCleanup, $createdCard->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidCardApi->get($createdCard->getId());
+    }
+
+
     public function testGet404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/card not found/");
-            $badRetrieval = self::$cardApi->get("card_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/card not found/");
+        $cardRetrieval = self::$cardApi->get("card_NONEXISTENT");
     }
 
     /**
@@ -208,19 +203,45 @@ class CardsApiSpecTest extends TestCase
             $retrievedCard = self::$cardApi->update($createdCard->getId(), $cardUpdatable);
             $this->assertEquals("Updated Card", $retrievedCard->getDescription());
             array_push($this->idsForCleanup, $createdCard->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group cards
-     */
+    public function testUpdate0()
+    {
+        $cardUpdatable = new CardUpdatable();
+        $cardUpdatable->setDescription("Updated Card");
+        $createdCard = self::$cardApi->create(self::$editableCard);
+        array_push($this->idsForCleanup, $createdCard->getId());
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $retrievedCard = self::$cardApi->update($createdCard->getId(), null);
+    }
+
+    public function testUpdate401()
+    {
+        $createdCard = self::$cardApi->create(self::$editableCard);
+        array_push($this->idsForCleanup, $createdCard->getId());
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $retrievedCard = self::$invalidCardApi->update($createdCard->getId(), new CardUpdatable());
+    }
+
+    public function testUpdate404()
+    {
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/card not found/");
+        $retrievedCard = self::$cardApi->update("card_fakeId", new CardUpdatable());
+    }
+
     public function testList200()
     {
         $nextUrl = "";
         $previousUrl = "";
+
         try {
             $cr1 = self::$cardApi->create(self::$card1);
             $cr2 = self::$cardApi->create(self::$card2);
@@ -233,8 +254,8 @@ class CardsApiSpecTest extends TestCase
             array_push($this->idsForCleanup, $cr1->getId());
             array_push($this->idsForCleanup, $cr2->getId());
             array_push($this->idsForCleanup, $cr3->getId());
-        } catch (Exception $listError) {
-            echo 'Caught exception: ',  $listError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
 
         // response using nextUrl
@@ -251,8 +272,8 @@ class CardsApiSpecTest extends TestCase
                 array_push($this->idsForCleanup, $cr1->getId());
                 array_push($this->idsForCleanup, $cr2->getId());
                 array_push($this->idsForCleanup, $cr3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
         }
 
@@ -268,16 +289,33 @@ class CardsApiSpecTest extends TestCase
                 array_push($this->idsForCleanup, $cr1->getId());
                 array_push($this->idsForCleanup, $cr2->getId());
                 array_push($this->idsForCleanup, $cr3->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
         }
     }
 
-    /**
-     * @group integration
-     * @group cards
-     */
+    public function testListWithSortByParam()
+    {
+        $this->markTestSkipped("Cannot properly test this until the SDK is regenerated and all bugs are solved");
+        try {
+            // create bank accounts to list
+            $cr1 = self::$cardApi->create(self::$card1);
+            $cr2 = self::$cardApi->create(self::$card2);
+            $cr3 = self::$cardApi->create(self::$card3);
+            $listedCards = self::$cardApi->list(10, null, null, new SortBy5(array("date_created" => "asc")));
+
+            $this->assertGreaterThan(0, $listedCards->getCount());
+
+            // delete created bank accounts
+            array_push($this->idsForCleanup, $cr1->getId());
+            array_push($this->idsForCleanup, $cr2->getId());
+            array_push($this->idsForCleanup, $cr3->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     public function testDelete200()
     {
         try {
@@ -285,23 +323,25 @@ class CardsApiSpecTest extends TestCase
             $deletedCard = self::$cardApi->delete($createdCard->getId());
             $this->assertEquals(true, $deletedCard->getDeleted());
             $this->assertMatchesRegularExpression('/card_/', $deletedCard->getId());
-        } catch (Exception $deleteError) {
-            echo 'Caught exception: ',  $deleteError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group cards
-     */
+    public function testDelete401()
+    {
+        $createdCard = self::$cardApi->create(self::$editableCard);
+        array_push($this->idsForCleanup, $createdCard->getId());
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $deletedCard = self::$invalidCardApi->delete($createdCard->getId());
+    }
+
     public function testDelete404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/card not found/");
-            $badDeletion = self::$cardApi->delete("card_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/card not found/");
+        $cardDeletion = self::$cardApi->delete("card_NONEXISTENT");
     }
 }

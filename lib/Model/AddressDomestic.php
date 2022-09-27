@@ -257,50 +257,74 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_line1', the character length must be smaller than or equal to 200.";
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_line1']) && (mb_strlen($this->container['address_line1']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_line1', the character length must be smaller than or equal to 200.";
+            }
 
-        if (!is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_line2', the character length must be smaller than or equal to 200.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_line2']) && (mb_strlen($this->container['address_line2']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_line2', the character length must be smaller than or equal to 200.";
+            }
 
-        if (!is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_city', the character length must be smaller than or equal to 200.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_city']) && (mb_strlen($this->container['address_city']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_city', the character length must be smaller than or equal to 200.";
+            }
 
-        if (!is_null($this->container['address_state']) && (mb_strlen($this->container['address_state']) > 200)) {
-            $invalidProperties[] = "invalid value for 'address_state', the character length must be smaller than or equal to 200.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_state']) && (mb_strlen($this->container['address_state']) > 200)) {
+                $invalidProperties[] = "invalid value for 'address_state', the character length must be smaller than or equal to 200.";
+            }
 
-        if (!is_null($this->container['address_zip']) && (mb_strlen($this->container['address_zip']) > 40)) {
-            $invalidProperties[] = "invalid value for 'address_zip', the character length must be smaller than or equal to 40.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_zip']) && (mb_strlen($this->container['address_zip']) > 40)) {
+                $invalidProperties[] = "invalid value for 'address_zip', the character length must be smaller than or equal to 40.";
+            }
 
-        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
+            }
 
-        if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
-            $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 40.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 40)) {
+                $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 40.";
+            }
 
-        if (!is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
-            $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
+                $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
+            }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 40.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 40)) {
+                $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 40.";
+            }
 
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 100.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 100)) {
+                $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 100.";
+            }
 
-        if (!is_null($this->container['address_country']) && !preg_match("/US/", $this->container['address_country'])) {
-            $invalidProperties[] = "invalid value for 'address_country', must be conform to the pattern /US/.";
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['address_country']) && !preg_match("/US/", $this->container['address_country'])) {
+                $invalidProperties[] = "invalid value for 'address_country', must be conform to the pattern /US/.";
+            }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+        }
         return $invalidProperties;
     }
 
@@ -315,6 +339,7 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+    
 
     /**
      * Gets address_line1
@@ -335,14 +360,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressLine1($address_line1)
     {
-        if (!is_null($address_line1) && (mb_strlen($address_line1) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $address_line1 when calling AddressDomestic., must be smaller than or equal to 200.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_line1) && (mb_strlen($address_line1) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $address_line1 when calling AddressDomestic., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['address_line1'] = $address_line1;
 
         return $this;
     }
+
 
     /**
      * Gets address_line2
@@ -363,14 +391,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressLine2($address_line2)
     {
-        if (!is_null($address_line2) && (mb_strlen($address_line2) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $address_line2 when calling AddressDomestic., must be smaller than or equal to 200.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_line2) && (mb_strlen($address_line2) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $address_line2 when calling AddressDomestic., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['address_line2'] = $address_line2;
 
         return $this;
     }
+
 
     /**
      * Gets address_city
@@ -391,14 +422,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressCity($address_city)
     {
-        if (!is_null($address_city) && (mb_strlen($address_city) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $address_city when calling AddressDomestic., must be smaller than or equal to 200.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_city) && (mb_strlen($address_city) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $address_city when calling AddressDomestic., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['address_city'] = $address_city;
 
         return $this;
     }
+
 
     /**
      * Gets address_state
@@ -419,14 +453,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressState($address_state)
     {
-        if (!is_null($address_state) && (mb_strlen($address_state) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $address_state when calling AddressDomestic., must be smaller than or equal to 200.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_state) && (mb_strlen($address_state) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $address_state when calling AddressDomestic., must be smaller than or equal to 200.');
+            }
 
+        }
         $this->container['address_state'] = $address_state;
 
         return $this;
     }
+
 
     /**
      * Gets address_zip
@@ -447,14 +484,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressZip($address_zip)
     {
-        if (!is_null($address_zip) && (mb_strlen($address_zip) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $address_zip when calling AddressDomestic., must be smaller than or equal to 40.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($address_zip) && (mb_strlen($address_zip) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $address_zip when calling AddressDomestic., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['address_zip'] = $address_zip;
 
         return $this;
     }
+
 
     /**
      * Gets description
@@ -475,14 +515,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setDescription($description)
     {
-        if (!is_null($description) && (mb_strlen($description) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling AddressDomestic., must be smaller than or equal to 255.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling AddressDomestic., must be smaller than or equal to 255.');
+            }
 
+        }
         $this->container['description'] = $description;
 
         return $this;
     }
+
 
     /**
      * Gets name
@@ -503,14 +546,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setName($name)
     {
-        if (!is_null($name) && (mb_strlen($name) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $name when calling AddressDomestic., must be smaller than or equal to 40.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($name) && (mb_strlen($name) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $name when calling AddressDomestic., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['name'] = $name;
 
         return $this;
     }
+
 
     /**
      * Gets company
@@ -531,14 +577,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCompany($company)
     {
-        if (!is_null($company) && (mb_strlen($company) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $company when calling AddressDomestic., must be smaller than or equal to 40.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($company) && (mb_strlen($company) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $company when calling AddressDomestic., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['company'] = $company;
 
         return $this;
     }
+
 
     /**
      * Gets phone
@@ -559,14 +608,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setPhone($phone)
     {
-        if (!is_null($phone) && (mb_strlen($phone) > 40)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling AddressDomestic., must be smaller than or equal to 40.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($phone) && (mb_strlen($phone) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $phone when calling AddressDomestic., must be smaller than or equal to 40.');
+            }
 
+        }
         $this->container['phone'] = $phone;
 
         return $this;
     }
+
 
     /**
      * Gets email
@@ -587,14 +639,17 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setEmail($email)
     {
-        if (!is_null($email) && (mb_strlen($email) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling AddressDomestic., must be smaller than or equal to 100.');
-        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($email) && (mb_strlen($email) > 100)) {
+                throw new \InvalidArgumentException('invalid length for $email when calling AddressDomestic., must be smaller than or equal to 100.');
+            }
 
+        }
         $this->container['email'] = $email;
 
         return $this;
     }
+
 
     /**
      * Gets address_country
@@ -615,15 +670,18 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setAddressCountry($address_country)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-        if (!is_null($address_country) && (!preg_match("/US/", $address_country))) {
-            throw new \InvalidArgumentException("invalid value for $address_country when calling AddressDomestic., must conform to the pattern /US/.");
+            if (!is_null($address_country) && (!preg_match("/US/", $address_country))) {
+                throw new \InvalidArgumentException("invalid value for $address_country when calling AddressDomestic., must conform to the pattern /US/.");
+            }
+
         }
-
         $this->container['address_country'] = $address_country;
 
         return $this;
     }
+
 
     /**
      * Gets metadata
@@ -644,8 +702,10 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setMetadata($metadata)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
 
+        }
         $this->container['metadata'] = $metadata;
 
         return $this;
@@ -657,6 +717,7 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
@@ -669,6 +730,7 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @return mixed|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->container[$offset] ?? null;
@@ -682,6 +744,7 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -695,9 +758,8 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      * Unsets offset.
      *
      * @param integer $offset Offset
-     *
-     * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
@@ -710,6 +772,7 @@ class AddressDomestic implements ModelInterface, ArrayAccess, \JsonSerializable
      * @return mixed Returns data which can be serialized by json_encode(), which is a value
      * of any type other than a resource.
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
        return ObjectSerializer::sanitizeForSerialization($this);

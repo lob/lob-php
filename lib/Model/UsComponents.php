@@ -322,6 +322,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     const CARRIER_ROUTE_TYPE_HIGHWAY_CONTRACT = 'highway_contract';
     const CARRIER_ROUTE_TYPE_PO_BOX = 'po_box';
     const CARRIER_ROUTE_TYPE_GENERAL_DELIVERY = 'general_delivery';
+    const CARRIER_ROUTE_TYPE_EMPTY = '';
 
     /**
      * Gets allowable values of the enum
@@ -408,6 +409,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             self::CARRIER_ROUTE_TYPE_HIGHWAY_CONTRACT,
             self::CARRIER_ROUTE_TYPE_PO_BOX,
             self::CARRIER_ROUTE_TYPE_GENERAL_DELIVERY,
+            self::CARRIER_ROUTE_TYPE_EMPTY,
         ];
     }
 

@@ -70,8 +70,8 @@ class ZipLookupsApiSpecTest extends TestCase
         try {
             $zipApi = new ZipLookupsApi(self::$config);
             $this->assertEquals(gettype($zipApi), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -87,16 +87,33 @@ class ZipLookupsApiSpecTest extends TestCase
             $zipObject = self::$zipApi->lookup($zipEditable);
             $this->assertMatchesRegularExpression('/us_zip_/', $zipObject->getId());
             $this->assertGreaterThanOrEqual(1, count($zipObject->getCities()));
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group zipLookups
-     */
-    public function testLookupError()
+    public function testLookup0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $zipObject = self::$zipApi->lookup(null);
+    }
+
+    public function testLookup401()
+    {
+        $zipEditable = new ZipEditable();
+        $zipEditable->setZipCode("94107");
+
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        $invalidZipApi = new ZipLookupsApi($wrongConfig);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $zipObject = $invalidZipApi->lookup($zipEditable);
+    }
+
+    public function testLookup422()
     {
         $zipEditable = new ZipEditable();
         $this->expectException(ApiException::class);

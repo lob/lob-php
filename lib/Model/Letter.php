@@ -84,7 +84,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'color' => 'bool',
         'double_sided' => 'bool',
         'address_placement' => 'string',
-        'return_envelope' => '\OpenAPI\Client\Model\ReturnEnvelope',
+        'return_envelope' => 'mixed',
         'perforated_page' => 'int',
         'custom_envelope' => '\OpenAPI\Client\Model\LetterCustomEnvelope'
     ];
@@ -489,6 +489,11 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
 
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['return_envelope'] === null) {
+                $invalidProperties[] = "'return_envelope' can't be null";
+            }
+        }
         return $invalidProperties;
     }
 
@@ -986,7 +991,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets extra_service
      *
-     * @param string|null $extra_service Add an extra service to your letter. See [pricing](https://www.lob.com/pricing/print-mail#compare) for extra costs incurred.   * registered - provides tracking and confirmation for international addresses   * `certified` - track and confirm delivery for domestic destinations. An extra sheet (1 PDF page single-sided or 2 PDF pages double-sided) is added to the beginning of your letter for address and barcode information. See here for templates: [#10 envelope](https://s3-us-west-2.amazonaws.com/public.lob.com/assets/templates/letter_certified_template.pdf) and [flat envelope](https://s3-us-west-2.amazonaws.com/public.lob.com/assets/templates/letter_certified_flat_template.pdf) (used for letters over 6 pages single-sided or 12 pages double-sided). You will not be charged for this extra sheet.   * `certified_return_receipt` - request an electronic copy of the recipient's signature to prove delivery of your certified letter
+     * @param string|null $extra_service Add an extra service to your letter. See [pricing](https://www.lob.com/pricing/print-mail#compare) for extra costs incurred.
      *
      * @return self
      */
@@ -1174,7 +1179,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets address_placement
      *
-     * @param string|null $address_placement Specifies the location of the address information that will show through the double-window envelope. To see how this will impact your letter design, view our letter template.   * `top_first_page` - (default) print address information at the top of your provided first page   * `insert_blank_page` - insert a blank address page at the beginning of your file (you will be charged for the extra page)   * `bottom_first_page_center` - **(deprecation planned within a few months)** print address information at the bottom center of your provided first page   * `bottom_first_page` - print address information at the bottom of your provided first page
+     * @param string|null $address_placement Specifies the location of the address information that will show through the double-window envelope.
      *
      * @return self
      */
@@ -1202,7 +1207,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets return_envelope
      *
-     * @return \OpenAPI\Client\Model\ReturnEnvelope|null
+     * @return mixed
      */
     public function getReturnEnvelope()
     {
@@ -1212,7 +1217,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets return_envelope
      *
-     * @param \OpenAPI\Client\Model\ReturnEnvelope|null $return_envelope return_envelope
+     * @param mixed $return_envelope return_envelope
      *
      * @return self
      */

@@ -32,13 +32,15 @@ use \OpenAPI\Client\Configuration;
 use \OpenAPI\Client\ApiException;
 use PHPUnit\Framework\TestCase;
 use \OpenAPI\Client\Api\ChecksApi;
-use \OpenAPI\Client\Model\AddressEditable;
+use \OpenAPI\Client\Model\AddressDomestic;
 use \OpenAPI\Client\Model\CheckEditable;
 use \OpenAPI\Client\Api\AddressesApi;
 use \OpenAPI\Client\Model\BankTypeEnum;
 use \OpenAPI\Client\Model\BankAccountWritable;
 use \OpenAPI\Client\Model\BankAccountVerify;
 use \OpenAPI\Client\Api\BankAccountsApi;
+use \OpenAPI\Client\Model\MailType;
+use \OpenAPI\Client\Model\SortBy5;
 
 /**
  * AddressesApiTest Class Doc Comment
@@ -58,9 +60,11 @@ class ChecksApiSpecTest extends TestCase
     private static $addressApi;
     private static $bankApi;
     private static $checksApi;
+    private static $invalidChecksApi;
     private static $editableCheck;
     private static $editableCheck2;
     private static $errorCheck;
+    private static $metadata;
 
     // for teardown post-testing
     private $idsForCleanup = [];
@@ -74,7 +78,7 @@ class ChecksApiSpecTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$config = new Configuration();
-        self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
+        self::$config->setApiKey("basic", getenv("LOB_API_TEST_KEY"));
 
         // create bank account to use for tests
         self::$bankApi = new BankAccountsApi(self::$config);
@@ -93,17 +97,17 @@ class ChecksApiSpecTest extends TestCase
 
         self::$bankApi->verify(self::$bankId, $bankVerify);
 
-        // create instance of AddressesApi & addresses to use for tests
+        // create instance of AddressesApi & checks to use for tests
         self::$addressApi = new AddressesApi(self::$config);
 
-        $address1 = new AddressEditable();
+        $address1 = new AddressDomestic();
         $address1->setName("THING T. THING");
         $address1->setAddressLine1("1313 CEMETERY LN");
         $address1->setAddressCity("WESTFIELD");
         $address1->setAddressState("NJ");
         $address1->setAddressZip("07000");
 
-        $address2 = new AddressEditable();
+        $address2 = new AddressDomestic();
         $address2->setName("FESTER");
         $address2->setAddressLine1("001 CEMETERY LN");
         $address2->setAddressLine2("SUITE 666");
@@ -114,14 +118,14 @@ class ChecksApiSpecTest extends TestCase
         self::$toAddress = self::$addressApi->create($address1);
         self::$fromAddress = self::$addressApi->create($address2);
 
-        $address3 = new AddressEditable();
+        $address3 = new AddressDomestic();
         $address3->setName("MORTICIA ADDAMS");
         $address3->setAddressLine1("1212 CEMETERY LN");
         $address3->setAddressCity("WESTFIELD");
         $address3->setAddressState("NJ");
         $address3->setAddressZip("07000");
 
-        $address4 = new AddressEditable();
+        $address4 = new AddressDomestic();
         $address4->setName("COUSIN ITT");
         $address4->setAddressLine1("1515 CEMETERY LN");
         $address4->setAddressLine2("FLOOR 0");
@@ -134,6 +138,10 @@ class ChecksApiSpecTest extends TestCase
 
         // create new instance of ChecksApi to use in other tests
         self::$checksApi = new ChecksApi(self::$config);
+
+        $invalidConfig = new Configuration();
+        $invalidConfig->setApiKey("basic", "Totally Fake Key");
+        self::$invalidChecksApi = new ChecksApi($invalidConfig);
 
         // create editable check
         self::$editableCheck = new CheckEditable();
@@ -150,6 +158,8 @@ class ChecksApiSpecTest extends TestCase
         self::$editableCheck2->setAmount(200);
         self::$editableCheck2->setBankAccount(self::$bankId);
         self::$editableCheck2->setDescription("Dummy Check 2 (Integration Test)");
+        self::$metadata = (object)array("name"=>"Harry");
+        self::$editableCheck2->setMetadata(self::$metadata);
 
         // create error check
         self::$errorCheck = new CheckEditable();
@@ -174,18 +184,13 @@ class ChecksApiSpecTest extends TestCase
         self::$bankApi->delete(self::$bankId);
     }
 
-    // include static cleanup for all the addresses?
-
-    /**
-     * @group integration
-     * @group checks
-     */
+    // include static cleanup for all the checks?
     public function testChecksApiInstantiation200() {
         try {
             $checksApi200 = new ChecksApi(self::$config);
-            $this->assertEquals(gettype($checksApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+            $this->assertEquals(gettype($checksApi200), "object");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -197,10 +202,10 @@ class ChecksApiSpecTest extends TestCase
     {
         try {
             $createdCheck = self::$checksApi->create(self::$editableCheck);
-            $this->assertMatchesRegularExpression('/chk_/', $createdCheck->getId());
+            $this->assertMatchesRegularExpression("/chk_/", $createdCheck->getId());
             array_push($this->idsForCleanup, $createdCheck->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -211,13 +216,9 @@ class ChecksApiSpecTest extends TestCase
     // does not include required field in request
     public function testCreate422()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/to is required/");
-            $errorResponse = self::$checksApi->create(self::$errorCheck);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/to is required/");
+        $errorResponse = self::$checksApi->create(self::$errorCheck);
     }
 
     /**
@@ -226,17 +227,13 @@ class ChecksApiSpecTest extends TestCase
      */
     // uses a bad key to attempt to send a request
     public function testCheckApi401() {
-        try {
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', 'BAD KEY');
-            $checkApiError = new ChecksApi($wrongConfig);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey("basic", "BAD KEY");
+        $checkApiError = new ChecksApi($wrongConfig);
 
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-            $errorResponse = $checkApiError->create(self::$editableCheck);
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = $checkApiError->create(self::$editableCheck);
     }
 
     /**
@@ -250,24 +247,33 @@ class ChecksApiSpecTest extends TestCase
             $retrievedCheck = self::$checksApi->get($createdCheck->getId());
             $this->assertEquals($createdCheck->getTo(), $retrievedCheck->getTo());
             array_push($this->idsForCleanup, $createdCheck->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group checks
-     */
+    public function testGet0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $badRetrieval = self::$checksApi->get(null);
+    }
+
+    public function testGet401()
+    {
+        $createdCheck = self::$checksApi->create(self::$editableCheck);
+        array_push($this->idsForCleanup, $createdCheck->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidChecksApi->get($createdCheck->getId());
+    }
+
     public function testGet404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/check not found/");
-            $badRetrieval = self::$checksApi->get("chk_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/check not found/");
+        $badRetrieval = self::$checksApi->get("chk_NONEXISTENT");
     }
 
     /**
@@ -278,6 +284,7 @@ class ChecksApiSpecTest extends TestCase
     {
         $nextUrl = "";
         $previousUrl = "";
+
         try {
             $chk1 = self::$checksApi->create(self::$editableCheck);
             $chk2 = self::$checksApi->create(self::$editableCheck2);
@@ -288,8 +295,8 @@ class ChecksApiSpecTest extends TestCase
             $this->assertIsString($nextUrl);
             array_push($this->idsForCleanup, $chk1->getId());
             array_push($this->idsForCleanup, $chk2->getId());
-        } catch (Exception $listError) {
-            echo 'Caught exception: ',  $listError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
 
         // response using nextUrl
@@ -304,8 +311,8 @@ class ChecksApiSpecTest extends TestCase
                 $this->assertIsString($previousUrl);
                 array_push($this->idsForCleanup, $chk1->getId());
                 array_push($this->idsForCleanup, $chk2->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
         }
 
@@ -319,39 +326,76 @@ class ChecksApiSpecTest extends TestCase
                 $this->assertLessThanOrEqual(2, count($listedChecksBefore->getData()));
                 array_push($this->idsForCleanup, $chk1->getId());
                 array_push($this->idsForCleanup, $chk2->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
         }
     }
 
+    public function provider()
+    {
+        date_default_timezone_set('America/Los_Angeles');
+        $date_str = date("Y-m-d", strtotime("-1 months"));
+        $date_obj = (object) array("gt" => $date_str);
+
+        return array(
+            array(null, null, null, array("total_count"), null, null, null, null, null, null), // include
+            array(null, null, null, null, $date_obj, null, null, null, null, null), // date_created
+            array(null, null, null, null, null, self::$metadata, null, null, null, null), // metadata
+            array(null, null, null, null, null, null, TRUE, null, null, null), // scheduled
+            array(null, null, null, null, null, null, null, $date_obj, null, null), // send_date
+            array(null, null, null, null, null, null, null, null, MailType::FIRST_CLASS->value, null), // mail_type
+            array(null, null, null, null, null, null, null, null, null, new SortBy5(array("date_created" => "asc"))) // sort_by
+        );
+    }
+
     /**
-     * @group integration
-     * @group checks
+     * @dataProvider provider
      */
+    public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by)
+    {
+        try {
+            // create checks to list
+            $chk1 = self::$checksApi->create(self::$editableCheck);
+            $chk2 = self::$checksApi->create(self::$editableCheck2);
+            $listedChecks = self::$checksApi->list($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by);
+
+            $this->assertGreaterThan(0, $listedChecks->getCount());
+            if ($include) $this->assertNotNull($listedChecks->getTotalCount());
+
+            // cancel created checks
+            array_push($this->idsForCleanup, $chk1->getId());
+            array_push($this->idsForCleanup, $chk2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     public function testCancel200()
     {
         try {
             $createdCheck = self::$checksApi->create(self::$editableCheck);
             $deletedCheck = self::$checksApi->cancel($createdCheck->getId());
             $this->assertEquals(true, $deletedCheck->getDeleted());
-        } catch (Exception $deleteError) {
-            echo 'Caught exception: ',  $deleteError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group checks
-     */
+    public function testCancel401()
+    {
+        $createdCheck = self::$checksApi->create(self::$editableCheck);
+        array_push($this->idsForCleanup, $createdCheck->getId());
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $deletedCheck = self::$invalidChecksApi->cancel($createdCheck->getId());
+    }
+
     public function testCancel404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/check not found/");
-            $badDeletion = self::$checksApi->cancel("chk_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/check not found/");
+        $badDeletion = self::$checksApi->cancel("chk_NONEXISTENT");
     }
 }

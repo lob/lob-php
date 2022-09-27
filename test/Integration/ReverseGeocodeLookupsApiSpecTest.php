@@ -76,8 +76,8 @@ class ReverseGeocodeLookupsApiSpecTest extends TestCase
         try {
             $reverseGeocodeApi = new ReverseGeocodeLookupsApi(self::$config);
             $this->assertEquals(gettype($reverseGeocodeApi), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -94,16 +94,34 @@ class ReverseGeocodeLookupsApiSpecTest extends TestCase
             $reverseGeocodeObject = self::$reverseGeocodeApi->lookup($location, self::$size);
             $this->assertMatchesRegularExpression('/us_reverse_geocode_/', $reverseGeocodeObject->getId());
             $this->assertGreaterThanOrEqual(1, count($reverseGeocodeObject->getAddresses()));
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group reverseGeocodeLookups
-     */
-    public function testLookupError()
+    public function testLookup0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $reverseGeocodeObject = self::$reverseGeocodeApi->lookup(null);
+    }
+
+    public function testLookup401()
+    {
+        $location = new Location();
+        $location->setLatitude(37.777456);
+        $location->setLongitude(-122.393039);
+
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        $invalidApi = new ReverseGeocodeLookupsApi($wrongConfig);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $reverseGeocodeObject = $invalidApi->lookup($location, self::$size);
+    }
+
+    public function testLookup422()
     {
         $location = new Location();
         $location->setLongitude(-122.393039);

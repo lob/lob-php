@@ -108,63 +108,46 @@ class IntlVerificationsApiSpecTest extends TestCase
         try {
             $intlvApi200 = new IntlVerificationsApi(self::$config);
             $this->assertEquals(gettype($intlvApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group intlVerifications
-     */
-    public function testSingleUsVerificationDeliverable()
+    public function testSingleIntlVerificationDeliverable()
     {
         try {
             $intlVerificationObject = self::$intlvApi200->verifySingle(self::$validAddress1);
             $this->assertMatchesRegularExpression('/intl_ver_/', $intlVerificationObject->getId());
             $this->assertEquals('deliverable', $intlVerificationObject->getDeliverability());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group intlVerifications
-     */
-    public function testSingleUsVerificationUndeliverable()
+    public function testSingleIntlVerificationUndeliverable()
     {
         try {
             $intlVerificationObject = self::$intlvApi200->verifySingle(self::$undeliverableAddress);
             $this->assertMatchesRegularExpression('/intl_ver_/', $intlVerificationObject->getId());
             $this->assertEquals('undeliverable', $intlVerificationObject->getDeliverability());
-
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group intlVerifications
-     */
-    public function testBulkUsVerificationValid()
+    public function testBulkIntlVerificationValid()
     {
         try {
             $intlVerificationObject = self::$intlvApi200->verifyBulk(self::$multipleAddressList);
             $this->assertGreaterThan(1, count($intlVerificationObject->getAddresses()));
             $this->assertEquals('deliverable', $intlVerificationObject->getAddresses()[0]->getDeliverability());
             $this->assertEquals('undeliverable', $intlVerificationObject->getAddresses()[1]->getDeliverability());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group intlVerifications
-     */
-    public function testBulkUsVerificationError()
+    public function testBulkIntlVerificationError()
     {
         try {
             $mc1 = new MultipleComponentsIntl();
@@ -188,8 +171,8 @@ class IntlVerificationsApiSpecTest extends TestCase
 
             $this->assertMatchesRegularExpression('/country must be one of/', $errorVerificationObject->getAddresses()[1]->getError()->getError()->getMessage());
             $this->assertEquals(1, $errorVerificationObject->getErrors());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 }

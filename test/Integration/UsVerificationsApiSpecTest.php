@@ -51,6 +51,7 @@ class UsVerificationsApiSpecTest extends TestCase
      */
     private static $config;
     private static $usvApi200;
+    private static $invalidUsvApi;
     private static $validAddress1;
     private static $validAddress2;
     private static $multipleAddressList;
@@ -61,8 +62,12 @@ class UsVerificationsApiSpecTest extends TestCase
     {
         // create instance of UsVerificationsApiSpecTest & an editable address for other tests
         self::$config = new Configuration();
-        self::$config->setApiKey('basic', getenv('LOB_API_LIVE_KEY'));
+        self::$config->setApiKey("basic", getenv("LOB_API_LIVE_KEY"));
         self::$usvApi200 = new UsVerificationsApi(self::$config);
+
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey("basic", "BAD KEY");
+        self::$invalidUsvApi = new UsVerificationsApi($wrongConfig);
 
         self::$validAddress1 = new UsVerificationsWritable();
         self::$validAddress1->setPrimaryLine("210 KING ST");
@@ -108,9 +113,9 @@ class UsVerificationsApiSpecTest extends TestCase
     public function testUsVerificationsApiInstantiation200() {
         try {
             $usvApi200 = new UsVerificationsApi(self::$config);
-            $this->assertEquals(gettype($usvApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+            $this->assertEquals(gettype($usvApi200), "object");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -122,10 +127,10 @@ class UsVerificationsApiSpecTest extends TestCase
     {
         try {
             $usVerificationObject = self::$usvApi200->verifySingle(self::$validAddress1);
-            $this->assertMatchesRegularExpression('/us_ver_/', $usVerificationObject->getId());
-            $this->assertEquals('deliverable', $usVerificationObject->getDeliverability());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+            $this->assertMatchesRegularExpression("/us_ver_/", $usVerificationObject->getId());
+            $this->assertEquals("deliverable", $usVerificationObject->getDeliverability());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -136,28 +141,37 @@ class UsVerificationsApiSpecTest extends TestCase
     public function testSingleUsVerificationUndeliverable()
     {
         try {
-            $usVerificationObject = self::$usvApi200->verifySingle(self::$undeliverableAddress);
-            $this->assertMatchesRegularExpression('/us_ver_/', $usVerificationObject->getId());
-            $this->assertEquals('undeliverable', $usVerificationObject->getDeliverability());
-
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        $usVerificationObject = self::$usvApi200->verifySingle(self::$undeliverableAddress);
+        $this->assertMatchesRegularExpression("/us_ver_/", $usVerificationObject->getId());
+        $this->assertEquals("undeliverable", $usVerificationObject->getDeliverability());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
-    /**
-     * @group integration
-     * @group usVerifications
-     */
+    public function testSingleUsVerification0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $usVerificationObject = self::$usvApi200->verifySingle(null);
+    }
+
+    public function testSingleUsVerification401()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badVerification = self::$invalidUsvApi->verifySingle(self::$validAddress1);
+    }
+
     public function testBulkUsVerificationValid()
     {
         try {
-            $usVerificationObject = self::$usvApi200->verifyBulk(self::$multipleAddressList);
-            $this->assertGreaterThan(1, count($usVerificationObject->getAddresses()));
-            $this->assertEquals('deliverable', $usVerificationObject->getAddresses()[0]->getDeliverability());
-            $this->assertEquals('undeliverable', $usVerificationObject->getAddresses()[1]->getDeliverability());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        $usVerificationObject = self::$usvApi200->verifyBulk(self::$multipleAddressList);
+        $this->assertGreaterThan(1, count($usVerificationObject->getAddresses()));
+        $this->assertEquals("deliverable", $usVerificationObject->getAddresses()[0]->getDeliverability());
+        $this->assertEquals("undeliverable", $usVerificationObject->getAddresses()[1]->getDeliverability());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -187,10 +201,24 @@ class UsVerificationsApiSpecTest extends TestCase
 
             $errorVerificationObject = self::$usvApi200->verifyBulk($errorAddressList);
 
-            $this->assertEquals('primary_line is required or address is required', $errorVerificationObject->getAddresses()[1]->getError()->getError()->getMessage());
+            $this->assertEquals("primary_line is required or address is required", $errorVerificationObject->getAddresses()[1]->getError()->getError()->getMessage());
             $this->assertEquals(1, $errorVerificationObject->getErrors());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
+    }
+
+    public function testBulkUsVerification0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $usVerificationObject = self::$usvApi200->verifyBulk(null);
+    }
+
+    public function testBulkUsVerification401()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badVerification = self::$invalidUsvApi->verifyBulk(self::$multipleAddressList);
     }
 }

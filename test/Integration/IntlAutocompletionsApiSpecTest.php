@@ -76,8 +76,8 @@ class IntlAutocompletionsApiSpecTest extends TestCase
         try {
             $intlAutocompletionApi = new IntlAutocompletionsApi(self::$config);
             $this->assertEquals(gettype($intlAutocompletionApi), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -91,8 +91,8 @@ class IntlAutocompletionsApiSpecTest extends TestCase
             $intlAutocompletionObject = self::$intlAutocompletionApi->autocomplete(self::$autocompletionWritable);
             // $this->assertMatchesRegularExpression('/intl_auto_/', $intlAutocompletionObject->getId()); // will re-add once bug in API is addressed:
             $this->assertGreaterThan(0, count($intlAutocompletionObject->getSuggestions()));
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -114,9 +114,8 @@ class IntlAutocompletionsApiSpecTest extends TestCase
 
             $intlAutocompletionObject = $autocompletionApiError->autocomplete($testAutocompletion);
             $this->assertEquals("TEST KEYS DO NOT AUTOCOMPLETE INTL ADDRESSES", $intlAutocompletionObject->getSuggestions()[0]->getPrimaryLine());
-
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -126,18 +125,14 @@ class IntlAutocompletionsApiSpecTest extends TestCase
      */
     public function testIntlAutocompletionError()
     {
-        try {
-            // error autocompletion object
-            $errorAutocompletion = new IntlAutocompletionsWritable();
-            $errorAutocompletion->setCity("LONDON");
-            $errorAutocompletion->setZipCode("EC3N 4DR");
-            $errorAutocompletion->setCountry("GB");
+        // error autocompletion object
+        $errorAutocompletion = new IntlAutocompletionsWritable();
+        $errorAutocompletion->setCity("LONDON");
+        $errorAutocompletion->setZipCode("EC3N 4DR");
+        $errorAutocompletion->setCountry("GB");
 
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/address_prefix is required/");
-            $errorResponse = self::$intlAutocompletionApi->autocomplete($errorAutocompletion);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/address_prefix is required/");
+        $errorResponse = self::$intlAutocompletionApi->autocomplete($errorAutocompletion);
     }
 }
