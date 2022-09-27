@@ -120,6 +120,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testCreate200()
     {
         try {
@@ -131,6 +135,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -139,6 +147,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         $errorResponse = self::$templateVersionsApi->create(self::$tmplId, self::$errorTemplateVersion);
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     // uses a bad key to attempt to send a request
     public function testTemplateVersionsApi401() {
         $wrongConfig = new Configuration();
@@ -150,6 +162,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         $errorResponse = $templateVersionsApiError->create(self::$tmplId, self::$writableTemplateVersion);
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testGet200()
     {
         try {
@@ -186,6 +202,10 @@ class TemplateVersionsApiSpecTest extends TestCase
         $badRetrieval = self::$templateVersionsApi->get(self::$tmplId, "vrsn_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group templateVersions
+     */
     public function testUpdate200()
     {
         try {

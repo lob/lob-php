@@ -106,6 +106,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testCardsApiInstantiation200() {
         try {
             $cardApi200 = new CardsApi(self::$config);
@@ -115,6 +119,10 @@ class CardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testCreate200()
     {
         try {
@@ -141,6 +149,10 @@ class CardsApiSpecTest extends TestCase
         $errorResponse = self::$cardApi->create(self::$errorCard);
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testGet200()
     {
         try {
@@ -178,6 +190,10 @@ class CardsApiSpecTest extends TestCase
         $cardRetrieval = self::$cardApi->get("card_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group cards
+     */
     public function testUpdate200()
     {
         try {

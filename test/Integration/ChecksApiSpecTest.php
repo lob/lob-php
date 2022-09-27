@@ -194,6 +194,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testCreate200()
     {
         try {
@@ -205,6 +209,10 @@ class ChecksApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -213,6 +221,10 @@ class ChecksApiSpecTest extends TestCase
         $errorResponse = self::$checksApi->create(self::$errorCheck);
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     // uses a bad key to attempt to send a request
     public function testCheckApi401() {
         $wrongConfig = new Configuration();
@@ -224,6 +236,10 @@ class ChecksApiSpecTest extends TestCase
         $errorResponse = $checkApiError->create(self::$editableCheck);
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testGet200()
     {
         try {
@@ -260,6 +276,10 @@ class ChecksApiSpecTest extends TestCase
         $badRetrieval = self::$checksApi->get("chk_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group checks
+     */
     public function testList200()
     {
         $nextUrl = "";

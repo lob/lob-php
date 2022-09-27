@@ -100,6 +100,10 @@ class IntlVerificationsApiSpecTest extends TestCase
         self::$undeliverableAddress->setCountry("GB");
     }
 
+    /**
+     * @group integration
+     * @group intlVerifications
+     */
     public function testIntlVerificationsApiInstantiation200() {
         try {
             $intlvApi200 = new IntlVerificationsApi(self::$config);

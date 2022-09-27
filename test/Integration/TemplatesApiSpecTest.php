@@ -104,6 +104,10 @@ class TemplatesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templates
+     */
     public function testTemplatesApiInstantiation200() {
         try {
             $templateApi200 = new TemplatesApi(self::$config);
@@ -113,6 +117,10 @@ class TemplatesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templates
+     */
     public function testCreate200()
     {
         try {
@@ -124,6 +132,10 @@ class TemplatesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group templates
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -143,6 +155,10 @@ class TemplatesApiSpecTest extends TestCase
         $errorResponse = $templateApiError->create(self::$writableTemplate);
     }
 
+    /**
+     * @group integration
+     * @group templates
+     */
     public function testGet200()
     {
         try {
@@ -179,6 +195,10 @@ class TemplatesApiSpecTest extends TestCase
         $badRetrieval = self::$templateApi->get("tmpl_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group templates
+     */
     public function testUpdate200()
     {
         try {

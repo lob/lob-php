@@ -181,6 +181,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCreateRegular200()
     {
         try {
@@ -192,6 +196,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCreateCertified200()
     {
         try {
@@ -203,6 +211,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testCreateRegistered200()
     {
         try {
@@ -214,6 +226,10 @@ class LettersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -222,6 +238,10 @@ class LettersApiSpecTest extends TestCase
         $errorResponse = self::$letterApi->create(self::$errorLetter);
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     // uses a bad key to attempt to send a request
     public function testLetterApi401() {
         $wrongConfig = new Configuration();
@@ -233,6 +253,10 @@ class LettersApiSpecTest extends TestCase
         $errorResponse = $letterApiError->create(self::$regularLetter);
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testGet200()
     {
         try {
@@ -269,6 +293,10 @@ class LettersApiSpecTest extends TestCase
         $badRetrieval = self::$letterApi->get("ltr_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group letters
+     */
     public function testList200()
     {
         $nextUrl = "";

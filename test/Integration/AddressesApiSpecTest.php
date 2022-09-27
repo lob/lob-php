@@ -116,6 +116,10 @@ class AddressesApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testAddressesApiInstantiation200() {
       try {
         $addressApi200 = new AddressesApi(self::$config);
@@ -125,6 +129,10 @@ class AddressesApiSpecTest extends TestCase
       }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testCreate200()
     {
       try {
@@ -136,14 +144,27 @@ class AddressesApiSpecTest extends TestCase
       }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     // does not include required field in request
     public function testCreate422()
     {
-      $this->expectException(ApiException::class);
-      $this->expectExceptionMessageMatches("/address_line1 is required/");
-      $errorResponse = self::$addressApi->create(self::$errorAddress);
+
+        try {
+            $this->expectException(ApiException::class);
+            $this->expectExceptionMessageMatches("/address_line1 is required/");
+            $errorResponse = self::$addressApi->create(self::$errorAddress);
+        } catch (Exception $createError) {
+            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     // uses a bad key to attempt to send a request
     public function testAddressApi401() {
       $wrongConfig = new Configuration();
@@ -155,6 +176,10 @@ class AddressesApiSpecTest extends TestCase
       $errorResponse = $addressApiError->create(self::$editableAddress);
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testGet200()
     {
       try {
@@ -167,6 +192,10 @@ class AddressesApiSpecTest extends TestCase
       }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testGet404()
     {
       $this->expectException(ApiException::class);
@@ -174,6 +203,10 @@ class AddressesApiSpecTest extends TestCase
       $badRetrieval = self::$addressApi->get("adr_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -268,6 +301,10 @@ class AddressesApiSpecTest extends TestCase
       }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testDelete200()
     {
       try {
@@ -280,6 +317,10 @@ class AddressesApiSpecTest extends TestCase
       }
     }
 
+    /**
+     * @group integration
+     * @group addresses
+     */
     public function testDelete404()
     {
       $this->expectException(ApiException::class);

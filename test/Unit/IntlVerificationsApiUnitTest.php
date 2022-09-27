@@ -26,7 +26,7 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace OpenAPI\Client\Test\Api;   
+namespace OpenAPI\Client\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -104,7 +104,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testBulkConnectionError()
     {
@@ -127,7 +127,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testBulk()
     {
@@ -153,7 +153,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testBulkApiError()
     {
@@ -176,7 +176,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testBulkFailStatusCode()
     {
@@ -202,7 +202,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testSingleConnectionError()
     {
@@ -225,13 +225,13 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testSingle()
     {
         $guzzleMock = new MockHandler();
         $handlerStack = HandlerStack::create($guzzleMock);
-        $client = new Client(['handler' => $handlerStack]); 
+        $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
         $verificationsApi = new IntlVerificationsApi($config, $client);
@@ -247,7 +247,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testSingleFailNullId()
     {
@@ -268,7 +268,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testSingleApiError()
     {
@@ -291,7 +291,7 @@ class IntlVerificationsApiUnitTest extends TestCase
 
     /**
      * @group unit
-     * @group usVerifications
+     * @group intlVerifications
      */
     public function testSingleFailStatusCode()
     {

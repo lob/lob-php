@@ -124,6 +124,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testBankAccountsApiInstantiation200() {
         try {
             $baApi200 = new BankAccountsApi(self::$config);
@@ -133,6 +137,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testCreate200()
     {
         try {
@@ -144,6 +152,10 @@ class BankAccountsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -152,6 +164,10 @@ class BankAccountsApiSpecTest extends TestCase
         $errorResponse = self::$bankApi->create(self::$errorBank);
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     // uses a bad key to attempt to send a request
     public function testBankAccountApi401() {
         $this->expectException(\Exception::class);
@@ -217,6 +233,10 @@ class BankAccountsApiSpecTest extends TestCase
         $badRetrieval = self::$bankApi->get("bank_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group bankAccounts
+     */
     public function testList200()
     {
         $nextUrl = "";

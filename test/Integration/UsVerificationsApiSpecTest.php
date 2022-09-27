@@ -106,6 +106,10 @@ class UsVerificationsApiSpecTest extends TestCase
         self::$undeliverableAddress->setZipCode("07000");
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testUsVerificationsApiInstantiation200() {
         try {
             $usvApi200 = new UsVerificationsApi(self::$config);
@@ -115,6 +119,10 @@ class UsVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testSingleUsVerificationDeliverable()
     {
         try {
@@ -126,6 +134,10 @@ class UsVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testSingleUsVerificationUndeliverable()
     {
         try {
@@ -163,6 +175,10 @@ class UsVerificationsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group usVerifications
+     */
     public function testBulkUsVerificationError()
     {
         try {

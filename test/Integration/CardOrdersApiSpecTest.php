@@ -107,6 +107,10 @@ class CardOrdersApiSpecTest extends TestCase
         self::$cardApi->delete(self::$cardId);
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     public function testCardOrdersApiInstantiation200() {
         try {
             $cardOrdersApi200 = new CardOrdersApi(self::$config);
@@ -116,6 +120,10 @@ class CardOrdersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     public function testCreate200()
     {
         try {
@@ -127,6 +135,10 @@ class CardOrdersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -135,6 +147,10 @@ class CardOrdersApiSpecTest extends TestCase
         $errorResponse = self::$cardOrdersApi->create(self::$cardId, self::$errorCardOrder);
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     // uses a bad key to attempt to send a request
     public function testCardOrdersApi401() {
         $wrongConfig = new Configuration();
@@ -146,6 +162,10 @@ class CardOrdersApiSpecTest extends TestCase
         $errorResponse = $cardOrdersApiError->create(self::$cardId, self::$editableCardOrder);
     }
 
+    /**
+     * @group integration
+     * @group cardOrders
+     */
     public function testRetrieve200()
     {
         try {

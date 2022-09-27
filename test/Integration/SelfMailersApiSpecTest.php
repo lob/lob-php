@@ -168,6 +168,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testCreate200()
     {
         try {
@@ -179,6 +183,10 @@ class SelfMailersApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -187,6 +195,10 @@ class SelfMailersApiSpecTest extends TestCase
         $errorResponse = self::$selfMailersApi->create(self::$errorSelfMailer);
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     // uses a bad key to attempt to send a request
     public function testSelfMailerApi401() {
         $wrongConfig = new Configuration();
@@ -198,6 +210,10 @@ class SelfMailersApiSpecTest extends TestCase
         $errorResponse = $selfMailersApiError->create(self::$editableSelfMailer);
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testGet200()
     {
         try {
@@ -234,6 +250,10 @@ class SelfMailersApiSpecTest extends TestCase
         $badRetrieval = self::$selfMailersApi->get("sfm_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group selfMailers
+     */
     public function testList200()
     {
         $nextUrl = "";

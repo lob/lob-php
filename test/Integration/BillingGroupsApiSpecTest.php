@@ -96,6 +96,10 @@ class BillingGroupsApiSpecTest extends TestCase
         $this->assertEquals(gettype($bgApi200), "object");
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testCreate200()
     {
         try {
@@ -106,6 +110,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -114,6 +122,10 @@ class BillingGroupsApiSpecTest extends TestCase
         $errorResponse = self::$billingApi->create(self::$errorBillingGroup);
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     // uses a bad key to attempt to send a request
     public function testBillingGroupApi401() {
         $this->expectException(ApiException::class);
@@ -121,6 +133,10 @@ class BillingGroupsApiSpecTest extends TestCase
         $errorResponse = self::$invalidBillingApi->create(self::$editableBillingGroup);
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testGet200()
     {
         try {
@@ -132,6 +148,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testGet404()
     {
         $this->expectException(ApiException::class);
@@ -139,6 +159,10 @@ class BillingGroupsApiSpecTest extends TestCase
         $badRetrieval = self::$billingApi->get("bg_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testUpdate200()
     {
         try {

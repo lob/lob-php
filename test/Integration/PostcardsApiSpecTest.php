@@ -180,6 +180,10 @@ class PostcardsApiSpecTest extends TestCase
 
     // include static cleanup for all the addresses?
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     public function testPostcardsApiInstantiation200() {
         try {
             $postcardsApi200 = new PostcardsApi(self::$config);
@@ -189,6 +193,10 @@ class PostcardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     public function testCreate200()
     {
         try {
@@ -200,6 +208,10 @@ class PostcardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     // does not include required field in request
     public function testCreate422()
     {
@@ -208,6 +220,10 @@ class PostcardsApiSpecTest extends TestCase
         $errorResponse = self::$postcardsApi->create(self::$errorPostcard);
     }
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     // uses incorrect address
     // TODO: reimplement this once we figure out how to test individual flags (or we change our deliverability strictness)
     public function testCreateBadAddress()
@@ -226,6 +242,10 @@ class PostcardsApiSpecTest extends TestCase
         // array_push($this->idsForCleanup, $errorResponse->id);
     }
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     // uses a bad key to attempt to send a request
     public function testPostcardApi401() {
         $wrongConfig = new Configuration();
@@ -237,6 +257,10 @@ class PostcardsApiSpecTest extends TestCase
         $errorResponse = $postcardApiError->create(self::$editablePostcard);
     }
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     public function testGet200()
     {
         try {
@@ -273,6 +297,10 @@ class PostcardsApiSpecTest extends TestCase
         $badRetrieval = self::$postcardsApi->get("psc_NONEXISTENT");
     }
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     public function testList200()
     {
         $nextUrl = "";
@@ -364,6 +392,10 @@ class PostcardsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group postcards
+     */
     public function testCancel200()
     {
         try {
