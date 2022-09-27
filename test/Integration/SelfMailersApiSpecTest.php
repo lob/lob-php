@@ -35,7 +35,9 @@ use \OpenAPI\Client\Model\SelfMailerEditable;
 use \OpenAPI\Client\Api\SelfMailersApi;
 use \OpenAPI\Client\Model\AddressEditable;
 use \OpenAPI\Client\Api\AddressesApi;
-
+use \OpenAPI\Client\Model\SelfMailerSize;
+use \OpenAPI\Client\Model\MailType;
+use \OpenAPI\Client\Model\SortBy5;
 /**
  * AddressesApiTest Class Doc Comment
  *
@@ -53,9 +55,11 @@ class SelfMailersApiSpecTest extends TestCase
     private static $config;
     private static $addressApi;
     private static $selfMailersApi;
+    private static $invalidSelfMailerApi;
     private static $editableSelfMailer;
     private static $editableSelfMailer2;
     private static $errorSelfMailer;
+    private static $metadata;
 
     // for teardown post-testing
     private $idsForCleanup = [];
@@ -111,6 +115,10 @@ class SelfMailersApiSpecTest extends TestCase
         // create new instance of SelfMailersApi to use in other tests
         self::$selfMailersApi = new SelfMailersApi(self::$config);
 
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        self::$invalidSelfMailerApi = new SelfMailersApi($wrongConfig);
+
         // create editable self-mailer
         self::$editableSelfMailer = new SelfMailerEditable();
         self::$editableSelfMailer->setTo(self::$toAddress->getId());
@@ -126,6 +134,8 @@ class SelfMailersApiSpecTest extends TestCase
         self::$editableSelfMailer2->setDescription("Dummy Self-Mailer (Integration Test)");
         self::$editableSelfMailer2->setInside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
         self::$editableSelfMailer2->setOutside("https://s3.us-west-2.amazonaws.com/public.lob.com/assets/templates/self_mailers/6x18_sfm_inside.pdf");
+        self::$metadata = (object)array("name"=>"Harry");
+        self::$editableSelfMailer2->setMetadata(self::$metadata);
 
         // create error self-mailer
         self::$errorSelfMailer = new SelfMailerEditable();
@@ -149,14 +159,12 @@ class SelfMailersApiSpecTest extends TestCase
         self::$addressApi->delete(self::$fromAddress2->getId());
     }
 
-    // include static cleanup for all the addresses?
-
     public function testSelfMailersApiInstantiation200() {
         try {
             $selfMailersApi200 = new SelfMailersApi(self::$config);
             $this->assertEquals(gettype($selfMailersApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -166,59 +174,64 @@ class SelfMailersApiSpecTest extends TestCase
             $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
             $this->assertMatchesRegularExpression('/sfm_/', $createdSelfMailer->getId());
             array_push($this->idsForCleanup, $createdSelfMailer->getId());
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
     // does not include required field in request
     public function testCreate422()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/to is required/");
-            $errorResponse = self::$selfMailersApi->create(self::$errorSelfMailer);
-        } catch (Exception $createError) {
-            echo 'Caught exception: ',  $createError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/to is required/");
+        $errorResponse = self::$selfMailersApi->create(self::$errorSelfMailer);
     }
 
     // uses a bad key to attempt to send a request
     public function testSelfMailerApi401() {
-        try {
-            $wrongConfig = new Configuration();
-            $wrongConfig->setApiKey('basic', 'BAD KEY');
-            $selfMailerApiError = new SelfMailersApi($wrongConfig);
+        $wrongConfig = new Configuration();
+        $wrongConfig->setApiKey('basic', 'BAD KEY');
+        $selfMailersApiError = new SelfMailersApi($wrongConfig);
 
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
-            $errorResponse = $selfMailerApiError->create(self::$editableSelfMailer);
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $errorResponse = $selfMailersApiError->create(self::$editableSelfMailer);
     }
 
     public function testGet200()
     {
         try {
             $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
-            $retrievedPostcard = self::$selfMailersApi->get($createdSelfMailer->getId());
-            $this->assertEquals($createdSelfMailer->getTo(), $retrievedPostcard->getTo());
+            $retrievedSelfMailer = self::$selfMailersApi->get($createdSelfMailer->getId());
+            $this->assertEquals($createdSelfMailer->getTo(), $retrievedSelfMailer->getTo());
             array_push($this->idsForCleanup, $createdSelfMailer->getId());
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
+    }
+
+    public function testGet0()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches("/Missing the required parameter/");
+        $badRetrieval = self::$selfMailersApi->get(null);
+    }
+
+    public function testGet401()
+    {
+        $createdSelfMailers = self::$selfMailersApi->create(self::$editableSelfMailer);
+        array_push($this->idsForCleanup, $createdSelfMailers->getId());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid/");
+        $badRetrieval = self::$invalidSelfMailerApi->get($createdSelfMailers->getId());
     }
 
     public function testGet404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/self mailer not found/");
-            $badRetrieval = self::$selfMailersApi->get("sfm_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/self mailer not found/");
+        $badRetrieval = self::$selfMailersApi->get("sfm_NONEXISTENT");
     }
 
     public function testList200()
@@ -235,8 +248,8 @@ class SelfMailersApiSpecTest extends TestCase
             $this->assertIsString($nextUrl);
             array_push($this->idsForCleanup, $sfm1->getId());
             array_push($this->idsForCleanup, $sfm2->getId());
-        } catch (Exception $listError) {
-            echo 'Caught exception: ',  $listError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
 
         // response using nextUrl
@@ -251,8 +264,8 @@ class SelfMailersApiSpecTest extends TestCase
                 $this->assertIsString($previousUrl);
                 array_push($this->idsForCleanup, $sfm1->getId());
                 array_push($this->idsForCleanup, $sfm2->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
         }
 
@@ -266,9 +279,49 @@ class SelfMailersApiSpecTest extends TestCase
                 $this->assertLessThanOrEqual(2, count($listedSelfMailersBefore->getData()));
                 array_push($this->idsForCleanup, $sfm1->getId());
                 array_push($this->idsForCleanup, $sfm2->getId());
-            } catch (Exception $listError) {
-                echo 'Caught exception: ',  $listError->getMessage(), "\n";
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
+        }
+    }
+
+    public function provider()
+    {
+        date_default_timezone_set('America/Los_Angeles');
+        $date_str = date("Y-m-d", strtotime("-1 months"));
+        $date_obj = (object) array("gt" => $date_str);
+
+        return array(
+            array(null, null, null, array("total_count"), null, null, null, null, null, null, null), // include
+            array(null, null, null, null, $date_obj, null, null, null, null, null, null), // date_created
+            array(null, null, null, null, null, self::$metadata, null, null, null, null, null), // metadata
+            array(null, null, null, null, null, null, [SelfMailerSize::_6X18_BIFOLD->value], null, null, null, null), // size
+            array(null, null, null, null, null, null, null, TRUE, null, null, null), // scheduled
+            array(null, null, null, null, null, null, null, null, $date_obj, null, null), // send_date
+            array(null, null, null, null, null, null, null, null, null, MailType::FIRST_CLASS->value, null), // mail_type
+            array(null, null, null, null, null, null, null, null, null, null, new SortBy5(array("date_created" => "asc"))) // sort_by
+        );
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testListWithParams($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by)
+    {
+        try {
+        // create self mailers to list
+            $sfm1 = self::$selfMailersApi->create(self::$editableSelfMailer);
+            $sfm2 = self::$selfMailersApi->create(self::$editableSelfMailer2);
+            $listedSelfMailers = self::$selfMailersApi->list($limit, $before, $after, $include, $date_created, $metadata, $size, $scheduled, $send_date, $mail_type, $sort_by);
+
+            $this->assertGreaterThan(0, $listedSelfMailers->getCount());
+            if ($include) $this->assertNotNull($listedSelfMailers->getTotalCount());
+
+            // delete created self mailers
+            array_push($this->idsForCleanup, $sfm1->getId());
+            array_push($this->idsForCleanup, $sfm2->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -278,19 +331,25 @@ class SelfMailersApiSpecTest extends TestCase
             $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
             $deletedSelfMailer = self::$selfMailersApi->delete($createdSelfMailer->getId());
             $this->assertEquals(true, $deletedSelfMailer->getDeleted());
-        } catch (Exception $deleteError) {
-            echo 'Caught exception: ',  $deleteError->getMessage(), "\n";
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
+    }
+
+    public function testDelete401()
+    {
+        $createdSelfMailer = self::$selfMailersApi->create(self::$editableSelfMailer);
+        array_push($this->idsForCleanup, $createdSelfMailer->getId());
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/Your API key is not valid. Please sign up on lob.com to get a valid api key./");
+        $deletedSelfMailer = self::$invalidSelfMailerApi->delete($createdSelfMailer->getId());
     }
 
     public function testDelete404()
     {
-        try {
-            $this->expectException(ApiException::class);
-            $this->expectExceptionMessageMatches("/self mailer not found/");
-            $badDeletion = self::$selfMailersApi->delete("sfm_NONEXISTENT");
-        } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
-        }
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches("/self mailer not found/");
+        $badDeletion = self::$selfMailersApi->delete("sfm_NONEXISTENT");
     }
 }
