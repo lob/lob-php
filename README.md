@@ -2,7 +2,7 @@
 
 The Lob API is organized around REST. Our API is designed to have predictable, resource-oriented URLs and uses HTTP response codes to indicate any API errors.
 
-For more information, please visit [https://support.lob.com/](https://support.lob.com/).
+For more information, please visit [our API documentation](https://docs.lob.com/).
 
 ## Requirements
 
