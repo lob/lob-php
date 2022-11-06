@@ -89,7 +89,6 @@ class CardOrdersApiSpecTest extends TestCase
         self::$editableCardOrder->setQuantity(10000);
 
         self::$errorCardOrder = new CardOrderEditable();
-        self::$errorCardOrder->setQuantity(100);
 
         // for List
         self::$co1 = new CardOrderEditable();
@@ -143,7 +142,7 @@ class CardOrdersApiSpecTest extends TestCase
     public function testCreate422()
     {
         $this->expectException(ApiException::class);
-        $this->expectExceptionMessageMatches("/Number of cards in order must be at least 10000/");
+        $this->expectExceptionMessageMatches("/quantity is required/");
         $errorResponse = self::$cardOrdersApi->create(self::$cardId, self::$errorCardOrder);
     }
 

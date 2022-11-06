@@ -1,6 +1,6 @@
 <?php
 /**
- * LobConfidenceScore
+ * PostcardDetailsWritable
  *
  * PHP version 7.3
  *
@@ -33,10 +33,10 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * LobConfidenceScore Class Doc Comment
+ * PostcardDetailsWritable Class Doc Comment
  *
  * @category Class
- * @description Lob Confidence Score is a nested object that provides a numerical value between 0-100 of the likelihood that an address is deliverable based on Lob’s mail delivery data to over half of US households.
+ * @description Properties that the postcards in your Creative should have.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +44,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializable
+class PostcardDetailsWritable implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +53,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'lob_confidence_score';
+    protected static $openAPIModelName = 'postcard_details_writable';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +61,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'score' => 'float',
-        'level' => 'string'
+        'mail_type' => '\OpenAPI\Client\Model\MailType',
+        'size' => '\OpenAPI\Client\Model\PostcardSize'
     ];
 
     /**
@@ -73,8 +73,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'score' => 'float',
-        'level' => null
+        'mail_type' => null,
+        'size' => null
     ];
 
     /**
@@ -104,8 +104,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'score' => 'score',
-        'level' => 'level'
+        'mail_type' => 'mail_type',
+        'size' => 'size'
     ];
 
     /**
@@ -114,8 +114,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'score' => 'setScore',
-        'level' => 'setLevel'
+        'mail_type' => 'setMailType',
+        'size' => 'setSize'
     ];
 
     /**
@@ -124,8 +124,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'score' => 'getScore',
-        'level' => 'getLevel'
+        'mail_type' => 'getMailType',
+        'size' => 'getSize'
     ];
 
     /**
@@ -169,25 +169,6 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
-    const LEVEL_HIGH = 'high';
-    const LEVEL_MEDIUM = 'medium';
-    const LEVEL_LOW = 'low';
-    const LEVEL_EMPTY = '';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getLevelAllowableValues()
-    {
-        return [
-            self::LEVEL_HIGH,
-            self::LEVEL_MEDIUM,
-            self::LEVEL_LOW,
-            self::LEVEL_EMPTY,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -204,8 +185,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['score'] = $data['score'] ?? null;
-        $this->container['level'] = $data['level'] ?? null;
+        $this->container['mail_type'] = $data['mail_type'] ?? null;
+        $this->container['size'] = $data['size'] ?? null;
     }
 
     /**
@@ -216,27 +197,6 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['score']) && ($this->container['score'] > 100)) {
-                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
-            }
-
-            if (!is_null($this->container['score']) && ($this->container['score'] < 0)) {
-                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-            }
-
-        }
-        $allowedValues = $this->getLevelAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
-                $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'level', must be one of '%s'",
-                    $this->container['level'],
-                    implode("', '", $allowedValues)
-                );
-            }
-        }
 
         return $invalidProperties;
     }
@@ -255,73 +215,50 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     
 
     /**
-     * Gets score
+     * Gets mail_type
      *
-     * @return float|null
+     * @return \OpenAPI\Client\Model\MailType|null
      */
-    public function getScore()
+    public function getMailType()
     {
-        return $this->container['score'];
+        return $this->container['mail_type'];
     }
 
     /**
-     * Sets score
+     * Sets mail_type
      *
-     * @param float|null $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
+     * @param \OpenAPI\Client\Model\MailType|null $mail_type mail_type
      *
      * @return self
      */
-    public function setScore($score)
+    public function setMailType($mail_type)
     {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if (!is_null($score) && ($score > 100)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
-            }
-            if (!is_null($score) && ($score < 0)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
-            }
-
-        }
-        $this->container['score'] = $score;
+        $this->container['mail_type'] = $mail_type;
 
         return $this;
     }
 
 
     /**
-     * Gets level
+     * Gets size
      *
-     * @return string|null
+     * @return \OpenAPI\Client\Model\PostcardSize|null
      */
-    public function getLevel()
+    public function getSize()
     {
-        return $this->container['level'];
+        return $this->container['size'];
     }
 
     /**
-     * Sets level
+     * Sets size
      *
-     * @param string|null $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
+     * @param \OpenAPI\Client\Model\PostcardSize|null $size size
      *
      * @return self
      */
-    public function setLevel($level)
+    public function setSize($size)
     {
-        $allowedValues = $this->getLevelAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($level) && !in_array($level, $allowedValues, true)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        "Invalid value '%s' for 'level', must be one of '%s'",
-                        $level,
-                        implode("', '", $allowedValues)
-                    )
-                );
-            }
-        }
-
-        $this->container['level'] = $level;
+        $this->container['size'] = $size;
 
         return $this;
     }

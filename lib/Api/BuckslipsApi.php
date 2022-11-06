@@ -1,6 +1,6 @@
 <?php
 /**
- * ChecksApi
+ * BuckslipsApi
  * PHP version 7.3
  *
  * @category Class
@@ -43,14 +43,14 @@ use OpenAPI\Client\Model\LobError;
 use Jean85\PrettyVersions;
 
 /**
- * ChecksApi Class Doc Comment
+ * BuckslipsApi Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class ChecksApi
+class BuckslipsApi
 {
     /**
      * @var ClientInterface
@@ -150,36 +150,36 @@ class ChecksApi
     }
 
     /**
-     * Operation cancel
+     * Operation Create
      *
-     * cancel
+     * Create
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable buckslip_editable (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\CheckDeletion|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError
      */
-    public function cancel($chk_id)
+    public function Create($buckslip_editable)
     {
-        $response = $this->cancelWithHttpInfo($chk_id);
+        $response = $this->CreateWithHttpInfo($buckslip_editable);
         return $response;
     }
 
     /**
-     * Operation cancelWithHttpInfo
+     * Operation CreateWithHttpInfo
      *
-     * cancel
+     * Create
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\CheckDeletion|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelWithHttpInfo($chk_id)
+    public function CreateWithHttpInfo($buckslip_editable)
     {
-        $request = $this->cancelRequest($chk_id);
+        $request = $this->CreateRequest($buckslip_editable);
 
         try {
             $options = $this->createHttpClientOption();
@@ -221,7 +221,7 @@ class ChecksApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CheckDeletion', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Buckslip', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -229,27 +229,167 @@ class ChecksApi
     }
 
     /**
-     * Create request for operation 'cancel'
+     * Create request for operation 'Create'
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function cancelRequest($chk_id)
+    public function CreateRequest($buckslip_editable)
     {
-        // verify the required parameter 'chk_id' is set
-        if ($chk_id === null || (is_array($chk_id) && count($chk_id) === 0)) {
+        // verify the required parameter 'buckslip_editable' is set
+        if ($buckslip_editable === null || (is_array($buckslip_editable) && count($buckslip_editable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $chk_id when calling cancel'
+                'Missing the required parameter $buckslip_editable when calling Create'
             );
         }
-        if (!preg_match("/^chk_[a-zA-Z0-9]+$/", $chk_id)) {
-            throw new \InvalidArgumentException("invalid value for \"chk_id\" when calling ChecksApi.cancel, must conform to the pattern /^chk_[a-zA-Z0-9]+$/.");
+
+        $resourcePath = '/buckslips';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json'],
+            ['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data']
+        );
+
+        // for model (json/xml)
+        if (isset($buckslip_editable)) {
+            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($buckslip_editable));
+        }
+
+        $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
+        }
+
+        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
+
+        $headers = array_merge(
+            $customHeaders,
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = $this->modified_build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation Delete
+     *
+     * Delete
+     *
+     * @param  string $buckslip_id id of the buckslip (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\BuckslipDeletion|\OpenAPI\Client\Model\LobError
+     */
+    public function Delete($buckslip_id)
+    {
+        $response = $this->DeleteWithHttpInfo($buckslip_id);
+        return $response;
+    }
+
+    /**
+     * Operation DeleteWithHttpInfo
+     *
+     * Delete
+     *
+     * @param  string $buckslip_id id of the buckslip (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\BuckslipDeletion|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function DeleteWithHttpInfo($buckslip_id)
+    {
+        $request = $this->DeleteRequest($buckslip_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            $requestError = null;
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
+                $requestError = new LobError();
+                $requestError->setMessage(get_object_vars($errorBody)["message"]);
+                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
+                $requestError->setCode(get_object_vars($errorBody)["code"]);
+
+                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
+                throw $exception;
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            // This catches any non-successful status
+            $statusCode = $response->getStatusCode();
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+            
+            // Since all non successes are thrown above, we can assume success
+            $content = (string) $response->getBody();
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\BuckslipDeletion', []);
+            
+        } catch (ApiException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Create request for operation 'Delete'
+     *
+     * @param  string $buckslip_id id of the buckslip (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function DeleteRequest($buckslip_id)
+    {
+        // verify the required parameter 'buckslip_id' is set
+        if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $buckslip_id when calling Delete'
+            );
+        }
+        if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.Delete, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
         }
 
 
-        $resourcePath = '/checks/{chk_id}';
+        $resourcePath = '/buckslips/{buckslip_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -258,10 +398,10 @@ class ChecksApi
 
 
         // path params
-        if ($chk_id !== null) {
+        if ($buckslip_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'chk_id' . '}',
-                ObjectSerializer::toPathValue($chk_id),
+                '{' . 'buckslip_id' . '}',
+                ObjectSerializer::toPathValue($buckslip_id),
                 $resourcePath
             );
         }
@@ -300,38 +440,36 @@ class ChecksApi
     }
 
     /**
-     * Operation create
+     * Operation Retrieve
      *
-     * create
+     * Retrieve
      *
-     * @param  \OpenAPI\Client\Model\CheckEditable $check_editable check_editable (required)
-     * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  string $buckslip_id id of the buckslip (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError
      */
-    public function create($check_editable, $idempotency_key = null)
+    public function Retrieve($buckslip_id)
     {
-        $response = $this->createWithHttpInfo($check_editable, $idempotency_key);
+        $response = $this->RetrieveWithHttpInfo($buckslip_id);
         return $response;
     }
 
     /**
-     * Operation createWithHttpInfo
+     * Operation RetrieveWithHttpInfo
      *
-     * create
+     * Retrieve
      *
-     * @param  \OpenAPI\Client\Model\CheckEditable $check_editable (required)
-     * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  string $buckslip_id id of the buckslip (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createWithHttpInfo($check_editable, $idempotency_key = null)
+    public function RetrieveWithHttpInfo($buckslip_id)
     {
-        $request = $this->createRequest($check_editable, $idempotency_key);
+        $request = $this->RetrieveRequest($buckslip_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -373,7 +511,7 @@ class ChecksApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Check', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Buckslip', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -381,176 +519,27 @@ class ChecksApi
     }
 
     /**
-     * Create request for operation 'create'
+     * Create request for operation 'Retrieve'
      *
-     * @param  \OpenAPI\Client\Model\CheckEditable $check_editable (required)
-     * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function createRequest($check_editable, $idempotency_key = null)
-    {
-        // verify the required parameter 'check_editable' is set
-        if ($check_editable === null || (is_array($check_editable) && count($check_editable) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $check_editable when calling create'
-            );
-        }
-        if ($idempotency_key !== null && strlen($idempotency_key) > 256) {
-            throw new \InvalidArgumentException('invalid length for "$idempotency_key" when calling ChecksApi.create, must be smaller than or equal to 256.');
-        }
-
-
-        $resourcePath = '/checks';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-
-
-        // header params
-        if ($idempotency_key !== null) {
-            $headerParams['Idempotency-Key'] = ObjectSerializer::toHeaderValue($idempotency_key);
-        }
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json'],
-            ['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data']
-        );
-
-        // for model (json/xml)
-        if (isset($check_editable)) {
-            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($check_editable));
-        }
-
-        $defaultHeaders = [];
-        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
-        }
-
-        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
-
-        $headers = array_merge(
-            $customHeaders,
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = $this->modified_build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation get
-     *
-     * get
-     *
-     * @param  string $chk_id id of the check (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError
-     */
-    public function get($chk_id)
-    {
-        $response = $this->getWithHttpInfo($chk_id);
-        return $response;
-    }
-
-    /**
-     * Operation getWithHttpInfo
-     *
-     * get
-     *
-     * @param  string $chk_id id of the check (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getWithHttpInfo($chk_id)
-    {
-        $request = $this->getRequest($chk_id);
-
-        try {
-            $options = $this->createHttpClientOption();
-            $requestError = null;
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
-                $requestError = new LobError();
-                $requestError->setMessage(get_object_vars($errorBody)["message"]);
-                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
-                $requestError->setCode(get_object_vars($errorBody)["code"]);
-
-                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
-                throw $exception;
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            // This catches any non-successful status
-            $statusCode = $response->getStatusCode();
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-            
-            // Since all non successes are thrown above, we can assume success
-            $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Check', []);
-            
-        } catch (ApiException $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Create request for operation 'get'
-     *
-     * @param  string $chk_id id of the check (required)
+     * @param  string $buckslip_id id of the buckslip (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getRequest($chk_id)
+    public function RetrieveRequest($buckslip_id)
     {
-        // verify the required parameter 'chk_id' is set
-        if ($chk_id === null || (is_array($chk_id) && count($chk_id) === 0)) {
+        // verify the required parameter 'buckslip_id' is set
+        if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $chk_id when calling get'
+                'Missing the required parameter $buckslip_id when calling Retrieve'
             );
         }
-        if (!preg_match("/^chk_[a-zA-Z0-9]+$/", $chk_id)) {
-            throw new \InvalidArgumentException("invalid value for \"chk_id\" when calling ChecksApi.get, must conform to the pattern /^chk_[a-zA-Z0-9]+$/.");
+        if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.Retrieve, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
         }
 
 
-        $resourcePath = '/checks/{chk_id}';
+        $resourcePath = '/buckslips/{buckslip_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -559,10 +548,10 @@ class ChecksApi
 
 
         // path params
-        if ($chk_id !== null) {
+        if ($buckslip_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'chk_id' . '}',
-                ObjectSerializer::toPathValue($chk_id),
+                '{' . 'buckslip_id' . '}',
+                ObjectSerializer::toPathValue($buckslip_id),
                 $resourcePath
             );
         }
@@ -601,54 +590,38 @@ class ChecksApi
     }
 
     /**
-     * Operation list
+     * Operation Update
      *
-     * list
+     * Update
      *
-     * @param  int $limit How many results to return. (optional, default to 10)
-     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
-     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
-     * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
-     * @param  array<string,string> $send_date Filter by date sent. (optional)
-     * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  string $buckslip_id id of the buckslip (required)
+     * @param  \OpenAPI\Client\Model\BuckslipUpdatable $buckslip_updatable buckslip_updatable (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\CheckList|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError
      */
-    public function list($limit = 10, $before = null, $after = null, $include = null, $date_created = null, $metadata = null, $scheduled = null, $send_date = null, $mail_type = null, $sort_by = null)
+    public function Update($buckslip_id, $buckslip_updatable)
     {
-        $response = $this->listWithHttpInfo($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by);
+        $response = $this->UpdateWithHttpInfo($buckslip_id, $buckslip_updatable);
         return $response;
     }
 
     /**
-     * Operation listWithHttpInfo
+     * Operation UpdateWithHttpInfo
      *
-     * list
+     * Update
      *
-     * @param  int $limit How many results to return. (optional, default to 10)
-     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
-     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
-     * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
-     * @param  array<string,string> $send_date Filter by date sent. (optional)
-     * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  string $buckslip_id id of the buckslip (required)
+     * @param  \OpenAPI\Client\Model\BuckslipUpdatable $buckslip_updatable (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\CheckList|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listWithHttpInfo($limit = 10, $before = null, $after = null, $include = null, $date_created = null, $metadata = null, $scheduled = null, $send_date = null, $mail_type = null, $sort_by = null)
+    public function UpdateWithHttpInfo($buckslip_id, $buckslip_updatable)
     {
-        $request = $this->listRequest($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by);
+        $request = $this->UpdateRequest($buckslip_id, $buckslip_updatable);
 
         try {
             $options = $this->createHttpClientOption();
@@ -690,7 +663,7 @@ class ChecksApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CheckList', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Buckslip', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -698,40 +671,192 @@ class ChecksApi
     }
 
     /**
-     * Create request for operation 'list'
+     * Create request for operation 'Update'
+     *
+     * @param  string $buckslip_id id of the buckslip (required)
+     * @param  \OpenAPI\Client\Model\BuckslipUpdatable $buckslip_updatable (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function UpdateRequest($buckslip_id, $buckslip_updatable)
+    {
+        // verify the required parameter 'buckslip_id' is set
+        if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $buckslip_id when calling Update'
+            );
+        }
+        if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.Update, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
+        }
+
+        // verify the required parameter 'buckslip_updatable' is set
+        if ($buckslip_updatable === null || (is_array($buckslip_updatable) && count($buckslip_updatable) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $buckslip_updatable when calling Update'
+            );
+        }
+
+        $resourcePath = '/buckslips/{buckslip_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+
+
+
+        // path params
+        if ($buckslip_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'buckslip_id' . '}',
+                ObjectSerializer::toPathValue($buckslip_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json'],
+            ['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data']
+        );
+
+        // for model (json/xml)
+        if (isset($buckslip_updatable)) {
+            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($buckslip_updatable));
+        }
+
+        $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
+        }
+
+        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
+
+        $headers = array_merge(
+            $customHeaders,
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = $this->modified_build($queryParams);
+        return new Request(
+            'PATCH',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation List
+     *
+     * List
      *
      * @param  int $limit How many results to return. (optional, default to 10)
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
-     * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
-     * @param  array<string,string> $send_date Filter by date sent. (optional)
-     * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\BuckslipsList|\OpenAPI\Client\Model\LobError
+     */
+    public function List($limit = 10, $before = null, $after = null, $include = null)
+    {
+        $response = $this->ListWithHttpInfo($limit, $before, $after, $include);
+        return $response;
+    }
+
+    /**
+     * Operation ListWithHttpInfo
+     *
+     * List
+     *
+     * @param  int $limit How many results to return. (optional, default to 10)
+     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
+     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\BuckslipsList|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function ListWithHttpInfo($limit = 10, $before = null, $after = null, $include = null)
+    {
+        $request = $this->ListRequest($limit, $before, $after, $include);
+
+        try {
+            $options = $this->createHttpClientOption();
+            $requestError = null;
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
+                $requestError = new LobError();
+                $requestError->setMessage(get_object_vars($errorBody)["message"]);
+                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
+                $requestError->setCode(get_object_vars($errorBody)["code"]);
+
+                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
+                throw $exception;
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            // This catches any non-successful status
+            $statusCode = $response->getStatusCode();
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+            
+            // Since all non successes are thrown above, we can assume success
+            $content = (string) $response->getBody();
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\BuckslipsList', []);
+            
+        } catch (ApiException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Create request for operation 'List'
+     *
+     * @param  int $limit How many results to return. (optional, default to 10)
+     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
+     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listRequest($limit = 10, $before = null, $after = null, $include = null, $date_created = null, $metadata = null, $scheduled = null, $send_date = null, $mail_type = null, $sort_by = null)
+    public function ListRequest($limit = 10, $before = null, $after = null, $include = null)
     {
         if ($limit !== null && $limit > 100) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling ChecksApi.list, must be smaller than or equal to 100.');
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling BuckslipsApi.List, must be smaller than or equal to 100.');
         }
         if ($limit !== null && $limit < 1) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling ChecksApi.list, must be bigger than or equal to 1.');
-        }
-
-        if ($metadata !== null && strlen($metadata) > 500) {
-            throw new \InvalidArgumentException('invalid length for "$metadata" when calling ChecksApi.list, must be smaller than or equal to 500.');
-        }
-        if ($metadata !== null && !preg_match("/[^\"\\\\]{0,500}/", $metadata)) {
-            throw new \InvalidArgumentException("invalid value for \"metadata\" when calling ChecksApi.list, must conform to the pattern /[^\"\\\\]{0,500}/.");
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling BuckslipsApi.List, must be bigger than or equal to 1.');
         }
 
 
-        $resourcePath = '/checks';
+        $resourcePath = '/buckslips';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -752,30 +877,6 @@ class ChecksApi
         // query params
         if ($include !== null) {
             $queryParams['include'] = $include;
-        }
-        // query params
-        if ($date_created !== null) {
-            $queryParams['date_created'] = $date_created;
-        }
-        // query params
-        if ($metadata !== null) {
-            $queryParams['metadata'] = $metadata;
-        }
-        // query params
-        if ($scheduled !== null) {
-            $queryParams['scheduled'] = $scheduled;
-        }
-        // query params
-        if ($send_date !== null) {
-            $queryParams['send_date'] = $send_date;
-        }
-        // query params
-        if ($mail_type !== null) {
-            $queryParams['mail_type'] = $mail_type;
-        }
-        // query params
-        if ($sort_by !== null) {
-            $queryParams['sort_by'] = $sort_by;
         }
 
 

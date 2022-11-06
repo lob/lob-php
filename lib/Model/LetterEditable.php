@@ -70,13 +70,14 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'address_placement' => 'string',
         'return_envelope' => 'mixed',
         'perforated_page' => 'int',
-        'custom_envelope' => '\OpenAPI\Client\Model\LetterEditableCustomEnvelope',
+        'custom_envelope' => 'string',
         'to' => 'string',
         'from' => 'string',
         'file' => 'string',
         'extra_service' => 'string',
         'cards' => 'string[]',
-        'billing_group_id' => 'string'
+        'billing_group_id' => 'string',
+        'qr_code' => '\OpenAPI\Client\Model\QrCode'
     ];
 
     /**
@@ -103,7 +104,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => null,
         'extra_service' => null,
         'cards' => null,
-        'billing_group_id' => null
+        'billing_group_id' => null,
+        'qr_code' => null
     ];
 
     /**
@@ -149,7 +151,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => 'file',
         'extra_service' => 'extra_service',
         'cards' => 'cards',
-        'billing_group_id' => 'billing_group_id'
+        'billing_group_id' => 'billing_group_id',
+        'qr_code' => 'qr_code'
     ];
 
     /**
@@ -174,7 +177,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => 'setFile',
         'extra_service' => 'setExtraService',
         'cards' => 'setCards',
-        'billing_group_id' => 'setBillingGroupId'
+        'billing_group_id' => 'setBillingGroupId',
+        'qr_code' => 'setQrCode'
     ];
 
     /**
@@ -199,7 +203,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => 'getFile',
         'extra_service' => 'getExtraService',
         'cards' => 'getCards',
-        'billing_group_id' => 'getBillingGroupId'
+        'billing_group_id' => 'getBillingGroupId',
+        'qr_code' => 'getQrCode'
     ];
 
     /**
@@ -314,6 +319,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['extra_service'] = $data['extra_service'] ?? null;
         $this->container['cards'] = $data['cards'] ?? null;
         $this->container['billing_group_id'] = $data['billing_group_id'] ?? null;
+        $this->container['qr_code'] = $data['qr_code'] ?? null;
     }
 
     /**
@@ -683,7 +689,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets custom_envelope
      *
-     * @return \OpenAPI\Client\Model\LetterEditableCustomEnvelope|null
+     * @return string|null
      */
     public function getCustomEnvelope()
     {
@@ -693,7 +699,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets custom_envelope
      *
-     * @param \OpenAPI\Client\Model\LetterEditableCustomEnvelope|null $custom_envelope custom_envelope
+     * @param string|null $custom_envelope custom_envelope
      *
      * @return self
      */
@@ -879,6 +885,31 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setBillingGroupId($billing_group_id)
     {
         $this->container['billing_group_id'] = $billing_group_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets qr_code
+     *
+     * @return \OpenAPI\Client\Model\QrCode|null
+     */
+    public function getQrCode()
+    {
+        return $this->container['qr_code'];
+    }
+
+    /**
+     * Sets qr_code
+     *
+     * @param \OpenAPI\Client\Model\QrCode|null $qr_code qr_code
+     *
+     * @return self
+     */
+    public function setQrCode($qr_code)
+    {
+        $this->container['qr_code'] = $qr_code;
 
         return $this;
     }

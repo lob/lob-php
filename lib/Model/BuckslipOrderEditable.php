@@ -1,6 +1,6 @@
 <?php
 /**
- * LobConfidenceScore
+ * BuckslipOrderEditable
  *
  * PHP version 7.3
  *
@@ -33,10 +33,9 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * LobConfidenceScore Class Doc Comment
+ * BuckslipOrderEditable Class Doc Comment
  *
  * @category Class
- * @description Lob Confidence Score is a nested object that provides a numerical value between 0-100 of the likelihood that an address is deliverable based on Lob’s mail delivery data to over half of US households.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializable
+class BuckslipOrderEditable implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +52,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'lob_confidence_score';
+    protected static $openAPIModelName = 'buckslip_order_editable';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +60,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'score' => 'float',
-        'level' => 'string'
+        'quantity' => 'int'
     ];
 
     /**
@@ -73,8 +71,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'score' => 'float',
-        'level' => null
+        'quantity' => null
     ];
 
     /**
@@ -104,8 +101,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'score' => 'score',
-        'level' => 'level'
+        'quantity' => 'quantity'
     ];
 
     /**
@@ -114,8 +110,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'score' => 'setScore',
-        'level' => 'setLevel'
+        'quantity' => 'setQuantity'
     ];
 
     /**
@@ -124,8 +119,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'score' => 'getScore',
-        'level' => 'getLevel'
+        'quantity' => 'getQuantity'
     ];
 
     /**
@@ -169,25 +163,6 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
-    const LEVEL_HIGH = 'high';
-    const LEVEL_MEDIUM = 'medium';
-    const LEVEL_LOW = 'low';
-    const LEVEL_EMPTY = '';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getLevelAllowableValues()
-    {
-        return [
-            self::LEVEL_HIGH,
-            self::LEVEL_MEDIUM,
-            self::LEVEL_LOW,
-            self::LEVEL_EMPTY,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -204,8 +179,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['score'] = $data['score'] ?? null;
-        $this->container['level'] = $data['level'] ?? null;
+        $this->container['quantity'] = $data['quantity'] ?? null;
     }
 
     /**
@@ -218,26 +192,20 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['score']) && ($this->container['score'] > 100)) {
-                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
+            if ($this->container['quantity'] === null) {
+                $invalidProperties[] = "'quantity' can't be null";
             }
-
-            if (!is_null($this->container['score']) && ($this->container['score'] < 0)) {
-                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-            }
-
         }
-        $allowedValues = $this->getLevelAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
-                $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'level', must be one of '%s'",
-                    $this->container['level'],
-                    implode("', '", $allowedValues)
-                );
+            if (($this->container['quantity'] > 10000000)) {
+                $invalidProperties[] = "invalid value for 'quantity', must be smaller than or equal to 10000000.";
             }
-        }
 
+            if (($this->container['quantity'] < 5000)) {
+                $invalidProperties[] = "invalid value for 'quantity', must be bigger than or equal to 5000.";
+            }
+
+        }
         return $invalidProperties;
     }
 
@@ -255,73 +223,35 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     
 
     /**
-     * Gets score
+     * Gets quantity
      *
-     * @return float|null
+     * @return int
      */
-    public function getScore()
+    public function getQuantity()
     {
-        return $this->container['score'];
+        return $this->container['quantity'];
     }
 
     /**
-     * Sets score
+     * Sets quantity
      *
-     * @param float|null $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
+     * @param int $quantity The quantity of buckslips in the order (minimum 5,000).
      *
      * @return self
      */
-    public function setScore($score)
+    public function setQuantity($quantity)
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-            if (!is_null($score) && ($score > 100)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
+            if (($quantity > 10000000)) {
+                throw new \InvalidArgumentException('invalid value for $quantity when calling BuckslipOrderEditable., must be smaller than or equal to 10000000.');
             }
-            if (!is_null($score) && ($score < 0)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
+            if (($quantity < 5000)) {
+                throw new \InvalidArgumentException('invalid value for $quantity when calling BuckslipOrderEditable., must be bigger than or equal to 5000.');
             }
 
         }
-        $this->container['score'] = $score;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets level
-     *
-     * @return string|null
-     */
-    public function getLevel()
-    {
-        return $this->container['level'];
-    }
-
-    /**
-     * Sets level
-     *
-     * @param string|null $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
-     *
-     * @return self
-     */
-    public function setLevel($level)
-    {
-        $allowedValues = $this->getLevelAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($level) && !in_array($level, $allowedValues, true)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        "Invalid value '%s' for 'level', must be one of '%s'",
-                        $level,
-                        implode("', '", $allowedValues)
-                    )
-                );
-            }
-        }
-
-        $this->container['level'] = $level;
+        $this->container['quantity'] = $quantity;
 
         return $this;
     }

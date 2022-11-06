@@ -1,6 +1,6 @@
 <?php
 /**
- * LobConfidenceScore
+ * BuckslipEditable
  *
  * PHP version 7.3
  *
@@ -33,10 +33,9 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * LobConfidenceScore Class Doc Comment
+ * BuckslipEditable Class Doc Comment
  *
  * @category Class
- * @description Lob Confidence Score is a nested object that provides a numerical value between 0-100 of the likelihood that an address is deliverable based on Lob’s mail delivery data to over half of US households.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializable
+class BuckslipEditable implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +52,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'lob_confidence_score';
+    protected static $openAPIModelName = 'buckslip_editable';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +60,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'score' => 'float',
-        'level' => 'string'
+        'front' => 'string',
+        'back' => 'string',
+        'description' => 'string',
+        'size' => 'string'
     ];
 
     /**
@@ -73,8 +74,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'score' => 'float',
-        'level' => null
+        'front' => null,
+        'back' => null,
+        'description' => null,
+        'size' => null
     ];
 
     /**
@@ -104,8 +107,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'score' => 'score',
-        'level' => 'level'
+        'front' => 'front',
+        'back' => 'back',
+        'description' => 'description',
+        'size' => 'size'
     ];
 
     /**
@@ -114,8 +119,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'score' => 'setScore',
-        'level' => 'setLevel'
+        'front' => 'setFront',
+        'back' => 'setBack',
+        'description' => 'setDescription',
+        'size' => 'setSize'
     ];
 
     /**
@@ -124,8 +131,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'score' => 'getScore',
-        'level' => 'getLevel'
+        'front' => 'getFront',
+        'back' => 'getBack',
+        'description' => 'getDescription',
+        'size' => 'getSize'
     ];
 
     /**
@@ -169,23 +178,17 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
-    const LEVEL_HIGH = 'high';
-    const LEVEL_MEDIUM = 'medium';
-    const LEVEL_LOW = 'low';
-    const LEVEL_EMPTY = '';
+    const SIZE__8_75X3_75 = '8.75x3.75';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getLevelAllowableValues()
+    public function getSizeAllowableValues()
     {
         return [
-            self::LEVEL_HIGH,
-            self::LEVEL_MEDIUM,
-            self::LEVEL_LOW,
-            self::LEVEL_EMPTY,
+            self::SIZE__8_75X3_75,
         ];
     }
 
@@ -204,8 +207,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['score'] = $data['score'] ?? null;
-        $this->container['level'] = $data['level'] ?? null;
+        $this->container['front'] = $data['front'] ?? null;
+        $this->container['back'] = $data['back'] ?? null;
+        $this->container['description'] = $data['description'] ?? null;
+        $this->container['size'] = $data['size'] ?? null;
     }
 
     /**
@@ -218,21 +223,22 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['score']) && ($this->container['score'] > 100)) {
-                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
+            if ($this->container['front'] === null) {
+                $invalidProperties[] = "'front' can't be null";
             }
-
-            if (!is_null($this->container['score']) && ($this->container['score'] < 0)) {
-                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
+                $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
 
         }
-        $allowedValues = $this->getLevelAllowableValues();
+        $allowedValues = $this->getSizeAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
+            if (!is_null($this->container['size']) && !in_array($this->container['size'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'level', must be one of '%s'",
-                    $this->container['level'],
+                    "invalid value '%s' for 'size', must be one of '%s'",
+                    $this->container['size'],
                     implode("', '", $allowedValues)
                 );
             }
@@ -255,73 +261,119 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     
 
     /**
-     * Gets score
+     * Gets front
      *
-     * @return float|null
+     * @return string
      */
-    public function getScore()
+    public function getFront()
     {
-        return $this->container['score'];
+        return $this->container['front'];
     }
 
     /**
-     * Sets score
+     * Sets front
      *
-     * @param float|null $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
+     * @param string $front A PDF template for the front of the buckslip
      *
      * @return self
      */
-    public function setScore($score)
+    public function setFront($front)
     {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if (!is_null($score) && ($score > 100)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
-            }
-            if (!is_null($score) && ($score < 0)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
-            }
-
-        }
-        $this->container['score'] = $score;
+        $this->container['front'] = $front;
 
         return $this;
     }
 
 
     /**
-     * Gets level
+     * Gets back
      *
      * @return string|null
      */
-    public function getLevel()
+    public function getBack()
     {
-        return $this->container['level'];
+        return $this->container['back'];
     }
 
     /**
-     * Sets level
+     * Sets back
      *
-     * @param string|null $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
+     * @param string|null $back A PDF template for the back of the buckslip
      *
      * @return self
      */
-    public function setLevel($level)
+    public function setBack($back)
     {
-        $allowedValues = $this->getLevelAllowableValues();
+        $this->container['back'] = $back;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets description
+     *
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return $this->container['description'];
+    }
+
+    /**
+     * Sets description
+     *
+     * @param string|null $description Description of the buckslip.
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($level) && !in_array($level, $allowedValues, true)) {
+            if (!is_null($description) && (mb_strlen($description) > 255)) {
+                throw new \InvalidArgumentException('invalid length for $description when calling BuckslipEditable., must be smaller than or equal to 255.');
+            }
+
+        }
+        $this->container['description'] = $description;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets size
+     *
+     * @return string|null
+     */
+    public function getSize()
+    {
+        return $this->container['size'];
+    }
+
+    /**
+     * Sets size
+     *
+     * @param string|null $size The size of the buckslip
+     *
+     * @return self
+     */
+    public function setSize($size)
+    {
+        $allowedValues = $this->getSizeAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($size) && !in_array($size, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
-                        "Invalid value '%s' for 'level', must be one of '%s'",
-                        $level,
+                        "Invalid value '%s' for 'size', must be one of '%s'",
+                        $size,
                         implode("', '", $allowedValues)
                     )
                 );
             }
         }
 
-        $this->container['level'] = $level;
+        $this->container['size'] = $size;
 
         return $this;
     }

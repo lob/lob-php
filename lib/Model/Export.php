@@ -1,6 +1,6 @@
 <?php
 /**
- * IntlSuggestions
+ * Export
  *
  * PHP version 7.3
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * IntlSuggestions Class Doc Comment
+ * Export Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -43,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
+class Export implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +52,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'intl_suggestions';
+    protected static $openAPIModelName = 'export';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,13 +60,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'primary_number_range' => 'string',
-        'primary_line' => 'string',
-        'city' => 'string',
+        'id' => 'string',
+        'date_created' => '\DateTime',
+        'date_modified' => '\DateTime',
+        'deleted' => 'bool',
+        's3_url' => 'string',
         'state' => 'string',
-        'country' => '\OpenAPI\Client\Model\CountryExtended',
-        'zip_code' => 'string',
-        'object' => 'string'
+        'type' => 'string',
+        'upload_id' => 'string'
     ];
 
     /**
@@ -77,13 +78,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'primary_number_range' => null,
-        'primary_line' => null,
-        'city' => null,
+        'id' => null,
+        'date_created' => 'date-time',
+        'date_modified' => 'date-time',
+        'deleted' => null,
+        's3_url' => null,
         'state' => null,
-        'country' => null,
-        'zip_code' => null,
-        'object' => null
+        'type' => null,
+        'upload_id' => null
     ];
 
     /**
@@ -113,13 +115,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'primary_number_range' => 'primary_number_range',
-        'primary_line' => 'primary_line',
-        'city' => 'city',
+        'id' => 'id',
+        'date_created' => 'dateCreated',
+        'date_modified' => 'dateModified',
+        'deleted' => 'deleted',
+        's3_url' => 's3Url',
         'state' => 'state',
-        'country' => 'country',
-        'zip_code' => 'zip_code',
-        'object' => 'object'
+        'type' => 'type',
+        'upload_id' => 'uploadId'
     ];
 
     /**
@@ -128,13 +131,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'primary_number_range' => 'setPrimaryNumberRange',
-        'primary_line' => 'setPrimaryLine',
-        'city' => 'setCity',
+        'id' => 'setId',
+        'date_created' => 'setDateCreated',
+        'date_modified' => 'setDateModified',
+        'deleted' => 'setDeleted',
+        's3_url' => 'setS3Url',
         'state' => 'setState',
-        'country' => 'setCountry',
-        'zip_code' => 'setZipCode',
-        'object' => 'setObject'
+        'type' => 'setType',
+        'upload_id' => 'setUploadId'
     ];
 
     /**
@@ -143,13 +147,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'primary_number_range' => 'getPrimaryNumberRange',
-        'primary_line' => 'getPrimaryLine',
-        'city' => 'getCity',
+        'id' => 'getId',
+        'date_created' => 'getDateCreated',
+        'date_modified' => 'getDateModified',
+        'deleted' => 'getDeleted',
+        's3_url' => 'getS3Url',
         'state' => 'getState',
-        'country' => 'getCountry',
-        'zip_code' => 'getZipCode',
-        'object' => 'getObject'
+        'type' => 'getType',
+        'upload_id' => 'getUploadId'
     ];
 
     /**
@@ -193,17 +198,38 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const OBJECT_INTL_AUTOCOMPLETION = 'intl_autocompletion';
+    const STATE_IN_PROGRESS = 'in_progress';
+    const STATE_FAILED = 'failed';
+    const STATE_SUCCEEDED = 'succeeded';
+    const TYPE_ALL = 'all';
+    const TYPE_FAILURES = 'failures';
+    const TYPE_SUCCESSES = 'successes';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getObjectAllowableValues()
+    public function getStateAllowableValues()
     {
         return [
-            self::OBJECT_INTL_AUTOCOMPLETION,
+            self::STATE_IN_PROGRESS,
+            self::STATE_FAILED,
+            self::STATE_SUCCEEDED,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTypeAllowableValues()
+    {
+        return [
+            self::TYPE_ALL,
+            self::TYPE_FAILURES,
+            self::TYPE_SUCCESSES,
         ];
     }
 
@@ -222,13 +248,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['primary_number_range'] = $data['primary_number_range'] ?? null;
-        $this->container['primary_line'] = $data['primary_line'] ?? null;
-        $this->container['city'] = $data['city'] ?? null;
+        $this->container['id'] = $data['id'] ?? null;
+        $this->container['date_created'] = $data['date_created'] ?? null;
+        $this->container['date_modified'] = $data['date_modified'] ?? null;
+        $this->container['deleted'] = $data['deleted'] ?? null;
+        $this->container['s3_url'] = $data['s3_url'] ?? null;
         $this->container['state'] = $data['state'] ?? null;
-        $this->container['country'] = $data['country'] ?? null;
-        $this->container['zip_code'] = $data['zip_code'] ?? null;
-        $this->container['object'] = $data['object'] ?? null;
+        $this->container['type'] = $data['type'] ?? null;
+        $this->container['upload_id'] = $data['upload_id'] ?? null;
     }
 
     /**
@@ -241,52 +268,74 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['primary_number_range'] === null) {
-                $invalidProperties[] = "'primary_number_range' can't be null";
+            if ($this->container['id'] === null) {
+                $invalidProperties[] = "'id' can't be null";
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['primary_line'] === null) {
-                $invalidProperties[] = "'primary_line' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['city'] === null) {
-                $invalidProperties[] = "'city' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($this->container['city']) > 200)) {
-                $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
+            if (!preg_match("/^ex_[a-zA-Z0-9]+$/", $this->container['id'])) {
+                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^ex_[a-zA-Z0-9]+$/.";
             }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['date_created'] === null) {
+                $invalidProperties[] = "'date_created' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['date_modified'] === null) {
+                $invalidProperties[] = "'date_modified' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['deleted'] === null) {
+                $invalidProperties[] = "'deleted' can't be null";
+            }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['state'] === null) {
                 $invalidProperties[] = "'state' can't be null";
             }
         }
+        $allowedValues = $this->getStateAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['country'] === null) {
-                $invalidProperties[] = "'country' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['zip_code'] === null) {
-                $invalidProperties[] = "'zip_code' can't be null";
-            }
-        }
-        $allowedValues = $this->getObjectAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
+            if (!is_null($this->container['state']) && !in_array($this->container['state'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'object', must be one of '%s'",
-                    $this->container['object'],
+                    "invalid value '%s' for 'state', must be one of '%s'",
+                    $this->container['state'],
                     implode("', '", $allowedValues)
                 );
             }
         }
 
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['type'] === null) {
+                $invalidProperties[] = "'type' can't be null";
+            }
+        }
+        $allowedValues = $this->getTypeAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'type', must be one of '%s'",
+                    $this->container['type'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['upload_id'] === null) {
+                $invalidProperties[] = "'upload_id' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!preg_match("/^upl_[a-zA-Z0-9]+$/", $this->container['upload_id'])) {
+                $invalidProperties[] = "invalid value for 'upload_id', must be conform to the pattern /^upl_[a-zA-Z0-9]+$/.";
+            }
+
+        }
         return $invalidProperties;
     }
 
@@ -304,81 +353,132 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets primary_number_range
+     * Gets id
      *
      * @return string
      */
-    public function getPrimaryNumberRange()
+    public function getId()
     {
-        return $this->container['primary_number_range'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets primary_number_range
+     * Sets id
      *
-     * @param string $primary_number_range The primary number range of the address that identifies a building at street level.
+     * @param string $id Unique identifier prefixed with `ex_`.
      *
      * @return self
      */
-    public function setPrimaryNumberRange($primary_number_range)
-    {
-        $this->container['primary_number_range'] = $primary_number_range;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets primary_line
-     *
-     * @return string
-     */
-    public function getPrimaryLine()
-    {
-        return $this->container['primary_line'];
-    }
-
-    /**
-     * Sets primary_line
-     *
-     * @param string $primary_line The primary delivery line (usually the street address) of the address. Combination of the following applicable `components` (primary number & secondary information may be missing or inaccurate): * `primary_number` * `street_predirection` * `street_name` * `street_suffix` * `street_postdirection` * `secondary_designator` * `secondary_number` * `pmb_designator` * `pmb_number`
-     *
-     * @return self
-     */
-    public function setPrimaryLine($primary_line)
-    {
-        $this->container['primary_line'] = $primary_line;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->container['city'];
-    }
-
-    /**
-     * Sets city
-     *
-     * @param string $city city
-     *
-     * @return self
-     */
-    public function setCity($city)
+    public function setId($id)
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($city) > 200)) {
-                throw new \InvalidArgumentException('invalid length for $city when calling IntlSuggestions., must be smaller than or equal to 200.');
+
+            if ((!preg_match("/^ex_[a-zA-Z0-9]+$/", $id))) {
+                throw new \InvalidArgumentException("invalid value for $id when calling Export., must conform to the pattern /^ex_[a-zA-Z0-9]+$/.");
             }
 
         }
-        $this->container['city'] = $city;
+        $this->container['id'] = $id;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets date_created
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->container['date_created'];
+    }
+
+    /**
+     * Sets date_created
+     *
+     * @param \DateTime $date_created A timestamp in ISO 8601 format of the date the export was created
+     *
+     * @return self
+     */
+    public function setDateCreated($date_created)
+    {
+        $this->container['date_created'] = $date_created;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets date_modified
+     *
+     * @return \DateTime
+     */
+    public function getDateModified()
+    {
+        return $this->container['date_modified'];
+    }
+
+    /**
+     * Sets date_modified
+     *
+     * @param \DateTime $date_modified A timestamp in ISO 8601 format of the date the export was last modified
+     *
+     * @return self
+     */
+    public function setDateModified($date_modified)
+    {
+        $this->container['date_modified'] = $date_modified;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets deleted
+     *
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->container['deleted'];
+    }
+
+    /**
+     * Sets deleted
+     *
+     * @param bool $deleted Returns as `true` if the resource has been successfully deleted.
+     *
+     * @return self
+     */
+    public function setDeleted($deleted)
+    {
+        $this->container['deleted'] = $deleted;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets s3_url
+     *
+     * @return string|null
+     */
+    public function getS3Url()
+    {
+        return $this->container['s3_url'];
+    }
+
+    /**
+     * Sets s3_url
+     *
+     * @param string|null $s3_url The URL for the generated export file.
+     *
+     * @return self
+     */
+    public function setS3Url($s3_url)
+    {
+        $this->container['s3_url'] = $s3_url;
 
         return $this;
     }
@@ -397,12 +497,25 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets state
      *
-     * @param string $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
+     * @param string $state The state of the export file, which can be `in_progress`, `failed` or `succeeded`.
      *
      * @return self
      */
     public function setState($state)
     {
+        $allowedValues = $this->getStateAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($state, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'state', must be one of '%s'",
+                        $state,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
         $this->container['state'] = $state;
 
         return $this;
@@ -410,88 +523,70 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets country
-     *
-     * @return \OpenAPI\Client\Model\CountryExtended
-     */
-    public function getCountry()
-    {
-        return $this->container['country'];
-    }
-
-    /**
-     * Sets country
-     *
-     * @param \OpenAPI\Client\Model\CountryExtended $country country
-     *
-     * @return self
-     */
-    public function setCountry($country)
-    {
-        $this->container['country'] = $country;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets zip_code
+     * Gets type
      *
      * @return string
      */
-    public function getZipCode()
+    public function getType()
     {
-        return $this->container['zip_code'];
+        return $this->container['type'];
     }
 
     /**
-     * Sets zip_code
+     * Sets type
      *
-     * @param string $zip_code A 5-digit zip code. Left empty if a test key is used.
+     * @param string $type The export file type, which can be `all`, `failures` or `successes`.
      *
      * @return self
      */
-    public function setZipCode($zip_code)
+    public function setType($type)
     {
-        $this->container['zip_code'] = $zip_code;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets object
-     *
-     * @return string|null
-     */
-    public function getObject()
-    {
-        return $this->container['object'];
-    }
-
-    /**
-     * Sets object
-     *
-     * @param string|null $object Value is resource type.
-     *
-     * @return self
-     */
-    public function setObject($object)
-    {
-        $allowedValues = $this->getObjectAllowableValues();
+        $allowedValues = $this->getTypeAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
+            if (!in_array($type, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
-                        "Invalid value '%s' for 'object', must be one of '%s'",
-                        $object,
+                        "Invalid value '%s' for 'type', must be one of '%s'",
+                        $type,
                         implode("', '", $allowedValues)
                     )
                 );
             }
         }
 
-        $this->container['object'] = $object;
+        $this->container['type'] = $type;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets upload_id
+     *
+     * @return string
+     */
+    public function getUploadId()
+    {
+        return $this->container['upload_id'];
+    }
+
+    /**
+     * Sets upload_id
+     *
+     * @param string $upload_id Unique identifier prefixed with `upl_`.
+     *
+     * @return self
+     */
+    public function setUploadId($upload_id)
+    {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+
+            if ((!preg_match("/^upl_[a-zA-Z0-9]+$/", $upload_id))) {
+                throw new \InvalidArgumentException("invalid value for $upload_id when calling Export., must conform to the pattern /^upl_[a-zA-Z0-9]+$/.");
+            }
+
+        }
+        $this->container['upload_id'] = $upload_id;
 
         return $this;
     }

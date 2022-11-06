@@ -1,6 +1,6 @@
 <?php
 /**
- * IntlSuggestions
+ * MultiLineAddress
  *
  * PHP version 7.3
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * IntlSuggestions Class Doc Comment
+ * MultiLineAddress Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -43,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
+class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +52,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'intl_suggestions';
+    protected static $openAPIModelName = 'multi_line_address';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,13 +60,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'primary_number_range' => 'string',
+        'recipient' => 'string',
+        'company' => 'string',
         'primary_line' => 'string',
+        'secondary_line' => 'string',
+        'urbanization' => 'string',
         'city' => 'string',
         'state' => 'string',
-        'country' => '\OpenAPI\Client\Model\CountryExtended',
-        'zip_code' => 'string',
-        'object' => 'string'
+        'zip_code' => 'string'
     ];
 
     /**
@@ -77,13 +78,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'primary_number_range' => null,
+        'recipient' => null,
+        'company' => null,
         'primary_line' => null,
+        'secondary_line' => null,
+        'urbanization' => null,
         'city' => null,
         'state' => null,
-        'country' => null,
-        'zip_code' => null,
-        'object' => null
+        'zip_code' => null
     ];
 
     /**
@@ -113,13 +115,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'primary_number_range' => 'primary_number_range',
+        'recipient' => 'recipient',
+        'company' => 'company',
         'primary_line' => 'primary_line',
+        'secondary_line' => 'secondary_line',
+        'urbanization' => 'urbanization',
         'city' => 'city',
         'state' => 'state',
-        'country' => 'country',
-        'zip_code' => 'zip_code',
-        'object' => 'object'
+        'zip_code' => 'zip_code'
     ];
 
     /**
@@ -128,13 +131,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'primary_number_range' => 'setPrimaryNumberRange',
+        'recipient' => 'setRecipient',
+        'company' => 'setCompany',
         'primary_line' => 'setPrimaryLine',
+        'secondary_line' => 'setSecondaryLine',
+        'urbanization' => 'setUrbanization',
         'city' => 'setCity',
         'state' => 'setState',
-        'country' => 'setCountry',
-        'zip_code' => 'setZipCode',
-        'object' => 'setObject'
+        'zip_code' => 'setZipCode'
     ];
 
     /**
@@ -143,13 +147,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'primary_number_range' => 'getPrimaryNumberRange',
+        'recipient' => 'getRecipient',
+        'company' => 'getCompany',
         'primary_line' => 'getPrimaryLine',
+        'secondary_line' => 'getSecondaryLine',
+        'urbanization' => 'getUrbanization',
         'city' => 'getCity',
         'state' => 'getState',
-        'country' => 'getCountry',
-        'zip_code' => 'getZipCode',
-        'object' => 'getObject'
+        'zip_code' => 'getZipCode'
     ];
 
     /**
@@ -193,19 +198,6 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const OBJECT_INTL_AUTOCOMPLETION = 'intl_autocompletion';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getObjectAllowableValues()
-    {
-        return [
-            self::OBJECT_INTL_AUTOCOMPLETION,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -222,13 +214,14 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['primary_number_range'] = $data['primary_number_range'] ?? null;
+        $this->container['recipient'] = $data['recipient'] ?? null;
+        $this->container['company'] = $data['company'] ?? null;
         $this->container['primary_line'] = $data['primary_line'] ?? null;
+        $this->container['secondary_line'] = $data['secondary_line'] ?? null;
+        $this->container['urbanization'] = $data['urbanization'] ?? null;
         $this->container['city'] = $data['city'] ?? null;
         $this->container['state'] = $data['state'] ?? null;
-        $this->container['country'] = $data['country'] ?? null;
         $this->container['zip_code'] = $data['zip_code'] ?? null;
-        $this->container['object'] = $data['object'] ?? null;
     }
 
     /**
@@ -241,9 +234,16 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['primary_number_range'] === null) {
-                $invalidProperties[] = "'primary_number_range' can't be null";
+            if (!is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
+                $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
             }
+
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
+                $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
+            }
+
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['primary_line'] === null) {
@@ -251,42 +251,41 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['city'] === null) {
-                $invalidProperties[] = "'city' can't be null";
+            if ((mb_strlen($this->container['primary_line']) > 500)) {
+                $invalidProperties[] = "invalid value for 'primary_line', the character length must be smaller than or equal to 500.";
             }
+
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($this->container['city']) > 200)) {
+            if (!is_null($this->container['secondary_line']) && (mb_strlen($this->container['secondary_line']) > 500)) {
+                $invalidProperties[] = "invalid value for 'secondary_line', the character length must be smaller than or equal to 500.";
+            }
+
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['urbanization']) && (mb_strlen($this->container['urbanization']) > 500)) {
+                $invalidProperties[] = "invalid value for 'urbanization', the character length must be smaller than or equal to 500.";
+            }
+
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 200)) {
                 $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 200.";
             }
 
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['state'] === null) {
-                $invalidProperties[] = "'state' can't be null";
+            if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 50)) {
+                $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 50.";
             }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['country'] === null) {
-                $invalidProperties[] = "'country' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['zip_code'] === null) {
-                $invalidProperties[] = "'zip_code' can't be null";
-            }
-        }
-        $allowedValues = $this->getObjectAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['object']) && !in_array($this->container['object'], $allowedValues, true)) {
-                $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'object', must be one of '%s'",
-                    $this->container['object'],
-                    implode("', '", $allowedValues)
-                );
-            }
-        }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['zip_code']) && !preg_match("/^\\d{5}((-)?\\d{4})?$/", $this->container['zip_code'])) {
+                $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}((-)?\\d{4})?$/.";
+            }
+
+        }
         return $invalidProperties;
     }
 
@@ -304,25 +303,62 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets primary_number_range
+     * Gets recipient
      *
-     * @return string
+     * @return string|null
      */
-    public function getPrimaryNumberRange()
+    public function getRecipient()
     {
-        return $this->container['primary_number_range'];
+        return $this->container['recipient'];
     }
 
     /**
-     * Sets primary_number_range
+     * Sets recipient
      *
-     * @param string $primary_number_range The primary number range of the address that identifies a building at street level.
+     * @param string|null $recipient The intended recipient, typically a person's or firm's name.
      *
      * @return self
      */
-    public function setPrimaryNumberRange($primary_number_range)
+    public function setRecipient($recipient)
     {
-        $this->container['primary_number_range'] = $primary_number_range;
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($recipient) && (mb_strlen($recipient) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $recipient when calling MultiLineAddress., must be smaller than or equal to 500.');
+            }
+
+        }
+        $this->container['recipient'] = $recipient;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets company
+     *
+     * @return string|null
+     */
+    public function getCompany()
+    {
+        return $this->container['company'];
+    }
+
+    /**
+     * Sets company
+     *
+     * @param string|null $company Either `name` or `company` is required, you may also add both.
+     *
+     * @return self
+     */
+    public function setCompany($company)
+    {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($company) && (mb_strlen($company) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $company when calling MultiLineAddress., must be smaller than or equal to 40.');
+            }
+
+        }
+        $this->container['company'] = $company;
 
         return $this;
     }
@@ -341,13 +377,81 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets primary_line
      *
-     * @param string $primary_line The primary delivery line (usually the street address) of the address. Combination of the following applicable `components` (primary number & secondary information may be missing or inaccurate): * `primary_number` * `street_predirection` * `street_name` * `street_suffix` * `street_postdirection` * `secondary_designator` * `secondary_number` * `pmb_designator` * `pmb_number`
+     * @param string $primary_line The primary delivery line (usually the street address) of the address. Combination of the following applicable `components`: * `primary_number` * `street_predirection` * `street_name` * `street_suffix` * `street_postdirection` * `secondary_designator` * `secondary_number` * `pmb_designator` * `pmb_number`
      *
      * @return self
      */
     public function setPrimaryLine($primary_line)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ((mb_strlen($primary_line) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $primary_line when calling MultiLineAddress., must be smaller than or equal to 500.');
+            }
+
+        }
         $this->container['primary_line'] = $primary_line;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets secondary_line
+     *
+     * @return string|null
+     */
+    public function getSecondaryLine()
+    {
+        return $this->container['secondary_line'];
+    }
+
+    /**
+     * Sets secondary_line
+     *
+     * @param string|null $secondary_line The secondary delivery line of the address. This field is typically empty but may contain information if `primary_line` is too long.
+     *
+     * @return self
+     */
+    public function setSecondaryLine($secondary_line)
+    {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($secondary_line) && (mb_strlen($secondary_line) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $secondary_line when calling MultiLineAddress., must be smaller than or equal to 500.');
+            }
+
+        }
+        $this->container['secondary_line'] = $secondary_line;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets urbanization
+     *
+     * @return string|null
+     */
+    public function getUrbanization()
+    {
+        return $this->container['urbanization'];
+    }
+
+    /**
+     * Sets urbanization
+     *
+     * @param string|null $urbanization Only present for addresses in Puerto Rico. An urbanization refers to an area, sector, or development within a city. See [USPS documentation](https://pe.usps.com/text/pub28/28api_008.htm#:~:text=I51.,-4%20Urbanizations&text=In%20Puerto%20Rico%2C%20identical%20street,placed%20before%20the%20urbanization%20name.) for clarification.
+     *
+     * @return self
+     */
+    public function setUrbanization($urbanization)
+    {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($urbanization) && (mb_strlen($urbanization) > 500)) {
+                throw new \InvalidArgumentException('invalid length for $urbanization when calling MultiLineAddress., must be smaller than or equal to 500.');
+            }
+
+        }
+        $this->container['urbanization'] = $urbanization;
 
         return $this;
     }
@@ -356,7 +460,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets city
      *
-     * @return string
+     * @return string|null
      */
     public function getCity()
     {
@@ -366,15 +470,15 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets city
      *
-     * @param string $city city
+     * @param string|null $city city
      *
      * @return self
      */
     public function setCity($city)
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($city) > 200)) {
-                throw new \InvalidArgumentException('invalid length for $city when calling IntlSuggestions., must be smaller than or equal to 200.');
+            if (!is_null($city) && (mb_strlen($city) > 200)) {
+                throw new \InvalidArgumentException('invalid length for $city when calling MultiLineAddress., must be smaller than or equal to 200.');
             }
 
         }
@@ -387,7 +491,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets state
      *
-     * @return string
+     * @return string|null
      */
     public function getState()
     {
@@ -397,38 +501,19 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets state
      *
-     * @param string $state The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) two letter code for the state.
+     * @param string|null $state The <a href=\"https://en.wikipedia.org/wiki/ISO_3166-2:US\" target=\"_blank\">ISO 3166-2</a> two letter code or subdivision name for the state. `city` and `state` are required if no `zip_code` is passed.
      *
      * @return self
      */
     public function setState($state)
     {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($state) && (mb_strlen($state) > 50)) {
+                throw new \InvalidArgumentException('invalid length for $state when calling MultiLineAddress., must be smaller than or equal to 50.');
+            }
+
+        }
         $this->container['state'] = $state;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets country
-     *
-     * @return \OpenAPI\Client\Model\CountryExtended
-     */
-    public function getCountry()
-    {
-        return $this->container['country'];
-    }
-
-    /**
-     * Sets country
-     *
-     * @param \OpenAPI\Client\Model\CountryExtended $country country
-     *
-     * @return self
-     */
-    public function setCountry($country)
-    {
-        $this->container['country'] = $country;
 
         return $this;
     }
@@ -437,7 +522,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets zip_code
      *
-     * @return string
+     * @return string|null
      */
     public function getZipCode()
     {
@@ -447,51 +532,20 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets zip_code
      *
-     * @param string $zip_code A 5-digit zip code. Left empty if a test key is used.
+     * @param string|null $zip_code Required if `city` and `state` are not passed in. If included, must be formatted as a US ZIP or ZIP+4 (e.g. `94107`, `941072282`, `94107-2282`).
      *
      * @return self
      */
     public function setZipCode($zip_code)
     {
-        $this->container['zip_code'] = $zip_code;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets object
-     *
-     * @return string|null
-     */
-    public function getObject()
-    {
-        return $this->container['object'];
-    }
-
-    /**
-     * Sets object
-     *
-     * @param string|null $object Value is resource type.
-     *
-     * @return self
-     */
-    public function setObject($object)
-    {
-        $allowedValues = $this->getObjectAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($object) && !in_array($object, $allowedValues, true)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        "Invalid value '%s' for 'object', must be one of '%s'",
-                        $object,
-                        implode("', '", $allowedValues)
-                    )
-                );
-            }
-        }
 
-        $this->container['object'] = $object;
+            if (!is_null($zip_code) && (!preg_match("/^\\d{5}((-)?\\d{4})?$/", $zip_code))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code when calling MultiLineAddress., must conform to the pattern /^\\d{5}((-)?\\d{4})?$/.");
+            }
+
+        }
+        $this->container['zip_code'] = $zip_code;
 
         return $this;
     }
