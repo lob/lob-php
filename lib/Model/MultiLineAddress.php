@@ -61,6 +61,7 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'recipient' => 'string',
+        'company' => 'string',
         'primary_line' => 'string',
         'secondary_line' => 'string',
         'urbanization' => 'string',
@@ -78,6 +79,7 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'recipient' => null,
+        'company' => null,
         'primary_line' => null,
         'secondary_line' => null,
         'urbanization' => null,
@@ -114,6 +116,7 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'recipient' => 'recipient',
+        'company' => 'company',
         'primary_line' => 'primary_line',
         'secondary_line' => 'secondary_line',
         'urbanization' => 'urbanization',
@@ -129,6 +132,7 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'recipient' => 'setRecipient',
+        'company' => 'setCompany',
         'primary_line' => 'setPrimaryLine',
         'secondary_line' => 'setSecondaryLine',
         'urbanization' => 'setUrbanization',
@@ -144,6 +148,7 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'recipient' => 'getRecipient',
+        'company' => 'getCompany',
         'primary_line' => 'getPrimaryLine',
         'secondary_line' => 'getSecondaryLine',
         'urbanization' => 'getUrbanization',
@@ -210,6 +215,7 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['recipient'] = $data['recipient'] ?? null;
+        $this->container['company'] = $data['company'] ?? null;
         $this->container['primary_line'] = $data['primary_line'] ?? null;
         $this->container['secondary_line'] = $data['secondary_line'] ?? null;
         $this->container['urbanization'] = $data['urbanization'] ?? null;
@@ -228,13 +234,14 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['recipient'] === null) {
-                $invalidProperties[] = "'recipient' can't be null";
+            if (!is_null($this->container['recipient']) && (mb_strlen($this->container['recipient']) > 500)) {
+                $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
             }
+
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($this->container['recipient']) > 500)) {
-                $invalidProperties[] = "invalid value for 'recipient', the character length must be smaller than or equal to 500.";
+            if (!is_null($this->container['company']) && (mb_strlen($this->container['company']) > 40)) {
+                $invalidProperties[] = "invalid value for 'company', the character length must be smaller than or equal to 40.";
             }
 
         }
@@ -298,7 +305,7 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets recipient
      *
-     * @return string
+     * @return string|null
      */
     public function getRecipient()
     {
@@ -308,19 +315,50 @@ class MultiLineAddress implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets recipient
      *
-     * @param string $recipient The intended recipient, typically a person's or firm's name.
+     * @param string|null $recipient The intended recipient, typically a person's or firm's name.
      *
      * @return self
      */
     public function setRecipient($recipient)
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((mb_strlen($recipient) > 500)) {
+            if (!is_null($recipient) && (mb_strlen($recipient) > 500)) {
                 throw new \InvalidArgumentException('invalid length for $recipient when calling MultiLineAddress., must be smaller than or equal to 500.');
             }
 
         }
         $this->container['recipient'] = $recipient;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets company
+     *
+     * @return string|null
+     */
+    public function getCompany()
+    {
+        return $this->container['company'];
+    }
+
+    /**
+     * Sets company
+     *
+     * @param string|null $company Either `name` or `company` is required, you may also add both.
+     *
+     * @return self
+     */
+    public function setCompany($company)
+    {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($company) && (mb_strlen($company) > 40)) {
+                throw new \InvalidArgumentException('invalid length for $company when calling MultiLineAddress., must be smaller than or equal to 40.');
+            }
+
+        }
+        $this->container['company'] = $company;
 
         return $this;
     }

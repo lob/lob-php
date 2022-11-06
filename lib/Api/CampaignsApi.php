@@ -1,6 +1,6 @@
 <?php
 /**
- * ChecksApi
+ * CampaignsApi
  * PHP version 7.3
  *
  * @category Class
@@ -43,14 +43,14 @@ use OpenAPI\Client\Model\LobError;
 use Jean85\PrettyVersions;
 
 /**
- * ChecksApi Class Doc Comment
+ * CampaignsApi Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class ChecksApi
+class CampaignsApi
 {
     /**
      * @var ClientInterface
@@ -150,36 +150,38 @@ class ChecksApi
     }
 
     /**
-     * Operation cancel
+     * Operation create
      *
-     * cancel
+     * create
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  \OpenAPI\Client\Model\CampaignWritable $campaign_writable campaign_writable (required)
+     * @param  string $x_lang_output * &#x60;native&#x60; - Translate response to the native language of the country in the request * &#x60;match&#x60; - match the response to the language in the request  Default response is in English. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\CheckDeletion|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\Campaign|\OpenAPI\Client\Model\LobError
      */
-    public function cancel($chk_id)
+    public function create($campaign_writable, $x_lang_output = null)
     {
-        $response = $this->cancelWithHttpInfo($chk_id);
+        $response = $this->createWithHttpInfo($campaign_writable, $x_lang_output);
         return $response;
     }
 
     /**
-     * Operation cancelWithHttpInfo
+     * Operation createWithHttpInfo
      *
-     * cancel
+     * create
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  \OpenAPI\Client\Model\CampaignWritable $campaign_writable (required)
+     * @param  string $x_lang_output * &#x60;native&#x60; - Translate response to the native language of the country in the request * &#x60;match&#x60; - match the response to the language in the request  Default response is in English. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\CheckDeletion|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Campaign|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelWithHttpInfo($chk_id)
+    public function createWithHttpInfo($campaign_writable, $x_lang_output = null)
     {
-        $request = $this->cancelRequest($chk_id);
+        $request = $this->createRequest($campaign_writable, $x_lang_output);
 
         try {
             $options = $this->createHttpClientOption();
@@ -221,7 +223,7 @@ class ChecksApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CheckDeletion', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Campaign', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -229,27 +231,172 @@ class ChecksApi
     }
 
     /**
-     * Create request for operation 'cancel'
+     * Create request for operation 'create'
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  \OpenAPI\Client\Model\CampaignWritable $campaign_writable (required)
+     * @param  string $x_lang_output * &#x60;native&#x60; - Translate response to the native language of the country in the request * &#x60;match&#x60; - match the response to the language in the request  Default response is in English. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function cancelRequest($chk_id)
+    public function createRequest($campaign_writable, $x_lang_output = null)
     {
-        // verify the required parameter 'chk_id' is set
-        if ($chk_id === null || (is_array($chk_id) && count($chk_id) === 0)) {
+        // verify the required parameter 'campaign_writable' is set
+        if ($campaign_writable === null || (is_array($campaign_writable) && count($campaign_writable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $chk_id when calling cancel'
+                'Missing the required parameter $campaign_writable when calling create'
             );
         }
-        if (!preg_match("/^chk_[a-zA-Z0-9]+$/", $chk_id)) {
-            throw new \InvalidArgumentException("invalid value for \"chk_id\" when calling ChecksApi.cancel, must conform to the pattern /^chk_[a-zA-Z0-9]+$/.");
+
+        $resourcePath = '/campaigns';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+
+
+        // header params
+        if ($x_lang_output !== null) {
+            $headerParams['x-lang-output'] = ObjectSerializer::toHeaderValue($x_lang_output);
         }
 
 
-        $resourcePath = '/checks/{chk_id}';
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json'],
+            ['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data']
+        );
+
+        // for model (json/xml)
+        if (isset($campaign_writable)) {
+            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($campaign_writable));
+        }
+
+        $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
+        }
+
+        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
+
+        $headers = array_merge(
+            $customHeaders,
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = $this->modified_build($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation delete
+     *
+     * delete
+     *
+     * @param  string $cmp_id id of the campaign (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\CampaignDeletion|\OpenAPI\Client\Model\LobError
+     */
+    public function delete($cmp_id)
+    {
+        $response = $this->deleteWithHttpInfo($cmp_id);
+        return $response;
+    }
+
+    /**
+     * Operation deleteWithHttpInfo
+     *
+     * delete
+     *
+     * @param  string $cmp_id id of the campaign (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\CampaignDeletion|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteWithHttpInfo($cmp_id)
+    {
+        $request = $this->deleteRequest($cmp_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            $requestError = null;
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
+                $requestError = new LobError();
+                $requestError->setMessage(get_object_vars($errorBody)["message"]);
+                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
+                $requestError->setCode(get_object_vars($errorBody)["code"]);
+
+                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
+                throw $exception;
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            // This catches any non-successful status
+            $statusCode = $response->getStatusCode();
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+            
+            // Since all non successes are thrown above, we can assume success
+            $content = (string) $response->getBody();
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CampaignDeletion', []);
+            
+        } catch (ApiException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Create request for operation 'delete'
+     *
+     * @param  string $cmp_id id of the campaign (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteRequest($cmp_id)
+    {
+        // verify the required parameter 'cmp_id' is set
+        if ($cmp_id === null || (is_array($cmp_id) && count($cmp_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $cmp_id when calling delete'
+            );
+        }
+        if (!preg_match("/^cmp_[a-zA-Z0-9]+$/", $cmp_id)) {
+            throw new \InvalidArgumentException("invalid value for \"cmp_id\" when calling CampaignsApi.delete, must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
+        }
+
+
+        $resourcePath = '/campaigns/{cmp_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -258,10 +405,10 @@ class ChecksApi
 
 
         // path params
-        if ($chk_id !== null) {
+        if ($cmp_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'chk_id' . '}',
-                ObjectSerializer::toPathValue($chk_id),
+                '{' . 'cmp_id' . '}',
+                ObjectSerializer::toPathValue($cmp_id),
                 $resourcePath
             );
         }
@@ -300,170 +447,19 @@ class ChecksApi
     }
 
     /**
-     * Operation create
-     *
-     * create
-     *
-     * @param  \OpenAPI\Client\Model\CheckEditable $check_editable check_editable (required)
-     * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError
-     */
-    public function create($check_editable, $idempotency_key = null)
-    {
-        $response = $this->createWithHttpInfo($check_editable, $idempotency_key);
-        return $response;
-    }
-
-    /**
-     * Operation createWithHttpInfo
-     *
-     * create
-     *
-     * @param  \OpenAPI\Client\Model\CheckEditable $check_editable (required)
-     * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function createWithHttpInfo($check_editable, $idempotency_key = null)
-    {
-        $request = $this->createRequest($check_editable, $idempotency_key);
-
-        try {
-            $options = $this->createHttpClientOption();
-            $requestError = null;
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
-                $requestError = new LobError();
-                $requestError->setMessage(get_object_vars($errorBody)["message"]);
-                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
-                $requestError->setCode(get_object_vars($errorBody)["code"]);
-
-                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
-                throw $exception;
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            // This catches any non-successful status
-            $statusCode = $response->getStatusCode();
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-            
-            // Since all non successes are thrown above, we can assume success
-            $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Check', []);
-            
-        } catch (ApiException $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Create request for operation 'create'
-     *
-     * @param  \OpenAPI\Client\Model\CheckEditable $check_editable (required)
-     * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function createRequest($check_editable, $idempotency_key = null)
-    {
-        // verify the required parameter 'check_editable' is set
-        if ($check_editable === null || (is_array($check_editable) && count($check_editable) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $check_editable when calling create'
-            );
-        }
-        if ($idempotency_key !== null && strlen($idempotency_key) > 256) {
-            throw new \InvalidArgumentException('invalid length for "$idempotency_key" when calling ChecksApi.create, must be smaller than or equal to 256.');
-        }
-
-
-        $resourcePath = '/checks';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-
-
-        // header params
-        if ($idempotency_key !== null) {
-            $headerParams['Idempotency-Key'] = ObjectSerializer::toHeaderValue($idempotency_key);
-        }
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json'],
-            ['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data']
-        );
-
-        // for model (json/xml)
-        if (isset($check_editable)) {
-            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($check_editable));
-        }
-
-        $defaultHeaders = [];
-        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
-        }
-
-        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
-
-        $headers = array_merge(
-            $customHeaders,
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = $this->modified_build($queryParams);
-        return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation get
      *
      * get
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  string $cmp_id id of the campaign (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\Campaign|\OpenAPI\Client\Model\LobError
      */
-    public function get($chk_id)
+    public function get($cmp_id)
     {
-        $response = $this->getWithHttpInfo($chk_id);
+        $response = $this->getWithHttpInfo($cmp_id);
         return $response;
     }
 
@@ -472,15 +468,15 @@ class ChecksApi
      *
      * get
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  string $cmp_id id of the campaign (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Check|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Campaign|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWithHttpInfo($chk_id)
+    public function getWithHttpInfo($cmp_id)
     {
-        $request = $this->getRequest($chk_id);
+        $request = $this->getRequest($cmp_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -522,7 +518,7 @@ class ChecksApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Check', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Campaign', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -532,25 +528,25 @@ class ChecksApi
     /**
      * Create request for operation 'get'
      *
-     * @param  string $chk_id id of the check (required)
+     * @param  string $cmp_id id of the campaign (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getRequest($chk_id)
+    public function getRequest($cmp_id)
     {
-        // verify the required parameter 'chk_id' is set
-        if ($chk_id === null || (is_array($chk_id) && count($chk_id) === 0)) {
+        // verify the required parameter 'cmp_id' is set
+        if ($cmp_id === null || (is_array($cmp_id) && count($cmp_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $chk_id when calling get'
+                'Missing the required parameter $cmp_id when calling get'
             );
         }
-        if (!preg_match("/^chk_[a-zA-Z0-9]+$/", $chk_id)) {
-            throw new \InvalidArgumentException("invalid value for \"chk_id\" when calling ChecksApi.get, must conform to the pattern /^chk_[a-zA-Z0-9]+$/.");
+        if (!preg_match("/^cmp_[a-zA-Z0-9]+$/", $cmp_id)) {
+            throw new \InvalidArgumentException("invalid value for \"cmp_id\" when calling CampaignsApi.get, must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
         }
 
 
-        $resourcePath = '/checks/{chk_id}';
+        $resourcePath = '/campaigns/{cmp_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -559,10 +555,10 @@ class ChecksApi
 
 
         // path params
-        if ($chk_id !== null) {
+        if ($cmp_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'chk_id' . '}',
-                ObjectSerializer::toPathValue($chk_id),
+                '{' . 'cmp_id' . '}',
+                ObjectSerializer::toPathValue($cmp_id),
                 $resourcePath
             );
         }
@@ -601,54 +597,38 @@ class ChecksApi
     }
 
     /**
-     * Operation list
+     * Operation update
      *
-     * list
+     * update
      *
-     * @param  int $limit How many results to return. (optional, default to 10)
-     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
-     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
-     * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
-     * @param  array<string,string> $send_date Filter by date sent. (optional)
-     * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  string $cmp_id id of the campaign (required)
+     * @param  \OpenAPI\Client\Model\CampaignUpdatable $campaign_updatable campaign_updatable (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\CheckList|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\Campaign|\OpenAPI\Client\Model\LobError
      */
-    public function list($limit = 10, $before = null, $after = null, $include = null, $date_created = null, $metadata = null, $scheduled = null, $send_date = null, $mail_type = null, $sort_by = null)
+    public function update($cmp_id, $campaign_updatable)
     {
-        $response = $this->listWithHttpInfo($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by);
+        $response = $this->updateWithHttpInfo($cmp_id, $campaign_updatable);
         return $response;
     }
 
     /**
-     * Operation listWithHttpInfo
+     * Operation updateWithHttpInfo
      *
-     * list
+     * update
      *
-     * @param  int $limit How many results to return. (optional, default to 10)
-     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
-     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
-     * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
-     * @param  array<string,string> $send_date Filter by date sent. (optional)
-     * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  string $cmp_id id of the campaign (required)
+     * @param  \OpenAPI\Client\Model\CampaignUpdatable $campaign_updatable (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\CheckList|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Campaign|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listWithHttpInfo($limit = 10, $before = null, $after = null, $include = null, $date_created = null, $metadata = null, $scheduled = null, $send_date = null, $mail_type = null, $sort_by = null)
+    public function updateWithHttpInfo($cmp_id, $campaign_updatable)
     {
-        $request = $this->listRequest($limit, $before, $after, $include, $date_created, $metadata, $scheduled, $send_date, $mail_type, $sort_by);
+        $request = $this->updateRequest($cmp_id, $campaign_updatable);
 
         try {
             $options = $this->createHttpClientOption();
@@ -690,7 +670,172 @@ class ChecksApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CheckList', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Campaign', []);
+            
+        } catch (ApiException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Create request for operation 'update'
+     *
+     * @param  string $cmp_id id of the campaign (required)
+     * @param  \OpenAPI\Client\Model\CampaignUpdatable $campaign_updatable (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateRequest($cmp_id, $campaign_updatable)
+    {
+        // verify the required parameter 'cmp_id' is set
+        if ($cmp_id === null || (is_array($cmp_id) && count($cmp_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $cmp_id when calling update'
+            );
+        }
+        if (!preg_match("/^cmp_[a-zA-Z0-9]+$/", $cmp_id)) {
+            throw new \InvalidArgumentException("invalid value for \"cmp_id\" when calling CampaignsApi.update, must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
+        }
+
+        // verify the required parameter 'campaign_updatable' is set
+        if ($campaign_updatable === null || (is_array($campaign_updatable) && count($campaign_updatable) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $campaign_updatable when calling update'
+            );
+        }
+
+        $resourcePath = '/campaigns/{cmp_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+
+
+
+        // path params
+        if ($cmp_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'cmp_id' . '}',
+                ObjectSerializer::toPathValue($cmp_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json'],
+            ['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data']
+        );
+
+        // for model (json/xml)
+        if (isset($campaign_updatable)) {
+            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($campaign_updatable));
+        }
+
+        $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
+        }
+
+        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
+
+        $headers = array_merge(
+            $customHeaders,
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = $this->modified_build($queryParams);
+        return new Request(
+            'PATCH',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation list
+     *
+     * list
+     *
+     * @param  int $limit How many results to return. (optional, default to 10)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
+     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
+     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\CampaignsList
+     */
+    public function list($limit = 10, $include = null, $before = null, $after = null)
+    {
+        $response = $this->listWithHttpInfo($limit, $include, $before, $after);
+        return $response;
+    }
+
+    /**
+     * Operation listWithHttpInfo
+     *
+     * list
+     *
+     * @param  int $limit How many results to return. (optional, default to 10)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
+     * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
+     * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\CampaignsList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listWithHttpInfo($limit = 10, $include = null, $before = null, $after = null)
+    {
+        $request = $this->listRequest($limit, $include, $before, $after);
+
+        try {
+            $options = $this->createHttpClientOption();
+            $requestError = null;
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
+                $requestError = new LobError();
+                $requestError->setMessage(get_object_vars($errorBody)["message"]);
+                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
+                $requestError->setCode(get_object_vars($errorBody)["code"]);
+
+                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
+                throw $exception;
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            // This catches any non-successful status
+            $statusCode = $response->getStatusCode();
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+            
+            // Since all non successes are thrown above, we can assume success
+            $content = (string) $response->getBody();
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CampaignsList', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -701,37 +846,24 @@ class ChecksApi
      * Create request for operation 'list'
      *
      * @param  int $limit How many results to return. (optional, default to 10)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $metadata Filter by metadata key-value pair&#x60;. (optional)
-     * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
-     * @param  array<string,string> $send_date Filter by date sent. (optional)
-     * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listRequest($limit = 10, $before = null, $after = null, $include = null, $date_created = null, $metadata = null, $scheduled = null, $send_date = null, $mail_type = null, $sort_by = null)
+    public function listRequest($limit = 10, $include = null, $before = null, $after = null)
     {
         if ($limit !== null && $limit > 100) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling ChecksApi.list, must be smaller than or equal to 100.');
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling CampaignsApi.list, must be smaller than or equal to 100.');
         }
         if ($limit !== null && $limit < 1) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling ChecksApi.list, must be bigger than or equal to 1.');
-        }
-
-        if ($metadata !== null && strlen($metadata) > 500) {
-            throw new \InvalidArgumentException('invalid length for "$metadata" when calling ChecksApi.list, must be smaller than or equal to 500.');
-        }
-        if ($metadata !== null && !preg_match("/[^\"\\\\]{0,500}/", $metadata)) {
-            throw new \InvalidArgumentException("invalid value for \"metadata\" when calling ChecksApi.list, must conform to the pattern /[^\"\\\\]{0,500}/.");
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling CampaignsApi.list, must be bigger than or equal to 1.');
         }
 
 
-        $resourcePath = '/checks';
+        $resourcePath = '/campaigns';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -742,40 +874,16 @@ class ChecksApi
             $queryParams['limit'] = $limit;
         }
         // query params
+        if ($include !== null) {
+            $queryParams['include'] = $include;
+        }
+        // query params
         if ($before !== null) {
             $queryParams['before'] = $before;
         }
         // query params
         if ($after !== null) {
             $queryParams['after'] = $after;
-        }
-        // query params
-        if ($include !== null) {
-            $queryParams['include'] = $include;
-        }
-        // query params
-        if ($date_created !== null) {
-            $queryParams['date_created'] = $date_created;
-        }
-        // query params
-        if ($metadata !== null) {
-            $queryParams['metadata'] = $metadata;
-        }
-        // query params
-        if ($scheduled !== null) {
-            $queryParams['scheduled'] = $scheduled;
-        }
-        // query params
-        if ($send_date !== null) {
-            $queryParams['send_date'] = $send_date;
-        }
-        // query params
-        if ($mail_type !== null) {
-            $queryParams['mail_type'] = $mail_type;
-        }
-        // query params
-        if ($sort_by !== null) {
-            $queryParams['sort_by'] = $sort_by;
         }
 
 

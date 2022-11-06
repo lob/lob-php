@@ -34,6 +34,7 @@ use \OpenAPI\Client\ObjectSerializer;
 use PHPUnit\Framework\TestCase;
 use \OpenAPI\Client\Api\IntlAutocompletionsApi;
 use \OpenAPI\Client\Model\IntlAutocompletionsWritable;
+use \OpenAPI\Client\Model\CountryExtended;
 
 /**
  * IntlAutocompletionsApiSpecTest Class Doc Comment
@@ -106,7 +107,7 @@ class IntlAutocompletionsApiSpecTest extends TestCase
             $testAutocompletion = new IntlAutocompletionsWritable();
             $testAutocompletion->setAddressPrefix("35 T");
             $testAutocompletion->setZipCode("EC3N 4DR");
-            $testAutocompletion->setCountry("GB");
+            $testAutocompletion->setCountry(CountryExtended::GB->value);
 
             $wrongConfig = new Configuration();
             $wrongConfig->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
@@ -129,7 +130,7 @@ class IntlAutocompletionsApiSpecTest extends TestCase
         $errorAutocompletion = new IntlAutocompletionsWritable();
         $errorAutocompletion->setCity("LONDON");
         $errorAutocompletion->setZipCode("EC3N 4DR");
-        $errorAutocompletion->setCountry("GB");
+        $errorAutocompletion->setCountry(CountryExtended::GB->value);
 
         $this->expectException(ApiException::class);
         $this->expectExceptionMessageMatches("/address_prefix is required/");

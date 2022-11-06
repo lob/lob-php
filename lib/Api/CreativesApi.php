@@ -1,6 +1,6 @@
 <?php
 /**
- * BillingGroupsApi
+ * CreativesApi
  * PHP version 7.3
  *
  * @category Class
@@ -43,14 +43,14 @@ use OpenAPI\Client\Model\LobError;
 use Jean85\PrettyVersions;
 
 /**
- * BillingGroupsApi Class Doc Comment
+ * CreativesApi Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class BillingGroupsApi
+class CreativesApi
 {
     /**
      * @var ClientInterface
@@ -154,15 +154,16 @@ class BillingGroupsApi
      *
      * create
      *
-     * @param  \OpenAPI\Client\Model\BillingGroupEditable $billing_group_editable billing_group_editable (required)
+     * @param  \OpenAPI\Client\Model\CreativeWritable $creative_writable creative_writable (required)
+     * @param  string $x_lang_output * &#x60;native&#x60; - Translate response to the native language of the country in the request * &#x60;match&#x60; - match the response to the language in the request  Default response is in English. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\BillingGroup|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\CreativeResponse|\OpenAPI\Client\Model\LobError
      */
-    public function create($billing_group_editable)
+    public function create($creative_writable, $x_lang_output = null)
     {
-        $response = $this->createWithHttpInfo($billing_group_editable);
+        $response = $this->createWithHttpInfo($creative_writable, $x_lang_output);
         return $response;
     }
 
@@ -171,15 +172,16 @@ class BillingGroupsApi
      *
      * create
      *
-     * @param  \OpenAPI\Client\Model\BillingGroupEditable $billing_group_editable (required)
+     * @param  \OpenAPI\Client\Model\CreativeWritable $creative_writable (required)
+     * @param  string $x_lang_output * &#x60;native&#x60; - Translate response to the native language of the country in the request * &#x60;match&#x60; - match the response to the language in the request  Default response is in English. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\BillingGroup|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\CreativeResponse|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createWithHttpInfo($billing_group_editable)
+    public function createWithHttpInfo($creative_writable, $x_lang_output = null)
     {
-        $request = $this->createRequest($billing_group_editable);
+        $request = $this->createRequest($creative_writable, $x_lang_output);
 
         try {
             $options = $this->createHttpClientOption();
@@ -221,7 +223,7 @@ class BillingGroupsApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\BillingGroup', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CreativeResponse', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -231,27 +233,32 @@ class BillingGroupsApi
     /**
      * Create request for operation 'create'
      *
-     * @param  \OpenAPI\Client\Model\BillingGroupEditable $billing_group_editable (required)
+     * @param  \OpenAPI\Client\Model\CreativeWritable $creative_writable (required)
+     * @param  string $x_lang_output * &#x60;native&#x60; - Translate response to the native language of the country in the request * &#x60;match&#x60; - match the response to the language in the request  Default response is in English. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createRequest($billing_group_editable)
+    public function createRequest($creative_writable, $x_lang_output = null)
     {
-        // verify the required parameter 'billing_group_editable' is set
-        if ($billing_group_editable === null || (is_array($billing_group_editable) && count($billing_group_editable) === 0)) {
+        // verify the required parameter 'creative_writable' is set
+        if ($creative_writable === null || (is_array($creative_writable) && count($creative_writable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $billing_group_editable when calling create'
+                'Missing the required parameter $creative_writable when calling create'
             );
         }
 
-        $resourcePath = '/billing_groups';
+        $resourcePath = '/creatives';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
 
 
+        // header params
+        if ($x_lang_output !== null) {
+            $headerParams['x-lang-output'] = ObjectSerializer::toHeaderValue($x_lang_output);
+        }
 
 
 
@@ -261,8 +268,8 @@ class BillingGroupsApi
         );
 
         // for model (json/xml)
-        if (isset($billing_group_editable)) {
-            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($billing_group_editable));
+        if (isset($creative_writable)) {
+            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($creative_writable));
         }
 
         $defaultHeaders = [];
@@ -294,15 +301,15 @@ class BillingGroupsApi
      *
      * get
      *
-     * @param  string $bg_id id of the billing_group (required)
+     * @param  string $crv_id id of the creative (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\BillingGroup|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\CreativeResponse|\OpenAPI\Client\Model\LobError
      */
-    public function get($bg_id)
+    public function get($crv_id)
     {
-        $response = $this->getWithHttpInfo($bg_id);
+        $response = $this->getWithHttpInfo($crv_id);
         return $response;
     }
 
@@ -311,15 +318,15 @@ class BillingGroupsApi
      *
      * get
      *
-     * @param  string $bg_id id of the billing_group (required)
+     * @param  string $crv_id id of the creative (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\BillingGroup|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\CreativeResponse|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWithHttpInfo($bg_id)
+    public function getWithHttpInfo($crv_id)
     {
-        $request = $this->getRequest($bg_id);
+        $request = $this->getRequest($crv_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -361,7 +368,7 @@ class BillingGroupsApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\BillingGroup', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CreativeResponse', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -371,25 +378,25 @@ class BillingGroupsApi
     /**
      * Create request for operation 'get'
      *
-     * @param  string $bg_id id of the billing_group (required)
+     * @param  string $crv_id id of the creative (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getRequest($bg_id)
+    public function getRequest($crv_id)
     {
-        // verify the required parameter 'bg_id' is set
-        if ($bg_id === null || (is_array($bg_id) && count($bg_id) === 0)) {
+        // verify the required parameter 'crv_id' is set
+        if ($crv_id === null || (is_array($crv_id) && count($crv_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bg_id when calling get'
+                'Missing the required parameter $crv_id when calling get'
             );
         }
-        if (!preg_match("/^bg_[a-zA-Z0-9]+$/", $bg_id)) {
-            throw new \InvalidArgumentException("invalid value for \"bg_id\" when calling BillingGroupsApi.get, must conform to the pattern /^bg_[a-zA-Z0-9]+$/.");
+        if (!preg_match("/^crv_[a-zA-Z0-9]+$/", $crv_id)) {
+            throw new \InvalidArgumentException("invalid value for \"crv_id\" when calling CreativesApi.get, must conform to the pattern /^crv_[a-zA-Z0-9]+$/.");
         }
 
 
-        $resourcePath = '/billing_groups/{bg_id}';
+        $resourcePath = '/creatives/{crv_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -398,10 +405,10 @@ class BillingGroupsApi
 
 
         // path params
-        if ($bg_id !== null) {
+        if ($crv_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'bg_id' . '}',
-                ObjectSerializer::toPathValue($bg_id),
+                '{' . 'crv_id' . '}',
+                ObjectSerializer::toPathValue($crv_id),
                 $resourcePath
             );
         }
@@ -444,16 +451,16 @@ class BillingGroupsApi
      *
      * update
      *
-     * @param  string $bg_id id of the billing_group (required)
-     * @param  \OpenAPI\Client\Model\BillingGroupEditable $billing_group_editable billing_group_editable (required)
+     * @param  string $crv_id id of the creative (required)
+     * @param  \OpenAPI\Client\Model\CreativePatch $creative_patch creative_patch (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\BillingGroup|\OpenAPI\Client\Model\LobError
+     * @return \OpenAPI\Client\Model\CreativeResponse|\OpenAPI\Client\Model\LobError
      */
-    public function update($bg_id, $billing_group_editable)
+    public function update($crv_id, $creative_patch)
     {
-        $response = $this->updateWithHttpInfo($bg_id, $billing_group_editable);
+        $response = $this->updateWithHttpInfo($crv_id, $creative_patch);
         return $response;
     }
 
@@ -462,16 +469,16 @@ class BillingGroupsApi
      *
      * update
      *
-     * @param  string $bg_id id of the billing_group (required)
-     * @param  \OpenAPI\Client\Model\BillingGroupEditable $billing_group_editable (required)
+     * @param  string $crv_id id of the creative (required)
+     * @param  \OpenAPI\Client\Model\CreativePatch $creative_patch (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\BillingGroup|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\CreativeResponse|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateWithHttpInfo($bg_id, $billing_group_editable)
+    public function updateWithHttpInfo($crv_id, $creative_patch)
     {
-        $request = $this->updateRequest($bg_id, $billing_group_editable);
+        $request = $this->updateRequest($crv_id, $creative_patch);
 
         try {
             $options = $this->createHttpClientOption();
@@ -513,7 +520,7 @@ class BillingGroupsApi
             
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\BillingGroup', []);
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\CreativeResponse', []);
             
         } catch (ApiException $e) {
             throw $e;
@@ -523,32 +530,32 @@ class BillingGroupsApi
     /**
      * Create request for operation 'update'
      *
-     * @param  string $bg_id id of the billing_group (required)
-     * @param  \OpenAPI\Client\Model\BillingGroupEditable $billing_group_editable (required)
+     * @param  string $crv_id id of the creative (required)
+     * @param  \OpenAPI\Client\Model\CreativePatch $creative_patch (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function updateRequest($bg_id, $billing_group_editable)
+    public function updateRequest($crv_id, $creative_patch)
     {
-        // verify the required parameter 'bg_id' is set
-        if ($bg_id === null || (is_array($bg_id) && count($bg_id) === 0)) {
+        // verify the required parameter 'crv_id' is set
+        if ($crv_id === null || (is_array($crv_id) && count($crv_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bg_id when calling update'
+                'Missing the required parameter $crv_id when calling update'
             );
         }
-        if (!preg_match("/^bg_[a-zA-Z0-9]+$/", $bg_id)) {
-            throw new \InvalidArgumentException("invalid value for \"bg_id\" when calling BillingGroupsApi.update, must conform to the pattern /^bg_[a-zA-Z0-9]+$/.");
+        if (!preg_match("/^crv_[a-zA-Z0-9]+$/", $crv_id)) {
+            throw new \InvalidArgumentException("invalid value for \"crv_id\" when calling CreativesApi.update, must conform to the pattern /^crv_[a-zA-Z0-9]+$/.");
         }
 
-        // verify the required parameter 'billing_group_editable' is set
-        if ($billing_group_editable === null || (is_array($billing_group_editable) && count($billing_group_editable) === 0)) {
+        // verify the required parameter 'creative_patch' is set
+        if ($creative_patch === null || (is_array($creative_patch) && count($creative_patch) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $billing_group_editable when calling update'
+                'Missing the required parameter $creative_patch when calling update'
             );
         }
 
-        $resourcePath = '/billing_groups/{bg_id}';
+        $resourcePath = '/creatives/{crv_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -557,10 +564,10 @@ class BillingGroupsApi
 
 
         // path params
-        if ($bg_id !== null) {
+        if ($crv_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'bg_id' . '}',
-                ObjectSerializer::toPathValue($bg_id),
+                '{' . 'crv_id' . '}',
+                ObjectSerializer::toPathValue($crv_id),
                 $resourcePath
             );
         }
@@ -572,8 +579,8 @@ class BillingGroupsApi
         );
 
         // for model (json/xml)
-        if (isset($billing_group_editable)) {
-            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($billing_group_editable));
+        if (isset($creative_patch)) {
+            $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($creative_patch));
         }
 
         $defaultHeaders = [];
@@ -593,185 +600,7 @@ class BillingGroupsApi
 
         $query = $this->modified_build($queryParams);
         return new Request(
-            'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation list
-     *
-     * list
-     *
-     * @param  int $limit How many results to return. (optional, default to 10)
-     * @param  int $offset An integer that designates the offset at which to begin returning results. Defaults to 0. (optional, default to 0)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $date_modified Filter by date modified. (optional)
-     * @param  SortByDateModified $sort_by_date_modified Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;date_modfied&#x60;, not both. (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\BillingGroupList|\OpenAPI\Client\Model\LobError
-     */
-    public function list($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by_date_modified = null)
-    {
-        $response = $this->listWithHttpInfo($limit, $offset, $include, $date_created, $date_modified, $sort_by_date_modified);
-        return $response;
-    }
-
-    /**
-     * Operation listWithHttpInfo
-     *
-     * list
-     *
-     * @param  int $limit How many results to return. (optional, default to 10)
-     * @param  int $offset An integer that designates the offset at which to begin returning results. Defaults to 0. (optional, default to 0)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $date_modified Filter by date modified. (optional)
-     * @param  SortByDateModified $sort_by_date_modified Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;date_modfied&#x60;, not both. (optional)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\BillingGroupList|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function listWithHttpInfo($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by_date_modified = null)
-    {
-        $request = $this->listRequest($limit, $offset, $include, $date_created, $date_modified, $sort_by_date_modified);
-
-        try {
-            $options = $this->createHttpClientOption();
-            $requestError = null;
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
-                $requestError = new LobError();
-                $requestError->setMessage(get_object_vars($errorBody)["message"]);
-                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
-                $requestError->setCode(get_object_vars($errorBody)["code"]);
-
-                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
-                throw $exception;
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            // This catches any non-successful status
-            $statusCode = $response->getStatusCode();
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-            
-            // Since all non successes are thrown above, we can assume success
-            $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\BillingGroupList', []);
-            
-        } catch (ApiException $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Create request for operation 'list'
-     *
-     * @param  int $limit How many results to return. (optional, default to 10)
-     * @param  int $offset An integer that designates the offset at which to begin returning results. Defaults to 0. (optional, default to 0)
-     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
-     * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
-     * @param  array<string,string> $date_modified Filter by date modified. (optional)
-     * @param  SortByDateModified $sort_by_date_modified Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;date_modfied&#x60;, not both. (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function listRequest($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by_date_modified = null)
-    {
-        if ($limit !== null && $limit > 100) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling BillingGroupsApi.list, must be smaller than or equal to 100.');
-        }
-        if ($limit !== null && $limit < 1) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling BillingGroupsApi.list, must be bigger than or equal to 1.');
-        }
-
-
-        $resourcePath = '/billing_groups';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-
-        // query params
-        if ($limit !== null) {
-            $queryParams['limit'] = $limit;
-        }
-        // query params
-        if ($offset !== null) {
-            $queryParams['offset'] = $offset;
-        }
-        // query params
-        if ($include !== null) {
-            $queryParams['include'] = $include;
-        }
-        // query params
-        if ($date_created !== null) {
-            $queryParams['date_created'] = $date_created;
-        }
-        // query params
-        if ($date_modified !== null) {
-            $queryParams['date_modified'] = $date_modified;
-        }
-        // query params
-        if ($sort_by_date_modified !== null) {
-            $queryParams['sort_by_date_modified'] = $sort_by_date_modified;
-        }
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json'],
-            []
-        );
-
-        // for model (json/xml)
-
-
-        $defaultHeaders = [];
-        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
-        }
-
-        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
-
-        $headers = array_merge(
-            $customHeaders,
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = $this->modified_build($queryParams);
-        return new Request(
-            'GET',
+            'PATCH',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

@@ -1,6 +1,6 @@
 <?php
 /**
- * LobConfidenceScore
+ * ExportModel
  *
  * PHP version 7.3
  *
@@ -33,10 +33,9 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * LobConfidenceScore Class Doc Comment
+ * ExportModel Class Doc Comment
  *
  * @category Class
- * @description Lob Confidence Score is a nested object that provides a numerical value between 0-100 of the likelihood that an address is deliverable based on Lob’s mail delivery data to over half of US households.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializable
+class ExportModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +52,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'lob_confidence_score';
+    protected static $openAPIModelName = 'export_model';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +60,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'score' => 'float',
-        'level' => 'string'
+        'type' => 'string'
     ];
 
     /**
@@ -73,8 +71,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'score' => 'float',
-        'level' => null
+        'type' => null
     ];
 
     /**
@@ -104,8 +101,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'score' => 'score',
-        'level' => 'level'
+        'type' => 'type'
     ];
 
     /**
@@ -114,8 +110,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'score' => 'setScore',
-        'level' => 'setLevel'
+        'type' => 'setType'
     ];
 
     /**
@@ -124,8 +119,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'score' => 'getScore',
-        'level' => 'getLevel'
+        'type' => 'getType'
     ];
 
     /**
@@ -169,23 +163,21 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
-    const LEVEL_HIGH = 'high';
-    const LEVEL_MEDIUM = 'medium';
-    const LEVEL_LOW = 'low';
-    const LEVEL_EMPTY = '';
+    const TYPE_ALL = 'all';
+    const TYPE_FAILURES = 'failures';
+    const TYPE_SUCCESSES = 'successes';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getLevelAllowableValues()
+    public function getTypeAllowableValues()
     {
         return [
-            self::LEVEL_HIGH,
-            self::LEVEL_MEDIUM,
-            self::LEVEL_LOW,
-            self::LEVEL_EMPTY,
+            self::TYPE_ALL,
+            self::TYPE_FAILURES,
+            self::TYPE_SUCCESSES,
         ];
     }
 
@@ -204,8 +196,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['score'] = $data['score'] ?? null;
-        $this->container['level'] = $data['level'] ?? null;
+        $this->container['type'] = $data['type'] ?? null;
     }
 
     /**
@@ -217,22 +208,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
+        $allowedValues = $this->getTypeAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['score']) && ($this->container['score'] > 100)) {
-                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
-            }
-
-            if (!is_null($this->container['score']) && ($this->container['score'] < 0)) {
-                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-            }
-
-        }
-        $allowedValues = $this->getLevelAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
+            if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'level', must be one of '%s'",
-                    $this->container['level'],
+                    "invalid value '%s' for 'type', must be one of '%s'",
+                    $this->container['type'],
                     implode("', '", $allowedValues)
                 );
             }
@@ -255,73 +236,38 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     
 
     /**
-     * Gets score
-     *
-     * @return float|null
-     */
-    public function getScore()
-    {
-        return $this->container['score'];
-    }
-
-    /**
-     * Sets score
-     *
-     * @param float|null $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
-     *
-     * @return self
-     */
-    public function setScore($score)
-    {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if (!is_null($score) && ($score > 100)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
-            }
-            if (!is_null($score) && ($score < 0)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
-            }
-
-        }
-        $this->container['score'] = $score;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets level
+     * Gets type
      *
      * @return string|null
      */
-    public function getLevel()
+    public function getType()
     {
-        return $this->container['level'];
+        return $this->container['type'];
     }
 
     /**
-     * Sets level
+     * Sets type
      *
-     * @param string|null $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
+     * @param string|null $type type
      *
      * @return self
      */
-    public function setLevel($level)
+    public function setType($type)
     {
-        $allowedValues = $this->getLevelAllowableValues();
+        $allowedValues = $this->getTypeAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($level) && !in_array($level, $allowedValues, true)) {
+            if (!is_null($type) && !in_array($type, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
-                        "Invalid value '%s' for 'level', must be one of '%s'",
-                        $level,
+                        "Invalid value '%s' for 'type', must be one of '%s'",
+                        $type,
                         implode("', '", $allowedValues)
                     )
                 );
             }
         }
 
-        $this->container['level'] = $level;
+        $this->container['type'] = $type;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * LobConfidenceScore
+ * PlaceholderModel
  *
  * PHP version 7.3
  *
@@ -33,10 +33,9 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * LobConfidenceScore Class Doc Comment
+ * PlaceholderModel Class Doc Comment
  *
  * @category Class
- * @description Lob Confidence Score is a nested object that provides a numerical value between 0-100 of the likelihood that an address is deliverable based on Lob’s mail delivery data to over half of US households.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializable
+class PlaceholderModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +52,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'lob_confidence_score';
+    protected static $openAPIModelName = 'placeholder_model';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +60,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'score' => 'float',
-        'level' => 'string'
+        'return_envelope' => '\OpenAPI\Client\Model\ReturnEnvelope',
+        'address_domestic' => '\OpenAPI\Client\Model\AddressDomestic',
+        'letter_details_writable' => '\OpenAPI\Client\Model\LetterDetailsWritable',
+        'postcard_details_writable' => '\OpenAPI\Client\Model\PostcardDetailsWritable',
+        'letter_details_returned' => '\OpenAPI\Client\Model\LetterDetailsReturned',
+        'postcard_details_returned' => '\OpenAPI\Client\Model\PostcardDetailsReturned'
     ];
 
     /**
@@ -73,8 +76,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'score' => 'float',
-        'level' => null
+        'return_envelope' => null,
+        'address_domestic' => null,
+        'letter_details_writable' => null,
+        'postcard_details_writable' => null,
+        'letter_details_returned' => null,
+        'postcard_details_returned' => null
     ];
 
     /**
@@ -104,8 +111,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'score' => 'score',
-        'level' => 'level'
+        'return_envelope' => 'return_envelope',
+        'address_domestic' => 'address_domestic',
+        'letter_details_writable' => 'letter_details_writable',
+        'postcard_details_writable' => 'postcard_details_writable',
+        'letter_details_returned' => 'letter_details_returned',
+        'postcard_details_returned' => 'postcard_details_returned'
     ];
 
     /**
@@ -114,8 +125,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'score' => 'setScore',
-        'level' => 'setLevel'
+        'return_envelope' => 'setReturnEnvelope',
+        'address_domestic' => 'setAddressDomestic',
+        'letter_details_writable' => 'setLetterDetailsWritable',
+        'postcard_details_writable' => 'setPostcardDetailsWritable',
+        'letter_details_returned' => 'setLetterDetailsReturned',
+        'postcard_details_returned' => 'setPostcardDetailsReturned'
     ];
 
     /**
@@ -124,8 +139,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'score' => 'getScore',
-        'level' => 'getLevel'
+        'return_envelope' => 'getReturnEnvelope',
+        'address_domestic' => 'getAddressDomestic',
+        'letter_details_writable' => 'getLetterDetailsWritable',
+        'postcard_details_writable' => 'getPostcardDetailsWritable',
+        'letter_details_returned' => 'getLetterDetailsReturned',
+        'postcard_details_returned' => 'getPostcardDetailsReturned'
     ];
 
     /**
@@ -169,25 +188,6 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
-    const LEVEL_HIGH = 'high';
-    const LEVEL_MEDIUM = 'medium';
-    const LEVEL_LOW = 'low';
-    const LEVEL_EMPTY = '';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getLevelAllowableValues()
-    {
-        return [
-            self::LEVEL_HIGH,
-            self::LEVEL_MEDIUM,
-            self::LEVEL_LOW,
-            self::LEVEL_EMPTY,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -204,8 +204,12 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['score'] = $data['score'] ?? null;
-        $this->container['level'] = $data['level'] ?? null;
+        $this->container['return_envelope'] = $data['return_envelope'] ?? null;
+        $this->container['address_domestic'] = $data['address_domestic'] ?? null;
+        $this->container['letter_details_writable'] = $data['letter_details_writable'] ?? null;
+        $this->container['postcard_details_writable'] = $data['postcard_details_writable'] ?? null;
+        $this->container['letter_details_returned'] = $data['letter_details_returned'] ?? null;
+        $this->container['postcard_details_returned'] = $data['postcard_details_returned'] ?? null;
     }
 
     /**
@@ -216,27 +220,6 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['score']) && ($this->container['score'] > 100)) {
-                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
-            }
-
-            if (!is_null($this->container['score']) && ($this->container['score'] < 0)) {
-                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-            }
-
-        }
-        $allowedValues = $this->getLevelAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
-                $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'level', must be one of '%s'",
-                    $this->container['level'],
-                    implode("', '", $allowedValues)
-                );
-            }
-        }
 
         return $invalidProperties;
     }
@@ -255,73 +238,150 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     
 
     /**
-     * Gets score
+     * Gets return_envelope
      *
-     * @return float|null
+     * @return \OpenAPI\Client\Model\ReturnEnvelope|null
      */
-    public function getScore()
+    public function getReturnEnvelope()
     {
-        return $this->container['score'];
+        return $this->container['return_envelope'];
     }
 
     /**
-     * Sets score
+     * Sets return_envelope
      *
-     * @param float|null $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
+     * @param \OpenAPI\Client\Model\ReturnEnvelope|null $return_envelope return_envelope
      *
      * @return self
      */
-    public function setScore($score)
+    public function setReturnEnvelope($return_envelope)
     {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if (!is_null($score) && ($score > 100)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
-            }
-            if (!is_null($score) && ($score < 0)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
-            }
-
-        }
-        $this->container['score'] = $score;
+        $this->container['return_envelope'] = $return_envelope;
 
         return $this;
     }
 
 
     /**
-     * Gets level
+     * Gets address_domestic
      *
-     * @return string|null
+     * @return \OpenAPI\Client\Model\AddressDomestic|null
      */
-    public function getLevel()
+    public function getAddressDomestic()
     {
-        return $this->container['level'];
+        return $this->container['address_domestic'];
     }
 
     /**
-     * Sets level
+     * Sets address_domestic
      *
-     * @param string|null $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
+     * @param \OpenAPI\Client\Model\AddressDomestic|null $address_domestic address_domestic
      *
      * @return self
      */
-    public function setLevel($level)
+    public function setAddressDomestic($address_domestic)
     {
-        $allowedValues = $this->getLevelAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($level) && !in_array($level, $allowedValues, true)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        "Invalid value '%s' for 'level', must be one of '%s'",
-                        $level,
-                        implode("', '", $allowedValues)
-                    )
-                );
-            }
-        }
+        $this->container['address_domestic'] = $address_domestic;
 
-        $this->container['level'] = $level;
+        return $this;
+    }
+
+
+    /**
+     * Gets letter_details_writable
+     *
+     * @return \OpenAPI\Client\Model\LetterDetailsWritable|null
+     */
+    public function getLetterDetailsWritable()
+    {
+        return $this->container['letter_details_writable'];
+    }
+
+    /**
+     * Sets letter_details_writable
+     *
+     * @param \OpenAPI\Client\Model\LetterDetailsWritable|null $letter_details_writable letter_details_writable
+     *
+     * @return self
+     */
+    public function setLetterDetailsWritable($letter_details_writable)
+    {
+        $this->container['letter_details_writable'] = $letter_details_writable;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets postcard_details_writable
+     *
+     * @return \OpenAPI\Client\Model\PostcardDetailsWritable|null
+     */
+    public function getPostcardDetailsWritable()
+    {
+        return $this->container['postcard_details_writable'];
+    }
+
+    /**
+     * Sets postcard_details_writable
+     *
+     * @param \OpenAPI\Client\Model\PostcardDetailsWritable|null $postcard_details_writable postcard_details_writable
+     *
+     * @return self
+     */
+    public function setPostcardDetailsWritable($postcard_details_writable)
+    {
+        $this->container['postcard_details_writable'] = $postcard_details_writable;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets letter_details_returned
+     *
+     * @return \OpenAPI\Client\Model\LetterDetailsReturned|null
+     */
+    public function getLetterDetailsReturned()
+    {
+        return $this->container['letter_details_returned'];
+    }
+
+    /**
+     * Sets letter_details_returned
+     *
+     * @param \OpenAPI\Client\Model\LetterDetailsReturned|null $letter_details_returned letter_details_returned
+     *
+     * @return self
+     */
+    public function setLetterDetailsReturned($letter_details_returned)
+    {
+        $this->container['letter_details_returned'] = $letter_details_returned;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets postcard_details_returned
+     *
+     * @return \OpenAPI\Client\Model\PostcardDetailsReturned|null
+     */
+    public function getPostcardDetailsReturned()
+    {
+        return $this->container['postcard_details_returned'];
+    }
+
+    /**
+     * Sets postcard_details_returned
+     *
+     * @param \OpenAPI\Client\Model\PostcardDetailsReturned|null $postcard_details_returned postcard_details_returned
+     *
+     * @return self
+     */
+    public function setPostcardDetailsReturned($postcard_details_returned)
+    {
+        $this->container['postcard_details_returned'] = $postcard_details_returned;
 
         return $this;
     }

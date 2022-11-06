@@ -1,6 +1,6 @@
 <?php
 /**
- * LobConfidenceScore
+ * SortByDateModified
  *
  * PHP version 7.3
  *
@@ -33,10 +33,9 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * LobConfidenceScore Class Doc Comment
+ * SortByDateModified Class Doc Comment
  *
  * @category Class
- * @description Lob Confidence Score is a nested object that provides a numerical value between 0-100 of the likelihood that an address is deliverable based on Lob’s mail delivery data to over half of US households.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializable
+class SortByDateModified implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +52,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'lob_confidence_score';
+    protected static $openAPIModelName = 'sort_by_date_modified';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +60,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'score' => 'float',
-        'level' => 'string'
+        'date_created' => 'string',
+        'date_modified' => 'string'
     ];
 
     /**
@@ -73,8 +72,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'score' => 'float',
-        'level' => null
+        'date_created' => null,
+        'date_modified' => null
     ];
 
     /**
@@ -104,8 +103,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'score' => 'score',
-        'level' => 'level'
+        'date_created' => 'date_created',
+        'date_modified' => 'date_modified'
     ];
 
     /**
@@ -114,8 +113,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'score' => 'setScore',
-        'level' => 'setLevel'
+        'date_created' => 'setDateCreated',
+        'date_modified' => 'setDateModified'
     ];
 
     /**
@@ -124,8 +123,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'score' => 'getScore',
-        'level' => 'getLevel'
+        'date_created' => 'getDateCreated',
+        'date_modified' => 'getDateModified'
     ];
 
     /**
@@ -169,23 +168,34 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
-    const LEVEL_HIGH = 'high';
-    const LEVEL_MEDIUM = 'medium';
-    const LEVEL_LOW = 'low';
-    const LEVEL_EMPTY = '';
+    const DATE_CREATED_ASC = 'asc';
+    const DATE_CREATED_DESC = 'desc';
+    const DATE_MODIFIED_ASC = 'asc';
+    const DATE_MODIFIED_DESC = 'desc';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getLevelAllowableValues()
+    public function getDateCreatedAllowableValues()
     {
         return [
-            self::LEVEL_HIGH,
-            self::LEVEL_MEDIUM,
-            self::LEVEL_LOW,
-            self::LEVEL_EMPTY,
+            self::DATE_CREATED_ASC,
+            self::DATE_CREATED_DESC,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDateModifiedAllowableValues()
+    {
+        return [
+            self::DATE_MODIFIED_ASC,
+            self::DATE_MODIFIED_DESC,
         ];
     }
 
@@ -204,8 +214,8 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['score'] = $data['score'] ?? null;
-        $this->container['level'] = $data['level'] ?? null;
+        $this->container['date_created'] = $data['date_created'] ?? null;
+        $this->container['date_modified'] = $data['date_modified'] ?? null;
     }
 
     /**
@@ -217,22 +227,23 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
+        $allowedValues = $this->getDateCreatedAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['score']) && ($this->container['score'] > 100)) {
-                $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
-            }
-
-            if (!is_null($this->container['score']) && ($this->container['score'] < 0)) {
-                $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-            }
-
-        }
-        $allowedValues = $this->getLevelAllowableValues();
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['level']) && !in_array($this->container['level'], $allowedValues, true)) {
+            if (!is_null($this->container['date_created']) && !in_array($this->container['date_created'], $allowedValues, true)) {
                 $invalidProperties[] = sprintf(
-                    "invalid value '%s' for 'level', must be one of '%s'",
-                    $this->container['level'],
+                    "invalid value '%s' for 'date_created', must be one of '%s'",
+                    $this->container['date_created'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        $allowedValues = $this->getDateModifiedAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['date_modified']) && !in_array($this->container['date_modified'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'date_modified', must be one of '%s'",
+                    $this->container['date_modified'],
                     implode("', '", $allowedValues)
                 );
             }
@@ -255,73 +266,76 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     
 
     /**
-     * Gets score
-     *
-     * @return float|null
-     */
-    public function getScore()
-    {
-        return $this->container['score'];
-    }
-
-    /**
-     * Sets score
-     *
-     * @param float|null $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
-     *
-     * @return self
-     */
-    public function setScore($score)
-    {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if (!is_null($score) && ($score > 100)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
-            }
-            if (!is_null($score) && ($score < 0)) {
-                throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
-            }
-
-        }
-        $this->container['score'] = $score;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets level
+     * Gets date_created
      *
      * @return string|null
      */
-    public function getLevel()
+    public function getDateCreated()
     {
-        return $this->container['level'];
+        return $this->container['date_created'];
     }
 
     /**
-     * Sets level
+     * Sets date_created
      *
-     * @param string|null $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
+     * @param string|null $date_created date_created
      *
      * @return self
      */
-    public function setLevel($level)
+    public function setDateCreated($date_created)
     {
-        $allowedValues = $this->getLevelAllowableValues();
+        $allowedValues = $this->getDateCreatedAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($level) && !in_array($level, $allowedValues, true)) {
+            if (!is_null($date_created) && !in_array($date_created, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
-                        "Invalid value '%s' for 'level', must be one of '%s'",
-                        $level,
+                        "Invalid value '%s' for 'date_created', must be one of '%s'",
+                        $date_created,
                         implode("', '", $allowedValues)
                     )
                 );
             }
         }
 
-        $this->container['level'] = $level;
+        $this->container['date_created'] = $date_created;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets date_modified
+     *
+     * @return string|null
+     */
+    public function getDateModified()
+    {
+        return $this->container['date_modified'];
+    }
+
+    /**
+     * Sets date_modified
+     *
+     * @param string|null $date_modified date_modified
+     *
+     * @return self
+     */
+    public function setDateModified($date_modified)
+    {
+        $allowedValues = $this->getDateModifiedAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($date_modified) && !in_array($date_modified, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'date_modified', must be one of '%s'",
+                        $date_modified,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['date_modified'] = $date_modified;
 
         return $this;
     }

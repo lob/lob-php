@@ -1,6 +1,6 @@
 <?php
 /**
- * PostcardEditable
+ * CampaignWritable
  *
  * PHP version 7.3
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * PostcardEditable Class Doc Comment
+ * CampaignWritable Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -43,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
+class CampaignWritable implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +52,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'postcard_editable';
+    protected static $openAPIModelName = 'campaign_writable';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,18 +60,16 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'to' => 'string',
-        'from' => 'string',
-        'size' => '\OpenAPI\Client\Model\PostcardSize',
-        'description' => 'string',
-        'metadata' => 'array<string,string>',
-        'mail_type' => '\OpenAPI\Client\Model\MailType',
-        'merge_variables' => 'object',
-        'send_date' => '\DateTime',
-        'front' => 'string',
-        'back' => 'string',
         'billing_group_id' => 'string',
-        'qr_code' => '\OpenAPI\Client\Model\QrCode'
+        'name' => 'string',
+        'description' => 'string',
+        'schedule_type' => '\OpenAPI\Client\Model\CmpScheduleType',
+        'target_delivery_date' => '\DateTime',
+        'send_date' => '\DateTime',
+        'cancel_window_campaign_minutes' => 'int',
+        'metadata' => 'array<string,string>',
+        'use_type' => '\OpenAPI\Client\Model\CmpUseType',
+        'auto_cancel_if_ncoa' => 'bool'
     ];
 
     /**
@@ -82,18 +80,16 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'to' => null,
-        'from' => null,
-        'size' => null,
-        'description' => null,
-        'metadata' => null,
-        'mail_type' => null,
-        'merge_variables' => null,
-        'send_date' => 'date-time',
-        'front' => null,
-        'back' => null,
         'billing_group_id' => null,
-        'qr_code' => null
+        'name' => null,
+        'description' => null,
+        'schedule_type' => null,
+        'target_delivery_date' => 'date-time',
+        'send_date' => 'date-time',
+        'cancel_window_campaign_minutes' => null,
+        'metadata' => null,
+        'use_type' => null,
+        'auto_cancel_if_ncoa' => null
     ];
 
     /**
@@ -123,18 +119,16 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'to' => 'to',
-        'from' => 'from',
-        'size' => 'size',
-        'description' => 'description',
-        'metadata' => 'metadata',
-        'mail_type' => 'mail_type',
-        'merge_variables' => 'merge_variables',
-        'send_date' => 'send_date',
-        'front' => 'front',
-        'back' => 'back',
         'billing_group_id' => 'billing_group_id',
-        'qr_code' => 'qr_code'
+        'name' => 'name',
+        'description' => 'description',
+        'schedule_type' => 'schedule_type',
+        'target_delivery_date' => 'target_delivery_date',
+        'send_date' => 'send_date',
+        'cancel_window_campaign_minutes' => 'cancel_window_campaign_minutes',
+        'metadata' => 'metadata',
+        'use_type' => 'use_type',
+        'auto_cancel_if_ncoa' => 'auto_cancel_if_ncoa'
     ];
 
     /**
@@ -143,18 +137,16 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'to' => 'setTo',
-        'from' => 'setFrom',
-        'size' => 'setSize',
-        'description' => 'setDescription',
-        'metadata' => 'setMetadata',
-        'mail_type' => 'setMailType',
-        'merge_variables' => 'setMergeVariables',
-        'send_date' => 'setSendDate',
-        'front' => 'setFront',
-        'back' => 'setBack',
         'billing_group_id' => 'setBillingGroupId',
-        'qr_code' => 'setQrCode'
+        'name' => 'setName',
+        'description' => 'setDescription',
+        'schedule_type' => 'setScheduleType',
+        'target_delivery_date' => 'setTargetDeliveryDate',
+        'send_date' => 'setSendDate',
+        'cancel_window_campaign_minutes' => 'setCancelWindowCampaignMinutes',
+        'metadata' => 'setMetadata',
+        'use_type' => 'setUseType',
+        'auto_cancel_if_ncoa' => 'setAutoCancelIfNcoa'
     ];
 
     /**
@@ -163,18 +155,16 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'to' => 'getTo',
-        'from' => 'getFrom',
-        'size' => 'getSize',
-        'description' => 'getDescription',
-        'metadata' => 'getMetadata',
-        'mail_type' => 'getMailType',
-        'merge_variables' => 'getMergeVariables',
-        'send_date' => 'getSendDate',
-        'front' => 'getFront',
-        'back' => 'getBack',
         'billing_group_id' => 'getBillingGroupId',
-        'qr_code' => 'getQrCode'
+        'name' => 'getName',
+        'description' => 'getDescription',
+        'schedule_type' => 'getScheduleType',
+        'target_delivery_date' => 'getTargetDeliveryDate',
+        'send_date' => 'getSendDate',
+        'cancel_window_campaign_minutes' => 'getCancelWindowCampaignMinutes',
+        'metadata' => 'getMetadata',
+        'use_type' => 'getUseType',
+        'auto_cancel_if_ncoa' => 'getAutoCancelIfNcoa'
     ];
 
     /**
@@ -234,18 +224,16 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['to'] = $data['to'] ?? null;
-        $this->container['from'] = $data['from'] ?? null;
-        $this->container['size'] = $data['size'] ?? null;
-        $this->container['description'] = $data['description'] ?? null;
-        $this->container['metadata'] = $data['metadata'] ?? null;
-        $this->container['mail_type'] = $data['mail_type'] ?? null;
-        $this->container['merge_variables'] = $data['merge_variables'] ?? null;
-        $this->container['send_date'] = $data['send_date'] ?? null;
-        $this->container['front'] = $data['front'] ?? null;
-        $this->container['back'] = $data['back'] ?? null;
         $this->container['billing_group_id'] = $data['billing_group_id'] ?? null;
-        $this->container['qr_code'] = $data['qr_code'] ?? null;
+        $this->container['name'] = $data['name'] ?? null;
+        $this->container['description'] = $data['description'] ?? null;
+        $this->container['schedule_type'] = $data['schedule_type'] ?? null;
+        $this->container['target_delivery_date'] = $data['target_delivery_date'] ?? null;
+        $this->container['send_date'] = $data['send_date'] ?? null;
+        $this->container['cancel_window_campaign_minutes'] = $data['cancel_window_campaign_minutes'] ?? null;
+        $this->container['metadata'] = $data['metadata'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
+        $this->container['auto_cancel_if_ncoa'] = $data['auto_cancel_if_ncoa'] ?? null;
     }
 
     /**
@@ -258,8 +246,14 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['to'] === null) {
-                $invalidProperties[] = "'to' can't be null";
+            if (!is_null($this->container['billing_group_id']) && !preg_match("/^bg_[a-zA-Z0-9]+$/", $this->container['billing_group_id'])) {
+                $invalidProperties[] = "invalid value for 'billing_group_id', must be conform to the pattern /^bg_[a-zA-Z0-9]+$/.";
+            }
+
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['name'] === null) {
+                $invalidProperties[] = "'name' can't be null";
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
@@ -269,18 +263,11 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['front'] === null) {
-                $invalidProperties[] = "'front' can't be null";
+            if ($this->container['schedule_type'] === null) {
+                $invalidProperties[] = "'schedule_type' can't be null";
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['back'] === null) {
-                $invalidProperties[] = "'back' can't be null";
-            }
         }
         return $invalidProperties;
     }
@@ -299,75 +286,57 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets to
-     *
-     * @return string
-     */
-    public function getTo()
-    {
-        return $this->container['to'];
-    }
-
-    /**
-     * Sets to
-     *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
-     *
-     * @return self
-     */
-    public function setTo($to)
-    {
-        $this->container['to'] = $to;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets from
+     * Gets billing_group_id
      *
      * @return string|null
      */
-    public function getFrom()
+    public function getBillingGroupId()
     {
-        return $this->container['from'];
+        return $this->container['billing_group_id'];
     }
 
     /**
-     * Sets from
+     * Sets billing_group_id
      *
-     * @param string|null $from Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
+     * @param string|null $billing_group_id Unique identifier prefixed with `bg_`.
      *
      * @return self
      */
-    public function setFrom($from)
+    public function setBillingGroupId($billing_group_id)
     {
-        $this->container['from'] = $from;
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+
+            if (!is_null($billing_group_id) && (!preg_match("/^bg_[a-zA-Z0-9]+$/", $billing_group_id))) {
+                throw new \InvalidArgumentException("invalid value for $billing_group_id when calling CampaignWritable., must conform to the pattern /^bg_[a-zA-Z0-9]+$/.");
+            }
+
+        }
+        $this->container['billing_group_id'] = $billing_group_id;
 
         return $this;
     }
 
 
     /**
-     * Gets size
+     * Gets name
      *
-     * @return \OpenAPI\Client\Model\PostcardSize|null
+     * @return string
      */
-    public function getSize()
+    public function getName()
     {
-        return $this->container['size'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets size
+     * Sets name
      *
-     * @param \OpenAPI\Client\Model\PostcardSize|null $size size
+     * @param string $name Name of the campaign.
      *
      * @return self
      */
-    public function setSize($size)
+    public function setName($name)
     {
-        $this->container['size'] = $size;
+        $this->container['name'] = $name;
 
         return $this;
     }
@@ -394,11 +363,111 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
-                throw new \InvalidArgumentException('invalid length for $description when calling PostcardEditable., must be smaller than or equal to 255.');
+                throw new \InvalidArgumentException('invalid length for $description when calling CampaignWritable., must be smaller than or equal to 255.');
             }
 
         }
         $this->container['description'] = $description;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets schedule_type
+     *
+     * @return \OpenAPI\Client\Model\CmpScheduleType
+     */
+    public function getScheduleType()
+    {
+        return $this->container['schedule_type'];
+    }
+
+    /**
+     * Sets schedule_type
+     *
+     * @param \OpenAPI\Client\Model\CmpScheduleType $schedule_type schedule_type
+     *
+     * @return self
+     */
+    public function setScheduleType($schedule_type)
+    {
+        $this->container['schedule_type'] = $schedule_type;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets target_delivery_date
+     *
+     * @return \DateTime|null
+     */
+    public function getTargetDeliveryDate()
+    {
+        return $this->container['target_delivery_date'];
+    }
+
+    /**
+     * Sets target_delivery_date
+     *
+     * @param \DateTime|null $target_delivery_date If `schedule_type` is `target_delivery_date`, provide a targeted delivery date for mail pieces in this campaign.
+     *
+     * @return self
+     */
+    public function setTargetDeliveryDate($target_delivery_date)
+    {
+        $this->container['target_delivery_date'] = $target_delivery_date;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets send_date
+     *
+     * @return \DateTime|null
+     */
+    public function getSendDate()
+    {
+        return $this->container['send_date'];
+    }
+
+    /**
+     * Sets send_date
+     *
+     * @param \DateTime|null $send_date If `schedule_type` is `scheduled_send_date`, provide a date to send this campaign.
+     *
+     * @return self
+     */
+    public function setSendDate($send_date)
+    {
+        $this->container['send_date'] = $send_date;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets cancel_window_campaign_minutes
+     *
+     * @return int|null
+     */
+    public function getCancelWindowCampaignMinutes()
+    {
+        return $this->container['cancel_window_campaign_minutes'];
+    }
+
+    /**
+     * Sets cancel_window_campaign_minutes
+     *
+     * @param int|null $cancel_window_campaign_minutes A window, in minutes, within which the campaign can be canceled.
+     *
+     * @return self
+     */
+    public function setCancelWindowCampaignMinutes($cancel_window_campaign_minutes)
+    {
+        $this->container['cancel_window_campaign_minutes'] = $cancel_window_campaign_minutes;
 
         return $this;
     }
@@ -434,179 +503,50 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets mail_type
+     * Gets use_type
      *
-     * @return \OpenAPI\Client\Model\MailType|null
+     * @return \OpenAPI\Client\Model\CmpUseType|null
      */
-    public function getMailType()
+    public function getUseType()
     {
-        return $this->container['mail_type'];
+        return $this->container['use_type'];
     }
 
     /**
-     * Sets mail_type
+     * Sets use_type
      *
-     * @param \OpenAPI\Client\Model\MailType|null $mail_type mail_type
+     * @param \OpenAPI\Client\Model\CmpUseType|null $use_type use_type
      *
      * @return self
      */
-    public function setMailType($mail_type)
+    public function setUseType($use_type)
     {
-        $this->container['mail_type'] = $mail_type;
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }
 
 
     /**
-     * Gets merge_variables
+     * Gets auto_cancel_if_ncoa
      *
-     * @return object|null
+     * @return bool|null
      */
-    public function getMergeVariables()
+    public function getAutoCancelIfNcoa()
     {
-        return $this->container['merge_variables'];
+        return $this->container['auto_cancel_if_ncoa'];
     }
 
     /**
-     * Sets merge_variables
+     * Sets auto_cancel_if_ncoa
      *
-     * @param object|null $merge_variables You can input a merge variable payload object to your template to render dynamic content. For example, if you have a template like: `{{variable_name}}`, pass in `{\"variable_name\": \"Harry\"}` to render `Harry`. `merge_variables` must be an object. Any type of value is accepted as long as the object is valid JSON; you can use `strings`, `numbers`, `booleans`, `arrays`, `objects`, or `null`. The max length of the object is 25,000 characters. If you call `JSON.stringify` on your object, it can be no longer than 25,000 characters. Your variable names cannot contain any whitespace or any of the following special characters: `!`, `\"`, `#`, `%`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `/`, `;`, `<`, `=`, `>`, `@`, `[`, `\\`, `]`, `^`, `` ` ``, `{`, `|`, `}`, `~`. More instructions can be found in [our guide to using html and merge variables](https://lob.com/resources/guides/general/using-html-and-merge-variables). Depending on your [Merge Variable strictness](https://dashboard.lob.com/#/settings/account) setting, if you define variables in your HTML but do not pass them here, you will either receive an error or the variable will render as an empty string.
+     * @param bool|null $auto_cancel_if_ncoa Whether or not a mail piece should be automatically canceled and not sent if the address is updated via NCOA.
      *
      * @return self
      */
-    public function setMergeVariables($merge_variables)
+    public function setAutoCancelIfNcoa($auto_cancel_if_ncoa)
     {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-
-        }
-        $this->container['merge_variables'] = $merge_variables;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets send_date
-     *
-     * @return \DateTime|null
-     */
-    public function getSendDate()
-    {
-        return $this->container['send_date'];
-    }
-
-    /**
-     * Sets send_date
-     *
-     * @param \DateTime|null $send_date A timestamp in ISO 8601 format which specifies a date after the current time and up to 180 days in the future to send the letter off for production. Setting a send date overrides the default [cancellation window](#section/Cancellation-Windows) applied to the mailpiece. Until the `send_date` has passed, the mailpiece can be canceled. If a date in the format `2017-11-01` is passed, it will evaluate to midnight UTC of that date (`2017-11-01T00:00:00.000Z`). If a datetime is passed, that exact time will be used. A `send_date` passed with no time zone will default to UTC, while a `send_date` passed with a time zone will be converted to UTC.
-     *
-     * @return self
-     */
-    public function setSendDate($send_date)
-    {
-        $this->container['send_date'] = $send_date;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets front
-     *
-     * @return string
-     */
-    public function getFront()
-    {
-        return $this->container['front'];
-    }
-
-    /**
-     * Sets front
-     *
-     * @param string $front The artwork to use as the front of your postcard.
-     *
-     * @return self
-     */
-    public function setFront($front)
-    {
-        $this->container['front'] = $front;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets back
-     *
-     * @return string
-     */
-    public function getBack()
-    {
-        return $this->container['back'];
-    }
-
-    /**
-     * Sets back
-     *
-     * @param string $back The artwork to use as the back of your postcard.
-     *
-     * @return self
-     */
-    public function setBack($back)
-    {
-        $this->container['back'] = $back;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets billing_group_id
-     *
-     * @return string|null
-     */
-    public function getBillingGroupId()
-    {
-        return $this->container['billing_group_id'];
-    }
-
-    /**
-     * Sets billing_group_id
-     *
-     * @param string|null $billing_group_id An optional string with the billing group ID to tag your usage with. Is used for billing purposes. Requires special activation to use. See [Billing Group API](https://lob.github.io/lob-openapi/#tag/Billing-Groups) for more information.
-     *
-     * @return self
-     */
-    public function setBillingGroupId($billing_group_id)
-    {
-        $this->container['billing_group_id'] = $billing_group_id;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets qr_code
-     *
-     * @return \OpenAPI\Client\Model\QrCode|null
-     */
-    public function getQrCode()
-    {
-        return $this->container['qr_code'];
-    }
-
-    /**
-     * Sets qr_code
-     *
-     * @param \OpenAPI\Client\Model\QrCode|null $qr_code qr_code
-     *
-     * @return self
-     */
-    public function setQrCode($qr_code)
-    {
-        $this->container['qr_code'] = $qr_code;
+        $this->container['auto_cancel_if_ncoa'] = $auto_cancel_if_ncoa;
 
         return $this;
     }

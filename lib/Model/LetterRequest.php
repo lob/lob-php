@@ -1,6 +1,6 @@
 <?php
 /**
- * PostcardEditable
+ * LetterRequest
  *
  * PHP version 7.3
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * PostcardEditable Class Doc Comment
+ * LetterRequest Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -43,7 +43,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
+class LetterRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +52,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'postcard_editable';
+    protected static $openAPIModelName = 'letter_request';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,18 +60,13 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'to' => 'string',
-        'from' => 'string',
-        'size' => '\OpenAPI\Client\Model\PostcardSize',
+        'from' => 'mixed',
         'description' => 'string',
         'metadata' => 'array<string,string>',
-        'mail_type' => '\OpenAPI\Client\Model\MailType',
-        'merge_variables' => 'object',
-        'send_date' => '\DateTime',
-        'front' => 'string',
-        'back' => 'string',
-        'billing_group_id' => 'string',
-        'qr_code' => '\OpenAPI\Client\Model\QrCode'
+        'resource_type' => 'string',
+        'campaign_id' => 'string',
+        'details' => '\OpenAPI\Client\Model\LetterDetailsWritable',
+        'file' => 'string'
     ];
 
     /**
@@ -82,18 +77,13 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'to' => null,
         'from' => null,
-        'size' => null,
         'description' => null,
         'metadata' => null,
-        'mail_type' => null,
-        'merge_variables' => null,
-        'send_date' => 'date-time',
-        'front' => null,
-        'back' => null,
-        'billing_group_id' => null,
-        'qr_code' => null
+        'resource_type' => null,
+        'campaign_id' => null,
+        'details' => null,
+        'file' => null
     ];
 
     /**
@@ -123,18 +113,13 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'to' => 'to',
         'from' => 'from',
-        'size' => 'size',
         'description' => 'description',
         'metadata' => 'metadata',
-        'mail_type' => 'mail_type',
-        'merge_variables' => 'merge_variables',
-        'send_date' => 'send_date',
-        'front' => 'front',
-        'back' => 'back',
-        'billing_group_id' => 'billing_group_id',
-        'qr_code' => 'qr_code'
+        'resource_type' => 'resource_type',
+        'campaign_id' => 'campaign_id',
+        'details' => 'details',
+        'file' => 'file'
     ];
 
     /**
@@ -143,18 +128,13 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'to' => 'setTo',
         'from' => 'setFrom',
-        'size' => 'setSize',
         'description' => 'setDescription',
         'metadata' => 'setMetadata',
-        'mail_type' => 'setMailType',
-        'merge_variables' => 'setMergeVariables',
-        'send_date' => 'setSendDate',
-        'front' => 'setFront',
-        'back' => 'setBack',
-        'billing_group_id' => 'setBillingGroupId',
-        'qr_code' => 'setQrCode'
+        'resource_type' => 'setResourceType',
+        'campaign_id' => 'setCampaignId',
+        'details' => 'setDetails',
+        'file' => 'setFile'
     ];
 
     /**
@@ -163,18 +143,13 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'to' => 'getTo',
         'from' => 'getFrom',
-        'size' => 'getSize',
         'description' => 'getDescription',
         'metadata' => 'getMetadata',
-        'mail_type' => 'getMailType',
-        'merge_variables' => 'getMergeVariables',
-        'send_date' => 'getSendDate',
-        'front' => 'getFront',
-        'back' => 'getBack',
-        'billing_group_id' => 'getBillingGroupId',
-        'qr_code' => 'getQrCode'
+        'resource_type' => 'getResourceType',
+        'campaign_id' => 'getCampaignId',
+        'details' => 'getDetails',
+        'file' => 'getFile'
     ];
 
     /**
@@ -218,6 +193,19 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    const RESOURCE_TYPE_LETTER = 'letter';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getResourceTypeAllowableValues()
+    {
+        return [
+            self::RESOURCE_TYPE_LETTER,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -234,18 +222,13 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['to'] = $data['to'] ?? null;
         $this->container['from'] = $data['from'] ?? null;
-        $this->container['size'] = $data['size'] ?? null;
         $this->container['description'] = $data['description'] ?? null;
         $this->container['metadata'] = $data['metadata'] ?? null;
-        $this->container['mail_type'] = $data['mail_type'] ?? null;
-        $this->container['merge_variables'] = $data['merge_variables'] ?? null;
-        $this->container['send_date'] = $data['send_date'] ?? null;
-        $this->container['front'] = $data['front'] ?? null;
-        $this->container['back'] = $data['back'] ?? null;
-        $this->container['billing_group_id'] = $data['billing_group_id'] ?? null;
-        $this->container['qr_code'] = $data['qr_code'] ?? null;
+        $this->container['resource_type'] = $data['resource_type'] ?? null;
+        $this->container['campaign_id'] = $data['campaign_id'] ?? null;
+        $this->container['details'] = $data['details'] ?? null;
+        $this->container['file'] = $data['file'] ?? null;
     }
 
     /**
@@ -258,11 +241,6 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['to'] === null) {
-                $invalidProperties[] = "'to' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 255)) {
                 $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 255.";
             }
@@ -270,17 +248,22 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
+        $allowedValues = $this->getResourceTypeAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['front'] === null) {
-                $invalidProperties[] = "'front' can't be null";
+            if (!is_null($this->container['resource_type']) && !in_array($this->container['resource_type'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'resource_type', must be one of '%s'",
+                    $this->container['resource_type'],
+                    implode("', '", $allowedValues)
+                );
             }
         }
+
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['back'] === null) {
-                $invalidProperties[] = "'back' can't be null";
+            if (!is_null($this->container['campaign_id']) && !preg_match("/^cmp_[a-zA-Z0-9]+$/", $this->container['campaign_id'])) {
+                $invalidProperties[] = "invalid value for 'campaign_id', must be conform to the pattern /^cmp_[a-zA-Z0-9]+$/.";
             }
+
         }
         return $invalidProperties;
     }
@@ -299,34 +282,9 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets to
-     *
-     * @return string
-     */
-    public function getTo()
-    {
-        return $this->container['to'];
-    }
-
-    /**
-     * Sets to
-     *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
-     *
-     * @return self
-     */
-    public function setTo($to)
-    {
-        $this->container['to'] = $to;
-
-        return $this;
-    }
-
-
-    /**
      * Gets from
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getFrom()
     {
@@ -336,38 +294,13 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string|null $from Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed|null $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
     public function setFrom($from)
     {
         $this->container['from'] = $from;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets size
-     *
-     * @return \OpenAPI\Client\Model\PostcardSize|null
-     */
-    public function getSize()
-    {
-        return $this->container['size'];
-    }
-
-    /**
-     * Sets size
-     *
-     * @param \OpenAPI\Client\Model\PostcardSize|null $size size
-     *
-     * @return self
-     */
-    public function setSize($size)
-    {
-        $this->container['size'] = $size;
 
         return $this;
     }
@@ -394,7 +327,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if (!is_null($description) && (mb_strlen($description) > 255)) {
-                throw new \InvalidArgumentException('invalid length for $description when calling PostcardEditable., must be smaller than or equal to 255.');
+                throw new \InvalidArgumentException('invalid length for $description when calling LetterRequest., must be smaller than or equal to 255.');
             }
 
         }
@@ -434,179 +367,120 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets mail_type
-     *
-     * @return \OpenAPI\Client\Model\MailType|null
-     */
-    public function getMailType()
-    {
-        return $this->container['mail_type'];
-    }
-
-    /**
-     * Sets mail_type
-     *
-     * @param \OpenAPI\Client\Model\MailType|null $mail_type mail_type
-     *
-     * @return self
-     */
-    public function setMailType($mail_type)
-    {
-        $this->container['mail_type'] = $mail_type;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets merge_variables
-     *
-     * @return object|null
-     */
-    public function getMergeVariables()
-    {
-        return $this->container['merge_variables'];
-    }
-
-    /**
-     * Sets merge_variables
-     *
-     * @param object|null $merge_variables You can input a merge variable payload object to your template to render dynamic content. For example, if you have a template like: `{{variable_name}}`, pass in `{\"variable_name\": \"Harry\"}` to render `Harry`. `merge_variables` must be an object. Any type of value is accepted as long as the object is valid JSON; you can use `strings`, `numbers`, `booleans`, `arrays`, `objects`, or `null`. The max length of the object is 25,000 characters. If you call `JSON.stringify` on your object, it can be no longer than 25,000 characters. Your variable names cannot contain any whitespace or any of the following special characters: `!`, `\"`, `#`, `%`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `/`, `;`, `<`, `=`, `>`, `@`, `[`, `\\`, `]`, `^`, `` ` ``, `{`, `|`, `}`, `~`. More instructions can be found in [our guide to using html and merge variables](https://lob.com/resources/guides/general/using-html-and-merge-variables). Depending on your [Merge Variable strictness](https://dashboard.lob.com/#/settings/account) setting, if you define variables in your HTML but do not pass them here, you will either receive an error or the variable will render as an empty string.
-     *
-     * @return self
-     */
-    public function setMergeVariables($merge_variables)
-    {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-
-        }
-        $this->container['merge_variables'] = $merge_variables;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets send_date
-     *
-     * @return \DateTime|null
-     */
-    public function getSendDate()
-    {
-        return $this->container['send_date'];
-    }
-
-    /**
-     * Sets send_date
-     *
-     * @param \DateTime|null $send_date A timestamp in ISO 8601 format which specifies a date after the current time and up to 180 days in the future to send the letter off for production. Setting a send date overrides the default [cancellation window](#section/Cancellation-Windows) applied to the mailpiece. Until the `send_date` has passed, the mailpiece can be canceled. If a date in the format `2017-11-01` is passed, it will evaluate to midnight UTC of that date (`2017-11-01T00:00:00.000Z`). If a datetime is passed, that exact time will be used. A `send_date` passed with no time zone will default to UTC, while a `send_date` passed with a time zone will be converted to UTC.
-     *
-     * @return self
-     */
-    public function setSendDate($send_date)
-    {
-        $this->container['send_date'] = $send_date;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets front
-     *
-     * @return string
-     */
-    public function getFront()
-    {
-        return $this->container['front'];
-    }
-
-    /**
-     * Sets front
-     *
-     * @param string $front The artwork to use as the front of your postcard.
-     *
-     * @return self
-     */
-    public function setFront($front)
-    {
-        $this->container['front'] = $front;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets back
-     *
-     * @return string
-     */
-    public function getBack()
-    {
-        return $this->container['back'];
-    }
-
-    /**
-     * Sets back
-     *
-     * @param string $back The artwork to use as the back of your postcard.
-     *
-     * @return self
-     */
-    public function setBack($back)
-    {
-        $this->container['back'] = $back;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets billing_group_id
+     * Gets resource_type
      *
      * @return string|null
      */
-    public function getBillingGroupId()
+    public function getResourceType()
     {
-        return $this->container['billing_group_id'];
+        return $this->container['resource_type'];
     }
 
     /**
-     * Sets billing_group_id
+     * Sets resource_type
      *
-     * @param string|null $billing_group_id An optional string with the billing group ID to tag your usage with. Is used for billing purposes. Requires special activation to use. See [Billing Group API](https://lob.github.io/lob-openapi/#tag/Billing-Groups) for more information.
+     * @param string|null $resource_type Mailpiece type for the creative
      *
      * @return self
      */
-    public function setBillingGroupId($billing_group_id)
+    public function setResourceType($resource_type)
     {
-        $this->container['billing_group_id'] = $billing_group_id;
+        $allowedValues = $this->getResourceTypeAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($resource_type) && !in_array($resource_type, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'resource_type', must be one of '%s'",
+                        $resource_type,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['resource_type'] = $resource_type;
 
         return $this;
     }
 
 
     /**
-     * Gets qr_code
+     * Gets campaign_id
      *
-     * @return \OpenAPI\Client\Model\QrCode|null
+     * @return string|null
      */
-    public function getQrCode()
+    public function getCampaignId()
     {
-        return $this->container['qr_code'];
+        return $this->container['campaign_id'];
     }
 
     /**
-     * Sets qr_code
+     * Sets campaign_id
      *
-     * @param \OpenAPI\Client\Model\QrCode|null $qr_code qr_code
+     * @param string|null $campaign_id Unique identifier prefixed with `cmp_`.
      *
      * @return self
      */
-    public function setQrCode($qr_code)
+    public function setCampaignId($campaign_id)
     {
-        $this->container['qr_code'] = $qr_code;
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+
+            if (!is_null($campaign_id) && (!preg_match("/^cmp_[a-zA-Z0-9]+$/", $campaign_id))) {
+                throw new \InvalidArgumentException("invalid value for $campaign_id when calling LetterRequest., must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
+            }
+
+        }
+        $this->container['campaign_id'] = $campaign_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets details
+     *
+     * @return \OpenAPI\Client\Model\LetterDetailsWritable|null
+     */
+    public function getDetails()
+    {
+        return $this->container['details'];
+    }
+
+    /**
+     * Sets details
+     *
+     * @param \OpenAPI\Client\Model\LetterDetailsWritable|null $details details
+     *
+     * @return self
+     */
+    public function setDetails($details)
+    {
+        $this->container['details'] = $details;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets file
+     *
+     * @return string|null
+     */
+    public function getFile()
+    {
+        return $this->container['file'];
+    }
+
+    /**
+     * Sets file
+     *
+     * @param string|null $file PDF file containing the letter's formatting.
+     *
+     * @return self
+     */
+    public function setFile($file)
+    {
+        $this->container['file'] = $file;
 
         return $this;
     }
