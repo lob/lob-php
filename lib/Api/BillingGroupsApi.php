@@ -740,7 +740,7 @@ class BillingGroupsApi
         }
         // query params
         if ($sort_by_date_modified !== null) {
-            $queryParams['sort_by_date_modified'] = $sort_by_date_modified;
+            $queryParams['sort_by'] = $sort_by_date_modified;
         }
 
 

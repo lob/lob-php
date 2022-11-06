@@ -33,7 +33,8 @@ use \OpenAPI\Client\ApiException;
 use PHPUnit\Framework\TestCase;
 use \OpenAPI\Client\Model\BillingGroupEditable;
 use \OpenAPI\Client\Api\BillingGroupsApi;
-use \OpenAPI\Client\Model\SortBy5;
+use \OpenAPI\Client\Model\SortByDateModified;
+use \OpenAPI\Client\Model\SortBy3;
 
 /**
  * BillingGroupsApiSpecTest Class Doc Comment
@@ -176,6 +177,10 @@ class BillingGroupsApiSpecTest extends TestCase
         }
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testUpdate404()
     {
         $bgUpdatable = new BillingGroupEditable();
@@ -185,6 +190,10 @@ class BillingGroupsApiSpecTest extends TestCase
         $retrievedBillingGroup = self::$billingApi->update("bg_fakeId", $bgUpdatable);
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testUpdate0()
     {
         $createdBillingGroup = self::$billingApi->create(self::$editableBillingGroup);
@@ -193,6 +202,10 @@ class BillingGroupsApiSpecTest extends TestCase
         $retrievedBillingGroup = self::$billingApi->update($createdBillingGroup->getId(), null);
     }
 
+    /**
+     * @group integration
+     * @group billingGroups
+     */
     public function testList200()
     {
         try {
@@ -215,14 +228,15 @@ class BillingGroupsApiSpecTest extends TestCase
 
         return array(
             array(null, 1, null, null, null, null),
-            // array(null, null, array("total_count"), null, null, null),
             array(null, null, null, $date_obj, null, null),
             array(null, null, null, null, $date_obj, null),
-            array(null, null, null, null, null, new SortBy5(array("date_created" => "asc"))),
+            array(null, null, null, null, null, new SortBy3(array("date_created" => SortBy3::DATE_CREATED_ASC))),
         );
     }
 
     /**
+     * @group integration
+     * @group billingGroups
      * @dataProvider provider
      */
     public function testListWithParams($limit, $offset, $include, $date_created, $date_modified, $sort_by)
@@ -235,7 +249,6 @@ class BillingGroupsApiSpecTest extends TestCase
             $listedBillingGroups = self::$billingApi->list($limit, $offset, $include, $date_created, $date_modified, $sort_by);
 
             $this->assertGreaterThan(0, $listedBillingGroups->getCount());
-            if ($include) $this->assertNotNull($listedBillingGroups->getTotalCount());
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
