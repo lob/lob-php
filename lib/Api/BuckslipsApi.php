@@ -150,9 +150,9 @@ class BuckslipsApi
     }
 
     /**
-     * Operation Create
+     * Operation create
      *
-     * Create
+     * create
      *
      * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable buckslip_editable (required)
      *
@@ -160,16 +160,16 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError
      */
-    public function Create($buckslip_editable)
+    public function create($buckslip_editable)
     {
-        $response = $this->CreateWithHttpInfo($buckslip_editable);
+        $response = $this->createWithHttpInfo($buckslip_editable);
         return $response;
     }
 
     /**
-     * Operation CreateWithHttpInfo
+     * Operation createWithHttpInfo
      *
-     * Create
+     * create
      *
      * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable (required)
      *
@@ -177,9 +177,9 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function CreateWithHttpInfo($buckslip_editable)
+    public function createWithHttpInfo($buckslip_editable)
     {
-        $request = $this->CreateRequest($buckslip_editable);
+        $request = $this->createRequest($buckslip_editable);
 
         try {
             $options = $this->createHttpClientOption();
@@ -229,19 +229,19 @@ class BuckslipsApi
     }
 
     /**
-     * Create request for operation 'Create'
+     * Create request for operation 'create'
      *
      * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function CreateRequest($buckslip_editable)
+    public function createRequest($buckslip_editable)
     {
         // verify the required parameter 'buckslip_editable' is set
         if ($buckslip_editable === null || (is_array($buckslip_editable) && count($buckslip_editable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_editable when calling Create'
+                'Missing the required parameter $buckslip_editable when calling create'
             );
         }
 
@@ -290,9 +290,9 @@ class BuckslipsApi
     }
 
     /**
-     * Operation Delete
+     * Operation delete
      *
-     * Delete
+     * delete
      *
      * @param  string $buckslip_id id of the buckslip (required)
      *
@@ -300,16 +300,16 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\BuckslipDeletion|\OpenAPI\Client\Model\LobError
      */
-    public function Delete($buckslip_id)
+    public function delete($buckslip_id)
     {
-        $response = $this->DeleteWithHttpInfo($buckslip_id);
+        $response = $this->deleteWithHttpInfo($buckslip_id);
         return $response;
     }
 
     /**
-     * Operation DeleteWithHttpInfo
+     * Operation deleteWithHttpInfo
      *
-     * Delete
+     * delete
      *
      * @param  string $buckslip_id id of the buckslip (required)
      *
@@ -317,9 +317,9 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\BuckslipDeletion|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function DeleteWithHttpInfo($buckslip_id)
+    public function deleteWithHttpInfo($buckslip_id)
     {
-        $request = $this->DeleteRequest($buckslip_id);
+        $request = $this->deleteRequest($buckslip_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -369,23 +369,23 @@ class BuckslipsApi
     }
 
     /**
-     * Create request for operation 'Delete'
+     * Create request for operation 'delete'
      *
      * @param  string $buckslip_id id of the buckslip (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function DeleteRequest($buckslip_id)
+    public function deleteRequest($buckslip_id)
     {
         // verify the required parameter 'buckslip_id' is set
         if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_id when calling Delete'
+                'Missing the required parameter $buckslip_id when calling delete'
             );
         }
         if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
-            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.Delete, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.delete, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
         }
 
 
@@ -440,9 +440,9 @@ class BuckslipsApi
     }
 
     /**
-     * Operation Retrieve
+     * Operation get
      *
-     * Retrieve
+     * get
      *
      * @param  string $buckslip_id id of the buckslip (required)
      *
@@ -450,16 +450,16 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError
      */
-    public function Retrieve($buckslip_id)
+    public function get($buckslip_id)
     {
-        $response = $this->RetrieveWithHttpInfo($buckslip_id);
+        $response = $this->getWithHttpInfo($buckslip_id);
         return $response;
     }
 
     /**
-     * Operation RetrieveWithHttpInfo
+     * Operation getWithHttpInfo
      *
-     * Retrieve
+     * get
      *
      * @param  string $buckslip_id id of the buckslip (required)
      *
@@ -467,9 +467,9 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function RetrieveWithHttpInfo($buckslip_id)
+    public function getWithHttpInfo($buckslip_id)
     {
-        $request = $this->RetrieveRequest($buckslip_id);
+        $request = $this->getRequest($buckslip_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -519,23 +519,23 @@ class BuckslipsApi
     }
 
     /**
-     * Create request for operation 'Retrieve'
+     * Create request for operation 'get'
      *
      * @param  string $buckslip_id id of the buckslip (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function RetrieveRequest($buckslip_id)
+    public function getRequest($buckslip_id)
     {
         // verify the required parameter 'buckslip_id' is set
         if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_id when calling Retrieve'
+                'Missing the required parameter $buckslip_id when calling get'
             );
         }
         if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
-            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.Retrieve, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.get, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
         }
 
 
@@ -590,9 +590,9 @@ class BuckslipsApi
     }
 
     /**
-     * Operation Update
+     * Operation update
      *
-     * Update
+     * update
      *
      * @param  string $buckslip_id id of the buckslip (required)
      * @param  \OpenAPI\Client\Model\BuckslipUpdatable $buckslip_updatable buckslip_updatable (required)
@@ -601,16 +601,16 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError
      */
-    public function Update($buckslip_id, $buckslip_updatable)
+    public function update($buckslip_id, $buckslip_updatable)
     {
-        $response = $this->UpdateWithHttpInfo($buckslip_id, $buckslip_updatable);
+        $response = $this->updateWithHttpInfo($buckslip_id, $buckslip_updatable);
         return $response;
     }
 
     /**
-     * Operation UpdateWithHttpInfo
+     * Operation updateWithHttpInfo
      *
-     * Update
+     * update
      *
      * @param  string $buckslip_id id of the buckslip (required)
      * @param  \OpenAPI\Client\Model\BuckslipUpdatable $buckslip_updatable (required)
@@ -619,9 +619,9 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function UpdateWithHttpInfo($buckslip_id, $buckslip_updatable)
+    public function updateWithHttpInfo($buckslip_id, $buckslip_updatable)
     {
-        $request = $this->UpdateRequest($buckslip_id, $buckslip_updatable);
+        $request = $this->updateRequest($buckslip_id, $buckslip_updatable);
 
         try {
             $options = $this->createHttpClientOption();
@@ -671,7 +671,7 @@ class BuckslipsApi
     }
 
     /**
-     * Create request for operation 'Update'
+     * Create request for operation 'update'
      *
      * @param  string $buckslip_id id of the buckslip (required)
      * @param  \OpenAPI\Client\Model\BuckslipUpdatable $buckslip_updatable (required)
@@ -679,22 +679,22 @@ class BuckslipsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function UpdateRequest($buckslip_id, $buckslip_updatable)
+    public function updateRequest($buckslip_id, $buckslip_updatable)
     {
         // verify the required parameter 'buckslip_id' is set
         if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_id when calling Update'
+                'Missing the required parameter $buckslip_id when calling update'
             );
         }
         if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
-            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.Update, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipsApi.update, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
         }
 
         // verify the required parameter 'buckslip_updatable' is set
         if ($buckslip_updatable === null || (is_array($buckslip_updatable) && count($buckslip_updatable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_updatable when calling Update'
+                'Missing the required parameter $buckslip_updatable when calling update'
             );
         }
 

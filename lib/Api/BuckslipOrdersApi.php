@@ -150,9 +150,9 @@ class BuckslipOrdersApi
     }
 
     /**
-     * Operation Create
+     * Operation create
      *
-     * Create
+     * create
      *
      * @param  string $buckslip_id The ID of the buckslip to which the buckslip orders belong. (required)
      * @param  \OpenAPI\Client\Model\BuckslipOrderEditable $buckslip_order_editable buckslip_order_editable (required)
@@ -161,16 +161,16 @@ class BuckslipOrdersApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\BuckslipOrder|\OpenAPI\Client\Model\LobError
      */
-    public function Create($buckslip_id, $buckslip_order_editable)
+    public function create($buckslip_id, $buckslip_order_editable)
     {
-        $response = $this->CreateWithHttpInfo($buckslip_id, $buckslip_order_editable);
+        $response = $this->createWithHttpInfo($buckslip_id, $buckslip_order_editable);
         return $response;
     }
 
     /**
-     * Operation CreateWithHttpInfo
+     * Operation createWithHttpInfo
      *
-     * Create
+     * create
      *
      * @param  string $buckslip_id The ID of the buckslip to which the buckslip orders belong. (required)
      * @param  \OpenAPI\Client\Model\BuckslipOrderEditable $buckslip_order_editable (required)
@@ -179,9 +179,9 @@ class BuckslipOrdersApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\BuckslipOrder|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function CreateWithHttpInfo($buckslip_id, $buckslip_order_editable)
+    public function createWithHttpInfo($buckslip_id, $buckslip_order_editable)
     {
-        $request = $this->CreateRequest($buckslip_id, $buckslip_order_editable);
+        $request = $this->createRequest($buckslip_id, $buckslip_order_editable);
 
         try {
             $options = $this->createHttpClientOption();
@@ -231,7 +231,7 @@ class BuckslipOrdersApi
     }
 
     /**
-     * Create request for operation 'Create'
+     * Create request for operation 'create'
      *
      * @param  string $buckslip_id The ID of the buckslip to which the buckslip orders belong. (required)
      * @param  \OpenAPI\Client\Model\BuckslipOrderEditable $buckslip_order_editable (required)
@@ -239,22 +239,22 @@ class BuckslipOrdersApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function CreateRequest($buckslip_id, $buckslip_order_editable)
+    public function createRequest($buckslip_id, $buckslip_order_editable)
     {
         // verify the required parameter 'buckslip_id' is set
         if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_id when calling Create'
+                'Missing the required parameter $buckslip_id when calling create'
             );
         }
         if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
-            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipOrdersApi.Create, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipOrdersApi.create, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
         }
 
         // verify the required parameter 'buckslip_order_editable' is set
         if ($buckslip_order_editable === null || (is_array($buckslip_order_editable) && count($buckslip_order_editable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_order_editable when calling Create'
+                'Missing the required parameter $buckslip_order_editable when calling create'
             );
         }
 
@@ -311,9 +311,9 @@ class BuckslipOrdersApi
     }
 
     /**
-     * Operation Retrieve
+     * Operation get
      *
-     * Retrieve
+     * get
      *
      * @param  string $buckslip_id The ID of the buckslip to which the buckslip orders belong. (required)
      * @param  int $limit How many results to return. (optional, default to 10)
@@ -323,16 +323,16 @@ class BuckslipOrdersApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\BuckslipOrdersList|\OpenAPI\Client\Model\LobError
      */
-    public function Retrieve($buckslip_id, $limit = 10, $offset = 0)
+    public function get($buckslip_id, $limit = 10, $offset = 0)
     {
-        $response = $this->RetrieveWithHttpInfo($buckslip_id, $limit, $offset);
+        $response = $this->getWithHttpInfo($buckslip_id, $limit, $offset);
         return $response;
     }
 
     /**
-     * Operation RetrieveWithHttpInfo
+     * Operation getWithHttpInfo
      *
-     * Retrieve
+     * get
      *
      * @param  string $buckslip_id The ID of the buckslip to which the buckslip orders belong. (required)
      * @param  int $limit How many results to return. (optional, default to 10)
@@ -342,9 +342,9 @@ class BuckslipOrdersApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\BuckslipOrdersList|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function RetrieveWithHttpInfo($buckslip_id, $limit = 10, $offset = 0)
+    public function getWithHttpInfo($buckslip_id, $limit = 10, $offset = 0)
     {
-        $request = $this->RetrieveRequest($buckslip_id, $limit, $offset);
+        $request = $this->getRequest($buckslip_id, $limit, $offset);
 
         try {
             $options = $this->createHttpClientOption();
@@ -394,7 +394,7 @@ class BuckslipOrdersApi
     }
 
     /**
-     * Create request for operation 'Retrieve'
+     * Create request for operation 'get'
      *
      * @param  string $buckslip_id The ID of the buckslip to which the buckslip orders belong. (required)
      * @param  int $limit How many results to return. (optional, default to 10)
@@ -403,23 +403,23 @@ class BuckslipOrdersApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function RetrieveRequest($buckslip_id, $limit = 10, $offset = 0)
+    public function getRequest($buckslip_id, $limit = 10, $offset = 0)
     {
         // verify the required parameter 'buckslip_id' is set
         if ($buckslip_id === null || (is_array($buckslip_id) && count($buckslip_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buckslip_id when calling Retrieve'
+                'Missing the required parameter $buckslip_id when calling get'
             );
         }
         if (!preg_match("/^bck_[a-zA-Z0-9]+$/", $buckslip_id)) {
-            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipOrdersApi.Retrieve, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"buckslip_id\" when calling BuckslipOrdersApi.get, must conform to the pattern /^bck_[a-zA-Z0-9]+$/.");
         }
 
         if ($limit !== null && $limit > 100) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling BuckslipOrdersApi.Retrieve, must be smaller than or equal to 100.');
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling BuckslipOrdersApi.get, must be smaller than or equal to 100.');
         }
         if ($limit !== null && $limit < 1) {
-            throw new \InvalidArgumentException('invalid value for "$limit" when calling BuckslipOrdersApi.Retrieve, must be bigger than or equal to 1.');
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling BuckslipOrdersApi.get, must be bigger than or equal to 1.');
         }
 
 
