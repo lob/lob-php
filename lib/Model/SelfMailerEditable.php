@@ -60,8 +60,8 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'to' => 'string',
-        'from' => 'string',
+        'to' => 'mixed',
+        'from' => 'mixed',
         'size' => '\OpenAPI\Client\Model\SelfMailerSize',
         'description' => 'string',
         'metadata' => 'array<string,string>',
@@ -295,7 +295,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -305,7 +305,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -320,7 +320,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets from
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getFrom()
     {
@@ -330,7 +330,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets from
      *
-     * @param string|null $from Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed|null $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */

@@ -80,7 +80,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'extra_service' => 'string',
         'tracking_number' => 'string',
         'tracking_events' => '\OpenAPI\Client\Model\TrackingEventNormal[]',
-        'return_address' => 'string',
+        'return_address' => 'mixed',
         'mail_type' => '\OpenAPI\Client\Model\MailType',
         'color' => 'bool',
         'double_sided' => 'bool',
@@ -1113,7 +1113,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets return_address
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getReturnAddress()
     {
@@ -1123,7 +1123,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets return_address
      *
-     * @param string|null $return_address Specifies the address the return envelope will be sent back to. This is an optional argument that is available if an account is signed up for the return envelope tracking beta, and has `return_envelope`, and `perforated_page` fields populated in the API request.
+     * @param mixed|null $return_address Specifies the address the return envelope will be sent back to. This is an optional argument that is available if an account is signed up for the return envelope tracking beta, and has `return_envelope`, and `perforated_page` fields populated in the API request.
      *
      * @return self
      */

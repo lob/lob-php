@@ -60,8 +60,8 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'to' => 'string',
-        'from' => 'string',
+        'to' => 'mixed',
+        'from' => 'mixed',
         'size' => '\OpenAPI\Client\Model\PostcardSize',
         'description' => 'string',
         'metadata' => 'array<string,string>',
@@ -301,7 +301,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -311,7 +311,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -326,7 +326,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getFrom()
     {
@@ -336,7 +336,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string|null $from Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed|null $from Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */

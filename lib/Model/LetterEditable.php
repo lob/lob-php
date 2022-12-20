@@ -71,8 +71,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'return_envelope' => 'mixed',
         'perforated_page' => 'int',
         'custom_envelope' => 'string',
-        'to' => 'string',
-        'from' => 'string',
+        'to' => 'mixed',
+        'from' => 'mixed',
         'file' => 'string',
         'extra_service' => 'string',
         'cards' => 'string[]',
@@ -714,7 +714,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -724,7 +724,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -739,7 +739,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string
+     * @return mixed
      */
     public function getFrom()
     {
@@ -749,7 +749,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string $from Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * GeocodeComponents
+ * UploadsMetadata
  *
  * PHP version 7.3
  *
@@ -33,10 +33,10 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * GeocodeComponents Class Doc Comment
+ * UploadsMetadata Class Doc Comment
  *
  * @category Class
- * @description A nested object containing a breakdown of each component of a reverse geocoded response.
+ * @description The list of column headers in your file as an array that you want as metadata associated with each mailpiece. See our &lt;a href&#x3D;\&quot;https://help.lob.com/print-and-mail/building-a-mail-strategy/campaign-or-triggered-sends/campaign-audience-guide#required-columns-2\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Campaign Audience Guide&lt;/a&gt; for additional details.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +44,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializable
+class UploadsMetadata implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +53,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
       *
       * @var string
       */
-    protected static $openAPIModelName = 'geocode_components';
+    protected static $openAPIModelName = 'uploads_metadata';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +61,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'zip_code' => 'string',
-        'zip_code_plus_4' => 'string'
+        'columns' => 'string[]'
     ];
 
     /**
@@ -73,8 +72,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'zip_code' => null,
-        'zip_code_plus_4' => null
+        'columns' => null
     ];
 
     /**
@@ -104,8 +102,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $attributeMap = [
-        'zip_code' => 'zip_code',
-        'zip_code_plus_4' => 'zip_code_plus_4'
+        'columns' => 'columns'
     ];
 
     /**
@@ -114,8 +111,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $setters = [
-        'zip_code' => 'setZipCode',
-        'zip_code_plus_4' => 'setZipCodePlus4'
+        'columns' => 'setColumns'
     ];
 
     /**
@@ -124,8 +120,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $getters = [
-        'zip_code' => 'getZipCode',
-        'zip_code_plus_4' => 'getZipCodePlus4'
+        'columns' => 'getColumns'
     ];
 
     /**
@@ -185,8 +180,7 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function __construct(array $data = null)
     {
-        $this->container['zip_code'] = $data['zip_code'] ?? null;
-        $this->container['zip_code_plus_4'] = $data['zip_code_plus_4'] ?? null;
+        $this->container['columns'] = $data['columns'] ?? null;
     }
 
     /**
@@ -199,26 +193,9 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['zip_code'] === null) {
-                $invalidProperties[] = "'zip_code' can't be null";
+            if ($this->container['columns'] === null) {
+                $invalidProperties[] = "'columns' can't be null";
             }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
-                $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
-            }
-
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['zip_code_plus_4'] === null) {
-                $invalidProperties[] = "'zip_code_plus_4' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!preg_match("/^(\\d{4})?$/", $this->container['zip_code_plus_4'])) {
-                $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^(\\d{4})?$/.";
-            }
-
         }
         return $invalidProperties;
     }
@@ -237,64 +214,32 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     
 
     /**
-     * Gets zip_code
+     * Gets columns
      *
-     * @return string
+     * @return string[]
      */
-    public function getZipCode()
+    public function getColumns()
     {
-        return $this->container['zip_code'];
+        return $this->container['columns'];
     }
 
     /**
-     * Sets zip_code
+     * Sets columns
      *
-     * @param string $zip_code The 5-digit ZIP code
+     * @param string[] $columns The list of column names from the csv file which you want associated with each of your mailpieces
      *
      * @return self
      */
-    public function setZipCode($zip_code)
+    public function setColumns($columns)
     {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if ((!preg_match("/^\\d{5}$/", $zip_code))) {
-                throw new \InvalidArgumentException("invalid value for $zip_code when calling GeocodeComponents., must conform to the pattern /^\\d{5}$/.");
+        $this->container['columns'] = [];
+        if ($columns) {
+            foreach ($columns as $point) {
+                
+                $deserializedData = (string) $point;
+                array_push($this->container['columns'], $deserializedData);
             }
-
         }
-        $this->container['zip_code'] = $zip_code;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets zip_code_plus_4
-     *
-     * @return string
-     */
-    public function getZipCodePlus4()
-    {
-        return $this->container['zip_code_plus_4'];
-    }
-
-    /**
-     * Sets zip_code_plus_4
-     *
-     * @param string $zip_code_plus_4 zip_code_plus_4
-     *
-     * @return self
-     */
-    public function setZipCodePlus4($zip_code_plus_4)
-    {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if ((!preg_match("/^(\\d{4})?$/", $zip_code_plus_4))) {
-                throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling GeocodeComponents., must conform to the pattern /^(\\d{4})?$/.");
-            }
-
-        }
-        $this->container['zip_code_plus_4'] = $zip_code_plus_4;
 
         return $this;
     }

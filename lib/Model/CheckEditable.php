@@ -60,8 +60,8 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'from' => 'string',
-        'to' => 'string',
+        'from' => 'mixed',
+        'to' => 'mixed',
         'bank_account' => 'string',
         'amount' => 'float',
         'logo' => 'string',
@@ -382,7 +382,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string
+     * @return mixed
      */
     public function getFrom()
     {
@@ -392,7 +392,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string $from Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -407,7 +407,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -417,7 +417,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */

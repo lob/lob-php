@@ -60,8 +60,11 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'state' => '\OpenAPI\Client\Model\UploadState',
-        'original_filename' => 'string'
+        'original_filename' => 'string',
+        'required_address_column_mapping' => '\OpenAPI\Client\Model\RequiredAddressColumnMapping',
+        'optional_address_column_mapping' => '\OpenAPI\Client\Model\OptionalAddressColumnMapping',
+        'metadata' => '\OpenAPI\Client\Model\UploadsMetadata',
+        'merge_variable_column_mapping' => 'object'
     ];
 
     /**
@@ -72,8 +75,11 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'state' => null,
-        'original_filename' => null
+        'original_filename' => null,
+        'required_address_column_mapping' => null,
+        'optional_address_column_mapping' => null,
+        'metadata' => null,
+        'merge_variable_column_mapping' => null
     ];
 
     /**
@@ -103,8 +109,11 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'state' => 'state',
-        'original_filename' => 'originalFilename'
+        'original_filename' => 'originalFilename',
+        'required_address_column_mapping' => 'requiredAddressColumnMapping',
+        'optional_address_column_mapping' => 'optionalAddressColumnMapping',
+        'metadata' => 'metadata',
+        'merge_variable_column_mapping' => 'mergeVariableColumnMapping'
     ];
 
     /**
@@ -113,8 +122,11 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'state' => 'setState',
-        'original_filename' => 'setOriginalFilename'
+        'original_filename' => 'setOriginalFilename',
+        'required_address_column_mapping' => 'setRequiredAddressColumnMapping',
+        'optional_address_column_mapping' => 'setOptionalAddressColumnMapping',
+        'metadata' => 'setMetadata',
+        'merge_variable_column_mapping' => 'setMergeVariableColumnMapping'
     ];
 
     /**
@@ -123,8 +135,11 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'state' => 'getState',
-        'original_filename' => 'getOriginalFilename'
+        'original_filename' => 'getOriginalFilename',
+        'required_address_column_mapping' => 'getRequiredAddressColumnMapping',
+        'optional_address_column_mapping' => 'getOptionalAddressColumnMapping',
+        'metadata' => 'getMetadata',
+        'merge_variable_column_mapping' => 'getMergeVariableColumnMapping'
     ];
 
     /**
@@ -184,8 +199,11 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['state'] = $data['state'] ?? null;
         $this->container['original_filename'] = $data['original_filename'] ?? null;
+        $this->container['required_address_column_mapping'] = $data['required_address_column_mapping'] ?? null;
+        $this->container['optional_address_column_mapping'] = $data['optional_address_column_mapping'] ?? null;
+        $this->container['metadata'] = $data['metadata'] ?? null;
+        $this->container['merge_variable_column_mapping'] = $data['merge_variable_column_mapping'] ?? null;
     }
 
     /**
@@ -214,31 +232,6 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets state
-     *
-     * @return \OpenAPI\Client\Model\UploadState|null
-     */
-    public function getState()
-    {
-        return $this->container['state'];
-    }
-
-    /**
-     * Sets state
-     *
-     * @param \OpenAPI\Client\Model\UploadState|null $state state
-     *
-     * @return self
-     */
-    public function setState($state)
-    {
-        $this->container['state'] = $state;
-
-        return $this;
-    }
-
-
-    /**
      * Gets original_filename
      *
      * @return string|null
@@ -258,6 +251,106 @@ class UploadUpdatable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setOriginalFilename($original_filename)
     {
         $this->container['original_filename'] = $original_filename;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets required_address_column_mapping
+     *
+     * @return \OpenAPI\Client\Model\RequiredAddressColumnMapping|null
+     */
+    public function getRequiredAddressColumnMapping()
+    {
+        return $this->container['required_address_column_mapping'];
+    }
+
+    /**
+     * Sets required_address_column_mapping
+     *
+     * @param \OpenAPI\Client\Model\RequiredAddressColumnMapping|null $required_address_column_mapping required_address_column_mapping
+     *
+     * @return self
+     */
+    public function setRequiredAddressColumnMapping($required_address_column_mapping)
+    {
+        $this->container['required_address_column_mapping'] = $required_address_column_mapping;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets optional_address_column_mapping
+     *
+     * @return \OpenAPI\Client\Model\OptionalAddressColumnMapping|null
+     */
+    public function getOptionalAddressColumnMapping()
+    {
+        return $this->container['optional_address_column_mapping'];
+    }
+
+    /**
+     * Sets optional_address_column_mapping
+     *
+     * @param \OpenAPI\Client\Model\OptionalAddressColumnMapping|null $optional_address_column_mapping optional_address_column_mapping
+     *
+     * @return self
+     */
+    public function setOptionalAddressColumnMapping($optional_address_column_mapping)
+    {
+        $this->container['optional_address_column_mapping'] = $optional_address_column_mapping;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets metadata
+     *
+     * @return \OpenAPI\Client\Model\UploadsMetadata|null
+     */
+    public function getMetadata()
+    {
+        return $this->container['metadata'];
+    }
+
+    /**
+     * Sets metadata
+     *
+     * @param \OpenAPI\Client\Model\UploadsMetadata|null $metadata metadata
+     *
+     * @return self
+     */
+    public function setMetadata($metadata)
+    {
+        $this->container['metadata'] = $metadata;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets merge_variable_column_mapping
+     *
+     * @return object|null
+     */
+    public function getMergeVariableColumnMapping()
+    {
+        return $this->container['merge_variable_column_mapping'];
+    }
+
+    /**
+     * Sets merge_variable_column_mapping
+     *
+     * @param object|null $merge_variable_column_mapping The mapping of column headers in your file to the merge variables present in your creative. See our <a href=\"https://help.lob.com/print-and-mail/building-a-mail-strategy/campaign-or-triggered-sends/campaign-audience-guide#step-3-map-merge-variable-data-if-applicable-7\" target=\"_blank\">Campaign Audience Guide</a> for additional details. <br />If a merge variable has the same \"name\" as a \"key\" in the `requiredAddressColumnMapping` or `optionalAddressColumnMapping` objects, then they **CANNOT** have a different value in this object. If a different value is provided, then when the campaign is processing it will get overwritten with the mapped value present in the `requiredAddressColumnMapping` or `optionalAddressColumnMapping` objects.
+     *
+     * @return self
+     */
+    public function setMergeVariableColumnMapping($merge_variable_column_mapping)
+    {
+        $this->container['merge_variable_column_mapping'] = $merge_variable_column_mapping;
 
         return $this;
     }

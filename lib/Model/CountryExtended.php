@@ -44,6 +44,8 @@ enum CountryExtended: string
     /**
      * Possible values of this enum
      */
+    case EMPTY = '';
+
     case AD = 'AD';
 
     case AE = 'AE';
