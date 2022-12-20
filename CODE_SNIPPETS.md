@@ -1007,6 +1007,8 @@ try {
 
 ## Creatives Api
 
+
+
 ### Update
 ```bash
 curl -X PATCH https://api.lob.com/v1/crv_2a3b096c409b32c \
@@ -1017,9 +1019,8 @@ curl -X PATCH https://api.lob.com/v1/crv_2a3b096c409b32c \
 ```php
 $apiInstance = new OpenAPI\Client\Api\CreativesApi($config, new GuzzleHttp\Client());
 
-$creativeUpdate = new OpenAPI\Client\Model\CreativePatch(array(
-    "description" =>  "Updated creative"
-));
+$creativeUpdate = new OpenAPI\Client\Model\CreativePatch();
+$creativeUpdate->setDescription("Updated creative");
 
 try {
     $result = $apiInstance->update("crv_2a3b096c409b32c", $creativeUpdate);
@@ -1069,17 +1070,14 @@ $details = new OpenAPI\Client\Model\PostcardDetailsWritable(
 );
 
 $apiInstance = new OpenAPI\Client\Api\CreativesApi($config, new GuzzleHttp\Client());
-$creative_writable = new OpenAPI\Client\Model\CreativeWritable(
-  array(
-    "campaign_id"     => "cmp_e05ee61ff80764b",
-    "resource_type"     => "postcard",
-    "description"     => "Our 4x6 postcard creative",
-    "from"     => "adr_210a8d4b0b76d77b",
-    "front"     => "tmpl_4aa14648113e45b",
-    "back"     => "tmpl_4aa14648113e45b",
-    "details"     => $details,
-  )
-);
+$creative_writable = new OpenAPI\Client\Model\CreativeWritable();
+$creative_writable->setCampaignId("cmp_e05ee61ff80764b");
+$creative_writable->setResourceType("postcard");
+$creative_writable->setDescription("Our 4x6 postcard creative");
+$creative_writable->setFrom("adr_210a8d4b0b76d77b");
+$creative_writable->setFront("tmpl_4aa14648113e45b");
+$creative_writable->setBack("tmpl_4aa14648113e45b");
+$creative_writable->setDetails($details);
 
 try {
     $result = $apiInstance->create($creative_writable);
