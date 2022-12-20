@@ -100,7 +100,7 @@ $apiInstance = new OpenAPI\Client\Api\AddressesApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -259,7 +259,7 @@ $apiInstance = new OpenAPI\Client\Api\PostcardsApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -378,7 +378,7 @@ $apiInstance = new OpenAPI\Client\Api\SelfMailersApi($config, new GuzzleHttp\Cli
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -503,7 +503,7 @@ $apiInstance = new OpenAPI\Client\Api\LettersApi($config, new GuzzleHttp\Client(
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -628,7 +628,7 @@ $apiInstance = new OpenAPI\Client\Api\ChecksApi($config, new GuzzleHttp\Client()
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -692,7 +692,7 @@ $apiInstance = new OpenAPI\Client\Api\BankAccountsApi($config, new GuzzleHttp\Cl
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -706,9 +706,9 @@ try {
 ### Verify
 ```bash
 curl https://api.lob.com/v1/bank_accounts/bank_dfceb4a2a05b57e/verify \
-  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \ 
-  -d "amounts[]=25" \ 
-  -d "amounts[]=63" \ 
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "amounts[]=25" \
+  -d "amounts[]=63" \
 ```
 
 ```php
@@ -821,7 +821,7 @@ $apiInstance = new OpenAPI\Client\Api\TemplatesApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -941,8 +941,8 @@ $apiInstance = new OpenAPI\Client\Api\TemplateVersionsApi($config, new GuzzleHtt
 
 try {
     $result = $apiInstance->list(
-      tmpl_dadaaf7b76c9f25, // tmplId 
-      2, // limit 
+      tmpl_dadaaf7b76c9f25, // tmplId
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -1005,6 +1005,177 @@ try {
 }
 ```
 
+## Uploads Api
+
+### List
+```bash
+curl -X GET "https://api.lob.com/v1/uploads?limit=2" \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc:
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+
+try {
+    $result = $apiInstance->list_upload();
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+
+
+### Retrieve Export
+```bash
+curl https://api.lob.com/v1/uploads/upl_71be866e430b11e9/exports/ex_6a94fe68fd151e0f8 \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "type=failures"
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+
+try {
+    $export = $apiInstance->get_export("upl_71be866e430b11e9", "ex_6a94fe68fd151e0f8");
+    print_r($export);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+
+
+### Upload File
+
+```bash
+curl -X POST https://api.lob.com/v1/uploads/upl_71be866e430b11e9/file \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -F file=@<YOUR_FILE_NAME_HERE>
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+$myFile = new \SplFileObject("<PATH_TO_YOUR_CSV>", "r");
+
+try {
+    $upload = $apiInstance->upload_file("upl_71be866e430b11e9", $myFile);
+    print_r($upload);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+### Retrieve
+```bash
+curl https://api.lob.com/v1/uploads/upl_71be866e430b11e9 \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc:
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+
+try {
+    $result = $apiInstance->get_upload("upl_71be866e430b11e9");
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+
+
+
+### Create Export
+```bash
+curl https://api.lob.com/v1/uploads/upl_71be866e430b11e9/exports \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "type=failures"
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+
+$exportModel = new ExportModel();
+$exportModel->setType("all");
+
+try {
+    $export = $apiInstance->create_export("upl_71be866e430b11e9", $exportModel);
+    print_r($export);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+
+
+### Update
+```bash
+curl -X PATCH https://api.lob.com/v1/upl_71be866e430b11e9 \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "state=Ready for Validation" \
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+
+$uploadUpdatable = new OpenAPI\Client\Model\UploadUpdatable();
+
+$requiredAddressColumnMapping = new OpenAPI\Client\Model\RequiredAddressColumnMapping();
+$requiredAddressColumnMapping->setName("recipient");
+$requiredAddressColumnMapping->setAddressLine1("primary line");
+$requiredAddressColumnMapping->setAddressCity("city");
+$requiredAddressColumnMapping->setAddressState("state");
+$requiredAddressColumnMapping->setAddressZip("zip_code");
+
+$uploadUpdatable->setRequiredAddressColumnMapping($requiredAddressColumnMapping);
+
+try {
+    $result = $apiInstance->update_upload("upl_71be866e430b11e9", $uploadUpdatable);
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+
+### Create
+```bash
+curl https://api.lob.com/v1/uploads \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "campaignId=cmp_e05ee61ff80764b" \
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+$upload_writable = new OpenAPI\Client\Model\UploadWritable();
+$upload_writable->setCampaignId("cmp_e05ee61ff80764b");
+
+try {
+    $result = $apiInstance->create_upload($upload_writable);
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+
+### Delete
+```bash
+curl -X DELETE "https://api.lob.com/v1/uploads/upl_71be866e430b11e9" \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc:
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\UploadsApi($config, new GuzzleHttp\Client());
+
+try {
+    $result = $apiInstance->delete_upload("upl_71be866e430b11e9");
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
 
 ## IntlVerifications Api
 
@@ -1056,14 +1227,14 @@ curl https://api.lob.com/v1/bulk/intl_verifications \
 
 ```php
 
-$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
   'primary_line'     => '35 Tower Hill',
   'city'     => 'London',
   'postal_code'     => 'EC3N 4DR',
   'country'     => 'GB',
 ));
 
-$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
   'primary_line'     => '370 Water St',
   'city'     => 'Summerside',
   'state'     => 'Prince Edward Island',
@@ -1105,14 +1276,14 @@ curl https://api.lob.com/v1/bulk/us_verifications \
 
 ```php
 
-$verificationData0 = new OpenAPI\Client\Model\MultipleComponents(array( 
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponents(array(
   'primary_line'     => '210 King Street',
   'city'     => 'San Francisco',
   'state'     => 'CA',
   'zip_code'     => '94017',
 ));
 
-$verificationData1 = new OpenAPI\Client\Model\MultipleComponents(array( 
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponents(array(
   'primary_line'     => '185 BERRY ST STE 6600',
   'city'     => 'SAN FRANCISCO',
   'state'     => 'CA',

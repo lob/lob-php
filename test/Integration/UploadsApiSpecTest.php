@@ -192,9 +192,7 @@ class UploadsApiSpecTest extends TestCase
         try {
             $createdUpload = self::$uploadApi->create_upload(self::$uploadWritable);
 
-            $myFile = new \SplFileObject("test/assets/lobster-family.csv", "r");
-
-            $upload = self::$uploadApi->upload_file($createdUpload->getId(), $myFile);
+            $upload = self::$uploadApi->upload_file($createdUpload->getId(), "test/assets/lobster-family.csv");
             $this->assertEquals("File uploaded successfully", $upload["message"]);
 
             // cleanup

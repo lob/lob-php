@@ -811,7 +811,7 @@ class UploadsApi
                     [
                         'multipart' => [[
                             'name' => 'file',
-                            'contents' => Utils::tryFopen('/Users/jessica-ho/Desktop/lob-php/test/assets/lobster-family.csv', 'r')
+                            'contents' => Utils::tryFopen($file, 'r')
                         ]],
                         'auth' => $options['auth']
                     ]
