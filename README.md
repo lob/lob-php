@@ -2,6 +2,8 @@
 
 The Lob API is organized around REST. Our API is designed to have predictable, resource-oriented URLs and uses HTTP response codes to indicate any API errors.
 
+Looking for our [legacy PHP SDK](https://github.com/lob/lob-php/tree/v3-legacy)?
+
 For more information, please visit [https://support.lob.com/](https://support.lob.com/).
 
 ## Requirements
