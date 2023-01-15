@@ -215,8 +215,8 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
-                $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^\\d{4}$/.";
+            if (!preg_match("/^(\\d{4})?$/", $this->container['zip_code_plus_4'])) {
+                $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^(\\d{4})?$/.";
             }
 
         }
@@ -289,8 +289,8 @@ class GeocodeComponents implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-            if ((!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
-                throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling GeocodeComponents., must conform to the pattern /^\\d{4}$/.");
+            if ((!preg_match("/^(\\d{4})?$/", $zip_code_plus_4))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling GeocodeComponents., must conform to the pattern /^(\\d{4})?$/.");
             }
 
         }

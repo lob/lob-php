@@ -71,13 +71,14 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'return_envelope' => 'mixed',
         'perforated_page' => 'int',
         'custom_envelope' => 'string',
-        'to' => 'string',
-        'from' => 'string',
+        'to' => 'mixed',
+        'from' => 'mixed',
         'file' => 'string',
         'extra_service' => 'string',
         'cards' => 'string[]',
         'billing_group_id' => 'string',
-        'qr_code' => '\OpenAPI\Client\Model\QrCode'
+        'qr_code' => '\OpenAPI\Client\Model\QrCode',
+        'use_type' => '\OpenAPI\Client\Model\LtrUseType'
     ];
 
     /**
@@ -105,7 +106,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'extra_service' => null,
         'cards' => null,
         'billing_group_id' => null,
-        'qr_code' => null
+        'qr_code' => null,
+        'use_type' => null
     ];
 
     /**
@@ -152,7 +154,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'extra_service' => 'extra_service',
         'cards' => 'cards',
         'billing_group_id' => 'billing_group_id',
-        'qr_code' => 'qr_code'
+        'qr_code' => 'qr_code',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -178,7 +181,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'extra_service' => 'setExtraService',
         'cards' => 'setCards',
         'billing_group_id' => 'setBillingGroupId',
-        'qr_code' => 'setQrCode'
+        'qr_code' => 'setQrCode',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -204,7 +208,8 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'extra_service' => 'getExtraService',
         'cards' => 'getCards',
         'billing_group_id' => 'getBillingGroupId',
-        'qr_code' => 'getQrCode'
+        'qr_code' => 'getQrCode',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -320,6 +325,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['cards'] = $data['cards'] ?? null;
         $this->container['billing_group_id'] = $data['billing_group_id'] ?? null;
         $this->container['qr_code'] = $data['qr_code'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -392,6 +398,11 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
                 $invalidProperties[] = "invalid value for 'cards', number of items must be greater than or equal to 0.";
             }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
+            }
         }
         return $invalidProperties;
     }
@@ -714,7 +725,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -724,7 +735,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -739,7 +750,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string
+     * @return mixed
      */
     public function getFrom()
     {
@@ -749,7 +760,7 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string $from Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -910,6 +921,31 @@ class LetterEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setQrCode($qr_code)
     {
         $this->container['qr_code'] = $qr_code;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\LtrUseType
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\LtrUseType $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

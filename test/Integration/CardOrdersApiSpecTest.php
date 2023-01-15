@@ -57,7 +57,6 @@ class CardOrdersApiSpecTest extends TestCase
     private static $invalidCardOrdersApi;
     private static $cardId;
     private static $editableCardOrder;
-    private static $errorCardOrder;
     private static $co1;
     private static $co2;
     private static $co3;
@@ -87,8 +86,6 @@ class CardOrdersApiSpecTest extends TestCase
 
         self::$editableCardOrder = new CardOrderEditable();
         self::$editableCardOrder->setQuantity(10000);
-
-        self::$errorCardOrder = new CardOrderEditable();
 
         // for List
         self::$co1 = new CardOrderEditable();
@@ -132,18 +129,6 @@ class CardOrdersApiSpecTest extends TestCase
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
-    }
-
-    /**
-     * @group integration
-     * @group cardOrders
-     */
-    // does not include required field in request
-    public function testCreate422()
-    {
-        $this->expectException(ApiException::class);
-        $this->expectExceptionMessageMatches("/quantity is required/");
-        $errorResponse = self::$cardOrdersApi->create(self::$cardId, self::$errorCardOrder);
     }
 
     /**

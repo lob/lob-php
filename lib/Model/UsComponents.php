@@ -570,8 +570,8 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!preg_match("/^\\d{5}$/", $this->container['zip_code'])) {
-                $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /^\\d{5}$/.";
+            if (!preg_match("/(^$)|(^\\d{5}$)/", $this->container['zip_code'])) {
+                $invalidProperties[] = "invalid value for 'zip_code', must be conform to the pattern /(^$)|(^\\d{5}$)/.";
             }
 
         }
@@ -581,8 +581,8 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!preg_match("/^\\d{4}$/", $this->container['zip_code_plus_4'])) {
-                $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^\\d{4}$/.";
+            if (!preg_match("/^(\\d{4})?$/", $this->container['zip_code_plus_4'])) {
+                $invalidProperties[] = "invalid value for 'zip_code_plus_4', must be conform to the pattern /^(\\d{4})?$/.";
             }
 
         }
@@ -1064,8 +1064,8 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-            if ((!preg_match("/^\\d{5}$/", $zip_code))) {
-                throw new \InvalidArgumentException("invalid value for $zip_code when calling UsComponents., must conform to the pattern /^\\d{5}$/.");
+            if ((!preg_match("/(^$)|(^\\d{5}$)/", $zip_code))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code when calling UsComponents., must conform to the pattern /(^$)|(^\\d{5}$)/.");
             }
 
         }
@@ -1096,8 +1096,8 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-            if ((!preg_match("/^\\d{4}$/", $zip_code_plus_4))) {
-                throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling UsComponents., must conform to the pattern /^\\d{4}$/.");
+            if ((!preg_match("/^(\\d{4})?$/", $zip_code_plus_4))) {
+                throw new \InvalidArgumentException("invalid value for $zip_code_plus_4 when calling UsComponents., must conform to the pattern /^(\\d{4})?$/.");
             }
 
         }
