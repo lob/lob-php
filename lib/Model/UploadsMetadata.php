@@ -1,6 +1,6 @@
 <?php
 /**
- * UploadWritable
+ * UploadsMetadata
  *
  * PHP version 7.3
  *
@@ -33,9 +33,10 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * UploadWritable Class Doc Comment
+ * UploadsMetadata Class Doc Comment
  *
  * @category Class
+ * @description The list of column headers in your file as an array that you want as metadata associated with each mailpiece. See our &lt;a href&#x3D;\&quot;https://help.lob.com/print-and-mail/building-a-mail-strategy/campaign-or-triggered-sends/campaign-audience-guide#required-columns-2\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Campaign Audience Guide&lt;/a&gt; for additional details.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -43,7 +44,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
+class UploadsMetadata implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +53,7 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'upload_writable';
+    protected static $openAPIModelName = 'uploads_metadata';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,11 +61,7 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'campaign_id' => 'string',
-        'required_address_column_mapping' => '\OpenAPI\Client\Model\RequiredAddressColumnMapping',
-        'optional_address_column_mapping' => '\OpenAPI\Client\Model\OptionalAddressColumnMapping',
-        'metadata' => '\OpenAPI\Client\Model\UploadsMetadata',
-        'merge_variable_column_mapping' => 'object'
+        'columns' => 'string[]'
     ];
 
     /**
@@ -75,11 +72,7 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'campaign_id' => null,
-        'required_address_column_mapping' => null,
-        'optional_address_column_mapping' => null,
-        'metadata' => null,
-        'merge_variable_column_mapping' => null
+        'columns' => null
     ];
 
     /**
@@ -109,11 +102,7 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'campaign_id' => 'campaignId',
-        'required_address_column_mapping' => 'requiredAddressColumnMapping',
-        'optional_address_column_mapping' => 'optionalAddressColumnMapping',
-        'metadata' => 'metadata',
-        'merge_variable_column_mapping' => 'mergeVariableColumnMapping'
+        'columns' => 'columns'
     ];
 
     /**
@@ -122,11 +111,7 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'campaign_id' => 'setCampaignId',
-        'required_address_column_mapping' => 'setRequiredAddressColumnMapping',
-        'optional_address_column_mapping' => 'setOptionalAddressColumnMapping',
-        'metadata' => 'setMetadata',
-        'merge_variable_column_mapping' => 'setMergeVariableColumnMapping'
+        'columns' => 'setColumns'
     ];
 
     /**
@@ -135,11 +120,7 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'campaign_id' => 'getCampaignId',
-        'required_address_column_mapping' => 'getRequiredAddressColumnMapping',
-        'optional_address_column_mapping' => 'getOptionalAddressColumnMapping',
-        'metadata' => 'getMetadata',
-        'merge_variable_column_mapping' => 'getMergeVariableColumnMapping'
+        'columns' => 'getColumns'
     ];
 
     /**
@@ -199,11 +180,7 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['campaign_id'] = $data['campaign_id'] ?? null;
-        $this->container['required_address_column_mapping'] = $data['required_address_column_mapping'] ?? null;
-        $this->container['optional_address_column_mapping'] = $data['optional_address_column_mapping'] ?? null;
-        $this->container['metadata'] = $data['metadata'] ?? null;
-        $this->container['merge_variable_column_mapping'] = $data['merge_variable_column_mapping'] ?? null;
+        $this->container['columns'] = $data['columns'] ?? null;
     }
 
     /**
@@ -216,8 +193,8 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['campaign_id'] === null) {
-                $invalidProperties[] = "'campaign_id' can't be null";
+            if ($this->container['columns'] === null) {
+                $invalidProperties[] = "'columns' can't be null";
             }
         }
         return $invalidProperties;
@@ -237,125 +214,32 @@ class UploadWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets campaign_id
+     * Gets columns
      *
-     * @return string
+     * @return string[]
      */
-    public function getCampaignId()
+    public function getColumns()
     {
-        return $this->container['campaign_id'];
+        return $this->container['columns'];
     }
 
     /**
-     * Sets campaign_id
+     * Sets columns
      *
-     * @param string $campaign_id campaign_id
+     * @param string[] $columns The list of column names from the csv file which you want associated with each of your mailpieces
      *
      * @return self
      */
-    public function setCampaignId($campaign_id)
+    public function setColumns($columns)
     {
-        $this->container['campaign_id'] = $campaign_id;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets required_address_column_mapping
-     *
-     * @return \OpenAPI\Client\Model\RequiredAddressColumnMapping|null
-     */
-    public function getRequiredAddressColumnMapping()
-    {
-        return $this->container['required_address_column_mapping'];
-    }
-
-    /**
-     * Sets required_address_column_mapping
-     *
-     * @param \OpenAPI\Client\Model\RequiredAddressColumnMapping|null $required_address_column_mapping required_address_column_mapping
-     *
-     * @return self
-     */
-    public function setRequiredAddressColumnMapping($required_address_column_mapping)
-    {
-        $this->container['required_address_column_mapping'] = $required_address_column_mapping;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets optional_address_column_mapping
-     *
-     * @return \OpenAPI\Client\Model\OptionalAddressColumnMapping|null
-     */
-    public function getOptionalAddressColumnMapping()
-    {
-        return $this->container['optional_address_column_mapping'];
-    }
-
-    /**
-     * Sets optional_address_column_mapping
-     *
-     * @param \OpenAPI\Client\Model\OptionalAddressColumnMapping|null $optional_address_column_mapping optional_address_column_mapping
-     *
-     * @return self
-     */
-    public function setOptionalAddressColumnMapping($optional_address_column_mapping)
-    {
-        $this->container['optional_address_column_mapping'] = $optional_address_column_mapping;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets metadata
-     *
-     * @return \OpenAPI\Client\Model\UploadsMetadata|null
-     */
-    public function getMetadata()
-    {
-        return $this->container['metadata'];
-    }
-
-    /**
-     * Sets metadata
-     *
-     * @param \OpenAPI\Client\Model\UploadsMetadata|null $metadata metadata
-     *
-     * @return self
-     */
-    public function setMetadata($metadata)
-    {
-        $this->container['metadata'] = $metadata;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets merge_variable_column_mapping
-     *
-     * @return object|null
-     */
-    public function getMergeVariableColumnMapping()
-    {
-        return $this->container['merge_variable_column_mapping'];
-    }
-
-    /**
-     * Sets merge_variable_column_mapping
-     *
-     * @param object|null $merge_variable_column_mapping The mapping of column headers in your file to the merge variables present in your creative. See our <a href=\"https://help.lob.com/print-and-mail/building-a-mail-strategy/campaign-or-triggered-sends/campaign-audience-guide#step-3-map-merge-variable-data-if-applicable-7\" target=\"_blank\">Campaign Audience Guide</a> for additional details. <br />If a merge variable has the same \"name\" as a \"key\" in the `requiredAddressColumnMapping` or `optionalAddressColumnMapping` objects, then they **CANNOT** have a different value in this object. If a different value is provided, then when the campaign is processing it will get overwritten with the mapped value present in the `requiredAddressColumnMapping` or `optionalAddressColumnMapping` objects.
-     *
-     * @return self
-     */
-    public function setMergeVariableColumnMapping($merge_variable_column_mapping)
-    {
-        $this->container['merge_variable_column_mapping'] = $merge_variable_column_mapping;
+        $this->container['columns'] = [];
+        if ($columns) {
+            foreach ($columns as $point) {
+                
+                $deserializedData = (string) $point;
+                array_push($this->container['columns'], $deserializedData);
+            }
+        }
 
         return $this;
     }

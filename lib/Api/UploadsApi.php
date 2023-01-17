@@ -34,6 +34,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\RequestOptions;
 use OpenAPI\Client\ApiException;
 use OpenAPI\Client\Configuration;
@@ -220,11 +221,11 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
             return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Export', []);
-            
+
         } catch (ApiException $e) {
             throw $e;
         }
@@ -389,11 +390,11 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
             return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Upload', []);
-            
+
         } catch (ApiException $e) {
             throw $e;
         }
@@ -528,7 +529,7 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
         } catch (ApiException $e) {
             throw $e;
         }
@@ -676,11 +677,11 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
             return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\UploadCreateExport', []);
-            
+
         } catch (ApiException $e) {
             throw $e;
         }
@@ -804,7 +805,17 @@ class UploadsApi
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
-                $response = $this->client->send($request, $options);
+                $response = $this->client->request(
+                    'POST',
+                    $request->getUri()->__toString(),
+                    [
+                        'multipart' => [[
+                            'name' => 'file',
+                            'contents' => Utils::tryFopen($file, 'r')
+                        ]],
+                        'auth' => $options['auth']
+                    ]
+                );
             } catch (RequestException $e) {
                 $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
                 $requestError = new LobError();
@@ -837,11 +848,11 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
             return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\UploadFile', []);
-            
+
         } catch (ApiException $e) {
             throw $e;
         }
@@ -998,11 +1009,11 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
             return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Upload', []);
-            
+
         } catch (ApiException $e) {
             throw $e;
         }
@@ -1150,11 +1161,11 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
             return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Upload', []);
-            
+
         } catch (ApiException $e) {
             throw $e;
         }
@@ -1309,11 +1320,11 @@ class UploadsApi
                     (string) $response->getBody()
                 );
             }
-            
+
             // Since all non successes are thrown above, we can assume success
             $content = (string) $response->getBody();
             return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Upload[]', []);
-            
+
         } catch (ApiException $e) {
             throw $e;
         }

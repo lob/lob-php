@@ -62,7 +62,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'id' => 'string',
         'account_id' => 'string',
-        'campaign_id' => 'string',
         'mode' => 'string',
         'failures_url' => 'string',
         'original_filename' => 'string',
@@ -73,7 +72,10 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
         'bytes_processed' => 'int',
         'date_created' => '\DateTime',
         'date_modified' => '\DateTime',
-        'deleted' => 'bool'
+        'required_address_column_mapping' => '\OpenAPI\Client\Model\RequiredAddressColumnMapping',
+        'optional_address_column_mapping' => '\OpenAPI\Client\Model\OptionalAddressColumnMapping',
+        'metadata' => '\OpenAPI\Client\Model\UploadsMetadata',
+        'merge_variable_column_mapping' => 'object'
     ];
 
     /**
@@ -86,7 +88,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'id' => null,
         'account_id' => null,
-        'campaign_id' => null,
         'mode' => null,
         'failures_url' => null,
         'original_filename' => null,
@@ -97,7 +98,10 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
         'bytes_processed' => null,
         'date_created' => 'date-time',
         'date_modified' => 'date-time',
-        'deleted' => null
+        'required_address_column_mapping' => null,
+        'optional_address_column_mapping' => null,
+        'metadata' => null,
+        'merge_variable_column_mapping' => null
     ];
 
     /**
@@ -129,7 +133,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'id' => 'id',
         'account_id' => 'accountId',
-        'campaign_id' => 'campaignId',
         'mode' => 'mode',
         'failures_url' => 'failuresUrl',
         'original_filename' => 'originalFilename',
@@ -140,7 +143,10 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
         'bytes_processed' => 'bytesProcessed',
         'date_created' => 'dateCreated',
         'date_modified' => 'dateModified',
-        'deleted' => 'deleted'
+        'required_address_column_mapping' => 'requiredAddressColumnMapping',
+        'optional_address_column_mapping' => 'optionalAddressColumnMapping',
+        'metadata' => 'metadata',
+        'merge_variable_column_mapping' => 'mergeVariableColumnMapping'
     ];
 
     /**
@@ -151,7 +157,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'id' => 'setId',
         'account_id' => 'setAccountId',
-        'campaign_id' => 'setCampaignId',
         'mode' => 'setMode',
         'failures_url' => 'setFailuresUrl',
         'original_filename' => 'setOriginalFilename',
@@ -162,7 +167,10 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
         'bytes_processed' => 'setBytesProcessed',
         'date_created' => 'setDateCreated',
         'date_modified' => 'setDateModified',
-        'deleted' => 'setDeleted'
+        'required_address_column_mapping' => 'setRequiredAddressColumnMapping',
+        'optional_address_column_mapping' => 'setOptionalAddressColumnMapping',
+        'metadata' => 'setMetadata',
+        'merge_variable_column_mapping' => 'setMergeVariableColumnMapping'
     ];
 
     /**
@@ -173,7 +181,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'id' => 'getId',
         'account_id' => 'getAccountId',
-        'campaign_id' => 'getCampaignId',
         'mode' => 'getMode',
         'failures_url' => 'getFailuresUrl',
         'original_filename' => 'getOriginalFilename',
@@ -184,7 +191,10 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
         'bytes_processed' => 'getBytesProcessed',
         'date_created' => 'getDateCreated',
         'date_modified' => 'getDateModified',
-        'deleted' => 'getDeleted'
+        'required_address_column_mapping' => 'getRequiredAddressColumnMapping',
+        'optional_address_column_mapping' => 'getOptionalAddressColumnMapping',
+        'metadata' => 'getMetadata',
+        'merge_variable_column_mapping' => 'getMergeVariableColumnMapping'
     ];
 
     /**
@@ -261,7 +271,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->container['id'] = $data['id'] ?? null;
         $this->container['account_id'] = $data['account_id'] ?? null;
-        $this->container['campaign_id'] = $data['campaign_id'] ?? null;
         $this->container['mode'] = $data['mode'] ?? null;
         $this->container['failures_url'] = $data['failures_url'] ?? null;
         $this->container['original_filename'] = $data['original_filename'] ?? null;
@@ -272,7 +281,10 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['bytes_processed'] = $data['bytes_processed'] ?? null;
         $this->container['date_created'] = $data['date_created'] ?? null;
         $this->container['date_modified'] = $data['date_modified'] ?? null;
-        $this->container['deleted'] = $data['deleted'] ?? null;
+        $this->container['required_address_column_mapping'] = $data['required_address_column_mapping'] ?? null;
+        $this->container['optional_address_column_mapping'] = $data['optional_address_column_mapping'] ?? null;
+        $this->container['metadata'] = $data['metadata'] ?? null;
+        $this->container['merge_variable_column_mapping'] = $data['merge_variable_column_mapping'] ?? null;
     }
 
     /**
@@ -299,17 +311,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
             if ($this->container['account_id'] === null) {
                 $invalidProperties[] = "'account_id' can't be null";
             }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['campaign_id'] === null) {
-                $invalidProperties[] = "'campaign_id' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!preg_match("/^cmp_[a-zA-Z0-9]+$/", $this->container['campaign_id'])) {
-                $invalidProperties[] = "invalid value for 'campaign_id', must be conform to the pattern /^cmp_[a-zA-Z0-9]+$/.";
-            }
-
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['mode'] === null) {
@@ -360,6 +361,26 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_modified'] === null) {
                 $invalidProperties[] = "'date_modified' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['required_address_column_mapping'] === null) {
+                $invalidProperties[] = "'required_address_column_mapping' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['optional_address_column_mapping'] === null) {
+                $invalidProperties[] = "'optional_address_column_mapping' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['metadata'] === null) {
+                $invalidProperties[] = "'metadata' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['merge_variable_column_mapping'] === null) {
+                $invalidProperties[] = "'merge_variable_column_mapping' can't be null";
             }
         }
         return $invalidProperties;
@@ -430,38 +451,6 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setAccountId($account_id)
     {
         $this->container['account_id'] = $account_id;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets campaign_id
-     *
-     * @return string
-     */
-    public function getCampaignId()
-    {
-        return $this->container['campaign_id'];
-    }
-
-    /**
-     * Sets campaign_id
-     *
-     * @param string $campaign_id Unique identifier prefixed with `cmp_`.
-     *
-     * @return self
-     */
-    public function setCampaignId($campaign_id)
-    {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if ((!preg_match("/^cmp_[a-zA-Z0-9]+$/", $campaign_id))) {
-                throw new \InvalidArgumentException("invalid value for $campaign_id when calling Upload., must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
-            }
-
-        }
-        $this->container['campaign_id'] = $campaign_id;
 
         return $this;
     }
@@ -731,25 +720,100 @@ class Upload implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets deleted
+     * Gets required_address_column_mapping
      *
-     * @return bool|null
+     * @return \OpenAPI\Client\Model\RequiredAddressColumnMapping
      */
-    public function getDeleted()
+    public function getRequiredAddressColumnMapping()
     {
-        return $this->container['deleted'];
+        return $this->container['required_address_column_mapping'];
     }
 
     /**
-     * Sets deleted
+     * Sets required_address_column_mapping
      *
-     * @param bool|null $deleted Only returned if the resource has been successfully deleted.
+     * @param \OpenAPI\Client\Model\RequiredAddressColumnMapping $required_address_column_mapping required_address_column_mapping
      *
      * @return self
      */
-    public function setDeleted($deleted)
+    public function setRequiredAddressColumnMapping($required_address_column_mapping)
     {
-        $this->container['deleted'] = $deleted;
+        $this->container['required_address_column_mapping'] = $required_address_column_mapping;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets optional_address_column_mapping
+     *
+     * @return \OpenAPI\Client\Model\OptionalAddressColumnMapping
+     */
+    public function getOptionalAddressColumnMapping()
+    {
+        return $this->container['optional_address_column_mapping'];
+    }
+
+    /**
+     * Sets optional_address_column_mapping
+     *
+     * @param \OpenAPI\Client\Model\OptionalAddressColumnMapping $optional_address_column_mapping optional_address_column_mapping
+     *
+     * @return self
+     */
+    public function setOptionalAddressColumnMapping($optional_address_column_mapping)
+    {
+        $this->container['optional_address_column_mapping'] = $optional_address_column_mapping;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets metadata
+     *
+     * @return \OpenAPI\Client\Model\UploadsMetadata
+     */
+    public function getMetadata()
+    {
+        return $this->container['metadata'];
+    }
+
+    /**
+     * Sets metadata
+     *
+     * @param \OpenAPI\Client\Model\UploadsMetadata $metadata metadata
+     *
+     * @return self
+     */
+    public function setMetadata($metadata)
+    {
+        $this->container['metadata'] = $metadata;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets merge_variable_column_mapping
+     *
+     * @return object
+     */
+    public function getMergeVariableColumnMapping()
+    {
+        return $this->container['merge_variable_column_mapping'];
+    }
+
+    /**
+     * Sets merge_variable_column_mapping
+     *
+     * @param object $merge_variable_column_mapping The mapping of column headers in your file to the merge variables present in your creative. See our <a href=\"https://help.lob.com/print-and-mail/building-a-mail-strategy/campaign-or-triggered-sends/campaign-audience-guide#step-3-map-merge-variable-data-if-applicable-7\" target=\"_blank\">Campaign Audience Guide</a> for additional details. <br />If a merge variable has the same \"name\" as a \"key\" in the `requiredAddressColumnMapping` or `optionalAddressColumnMapping` objects, then they **CANNOT** have a different value in this object. If a different value is provided, then when the campaign is processing it will get overwritten with the mapped value present in the `requiredAddressColumnMapping` or `optionalAddressColumnMapping` objects.
+     *
+     * @return self
+     */
+    public function setMergeVariableColumnMapping($merge_variable_column_mapping)
+    {
+        $this->container['merge_variable_column_mapping'] = $merge_variable_column_mapping;
 
         return $this;
     }
