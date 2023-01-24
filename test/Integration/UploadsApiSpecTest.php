@@ -1,6 +1,6 @@
 <?php
 /**
- * UploadsApiTest
+ * UploadsApiSpecTest
  * PHP version 7.3
  *
  * @category Class
@@ -28,16 +28,16 @@
 
 namespace OpenAPI\Client\Test\Api;
 
-use OpenAPI\Client\Api\UploadsApi;
 use \OpenAPI\Client\Configuration;
-use \OpenAPI\Client\ApiException;
-use OpenAPI\Client\Model\RequiredAddressColumnMapping;
-use OpenAPI\Client\Model\UploadWritable;
 use PHPUnit\Framework\TestCase;
-use \OpenAPI\Client\Model\CampaignWritable;
-use \OpenAPI\Client\Model\CampaignUpdatable;
-use \OpenAPI\Client\Model\CmpScheduleType;
 use \OpenAPI\Client\Api\CampaignsApi;
+use \OpenAPI\Client\Api\UploadsApi;
+use \OpenAPI\Client\Model\CampaignWritable;
+use \OpenAPI\Client\Model\CmpScheduleType;
+use \OpenAPI\Client\Model\UploadWritable;
+use \OpenAPI\Client\Model\UploadUpdatable;
+use \OpenAPI\Client\Model\RequiredAddressColumnMapping;
+use \OpenAPI\Client\Model\ExportModel;
 
 /**
  * UploadsApiSpecTest Class Doc Comment
@@ -54,77 +54,46 @@ class UploadsApiSpecTest extends TestCase
      * Setup before running any test cases
      */
     private static $config;
+    private static $uploadApi;
     private static $campaignApi;
-    private static $uploadsApi;
-    private static $campaign1;
-    private static $createdCampaign;
+    private static $campaign;
     private static $uploadWritable;
-
-
-    // for teardown post-testing
-    private $idsForCleanup = [];
 
     // set up constant fixtures
     public static function setUpBeforeClass(): void
     {
-        // create instance of UploadsApi & an editable campaign for other tests
+        // create instance of UploadsApiSpecTest & campaign
         self::$config = new Configuration();
         self::$config->setApiKey('basic', getenv('LOB_API_TEST_KEY'));
-        self::$campaignApi = new CampaignsApi(self::$config);
-        self::$uploadsApi = new UploadsApi(self::$config);
-
-        // for List
-        self::$campaign1 = new CampaignWritable();
-        $time = floor(microtime(true) * 1000);
-        self::$campaign1->setName("PHP Integration Test Campaign {$time}");
-        self::$campaign1->setScheduleType(CmpScheduleType::IMMEDIATE->value);
+        self::$uploadApi = new UploadsApi(self::$config);
 
         self::$campaignApi = new CampaignsApi(self::$config);
-        self::$createdCampaign = self::$campaignApi->create(self::$campaign1);
+        $campaignWritable = new CampaignWritable();
+        $campaignWritable->setName("PHP Integration Test Upload");
+        $campaignWritable->setScheduleType(CmpScheduleType::IMMEDIATE->value);
+
+        self::$campaign = self::$campaignApi->create($campaignWritable);
 
         self::$uploadWritable = new UploadWritable();
-        self::$uploadWritable->setCampaignId(self::$createdCampaign->getId());
-        $requiredColumnMapping = new RequiredAddressColumnMapping();
-        $requiredColumnMapping->setName("recipient");
-        $requiredColumnMapping->setAddressLine1("primary_line");
-        $requiredColumnMapping->setAddressCity("city");
-        $requiredColumnMapping->setAddressState("state");
-        $requiredColumnMapping->setAddressZip(("zip_code"));
-        self::$uploadWritable->setRequiredAddressColumnMapping($requiredColumnMapping);
+        self::$uploadWritable->setCampaignId(self::$campaign->getId());
     }
 
-    public function tearDown(): void
+    public static function tearDownAfterClass(): void
     {
-        foreach ($this->idsForCleanup as $id) {
-            self::$uploadsApi->delete($id);
-        }
-    }
-
-     /**
-     * @group integration
-     * @group uploads
-     */
-    public function testUploadsApiInstantiation200() {
-        try {
-            $uploadsApi200 = new UploadsApi(self::$config);
-            $this->assertEquals(gettype($uploadsApi200), 'object');
-        } catch (Exception $instantiationError) {
-            echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
-        }
+        self::$campaignApi->delete(self::$campaign->getId());
     }
 
     /**
      * @group integration
      * @group uploads
      */
-    public function testCreate200()
+    public function testUploadsApiInstantiation200()
     {
         try {
-            $createdUpload = self::$uploadsApi->create(self::$uploadWritable);
-            $this->assertMatchesRegularExpression('/upl_/', $createdUpload->getId());
-            array_push($this->idsForCleanup, $createdUpload->getId());
+            $uploadApi = new UploadsApi(self::$config);
+            $this->assertEquals(gettype($uploadApi), 'object');
         } catch (\Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -132,30 +101,150 @@ class UploadsApiSpecTest extends TestCase
      * @group integration
      * @group uploads
      */
-    public function testGet200()
+    public function testCreate()
     {
-        $createdUpload = self::$uploadsApi->create(self::$uploadWritable);
-
         try {
-            $retrievedUpload = self::$uploadsApi->get($createdUpload->getId());
+            $createdUpload = self::$uploadApi->create(self::$uploadWritable);
+            $this->assertMatchesRegularExpression('/upl/', $createdUpload->getId());
+
+            // cleanup
+            self::$uploadApi->delete($createdUpload->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * @group integration
+     * @group uploads
+     */
+    public function testGet()
+    {
+        try {
+            $createdUpload = self::$uploadApi->create(self::$uploadWritable);
+
+            $retrievedUpload = self::$uploadApi->get($createdUpload->getId());
             $this->assertEquals($createdUpload->getId(), $retrievedUpload->getId());
-            array_push($this->idsForCleanup, $createdUpload->getId());
+
+            // cleanup
+            self::$uploadApi->delete($createdUpload->getId());
         } catch (\Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
 
-    public function testUploadFile200()
+    /**
+     * @group integration
+     * @group uploads
+     */
+    public function testList()
     {
-        $createdUpload = self::$uploadsApi->create(self::$uploadWritable);
-        $retrievedUpload = self::$uploadsApi->get($createdUpload->getId());
-
         try {
-            array_push($this->idsForCleanup, $createdUpload->getId());
-            $retrievedUpload = self::$uploadsApi->upload_file($createdUpload->getId(),"lobster-family.csv" );
-            $this->assertNotNull($retrievedUpload->getFilename());
+            $createdUpload = self::$uploadApi->create(self::$uploadWritable);
+
+            $listOfUploads = self::$uploadApi->list(self::$campaign->getId());
+            $this->assertGreaterThan(0, count($listOfUploads));
+            $this->assertNotNull($listOfUploads[0]->getId());
+
+            // cleanup
+            self::$uploadApi->delete($createdUpload->getId());
         } catch (\Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+    }
+
+    /**
+     * @group integration
+     * @group uploads
+     */
+    public function testUpdate()
+    {
+        $uploadUpdatable = new UploadUpdatable();
+        $requiredAddressColumnMapping = new RequiredAddressColumnMapping();
+        $requiredAddressColumnMapping->setName("recipient");
+        $requiredAddressColumnMapping->setAddressLine1("primary line");
+        $requiredAddressColumnMapping->setAddressCity("city");
+        $requiredAddressColumnMapping->setAddressState("state");
+        $requiredAddressColumnMapping->setAddressZip("zip_code");
+
+        $uploadUpdatable->setRequiredAddressColumnMapping($requiredAddressColumnMapping);
+
+        try {
+            $createdUpload = self::$uploadApi->create(self::$uploadWritable);
+
+            $updatedUpload = self::$uploadApi->update($createdUpload->getId(), $uploadUpdatable);
+            $this->assertEquals($updatedUpload->getRequiredAddressColumnMapping()->getName(), $requiredAddressColumnMapping->getName());
+
+            // cleanup
+            self::$uploadApi->delete($createdUpload->getId());
+        } catch (Exception $e) {
+            echo $e->getMessage(), PHP_EOL;
+        }
+    }
+
+    /**
+     * @group integration
+     * @group uploads
+     */
+    public function testUploadFile() {
+        try {
+            $createdUpload = self::$uploadApi->create(self::$uploadWritable);
+
+            $upload = self::$uploadApi->upload_file($createdUpload->getId(), "test/assets/lobster-family.csv");
+            $this->assertEquals("File uploaded successfully", $upload["message"]);
+
+            // cleanup
+            self::$uploadApi->delete($createdUpload->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * @group integration
+     * @group uploads
+     */
+    public function testCreateExport()
+    {
+        try {
+            $createdUpload = self::$uploadApi->create(self::$uploadWritable);
+            $this->assertMatchesRegularExpression('/upl/', $createdUpload->getId());
+
+            $exportModel = new ExportModel();
+            $exportModel->setType("failures");
+
+            $export = self::$uploadApi->create_export($createdUpload->getId(), $exportModel);
+            $this->assertNotNull($export->getExportId());
+
+            // cleanup
+            self::$uploadApi->delete($createdUpload->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * @group integration
+     * @group uploads
+     */
+    public function testRetrieveExport()
+    {
+        try {
+            $createdUpload = self::$uploadApi->create(self::$uploadWritable);
+            $this->assertMatchesRegularExpression('/upl/', $createdUpload->getId());
+
+            $exportModel = new ExportModel();
+            $exportModel->setType("failures");
+
+            $createdExport = self::$uploadApi->create_export($createdUpload->getId(), $exportModel);
+
+            $export = self::$uploadApi->get_export($createdUpload->getId(), $createdExport->getExportId());
+            $this->assertEquals($export->getId(), $createdExport->getExportId());
+
+            // cleanup
+            self::$uploadApi->delete($createdUpload->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 }
