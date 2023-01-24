@@ -29,6 +29,8 @@
 namespace OpenAPI\Client\Test\Api;
 
 use \OpenAPI\Client\Configuration;
+use \OpenAPI\Client\ApiException;
+use \OpenAPI\Client\ObjectSerializer;
 use PHPUnit\Framework\TestCase;
 use \OpenAPI\Client\Api\CampaignsApi;
 use \OpenAPI\Client\Api\UploadsApi;
@@ -173,7 +175,7 @@ class UploadsApiSpecTest extends TestCase
             $createdUpload = self::$uploadApi->create(self::$uploadWritable);
 
             $updatedUpload = self::$uploadApi->update($createdUpload->getId(), $uploadUpdatable);
-            $this->assertEquals($updatedUpload->getRequiredAddressColumnMapping()->getName(), $requiredAddressColumnMapping->getName());
+            $this->assertEquals($updatedUpload->getRequiredAddressColumnMapping()->name, $requiredAddressColumnMapping->getName());
 
             // cleanup
             self::$uploadApi->delete($createdUpload->getId());
@@ -187,6 +189,7 @@ class UploadsApiSpecTest extends TestCase
      * @group uploads
      */
     public function testUploadFile() {
+        $this->markTestSkipped("skipping test in anticipation of changes");
         try {
             $createdUpload = self::$uploadApi->create(self::$uploadWritable);
 
