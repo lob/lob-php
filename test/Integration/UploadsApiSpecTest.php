@@ -152,7 +152,7 @@ class UploadsApiSpecTest extends TestCase
 
         try {
             array_push($this->idsForCleanup, $createdUpload->getId());
-            $retrievedUpload = self::$uploadsApi->upload_file($createdUpload->getId(),"/test/Helper/lobster-family.csv" );
+            $retrievedUpload = self::$uploadsApi->upload_file($createdUpload->getId(),"lobster-family.csv" );
             $this->assertNotNull($retrievedUpload->getFilename());
         } catch (\Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
