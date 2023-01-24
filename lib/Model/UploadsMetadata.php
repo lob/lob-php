@@ -1,6 +1,6 @@
 <?php
 /**
- * InlineResponse200
+ * UploadsMetadata
  *
  * PHP version 7.3
  *
@@ -33,10 +33,10 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * InlineResponse200 Class Doc Comment
+ * UploadsMetadata Class Doc Comment
  *
  * @category Class
- * @description Lob uses RESTful HTTP response codes to indicate success or failure of an API request. In general, 2xx indicates success, 4xx indicate an input error, and 5xx indicates an error on Lob&#39;s end.
+ * @description The list of column headers in your file as an array that you want as metadata associated with each mailpiece. See our &lt;a href&#x3D;\&quot;https://help.lob.com/print-and-mail/building-a-mail-strategy/campaign-or-triggered-sends/campaign-audience-guide#required-columns-2\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Campaign Audience Guide&lt;/a&gt; for additional details.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,7 +44,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializable
+class UploadsMetadata implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -53,7 +53,7 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
       *
       * @var string
       */
-    protected static $openAPIModelName = 'inline_response_200';
+    protected static $openAPIModelName = 'uploads_metadata';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,8 +61,7 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'string',
-        'deleted' => 'bool'
+        'columns' => 'string[]'
     ];
 
     /**
@@ -73,8 +72,7 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'id' => null,
-        'deleted' => null
+        'columns' => null
     ];
 
     /**
@@ -104,8 +102,7 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'deleted' => 'deleted'
+        'columns' => 'columns'
     ];
 
     /**
@@ -114,8 +111,7 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'deleted' => 'setDeleted'
+        'columns' => 'setColumns'
     ];
 
     /**
@@ -124,8 +120,7 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'deleted' => 'getDeleted'
+        'columns' => 'getColumns'
     ];
 
     /**
@@ -185,8 +180,7 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = $data['id'] ?? null;
-        $this->container['deleted'] = $data['deleted'] ?? null;
+        $this->container['columns'] = $data['columns'] ?? null;
     }
 
     /**
@@ -199,10 +193,9 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($this->container['id']) && !preg_match("/^cmp_[a-zA-Z0-9]+$/", $this->container['id'])) {
-                $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^cmp_[a-zA-Z0-9]+$/.";
+            if ($this->container['columns'] === null) {
+                $invalidProperties[] = "'columns' can't be null";
             }
-
         }
         return $invalidProperties;
     }
@@ -221,57 +214,32 @@ class InlineResponse200 implements ModelInterface, ArrayAccess, \JsonSerializabl
     
 
     /**
-     * Gets id
+     * Gets columns
      *
-     * @return string|null
+     * @return string[]
      */
-    public function getId()
+    public function getColumns()
     {
-        return $this->container['id'];
+        return $this->container['columns'];
     }
 
     /**
-     * Sets id
+     * Sets columns
      *
-     * @param string|null $id Unique identifier prefixed with `cmp_`.
+     * @param string[] $columns The list of column names from the csv file which you want associated with each of your mailpieces
      *
      * @return self
      */
-    public function setId($id)
+    public function setColumns($columns)
     {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if (!is_null($id) && (!preg_match("/^cmp_[a-zA-Z0-9]+$/", $id))) {
-                throw new \InvalidArgumentException("invalid value for $id when calling InlineResponse200., must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
+        $this->container['columns'] = [];
+        if ($columns) {
+            foreach ($columns as $point) {
+                
+                $deserializedData = (string) $point;
+                array_push($this->container['columns'], $deserializedData);
             }
-
         }
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets deleted
-     *
-     * @return bool|null
-     */
-    public function getDeleted()
-    {
-        return $this->container['deleted'];
-    }
-
-    /**
-     * Sets deleted
-     *
-     * @param bool|null $deleted True if the resource has been successfully deleted.
-     *
-     * @return self
-     */
-    public function setDeleted($deleted)
-    {
-        $this->container['deleted'] = $deleted;
 
         return $this;
     }

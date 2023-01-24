@@ -269,6 +269,11 @@ class CampaignWritable implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
+            }
+        }
         return $invalidProperties;
     }
 
@@ -505,7 +510,7 @@ class CampaignWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets use_type
      *
-     * @return \OpenAPI\Client\Model\CmpUseType|null
+     * @return \OpenAPI\Client\Model\CmpUseType
      */
     public function getUseType()
     {
@@ -515,7 +520,7 @@ class CampaignWritable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets use_type
      *
-     * @param \OpenAPI\Client\Model\CmpUseType|null $use_type use_type
+     * @param \OpenAPI\Client\Model\CmpUseType $use_type use_type
      *
      * @return self
      */

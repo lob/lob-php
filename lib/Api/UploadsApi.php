@@ -34,6 +34,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\RequestOptions;
 use OpenAPI\Client\ApiException;
 use OpenAPI\Client\Configuration;
@@ -321,36 +322,36 @@ class UploadsApi
     }
 
     /**
-     * Operation create_upload
+     * Operation get
      *
-     * create_upload
+     * get
      *
-     * @param  \OpenAPI\Client\Model\UploadWritable $upload_writable upload_writable (required)
+     * @param  string $upl_id id of the upload (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError
      */
-    public function create_upload($upload_writable)
+    public function get($upl_id)
     {
-        $response = $this->create_uploadWithHttpInfo($upload_writable);
+        $response = $this->getWithHttpInfo($upl_id);
         return $response;
     }
 
     /**
-     * Operation create_uploadWithHttpInfo
+     * Operation getWithHttpInfo
      *
-     * create_upload
+     * get
      *
-     * @param  \OpenAPI\Client\Model\UploadWritable $upload_writable (required)
+     * @param  string $upl_id id of the upload (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function create_uploadWithHttpInfo($upload_writable)
+    public function getWithHttpInfo($upl_id)
     {
-        $request = $this->create_uploadRequest($upload_writable);
+        $request = $this->getRequest($upl_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -400,19 +401,169 @@ class UploadsApi
     }
 
     /**
-     * Create request for operation 'create_upload'
+     * Create request for operation 'get'
+     *
+     * @param  string $upl_id id of the upload (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getRequest($upl_id)
+    {
+        // verify the required parameter 'upl_id' is set
+        if ($upl_id === null || (is_array($upl_id) && count($upl_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $upl_id when calling get'
+            );
+        }
+        if (!preg_match("/^upl_[a-zA-Z0-9]+$/", $upl_id)) {
+            throw new \InvalidArgumentException("invalid value for \"upl_id\" when calling UploadsApi.get, must conform to the pattern /^upl_[a-zA-Z0-9]+$/.");
+        }
+
+
+        $resourcePath = '/uploads/{upl_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+
+
+
+        // path params
+        if ($upl_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'upl_id' . '}',
+                ObjectSerializer::toPathValue($upl_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json'],
+            []
+        );
+
+        // for model (json/xml)
+
+
+        $defaultHeaders = [];
+        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
+        }
+
+        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
+
+        $headers = array_merge(
+            $customHeaders,
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = $this->modified_build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation create
+     *
+     * create
+     *
+     * @param  \OpenAPI\Client\Model\UploadWritable $upload_writable upload_writable (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError
+     */
+    public function create($upload_writable)
+    {
+        $response = $this->createWithHttpInfo($upload_writable);
+        return $response;
+    }
+
+    /**
+     * Operation createWithHttpInfo
+     *
+     * create
+     *
+     * @param  \OpenAPI\Client\Model\UploadWritable $upload_writable (required)
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createWithHttpInfo($upload_writable)
+    {
+        $request = $this->createRequest($upload_writable);
+
+        try {
+            $options = $this->createHttpClientOption();
+            $requestError = null;
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
+                $requestError = new LobError();
+                $requestError->setMessage(get_object_vars($errorBody)["message"]);
+                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
+                $requestError->setCode(get_object_vars($errorBody)["code"]);
+
+                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
+                throw $exception;
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            // This catches any non-successful status
+            $statusCode = $response->getStatusCode();
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+            
+            // Since all non successes are thrown above, we can assume success
+            $content = (string) $response->getBody();
+            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Upload', []);
+            
+        } catch (ApiException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Create request for operation 'create'
      *
      * @param  \OpenAPI\Client\Model\UploadWritable $upload_writable (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function create_uploadRequest($upload_writable)
+    public function createRequest($upload_writable)
     {
         // verify the required parameter 'upload_writable' is set
         if ($upload_writable === null || (is_array($upload_writable) && count($upload_writable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upload_writable when calling create_upload'
+                'Missing the required parameter $upload_writable when calling create'
             );
         }
 
@@ -461,9 +612,9 @@ class UploadsApi
     }
 
     /**
-     * Operation delete_upload
+     * Operation delete
      *
-     * delete_upload
+     * delete
      *
      * @param  string $upl_id id of the upload (required)
      *
@@ -471,15 +622,15 @@ class UploadsApi
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function delete_upload($upl_id)
+    public function delete($upl_id)
     {
-        $this->delete_uploadWithHttpInfo($upl_id);
+        $this->deleteWithHttpInfo($upl_id);
     }
 
     /**
-     * Operation delete_uploadWithHttpInfo
+     * Operation deleteWithHttpInfo
      *
-     * delete_upload
+     * delete
      *
      * @param  string $upl_id id of the upload (required)
      *
@@ -487,9 +638,9 @@ class UploadsApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function delete_uploadWithHttpInfo($upl_id)
+    public function deleteWithHttpInfo($upl_id)
     {
-        $request = $this->delete_uploadRequest($upl_id);
+        $request = $this->deleteRequest($upl_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -535,23 +686,23 @@ class UploadsApi
     }
 
     /**
-     * Create request for operation 'delete_upload'
+     * Create request for operation 'delete'
      *
      * @param  string $upl_id id of the upload (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function delete_uploadRequest($upl_id)
+    public function deleteRequest($upl_id)
     {
         // verify the required parameter 'upl_id' is set
         if ($upl_id === null || (is_array($upl_id) && count($upl_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upl_id when calling delete_upload'
+                'Missing the required parameter $upl_id when calling delete'
             );
         }
         if (!preg_match("/^upl_[a-zA-Z0-9]+$/", $upl_id)) {
-            throw new \InvalidArgumentException("invalid value for \"upl_id\" when calling UploadsApi.delete_upload, must conform to the pattern /^upl_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"upl_id\" when calling UploadsApi.delete, must conform to the pattern /^upl_[a-zA-Z0-9]+$/.");
         }
 
 
@@ -804,7 +955,19 @@ class UploadsApi
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
-                $response = $this->client->send($request, $options);
+                if(file != null) {
+                    $response = $this->client->request(
+                        'POST',
+                        $request->getUri()->__toString(),
+                        [
+                            'multipart' => [[
+                                'name' => 'file',
+                                'contents' => Utils::tryFopen($file, 'r')
+                            ]],
+                            'auth' => $options['auth']
+                        ]
+                    );
+                }
             } catch (RequestException $e) {
                 $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
                 $requestError = new LobError();
@@ -930,159 +1093,9 @@ class UploadsApi
     }
 
     /**
-     * Operation get_upload
+     * Operation update
      *
-     * get_upload
-     *
-     * @param  string $upl_id id of the upload (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError
-     */
-    public function get_upload($upl_id)
-    {
-        $response = $this->get_uploadWithHttpInfo($upl_id);
-        return $response;
-    }
-
-    /**
-     * Operation get_uploadWithHttpInfo
-     *
-     * get_upload
-     *
-     * @param  string $upl_id id of the upload (required)
-     *
-     * @throws \OpenAPI\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function get_uploadWithHttpInfo($upl_id)
-    {
-        $request = $this->get_uploadRequest($upl_id);
-
-        try {
-            $options = $this->createHttpClientOption();
-            $requestError = null;
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
-                $requestError = new LobError();
-                $requestError->setMessage(get_object_vars($errorBody)["message"]);
-                $requestError->setStatusCode(get_object_vars($errorBody)["status_code"]);
-                $requestError->setCode(get_object_vars($errorBody)["code"]);
-
-                $exception = new ApiException($requestError->getMessage(), $requestError->getStatusCode(), null, null);
-                throw $exception;
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            // This catches any non-successful status
-            $statusCode = $response->getStatusCode();
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-            
-            // Since all non successes are thrown above, we can assume success
-            $content = (string) $response->getBody();
-            return ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Upload', []);
-            
-        } catch (ApiException $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Create request for operation 'get_upload'
-     *
-     * @param  string $upl_id id of the upload (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function get_uploadRequest($upl_id)
-    {
-        // verify the required parameter 'upl_id' is set
-        if ($upl_id === null || (is_array($upl_id) && count($upl_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $upl_id when calling get_upload'
-            );
-        }
-        if (!preg_match("/^upl_[a-zA-Z0-9]+$/", $upl_id)) {
-            throw new \InvalidArgumentException("invalid value for \"upl_id\" when calling UploadsApi.get_upload, must conform to the pattern /^upl_[a-zA-Z0-9]+$/.");
-        }
-
-
-        $resourcePath = '/uploads/{upl_id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-
-
-
-        // path params
-        if ($upl_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'upl_id' . '}',
-                ObjectSerializer::toPathValue($upl_id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json'],
-            []
-        );
-
-        // for model (json/xml)
-
-
-        $defaultHeaders = [];
-        $version = PrettyVersions::getVersion('lob/lob-php')->getPrettyVersion();
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = "lob/lob-php/$version";
-        }
-
-        $customHeaders = $this->headerSelector->customHeaders($this->customHeaders);
-
-        $headers = array_merge(
-            $customHeaders,
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = $this->modified_build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation update_upload
-     *
-     * update_upload
+     * update
      *
      * @param  string $upl_id id of the upload (required)
      * @param  \OpenAPI\Client\Model\UploadUpdatable $upload_updatable upload_updatable (required)
@@ -1091,16 +1104,16 @@ class UploadsApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError
      */
-    public function update_upload($upl_id, $upload_updatable)
+    public function update($upl_id, $upload_updatable)
     {
-        $response = $this->update_uploadWithHttpInfo($upl_id, $upload_updatable);
+        $response = $this->updateWithHttpInfo($upl_id, $upload_updatable);
         return $response;
     }
 
     /**
-     * Operation update_uploadWithHttpInfo
+     * Operation updateWithHttpInfo
      *
-     * update_upload
+     * update
      *
      * @param  string $upl_id id of the upload (required)
      * @param  \OpenAPI\Client\Model\UploadUpdatable $upload_updatable (required)
@@ -1109,9 +1122,9 @@ class UploadsApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Upload|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function update_uploadWithHttpInfo($upl_id, $upload_updatable)
+    public function updateWithHttpInfo($upl_id, $upload_updatable)
     {
-        $request = $this->update_uploadRequest($upl_id, $upload_updatable);
+        $request = $this->updateRequest($upl_id, $upload_updatable);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1161,7 +1174,7 @@ class UploadsApi
     }
 
     /**
-     * Create request for operation 'update_upload'
+     * Create request for operation 'update'
      *
      * @param  string $upl_id id of the upload (required)
      * @param  \OpenAPI\Client\Model\UploadUpdatable $upload_updatable (required)
@@ -1169,22 +1182,22 @@ class UploadsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function update_uploadRequest($upl_id, $upload_updatable)
+    public function updateRequest($upl_id, $upload_updatable)
     {
         // verify the required parameter 'upl_id' is set
         if ($upl_id === null || (is_array($upl_id) && count($upl_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upl_id when calling update_upload'
+                'Missing the required parameter $upl_id when calling update'
             );
         }
         if (!preg_match("/^upl_[a-zA-Z0-9]+$/", $upl_id)) {
-            throw new \InvalidArgumentException("invalid value for \"upl_id\" when calling UploadsApi.update_upload, must conform to the pattern /^upl_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"upl_id\" when calling UploadsApi.update, must conform to the pattern /^upl_[a-zA-Z0-9]+$/.");
         }
 
         // verify the required parameter 'upload_updatable' is set
         if ($upload_updatable === null || (is_array($upload_updatable) && count($upload_updatable) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upload_updatable when calling update_upload'
+                'Missing the required parameter $upload_updatable when calling update'
             );
         }
 
@@ -1241,9 +1254,9 @@ class UploadsApi
     }
 
     /**
-     * Operation list_upload
+     * Operation list
      *
-     * list_upload
+     * list
      *
      * @param  string $campaign_id id of the campaign (optional)
      *
@@ -1251,16 +1264,16 @@ class UploadsApi
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Upload[]
      */
-    public function list_upload($campaign_id = null)
+    public function list($campaign_id = null)
     {
-        $response = $this->list_uploadWithHttpInfo($campaign_id);
+        $response = $this->listWithHttpInfo($campaign_id);
         return $response;
     }
 
     /**
-     * Operation list_uploadWithHttpInfo
+     * Operation listWithHttpInfo
      *
-     * list_upload
+     * list
      *
      * @param  string $campaign_id id of the campaign (optional)
      *
@@ -1268,9 +1281,9 @@ class UploadsApi
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Upload[], HTTP status code, HTTP response headers (array of strings)
      */
-    public function list_uploadWithHttpInfo($campaign_id = null)
+    public function listWithHttpInfo($campaign_id = null)
     {
-        $request = $this->list_uploadRequest($campaign_id);
+        $request = $this->listRequest($campaign_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1320,17 +1333,17 @@ class UploadsApi
     }
 
     /**
-     * Create request for operation 'list_upload'
+     * Create request for operation 'list'
      *
      * @param  string $campaign_id id of the campaign (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function list_uploadRequest($campaign_id = null)
+    public function listRequest($campaign_id = null)
     {
         if ($campaign_id !== null && !preg_match("/^cmp_[a-zA-Z0-9]+$/", $campaign_id)) {
-            throw new \InvalidArgumentException("invalid value for \"campaign_id\" when calling UploadsApi.list_upload, must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
+            throw new \InvalidArgumentException("invalid value for \"campaign_id\" when calling UploadsApi.list, must conform to the pattern /^cmp_[a-zA-Z0-9]+$/.");
         }
 
 

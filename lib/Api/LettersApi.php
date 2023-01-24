@@ -307,14 +307,15 @@ class LettersApi
      *
      * @param  \OpenAPI\Client\Model\LetterEditable $letter_editable letter_editable (required)
      * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  object $file An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Letter|\OpenAPI\Client\Model\LobError
      */
-    public function create($letter_editable, $idempotency_key = null)
+    public function create($letter_editable, $idempotency_key = null, $file = null)
     {
-        $response = $this->createWithHttpInfo($letter_editable, $idempotency_key);
+        $response = $this->createWithHttpInfo($letter_editable, $idempotency_key, $file);
         return $response;
     }
 
@@ -325,20 +326,36 @@ class LettersApi
      *
      * @param  \OpenAPI\Client\Model\LetterEditable $letter_editable (required)
      * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  object $file An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Letter|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createWithHttpInfo($letter_editable, $idempotency_key = null)
+    public function createWithHttpInfo($letter_editable, $idempotency_key = null, $file = null)
     {
-        $request = $this->createRequest($letter_editable, $idempotency_key);
+        $request = $this->createRequest($letter_editable, $idempotency_key, $file);
 
         try {
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
-                $response = $this->client->send($request, $options);
+                if($file != null) {
+                    $response = $this->client->request(
+                        'POST',
+                        $request->getUri()->__toString(),
+                        [
+                            'multipart' => [[
+                                'name' => 'file',
+                                'contents' => Utils::tryFopen($file, 'r')
+                            ]],
+                            'auth' => $options['auth']
+                        ]
+                    );
+                }
+                else {
+                    $response = $this->client->send($request, $options);
+                }
             } catch (RequestException $e) {
                 $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
                 $requestError = new LobError();
@@ -386,11 +403,12 @@ class LettersApi
      *
      * @param  \OpenAPI\Client\Model\LetterEditable $letter_editable (required)
      * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  object $file An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createRequest($letter_editable, $idempotency_key = null)
+    public function createRequest($letter_editable, $idempotency_key = null, $file = null)
     {
         // verify the required parameter 'letter_editable' is set
         if ($letter_editable === null || (is_array($letter_editable) && count($letter_editable) === 0)) {
@@ -409,6 +427,10 @@ class LettersApi
         $headerParams = [];
         $httpBody = '';
 
+        // query params
+        if ($file !== null) {
+            $queryParams['file'] = $file;
+        }
 
         // header params
         if ($idempotency_key !== null) {

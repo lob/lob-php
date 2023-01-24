@@ -34,6 +34,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\RequestOptions;
 use OpenAPI\Client\ApiException;
 use OpenAPI\Client\Configuration;
@@ -155,14 +156,15 @@ class BuckslipsApi
      * create
      *
      * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable buckslip_editable (required)
+     * @param  object $front An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError
      */
-    public function create($buckslip_editable)
+    public function create($buckslip_editable, $front = null)
     {
-        $response = $this->createWithHttpInfo($buckslip_editable);
+        $response = $this->createWithHttpInfo($buckslip_editable, $front);
         return $response;
     }
 
@@ -172,20 +174,33 @@ class BuckslipsApi
      * create
      *
      * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable (required)
+     * @param  object $front An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Buckslip|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createWithHttpInfo($buckslip_editable)
+    public function createWithHttpInfo($buckslip_editable, $front = null)
     {
-        $request = $this->createRequest($buckslip_editable);
+        $request = $this->createRequest($buckslip_editable, $front);
 
         try {
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
-                $response = $this->client->send($request, $options);
+                if(file != null) {
+                    $response = $this->client->request(
+                        'POST',
+                        $request->getUri()->__toString(),
+                        [
+                            'multipart' => [[
+                                'name' => 'file',
+                                'contents' => Utils::tryFopen($file, 'r')
+                            ]],
+                            'auth' => $options['auth']
+                        ]
+                    );
+                }
             } catch (RequestException $e) {
                 $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
                 $requestError = new LobError();
@@ -232,11 +247,12 @@ class BuckslipsApi
      * Create request for operation 'create'
      *
      * @param  \OpenAPI\Client\Model\BuckslipEditable $buckslip_editable (required)
+     * @param  object $front An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createRequest($buckslip_editable)
+    public function createRequest($buckslip_editable, $front = null)
     {
         // verify the required parameter 'buckslip_editable' is set
         if ($buckslip_editable === null || (is_array($buckslip_editable) && count($buckslip_editable) === 0)) {
@@ -251,6 +267,10 @@ class BuckslipsApi
         $headerParams = [];
         $httpBody = '';
 
+        // query params
+        if ($front !== null) {
+            $queryParams['front'] = $front;
+        }
 
 
 

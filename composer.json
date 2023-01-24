@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.3 || ^8.1",
         "jean85/pretty-package-versions": "^1.5 || ^2.0",
         "ext-curl": "*",
         "ext-json": "*",

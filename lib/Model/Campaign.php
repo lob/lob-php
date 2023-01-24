@@ -331,6 +331,11 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['auto_cancel_if_ncoa'] === null) {
                 $invalidProperties[] = "'auto_cancel_if_ncoa' can't be null";
             }
@@ -618,7 +623,7 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets use_type
      *
-     * @return \OpenAPI\Client\Model\CmpUseType|null
+     * @return \OpenAPI\Client\Model\CmpUseType
      */
     public function getUseType()
     {
@@ -628,7 +633,7 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets use_type
      *
-     * @param \OpenAPI\Client\Model\CmpUseType|null $use_type use_type
+     * @param \OpenAPI\Client\Model\CmpUseType $use_type use_type
      *
      * @return self
      */

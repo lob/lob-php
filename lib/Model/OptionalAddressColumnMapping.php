@@ -1,6 +1,6 @@
 <?php
 /**
- * UploadList
+ * OptionalAddressColumnMapping
  *
  * PHP version 7.3
  *
@@ -33,9 +33,10 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * UploadList Class Doc Comment
+ * OptionalAddressColumnMapping Class Doc Comment
  *
  * @category Class
+ * @description The mapping of column headers in your file to Lob-optional fields for the resource created. See our &lt;a href&#x3D;\&quot;https://help.lob.com/print-and-mail/building-a-mail-strategy/campaign-or-triggered-sends/campaign-audience-guide#optional-columns-3\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Campaign Audience Guide&lt;/a&gt; for additional details.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -43,7 +44,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
+class OptionalAddressColumnMapping implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -52,7 +53,7 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'upload_list';
+    protected static $openAPIModelName = 'optional_address_column_mapping';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -60,12 +61,9 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => '\OpenAPI\Client\Model\Upload[]',
-        'object' => 'string',
-        'next_url' => 'string',
-        'previous_url' => 'string',
-        'count' => 'int',
-        'total_count' => 'int'
+        'address_line2' => 'string',
+        'company' => 'string',
+        'address_country' => 'string'
     ];
 
     /**
@@ -76,12 +74,9 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'data' => null,
-        'object' => null,
-        'next_url' => null,
-        'previous_url' => null,
-        'count' => null,
-        'total_count' => null
+        'address_line2' => null,
+        'company' => null,
+        'address_country' => null
     ];
 
     /**
@@ -111,12 +106,9 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'data' => 'data',
-        'object' => 'object',
-        'next_url' => 'next_url',
-        'previous_url' => 'previous_url',
-        'count' => 'count',
-        'total_count' => 'total_count'
+        'address_line2' => 'address_line2',
+        'company' => 'company',
+        'address_country' => 'address_country'
     ];
 
     /**
@@ -125,12 +117,9 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'data' => 'setData',
-        'object' => 'setObject',
-        'next_url' => 'setNextUrl',
-        'previous_url' => 'setPreviousUrl',
-        'count' => 'setCount',
-        'total_count' => 'setTotalCount'
+        'address_line2' => 'setAddressLine2',
+        'company' => 'setCompany',
+        'address_country' => 'setAddressCountry'
     ];
 
     /**
@@ -139,14 +128,9 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'data' => 'getData',
-        'object' => 'getObject',
-        'next_token' => 'getNextPageToken',
-        'next_url' => 'getNextUrl',
-        'previous_token' => 'getPreviousPageToken',
-        'previous_url' => 'getPreviousUrl',
-        'count' => 'getCount',
-        'total_count' => 'getTotalCount'
+        'address_line2' => 'getAddressLine2',
+        'company' => 'getCompany',
+        'address_country' => 'getAddressCountry'
     ];
 
     /**
@@ -206,12 +190,9 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['data'] = $data['data'] ?? null;
-        $this->container['object'] = $data['object'] ?? null;
-        $this->container['next_url'] = $data['next_url'] ?? null;
-        $this->container['previous_url'] = $data['previous_url'] ?? null;
-        $this->container['count'] = $data['count'] ?? null;
-        $this->container['total_count'] = $data['total_count'] ?? null;
+        $this->container['address_line2'] = $data['address_line2'] ?? null;
+        $this->container['company'] = $data['company'] ?? null;
+        $this->container['address_country'] = $data['address_country'] ?? null;
     }
 
     /**
@@ -223,6 +204,21 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['address_line2'] === null) {
+                $invalidProperties[] = "'address_line2' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['company'] === null) {
+                $invalidProperties[] = "'company' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['address_country'] === null) {
+                $invalidProperties[] = "'address_country' can't be null";
+            }
+        }
         return $invalidProperties;
     }
 
@@ -240,179 +236,75 @@ class UploadList implements ModelInterface, ArrayAccess, \JsonSerializable
     
 
     /**
-     * Gets data
+     * Gets address_line2
      *
-     * @return \OpenAPI\Client\Model\Upload[]|null
+     * @return string
      */
-    public function getData()
+    public function getAddressLine2()
     {
-        return $this->container['data'];
+        return $this->container['address_line2'];
     }
 
     /**
-     * Sets data
+     * Sets address_line2
      *
-     * @param \OpenAPI\Client\Model\Upload[]|null $data list of uploads
+     * @param string $address_line2 The column header from the csv file that should be mapped to the optional field \"address_line2\"
      *
      * @return self
      */
-    public function setData($data)
+    public function setAddressLine2($address_line2)
     {
-        $this->container['data'] = [];
-        if ($data) {
-            foreach ($data as $point) {
-                $deserializedData = ObjectSerializer::deserialize($point, '\OpenAPI\Client\Model\Upload', []);
-                
-                array_push($this->container['data'], $deserializedData);
-            }
-        }
+        $this->container['address_line2'] = $address_line2;
 
         return $this;
     }
 
 
     /**
-     * Gets object
+     * Gets company
      *
-     * @return string|null
+     * @return string
      */
-    public function getObject()
+    public function getCompany()
     {
-        return $this->container['object'];
+        return $this->container['company'];
     }
 
     /**
-     * Sets object
+     * Sets company
      *
-     * @param string|null $object Value is type of resource.
+     * @param string $company The column header from the csv file that should be mapped to the optional field \"company\"
      *
      * @return self
      */
-    public function setObject($object)
+    public function setCompany($company)
     {
-        $this->container['object'] = $object;
-
-        return $this;
-    }
-
-    /**
-     * get token from next URL field
-     *
-     */
-    public function getNextPageToken() {
-        if (is_null($this->container['next_url'])) {
-            return null;
-        } else {
-            return substr($this->container['next_url'], strrpos($this->container['next_url'], "after=") + 6);
-        }
-    }
-
-    /**
-     * Gets next_url
-     *
-     * @return string|null
-     */
-    public function getNextUrl()
-    {
-        return $this->container['next_url'];
-    }
-
-    /**
-     * Sets next_url
-     *
-     * @param string|null $next_url url of next page of items in list.
-     *
-     * @return self
-     */
-    public function setNextUrl($next_url)
-    {
-        $this->container['next_url'] = $next_url;
-
-        return $this;
-    }
-
-    /**
-     * get token from previous URL field
-     *
-     */
-    public function getPreviousPageToken() {
-        if (is_null($this->container['previous_url'])) {
-            return null;
-        } else {
-            return substr($this->container['previous_url'], strrpos($this->container['previous_url'], "before=") + 7);
-        }
-    }
-
-    /**
-     * Gets previous_url
-     *
-     * @return string|null
-     */
-    public function getPreviousUrl()
-    {
-        return $this->container['previous_url'];
-    }
-
-    /**
-     * Sets previous_url
-     *
-     * @param string|null $previous_url url of previous page of items in list.
-     *
-     * @return self
-     */
-    public function setPreviousUrl($previous_url)
-    {
-        $this->container['previous_url'] = $previous_url;
+        $this->container['company'] = $company;
 
         return $this;
     }
 
 
     /**
-     * Gets count
+     * Gets address_country
      *
-     * @return int|null
+     * @return string
      */
-    public function getCount()
+    public function getAddressCountry()
     {
-        return $this->container['count'];
+        return $this->container['address_country'];
     }
 
     /**
-     * Sets count
+     * Sets address_country
      *
-     * @param int|null $count number of resources in a set
+     * @param string $address_country The column header from the csv file that should be mapped to the optional field \"address_country\"
      *
      * @return self
      */
-    public function setCount($count)
+    public function setAddressCountry($address_country)
     {
-        $this->container['count'] = $count;
-
-        return $this;
-    }
-
-
-    /**
-     * Gets total_count
-     *
-     * @return int|null
-     */
-    public function getTotalCount()
-    {
-        return $this->container['total_count'];
-    }
-
-    /**
-     * Sets total_count
-     *
-     * @param int|null $total_count indicates the total number of records. Provided when the request specifies an \"include\" query parameter
-     *
-     * @return self
-     */
-    public function setTotalCount($total_count)
-    {
-        $this->container['total_count'] = $total_count;
+        $this->container['address_country'] = $address_country;
 
         return $this;
     }
