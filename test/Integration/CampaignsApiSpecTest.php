@@ -35,7 +35,6 @@ use \OpenAPI\Client\Model\CampaignWritable;
 use \OpenAPI\Client\Model\CampaignUpdatable;
 use \OpenAPI\Client\Model\CmpScheduleType;
 use \OpenAPI\Client\Model\CampaignsList;
-use \OpenAPI\Client\Model\InlineResponse200;
 use \OpenAPI\Client\Api\CampaignsApi;
 
 /**

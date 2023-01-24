@@ -38,7 +38,7 @@ use GuzzleHttp\Psr7\Request;
 use \OpenAPI\Client\Configuration;
 use \OpenAPI\Client\ApiException;
 use OpenAPI\Client\Model\Campaign;
-use OpenAPI\Client\Model\InlineResponse200;
+use OpenAPI\Client\Model\CampaignDeletion;
 use OpenAPI\Client\Model\CampaignsList;
 use OpenAPI\Client\Model\CampaignUpdatable;
 use OpenAPI\Client\Model\CampaignWritable;
@@ -89,7 +89,7 @@ class CampaignsApiUnitTest extends TestCase
         self::$mockCampaignsList->setCount("3");
 
         // Campaign Delete Fixture
-        self::$mockDeletedCampaign = new InlineResponse200();
+        self::$mockDeletedCampaign = new CampaignDeletion();
         self::$mockDeletedCampaign->setId("cmp_fakeIdForDel");
         self::$mockDeletedCampaign->setDeleted(true);
     }
@@ -279,7 +279,7 @@ class CampaignsApiUnitTest extends TestCase
             $happyPath = $campaignsApi->get(self::$mockCampaignId);
             $this->assertEquals($happyPath->getId(), self::$mockCampaignId);
         } catch (Exception $retrieveError) {
-            echo 'Caught exception: ',  $creationError->getMessage(), "\n";
+            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
         }
     }
 
