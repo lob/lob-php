@@ -81,7 +81,8 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         'metadata' => 'array<string,string>',
         'mail_type' => '\OpenAPI\Client\Model\MailType',
         'merge_variables' => 'object',
-        'send_date' => '\DateTime'
+        'send_date' => '\DateTime',
+        'use_type' => '\OpenAPI\Client\Model\PscUseType'
     ];
 
     /**
@@ -113,7 +114,8 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         'metadata' => null,
         'mail_type' => null,
         'merge_variables' => null,
-        'send_date' => 'date-time'
+        'send_date' => 'date-time',
+        'use_type' => null
     ];
 
     /**
@@ -164,7 +166,8 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         'metadata' => 'metadata',
         'mail_type' => 'mail_type',
         'merge_variables' => 'merge_variables',
-        'send_date' => 'send_date'
+        'send_date' => 'send_date',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -194,7 +197,8 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         'metadata' => 'setMetadata',
         'mail_type' => 'setMailType',
         'merge_variables' => 'setMergeVariables',
-        'send_date' => 'setSendDate'
+        'send_date' => 'setSendDate',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -224,7 +228,8 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         'metadata' => 'getMetadata',
         'mail_type' => 'getMailType',
         'merge_variables' => 'getMergeVariables',
-        'send_date' => 'getSendDate'
+        'send_date' => 'getSendDate',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -332,6 +337,7 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['mail_type'] = $data['mail_type'] ?? null;
         $this->container['merge_variables'] = $data['merge_variables'] ?? null;
         $this->container['send_date'] = $data['send_date'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -1078,6 +1084,31 @@ class Postcard implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setSendDate($send_date)
     {
         $this->container['send_date'] = $send_date;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\PscUseType|null
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\PscUseType|null $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

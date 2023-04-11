@@ -64,7 +64,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
         'primary_line' => 'string',
         'city' => 'string',
         'state' => 'string',
-        'country' => '\OpenAPI\Client\Model\CountryExtendedExpanded',
+        'country' => '\OpenAPI\Client\Model\CountryExtended',
         'zip_code' => 'string',
         'object' => 'string'
     ];
@@ -412,7 +412,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets country
      *
-     * @return \OpenAPI\Client\Model\CountryExtendedExpanded
+     * @return \OpenAPI\Client\Model\CountryExtended
      */
     public function getCountry()
     {
@@ -422,7 +422,7 @@ class IntlSuggestions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets country
      *
-     * @param \OpenAPI\Client\Model\CountryExtendedExpanded $country country
+     * @param \OpenAPI\Client\Model\CountryExtended $country country
      *
      * @return self
      */

@@ -34,6 +34,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\RequestOptions;
 use OpenAPI\Client\ApiException;
 use OpenAPI\Client\Configuration;
@@ -758,15 +759,15 @@ class CardsApi
      * @param  int $limit How many results to return. (optional, default to 10)
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\CardList|\OpenAPI\Client\Model\LobError
      */
-    public function list($limit = 10, $before = null, $after = null, $sort_by = null)
+    public function list($limit = 10, $before = null, $after = null, $include = null)
     {
-        $response = $this->listWithHttpInfo($limit, $before, $after, $sort_by);
+        $response = $this->listWithHttpInfo($limit, $before, $after, $include);
         return $response;
     }
 
@@ -778,15 +779,15 @@ class CardsApi
      * @param  int $limit How many results to return. (optional, default to 10)
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\CardList|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listWithHttpInfo($limit = 10, $before = null, $after = null, $sort_by = null)
+    public function listWithHttpInfo($limit = 10, $before = null, $after = null, $include = null)
     {
-        $request = $this->listRequest($limit, $before, $after, $sort_by);
+        $request = $this->listRequest($limit, $before, $after, $include);
 
         try {
             $options = $this->createHttpClientOption();
@@ -841,12 +842,12 @@ class CardsApi
      * @param  int $limit How many results to return. (optional, default to 10)
      * @param  string $before A reference to a list entry used for paginating to the previous set of entries. This field is pre-populated in the &#x60;previous_url&#x60; field in the return response. (optional)
      * @param  string $after A reference to a list entry used for paginating to the next set of entries. This field is pre-populated in the &#x60;next_url&#x60; field in the return response. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listRequest($limit = 10, $before = null, $after = null, $sort_by = null)
+    public function listRequest($limit = 10, $before = null, $after = null, $include = null)
     {
         if ($limit !== null && $limit > 100) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling CardsApi.list, must be smaller than or equal to 100.');
@@ -875,8 +876,8 @@ class CardsApi
             $queryParams['after'] = $after;
         }
         // query params
-        if ($sort_by !== null) {
-            $queryParams['sort_by'] = $sort_by;
+        if ($include !== null) {
+            $queryParams['include'] = $include;
         }
 
 

@@ -60,8 +60,8 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'to' => 'string',
-        'from' => 'string',
+        'to' => 'mixed',
+        'from' => 'mixed',
         'size' => '\OpenAPI\Client\Model\SelfMailerSize',
         'description' => 'string',
         'metadata' => 'array<string,string>',
@@ -70,7 +70,8 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
         'send_date' => '\DateTime',
         'inside' => 'string',
         'outside' => 'string',
-        'billing_group_id' => 'string'
+        'billing_group_id' => 'string',
+        'use_type' => '\OpenAPI\Client\Model\SfmUseType'
     ];
 
     /**
@@ -91,7 +92,8 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
         'send_date' => 'date-time',
         'inside' => null,
         'outside' => null,
-        'billing_group_id' => null
+        'billing_group_id' => null,
+        'use_type' => null
     ];
 
     /**
@@ -131,7 +133,8 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
         'send_date' => 'send_date',
         'inside' => 'inside',
         'outside' => 'outside',
-        'billing_group_id' => 'billing_group_id'
+        'billing_group_id' => 'billing_group_id',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -150,7 +153,8 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
         'send_date' => 'setSendDate',
         'inside' => 'setInside',
         'outside' => 'setOutside',
-        'billing_group_id' => 'setBillingGroupId'
+        'billing_group_id' => 'setBillingGroupId',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -169,7 +173,8 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
         'send_date' => 'getSendDate',
         'inside' => 'getInside',
         'outside' => 'getOutside',
-        'billing_group_id' => 'getBillingGroupId'
+        'billing_group_id' => 'getBillingGroupId',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -240,6 +245,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->container['inside'] = $data['inside'] ?? null;
         $this->container['outside'] = $data['outside'] ?? null;
         $this->container['billing_group_id'] = $data['billing_group_id'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -276,6 +282,11 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
                 $invalidProperties[] = "'outside' can't be null";
             }
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
+            }
+        }
         return $invalidProperties;
     }
 
@@ -295,7 +306,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -305,7 +316,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -320,7 +331,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets from
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getFrom()
     {
@@ -330,7 +341,7 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets from
      *
-     * @param string|null $from Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed|null $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -576,6 +587,31 @@ class SelfMailerEditable implements ModelInterface, ArrayAccess, \JsonSerializab
     public function setBillingGroupId($billing_group_id)
     {
         $this->container['billing_group_id'] = $billing_group_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\SfmUseType
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\SfmUseType $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

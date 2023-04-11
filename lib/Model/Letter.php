@@ -71,6 +71,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'string',
         'template_id' => 'string',
         'template_version_id' => 'string',
+        'url' => 'string',
         'object' => 'string',
         'description' => 'string',
         'metadata' => 'array<string,string>',
@@ -79,14 +80,16 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'extra_service' => 'string',
         'tracking_number' => 'string',
         'tracking_events' => '\OpenAPI\Client\Model\TrackingEventNormal[]',
-        'return_address' => 'string',
+        'return_address' => 'mixed',
         'mail_type' => '\OpenAPI\Client\Model\MailType',
         'color' => 'bool',
         'double_sided' => 'bool',
         'address_placement' => 'string',
         'return_envelope' => 'mixed',
         'perforated_page' => 'int',
-        'custom_envelope' => '\OpenAPI\Client\Model\LetterCustomEnvelope'
+        'custom_envelope' => '\OpenAPI\Client\Model\LetterCustomEnvelope',
+        'campaign_id' => 'string',
+        'use_type' => '\OpenAPI\Client\Model\LtrUseType'
     ];
 
     /**
@@ -108,6 +111,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'template_id' => null,
         'template_version_id' => null,
+        'url' => null,
         'object' => null,
         'description' => null,
         'metadata' => null,
@@ -123,7 +127,9 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'address_placement' => null,
         'return_envelope' => null,
         'perforated_page' => null,
-        'custom_envelope' => null
+        'custom_envelope' => null,
+        'campaign_id' => null,
+        'use_type' => null
     ];
 
     /**
@@ -164,6 +170,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'id',
         'template_id' => 'template_id',
         'template_version_id' => 'template_version_id',
+        'url' => 'url',
         'object' => 'object',
         'description' => 'description',
         'metadata' => 'metadata',
@@ -179,7 +186,9 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'address_placement' => 'address_placement',
         'return_envelope' => 'return_envelope',
         'perforated_page' => 'perforated_page',
-        'custom_envelope' => 'custom_envelope'
+        'custom_envelope' => 'custom_envelope',
+        'campaign_id' => 'campaign_id',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -199,6 +208,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'setId',
         'template_id' => 'setTemplateId',
         'template_version_id' => 'setTemplateVersionId',
+        'url' => 'setUrl',
         'object' => 'setObject',
         'description' => 'setDescription',
         'metadata' => 'setMetadata',
@@ -214,7 +224,9 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'address_placement' => 'setAddressPlacement',
         'return_envelope' => 'setReturnEnvelope',
         'perforated_page' => 'setPerforatedPage',
-        'custom_envelope' => 'setCustomEnvelope'
+        'custom_envelope' => 'setCustomEnvelope',
+        'campaign_id' => 'setCampaignId',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -234,6 +246,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'getId',
         'template_id' => 'getTemplateId',
         'template_version_id' => 'getTemplateVersionId',
+        'url' => 'getUrl',
         'object' => 'getObject',
         'description' => 'getDescription',
         'metadata' => 'getMetadata',
@@ -249,7 +262,9 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         'address_placement' => 'getAddressPlacement',
         'return_envelope' => 'getReturnEnvelope',
         'perforated_page' => 'getPerforatedPage',
-        'custom_envelope' => 'getCustomEnvelope'
+        'custom_envelope' => 'getCustomEnvelope',
+        'campaign_id' => 'getCampaignId',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -365,6 +380,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['id'] = $data['id'] ?? null;
         $this->container['template_id'] = $data['template_id'] ?? null;
         $this->container['template_version_id'] = $data['template_version_id'] ?? null;
+        $this->container['url'] = $data['url'] ?? null;
         $this->container['object'] = $data['object'] ?? null;
         $this->container['description'] = $data['description'] ?? null;
         $this->container['metadata'] = $data['metadata'] ?? null;
@@ -381,6 +397,8 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['return_envelope'] = $data['return_envelope'] ?? null;
         $this->container['perforated_page'] = $data['perforated_page'] ?? null;
         $this->container['custom_envelope'] = $data['custom_envelope'] ?? null;
+        $this->container['campaign_id'] = $data['campaign_id'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -447,6 +465,12 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['url']) && !preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $this->container['url'])) {
+                $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
+            }
+
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['object'] === null) {
                 $invalidProperties[] = "'object' can't be null";
             }
@@ -492,6 +516,11 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['return_envelope'] === null) {
                 $invalidProperties[] = "'return_envelope' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
             }
         }
         return $invalidProperties;
@@ -827,6 +856,38 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets url
+     *
+     * @return string|null
+     */
+    public function getUrl()
+    {
+        return $this->container['url'];
+    }
+
+    /**
+     * Sets url
+     *
+     * @param string|null $url A [signed link](#section/Asset-URLs) served over HTTPS. The link returned will expire in 30 days to prevent mis-sharing. Each time a GET request is initiated, a new signed URL will be generated.
+     *
+     * @return self
+     */
+    public function setUrl($url)
+    {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+
+            if (!is_null($url) && (!preg_match("/^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/", $url))) {
+                throw new \InvalidArgumentException("invalid value for $url when calling Letter., must conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.");
+            }
+
+        }
+        $this->container['url'] = $url;
+
+        return $this;
+    }
+
+
+    /**
      * Gets object
      *
      * @return string
@@ -1069,7 +1130,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets return_address
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getReturnAddress()
     {
@@ -1079,7 +1140,7 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets return_address
      *
-     * @param string|null $return_address Specifies the address the return envelope will be sent back to. This is an optional argument that is available if an account is signed up for the return envelope tracking beta, and has `return_envelope`, and `perforated_page` fields populated in the API request.
+     * @param mixed|null $return_address Specifies the address the return envelope will be sent back to. This is an optional argument that is available if an account is signed up for the return envelope tracking beta, and has `return_envelope`, and `perforated_page` fields populated in the API request.
      *
      * @return self
      */
@@ -1274,6 +1335,56 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setCustomEnvelope($custom_envelope)
     {
         $this->container['custom_envelope'] = $custom_envelope;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets campaign_id
+     *
+     * @return string|null
+     */
+    public function getCampaignId()
+    {
+        return $this->container['campaign_id'];
+    }
+
+    /**
+     * Sets campaign_id
+     *
+     * @param string|null $campaign_id The unique ID of the associated campaign if the resource was generated from a campaign.
+     *
+     * @return self
+     */
+    public function setCampaignId($campaign_id)
+    {
+        $this->container['campaign_id'] = $campaign_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\LtrUseType
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\LtrUseType $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

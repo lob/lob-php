@@ -60,8 +60,8 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'to' => 'string',
-        'from' => 'string',
+        'to' => 'mixed',
+        'from' => 'mixed',
         'size' => '\OpenAPI\Client\Model\PostcardSize',
         'description' => 'string',
         'metadata' => 'array<string,string>',
@@ -70,7 +70,9 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_date' => '\DateTime',
         'front' => 'string',
         'back' => 'string',
-        'billing_group_id' => 'string'
+        'billing_group_id' => 'string',
+        'qr_code' => '\OpenAPI\Client\Model\QrCode',
+        'use_type' => '\OpenAPI\Client\Model\PscUseType'
     ];
 
     /**
@@ -91,7 +93,9 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_date' => 'date-time',
         'front' => null,
         'back' => null,
-        'billing_group_id' => null
+        'billing_group_id' => null,
+        'qr_code' => null,
+        'use_type' => null
     ];
 
     /**
@@ -131,7 +135,9 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_date' => 'send_date',
         'front' => 'front',
         'back' => 'back',
-        'billing_group_id' => 'billing_group_id'
+        'billing_group_id' => 'billing_group_id',
+        'qr_code' => 'qr_code',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -150,7 +156,9 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_date' => 'setSendDate',
         'front' => 'setFront',
         'back' => 'setBack',
-        'billing_group_id' => 'setBillingGroupId'
+        'billing_group_id' => 'setBillingGroupId',
+        'qr_code' => 'setQrCode',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -169,7 +177,9 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_date' => 'getSendDate',
         'front' => 'getFront',
         'back' => 'getBack',
-        'billing_group_id' => 'getBillingGroupId'
+        'billing_group_id' => 'getBillingGroupId',
+        'qr_code' => 'getQrCode',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -240,6 +250,8 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['front'] = $data['front'] ?? null;
         $this->container['back'] = $data['back'] ?? null;
         $this->container['billing_group_id'] = $data['billing_group_id'] ?? null;
+        $this->container['qr_code'] = $data['qr_code'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -276,6 +288,11 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
                 $invalidProperties[] = "'back' can't be null";
             }
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
+            }
+        }
         return $invalidProperties;
     }
 
@@ -295,7 +312,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -305,7 +322,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -320,7 +337,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getFrom()
     {
@@ -330,7 +347,7 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string|null $from Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed|null $from Required if `to` address is international. Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -576,6 +593,56 @@ class PostcardEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setBillingGroupId($billing_group_id)
     {
         $this->container['billing_group_id'] = $billing_group_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets qr_code
+     *
+     * @return \OpenAPI\Client\Model\QrCode|null
+     */
+    public function getQrCode()
+    {
+        return $this->container['qr_code'];
+    }
+
+    /**
+     * Sets qr_code
+     *
+     * @param \OpenAPI\Client\Model\QrCode|null $qr_code qr_code
+     *
+     * @return self
+     */
+    public function setQrCode($qr_code)
+    {
+        $this->container['qr_code'] = $qr_code;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\PscUseType
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\PscUseType $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

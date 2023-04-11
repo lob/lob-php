@@ -85,7 +85,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'object' => 'string',
         'date_created' => '\DateTime',
         'date_modified' => '\DateTime',
-        'deleted' => 'bool'
+        'deleted' => 'bool',
+        'use_type' => '\OpenAPI\Client\Model\ChkUseType'
     ];
 
     /**
@@ -121,7 +122,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'object' => null,
         'date_created' => 'date-time',
         'date_modified' => 'date-time',
-        'deleted' => null
+        'deleted' => null,
+        'use_type' => null
     ];
 
     /**
@@ -176,7 +178,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'object' => 'object',
         'date_created' => 'date_created',
         'date_modified' => 'date_modified',
-        'deleted' => 'deleted'
+        'deleted' => 'deleted',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -210,7 +213,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'object' => 'setObject',
         'date_created' => 'setDateCreated',
         'date_modified' => 'setDateModified',
-        'deleted' => 'setDeleted'
+        'deleted' => 'setDeleted',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -244,7 +248,8 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         'object' => 'getObject',
         'date_created' => 'getDateCreated',
         'date_modified' => 'getDateModified',
-        'deleted' => 'getDeleted'
+        'deleted' => 'getDeleted',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -369,6 +374,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['date_created'] = $data['date_created'] ?? null;
         $this->container['date_modified'] = $data['date_modified'] ?? null;
         $this->container['deleted'] = $data['deleted'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -530,6 +536,11 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
             if ($this->container['date_modified'] === null) {
                 $invalidProperties[] = "'date_modified' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
             }
         }
         return $invalidProperties;
@@ -1331,6 +1342,31 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setDeleted($deleted)
     {
         $this->container['deleted'] = $deleted;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\ChkUseType
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\ChkUseType $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

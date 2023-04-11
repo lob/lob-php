@@ -100,7 +100,7 @@ $apiInstance = new OpenAPI\Client\Api\AddressesApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -259,7 +259,7 @@ $apiInstance = new OpenAPI\Client\Api\PostcardsApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -378,7 +378,7 @@ $apiInstance = new OpenAPI\Client\Api\SelfMailersApi($config, new GuzzleHttp\Cli
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -503,7 +503,7 @@ $apiInstance = new OpenAPI\Client\Api\LettersApi($config, new GuzzleHttp\Client(
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -628,7 +628,7 @@ $apiInstance = new OpenAPI\Client\Api\ChecksApi($config, new GuzzleHttp\Client()
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -692,7 +692,7 @@ $apiInstance = new OpenAPI\Client\Api\BankAccountsApi($config, new GuzzleHttp\Cl
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -706,9 +706,9 @@ try {
 ### Verify
 ```bash
 curl https://api.lob.com/v1/bank_accounts/bank_dfceb4a2a05b57e/verify \
-  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \ 
-  -d "amounts[]=25" \ 
-  -d "amounts[]=63" \ 
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "amounts[]=25" \
+  -d "amounts[]=63" \
 ```
 
 ```php
@@ -821,7 +821,7 @@ $apiInstance = new OpenAPI\Client\Api\TemplatesApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit 
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -941,8 +941,8 @@ $apiInstance = new OpenAPI\Client\Api\TemplateVersionsApi($config, new GuzzleHtt
 
 try {
     $result = $apiInstance->list(
-      tmpl_dadaaf7b76c9f25, // tmplId 
-      2, // limit 
+      tmpl_dadaaf7b76c9f25, // tmplId
+      2, // limit
     );
     print_r($result);
 } catch (Exception $e) {
@@ -1005,6 +1005,87 @@ try {
 }
 ```
 
+## Creatives Api
+
+
+
+### Update
+```bash
+curl -X PATCH https://api.lob.com/v1/crv_2a3b096c409b32c \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "description=Our updated 4x6 postcard creative" \
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\CreativesApi($config, new GuzzleHttp\Client());
+
+$creativeUpdate = new OpenAPI\Client\Model\CreativePatch();
+$creativeUpdate->setDescription("Updated creative");
+
+try {
+    $result = $apiInstance->update("crv_2a3b096c409b32c", $creativeUpdate);
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+### Retrieve
+```bash
+curl https://api.lob.com/v1/creatives/crv_2a3b096c409b32c \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc:
+```
+
+```php
+$apiInstance = new OpenAPI\Client\Api\CreativesApi($config, new GuzzleHttp\Client());
+
+try {
+    $result = $apiInstance->get("crv_2a3b096c409b32c");
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
+
+
+
+### Create
+```bash
+curl https://api.lob.com/v1/creatives \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
+  -d "campaign_id=cmp_e05ee61ff80764b" \
+  -d "resource_type=postcard" \
+  -d "description=Our 4x6 postcard creative" \
+  -d "from=adr_210a8d4b0b76d77b" \
+  -d "front=tmpl_4aa14648113e45b" \
+  -d "back=tmpl_4aa14648113e45b" \
+  -d "details[mail_type]=usps_first_class" \
+```
+
+```php
+$details = new OpenAPI\Client\Model\PostcardDetailsWritable(
+  array(
+    "mail_type"     => "usps_first_class",
+  )
+);
+
+$apiInstance = new OpenAPI\Client\Api\CreativesApi($config, new GuzzleHttp\Client());
+$creative_writable = new OpenAPI\Client\Model\CreativeWritable();
+$creative_writable->setCampaignId("cmp_e05ee61ff80764b");
+$creative_writable->setResourceType("postcard");
+$creative_writable->setDescription("Our 4x6 postcard creative");
+$creative_writable->setFrom("adr_210a8d4b0b76d77b");
+$creative_writable->setFront("tmpl_4aa14648113e45b");
+$creative_writable->setBack("tmpl_4aa14648113e45b");
+$creative_writable->setDetails($details);
+
+try {
+    $result = $apiInstance->create($creative_writable);
+    print_r($result);
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+```
 
 ## IntlVerifications Api
 
@@ -1056,14 +1137,14 @@ curl https://api.lob.com/v1/bulk/intl_verifications \
 
 ```php
 
-$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
   'primary_line'     => '35 Tower Hill',
   'city'     => 'London',
   'postal_code'     => 'EC3N 4DR',
   'country'     => 'GB',
 ));
 
-$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
   'primary_line'     => '370 Water St',
   'city'     => 'Summerside',
   'state'     => 'Prince Edward Island',
@@ -1105,14 +1186,14 @@ curl https://api.lob.com/v1/bulk/us_verifications \
 
 ```php
 
-$verificationData0 = new OpenAPI\Client\Model\MultipleComponents(array( 
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponents(array(
   'primary_line'     => '210 King Street',
   'city'     => 'San Francisco',
   'state'     => 'CA',
   'zip_code'     => '94017',
 ));
 
-$verificationData1 = new OpenAPI\Client\Model\MultipleComponents(array( 
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponents(array(
   'primary_line'     => '185 BERRY ST STE 6600',
   'city'     => 'SAN FRANCISCO',
   'state'     => 'CA',

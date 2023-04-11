@@ -67,6 +67,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'urbanization' => 'string',
         'last_line' => 'string',
         'deliverability' => 'string',
+        'valid_address' => 'bool',
         'components' => '\OpenAPI\Client\Model\UsComponents',
         'deliverability_analysis' => '\OpenAPI\Client\Model\DeliverabilityAnalysis',
         'lob_confidence_score' => '\OpenAPI\Client\Model\LobConfidenceScore',
@@ -88,6 +89,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'urbanization' => null,
         'last_line' => null,
         'deliverability' => null,
+        'valid_address' => null,
         'components' => null,
         'deliverability_analysis' => null,
         'lob_confidence_score' => null,
@@ -128,6 +130,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'urbanization' => 'urbanization',
         'last_line' => 'last_line',
         'deliverability' => 'deliverability',
+        'valid_address' => 'valid_address',
         'components' => 'components',
         'deliverability_analysis' => 'deliverability_analysis',
         'lob_confidence_score' => 'lob_confidence_score',
@@ -147,6 +150,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'urbanization' => 'setUrbanization',
         'last_line' => 'setLastLine',
         'deliverability' => 'setDeliverability',
+        'valid_address' => 'setValidAddress',
         'components' => 'setComponents',
         'deliverability_analysis' => 'setDeliverabilityAnalysis',
         'lob_confidence_score' => 'setLobConfidenceScore',
@@ -166,6 +170,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'urbanization' => 'getUrbanization',
         'last_line' => 'getLastLine',
         'deliverability' => 'getDeliverability',
+        'valid_address' => 'getValidAddress',
         'components' => 'getComponents',
         'deliverability_analysis' => 'getDeliverabilityAnalysis',
         'lob_confidence_score' => 'getLobConfidenceScore',
@@ -270,6 +275,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['urbanization'] = $data['urbanization'] ?? null;
         $this->container['last_line'] = $data['last_line'] ?? null;
         $this->container['deliverability'] = $data['deliverability'] ?? null;
+        $this->container['valid_address'] = $data['valid_address'] ?? null;
         $this->container['components'] = $data['components'] ?? null;
         $this->container['deliverability_analysis'] = $data['deliverability_analysis'] ?? null;
         $this->container['lob_confidence_score'] = $data['lob_confidence_score'] ?? null;
@@ -567,6 +573,31 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['deliverability'] = $deliverability;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets valid_address
+     *
+     * @return bool|null
+     */
+    public function getValidAddress()
+    {
+        return $this->container['valid_address'];
+    }
+
+    /**
+     * Sets valid_address
+     *
+     * @param bool|null $valid_address This field indicates whether an address was found in a more comprehensive address dataset that includes sources from the USPS, open source mapping data, and our proprietary mail delivery data. This field can be interpreted as a representation of whether an address is a real location or not. Additionally a valid address may contradict the deliverability field since an address can be a real valid location but the USPS may not deliver to that address.
+     *
+     * @return self
+     */
+    public function setValidAddress($valid_address)
+    {
+        $this->container['valid_address'] = $valid_address;
 
         return $this;
     }

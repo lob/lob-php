@@ -34,6 +34,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\RequestOptions;
 use OpenAPI\Client\ApiException;
 use OpenAPI\Client\Configuration;
@@ -306,14 +307,15 @@ class LettersApi
      *
      * @param  \OpenAPI\Client\Model\LetterEditable $letter_editable letter_editable (required)
      * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  object $file An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Letter|\OpenAPI\Client\Model\LobError
      */
-    public function create($letter_editable, $idempotency_key = null)
+    public function create($letter_editable, $idempotency_key = null, $file = null)
     {
-        $response = $this->createWithHttpInfo($letter_editable, $idempotency_key);
+        $response = $this->createWithHttpInfo($letter_editable, $idempotency_key, $file);
         return $response;
     }
 
@@ -324,20 +326,36 @@ class LettersApi
      *
      * @param  \OpenAPI\Client\Model\LetterEditable $letter_editable (required)
      * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  object $file An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Letter|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createWithHttpInfo($letter_editable, $idempotency_key = null)
+    public function createWithHttpInfo($letter_editable, $idempotency_key = null, $file = null)
     {
-        $request = $this->createRequest($letter_editable, $idempotency_key);
+        $request = $this->createRequest($letter_editable, $idempotency_key, $file);
 
         try {
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
-                $response = $this->client->send($request, $options);
+                if($file != null) {
+                    $response = $this->client->request(
+                        'POST',
+                        $request->getUri()->__toString(),
+                        [
+                            'multipart' => [[
+                                'name' => 'file',
+                                'contents' => Utils::tryFopen($file, 'r')
+                            ]],
+                            'auth' => $options['auth']
+                        ]
+                    );
+                }
+                else {
+                    $response = $this->client->send($request, $options);
+                }
             } catch (RequestException $e) {
                 $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
                 $requestError = new LobError();
@@ -385,11 +403,12 @@ class LettersApi
      *
      * @param  \OpenAPI\Client\Model\LetterEditable $letter_editable (required)
      * @param  string $idempotency_key A string of no longer than 256 characters that uniquely identifies this resource. For more help integrating idempotency keys, refer to our [implementation guide](https://www.lob.com/guides#idempotent_request). (optional)
+     * @param  object $file An optional file upload as either a byte array or file type. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createRequest($letter_editable, $idempotency_key = null)
+    public function createRequest($letter_editable, $idempotency_key = null, $file = null)
     {
         // verify the required parameter 'letter_editable' is set
         if ($letter_editable === null || (is_array($letter_editable) && count($letter_editable) === 0)) {
@@ -408,6 +427,10 @@ class LettersApi
         $headerParams = [];
         $httpBody = '';
 
+        // query params
+        if ($file !== null) {
+            $queryParams['file'] = $file;
+        }
 
         // header params
         if ($idempotency_key !== null) {
@@ -615,7 +638,7 @@ class LettersApi
      * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
      * @param  array<string,string> $send_date Filter by date sent. (optional)
      * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -642,7 +665,7 @@ class LettersApi
      * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
      * @param  array<string,string> $send_date Filter by date sent. (optional)
      * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -712,7 +735,7 @@ class LettersApi
      * @param  bool $scheduled * &#x60;true&#x60; - only return orders (past or future) where &#x60;send_date&#x60; is greater than &#x60;date_created&#x60; * &#x60;false&#x60; - only return orders where &#x60;send_date&#x60; is equal to &#x60;date_created&#x60; (optional)
      * @param  array<string,string> $send_date Filter by date sent. (optional)
      * @param  \OpenAPI\Client\Model\MailType $mail_type A string designating the mail postage type: * &#x60;usps_first_class&#x60; - (default) * &#x60;usps_standard&#x60; - a [cheaper option](https://lob.com/pricing/print-mail#compare) which is less predictable and takes longer to deliver. &#x60;usps_standard&#x60; cannot be used with &#x60;4x6&#x60; postcards or for any postcards sent outside of the United States. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  SortBy3 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request

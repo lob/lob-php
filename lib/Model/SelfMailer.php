@@ -75,7 +75,8 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
         'inside_template_version_id' => 'string',
         'object' => 'string',
         'tracking_events' => '\OpenAPI\Client\Model\TrackingEventCertified[]',
-        'url' => 'string'
+        'url' => 'string',
+        'use_type' => '\OpenAPI\Client\Model\SfmUseType'
     ];
 
     /**
@@ -101,7 +102,8 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
         'inside_template_version_id' => null,
         'object' => null,
         'tracking_events' => null,
-        'url' => null
+        'url' => null,
+        'use_type' => null
     ];
 
     /**
@@ -146,7 +148,8 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
         'inside_template_version_id' => 'inside_template_version_id',
         'object' => 'object',
         'tracking_events' => 'tracking_events',
-        'url' => 'url'
+        'url' => 'url',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -170,7 +173,8 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
         'inside_template_version_id' => 'setInsideTemplateVersionId',
         'object' => 'setObject',
         'tracking_events' => 'setTrackingEvents',
-        'url' => 'setUrl'
+        'url' => 'setUrl',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -194,7 +198,8 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
         'inside_template_version_id' => 'getInsideTemplateVersionId',
         'object' => 'getObject',
         'tracking_events' => 'getTrackingEvents',
-        'url' => 'getUrl'
+        'url' => 'getUrl',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -283,6 +288,7 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['object'] = $data['object'] ?? null;
         $this->container['tracking_events'] = $data['tracking_events'] ?? null;
         $this->container['url'] = $data['url'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -365,6 +371,11 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
                 $invalidProperties[] = "invalid value for 'url', must be conform to the pattern /^https:\/\/(lob-assets|lob-assets-staging)\\.com\/(letters|postcards|bank-accounts|checks|self-mailers|cards)\/[a-z]{3,4}_[a-z0-9]{15,16}(\\.pdf|_thumb_[a-z]+_[0-9]+\\.png)\\?(version=[a-z0-9-]*&)?expires=[0-9]{10}&signature=[a-zA-Z0-9-_]+$/.";
             }
 
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
+            }
         }
         return $invalidProperties;
     }
@@ -853,6 +864,31 @@ class SelfMailer implements ModelInterface, ArrayAccess, \JsonSerializable
 
         }
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\SfmUseType
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\SfmUseType $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

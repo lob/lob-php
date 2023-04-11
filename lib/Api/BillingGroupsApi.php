@@ -34,6 +34,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\RequestOptions;
 use OpenAPI\Client\ApiException;
 use OpenAPI\Client\Configuration;
@@ -610,15 +611,15 @@ class BillingGroupsApi
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $date_modified Filter by date modified. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  SortByDateModified $sort_by_date_modified Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;date_modfied&#x60;, not both. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\BillingGroupList|\OpenAPI\Client\Model\LobError
      */
-    public function list($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by = null)
+    public function list($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by_date_modified = null)
     {
-        $response = $this->listWithHttpInfo($limit, $offset, $include, $date_created, $date_modified, $sort_by);
+        $response = $this->listWithHttpInfo($limit, $offset, $include, $date_created, $date_modified, $sort_by_date_modified);
         return $response;
     }
 
@@ -632,15 +633,15 @@ class BillingGroupsApi
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $date_modified Filter by date modified. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  SortByDateModified $sort_by_date_modified Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;date_modfied&#x60;, not both. (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\BillingGroupList|\OpenAPI\Client\Model\LobError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listWithHttpInfo($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by = null)
+    public function listWithHttpInfo($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by_date_modified = null)
     {
-        $request = $this->listRequest($limit, $offset, $include, $date_created, $date_modified, $sort_by);
+        $request = $this->listRequest($limit, $offset, $include, $date_created, $date_modified, $sort_by_date_modified);
 
         try {
             $options = $this->createHttpClientOption();
@@ -697,12 +698,12 @@ class BillingGroupsApi
      * @param  string[] $include Request that the response include the total count by specifying &#x60;include[]&#x3D;total_count&#x60;. (optional)
      * @param  array<string,\DateTime> $date_created Filter by date created. (optional)
      * @param  array<string,string> $date_modified Filter by date modified. (optional)
-     * @param  SortBy5 $sort_by Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;send_date&#x60;, not both. (optional)
+     * @param  SortByDateModified $sort_by_date_modified Sorts items by ascending or descending dates. Use either &#x60;date_created&#x60; or &#x60;date_modfied&#x60;, not both. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listRequest($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by = null)
+    public function listRequest($limit = 10, $offset = 0, $include = null, $date_created = null, $date_modified = null, $sort_by_date_modified = null)
     {
         if ($limit !== null && $limit > 100) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling BillingGroupsApi.list, must be smaller than or equal to 100.');
@@ -739,8 +740,8 @@ class BillingGroupsApi
             $queryParams['date_modified'] = $date_modified;
         }
         // query params
-        if ($sort_by !== null) {
-            $queryParams['sort_by'] = $sort_by;
+        if ($sort_by_date_modified !== null) {
+            $queryParams['sort_by'] = $sort_by_date_modified;
         }
 
 

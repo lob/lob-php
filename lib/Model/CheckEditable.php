@@ -60,8 +60,8 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'from' => 'string',
-        'to' => 'string',
+        'from' => 'mixed',
+        'to' => 'mixed',
         'bank_account' => 'string',
         'amount' => 'float',
         'logo' => 'string',
@@ -75,7 +75,8 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'memo' => 'string',
         'check_number' => 'int',
         'message' => 'string',
-        'billing_group_id' => 'string'
+        'billing_group_id' => 'string',
+        'use_type' => '\OpenAPI\Client\Model\ChkUseType'
     ];
 
     /**
@@ -101,7 +102,8 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'memo' => null,
         'check_number' => null,
         'message' => null,
-        'billing_group_id' => null
+        'billing_group_id' => null,
+        'use_type' => null
     ];
 
     /**
@@ -146,7 +148,8 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'memo' => 'memo',
         'check_number' => 'check_number',
         'message' => 'message',
-        'billing_group_id' => 'billing_group_id'
+        'billing_group_id' => 'billing_group_id',
+        'use_type' => 'use_type'
     ];
 
     /**
@@ -170,7 +173,8 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'memo' => 'setMemo',
         'check_number' => 'setCheckNumber',
         'message' => 'setMessage',
-        'billing_group_id' => 'setBillingGroupId'
+        'billing_group_id' => 'setBillingGroupId',
+        'use_type' => 'setUseType'
     ];
 
     /**
@@ -194,7 +198,8 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         'memo' => 'getMemo',
         'check_number' => 'getCheckNumber',
         'message' => 'getMessage',
-        'billing_group_id' => 'getBillingGroupId'
+        'billing_group_id' => 'getBillingGroupId',
+        'use_type' => 'getUseType'
     ];
 
     /**
@@ -283,6 +288,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['check_number'] = $data['check_number'] ?? null;
         $this->container['message'] = $data['message'] ?? null;
         $this->container['billing_group_id'] = $data['billing_group_id'] ?? null;
+        $this->container['use_type'] = $data['use_type'] ?? null;
     }
 
     /**
@@ -363,6 +369,11 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
             }
 
         }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['use_type'] === null) {
+                $invalidProperties[] = "'use_type' can't be null";
+            }
+        }
         return $invalidProperties;
     }
 
@@ -382,7 +393,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets from
      *
-     * @return string
+     * @return mixed
      */
     public function getFrom()
     {
@@ -392,7 +403,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets from
      *
-     * @param string $from Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $from Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -407,7 +418,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to
      *
-     * @return string
+     * @return mixed
      */
     public function getTo()
     {
@@ -417,7 +428,7 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to
      *
-     * @param string $to Must either be an address ID or an inline object with correct address parameters.
+     * @param mixed $to Must either be an address ID or an inline object with correct address parameters.
      *
      * @return self
      */
@@ -830,6 +841,31 @@ class CheckEditable implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setBillingGroupId($billing_group_id)
     {
         $this->container['billing_group_id'] = $billing_group_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets use_type
+     *
+     * @return \OpenAPI\Client\Model\ChkUseType
+     */
+    public function getUseType()
+    {
+        return $this->container['use_type'];
+    }
+
+    /**
+     * Sets use_type
+     *
+     * @param \OpenAPI\Client\Model\ChkUseType $use_type use_type
+     *
+     * @return self
+     */
+    public function setUseType($use_type)
+    {
+        $this->container['use_type'] = $use_type;
 
         return $this;
     }

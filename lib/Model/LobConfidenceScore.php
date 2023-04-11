@@ -218,24 +218,14 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['score'] === null) {
-                $invalidProperties[] = "'score' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (($this->container['score'] > 100)) {
+            if (!is_null($this->container['score']) && ($this->container['score'] > 100)) {
                 $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 100.";
             }
 
-            if (($this->container['score'] < 0)) {
+            if (!is_null($this->container['score']) && ($this->container['score'] < 0)) {
                 $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
             }
 
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['level'] === null) {
-                $invalidProperties[] = "'level' can't be null";
-            }
         }
         $allowedValues = $this->getLevelAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
@@ -267,7 +257,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets score
      *
-     * @return float
+     * @return float|null
      */
     public function getScore()
     {
@@ -277,7 +267,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets score
      *
-     * @param float $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
+     * @param float|null $score A numerical score between 0 and 100 that represents the percentage of mailpieces Lob has sent to this addresses that have been delivered successfully over the past 2 years. Will be `null` if no tracking data exists for this address.
      *
      * @return self
      */
@@ -285,10 +275,10 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
 
-            if (($score > 100)) {
+            if (!is_null($score) && ($score > 100)) {
                 throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be smaller than or equal to 100.');
             }
-            if (($score < 0)) {
+            if (!is_null($score) && ($score < 0)) {
                 throw new \InvalidArgumentException('invalid value for $score when calling LobConfidenceScore., must be bigger than or equal to 0.');
             }
 
@@ -302,7 +292,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets level
      *
-     * @return string
+     * @return string|null
      */
     public function getLevel()
     {
@@ -312,7 +302,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets level
      *
-     * @param string $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
+     * @param string|null $level indicates the likelihood that the address is a valid, mail-receiving address. Possible values are:   - `high` — Over 70% of mailpieces Lob has sent to this address were delivered successfully and recent mailings were also successful.   - `medium` — Between 40% and 70% of mailpieces Lob has sent to this address were delivered successfully.   - `low` — Less than 40% of mailpieces Lob has sent to this address were delivered successfully and recent mailings weren't successful.   - `\"\"` — No tracking data exists for this address or lob deliverability was unable to find a corresponding level of mail success.
      *
      * @return self
      */
@@ -320,7 +310,7 @@ class LobConfidenceScore implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $allowedValues = $this->getLevelAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!in_array($level, $allowedValues, true)) {
+            if (!is_null($level) && !in_array($level, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         "Invalid value '%s' for 'level', must be one of '%s'",
