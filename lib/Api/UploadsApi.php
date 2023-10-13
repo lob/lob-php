@@ -955,19 +955,17 @@ class UploadsApi
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
-                if(file != null) {
-                    $response = $this->client->request(
-                        'POST',
-                        $request->getUri()->__toString(),
-                        [
-                            'multipart' => [[
-                                'name' => 'file',
-                                'contents' => Utils::tryFopen($file, 'r')
-                            ]],
-                            'auth' => $options['auth']
-                        ]
-                    );
-                }
+                $response = $this->client->request(
+                    'POST',
+                    $request->getUri()->__toString(),
+                    [
+                        'multipart' => [[
+                            'name' => 'file',
+                            'contents' => Utils::tryFopen($file, 'r')
+                        ]],
+                        'auth' => $options['auth']
+                    ]
+                );
             } catch (RequestException $e) {
                 $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
                 $requestError = new LobError();

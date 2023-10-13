@@ -204,12 +204,14 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     }
 
     const TYPE_NORMAL = 'normal';
+    const NAME_MAILED = 'Mailed';
     const NAME_IN_TRANSIT = 'In Transit';
     const NAME_IN_LOCAL_AREA = 'In Local Area';
     const NAME_PROCESSED_FOR_DELIVERY = 'Processed for Delivery';
+    const NAME_DELIVERED = 'Delivered';
     const NAME_RE_ROUTED = 'Re-Routed';
     const NAME_RETURNED_TO_SENDER = 'Returned to Sender';
-    const NAME_MAILED = 'Mailed';
+    const NAME_INTERNATIONAL_EXIT = 'International Exit';
     const DETAILS_NULL = 'null';
     const OBJECT_TRACKING_EVENT = 'tracking_event';
 
@@ -233,12 +235,14 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     public function getNameAllowableValues()
     {
         return [
+            self::NAME_MAILED,
             self::NAME_IN_TRANSIT,
             self::NAME_IN_LOCAL_AREA,
             self::NAME_PROCESSED_FOR_DELIVERY,
+            self::NAME_DELIVERED,
             self::NAME_RE_ROUTED,
             self::NAME_RETURNED_TO_SENDER,
-            self::NAME_MAILED,
+            self::NAME_INTERNATIONAL_EXIT,
         ];
     }
 
@@ -428,7 +432,7 @@ class TrackingEventNormal implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets name
      *
-     * @param string $name Name of tracking event (for normal postcards, self mailers, letters, and checks):    * `In Transit` - The mailpiece is being processed at the entry/origin facility.    * `In Local Area` - The mailpiece is being processed at the destination facility.    * `Processed for Delivery` - The mailpiece has been greenlit for     delivery at the recipient's nearest postal facility. The mailpiece     should reach the mailbox within 1 business day of this tracking     event.    * `Re-Routed` - The mailpiece is re-routed due to recipient change of     address, address errors, or USPS relabeling of barcode/ID tag     area.    * `Returned to Sender` - The mailpiece is being returned to sender due     to barcode, ID tag area, or address errors.    * `Mailed` - The mailpiece has been handed off to and accepted by USPS     and is en route. [More about     Mailed.](https://support.lob.com/hc/en-us/articles/360001724400-What-does-a-Mailed-tracking-event-mean-)     Note this data is only available in Enterprise editions of     Lob. [Contact Sales](https://lob.com/support/contact#contact) if     you want access to this feature.  [More about tracking](https://support.lob.com/hc/en-us/articles/115000097404-Can-I-track-my-mail-)
+     * @param string $name Name of tracking event (for normal postcards, self mailers, letters, and checks):    * `Mailed` - The mailpiece has been handed off to and accepted by USPS   and is en route. <a href=\"https://help.lob.com/print-and-mail/getting-data-and-results/tracking-your-mail#mailed-tracking-events-4\" target=\"_blank\">More about   Mailed.</a>   Note this data is only available in Enterprise editions of   Lob. <a href=\"https://lob.com/support/contact#contact\" target=\"_blank\">Contact Sales</a> if   you want access to this feature.  * `In Transit` - The mailpiece is being processed at the entry/origin facility. * `In Local Area` - The mailpiece is being processed at the destination facility. * `Processed for Delivery` - The mailpiece has been greenlit for   delivery at the recipient's nearest postal facility. The mailpiece   should reach the mailbox within 1 business day of this tracking   event.  * `Delivered` - The mail piece has been delivered to    the recipients address. The final scan is generated when the mail    carrier's GPS unit leaves the delivery area.  * `Re-Routed` - The mailpiece is re-routed due to recipient change of   address, address errors, or USPS relabeling of barcode/ID tag   area.  * `Returned to Sender` - The mailpiece is being returned to sender due   to barcode, ID tag area, or address errors.  * `International Exit` - The mail piece has been processed to    ship to a destination abroad. This is typically the last    scan a US-originated international mail piece will receive    from the USPS.  [More about tracking](https://support.lob.com/hc/en-us/articles/115000097404-Can-I-track-my-mail-)
      *
      * @return self
      */
