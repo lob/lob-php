@@ -617,20 +617,21 @@ class IntlVerification implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setCoverage($coverage)
     {
+        $normalizedCoverage = is_string($coverage) ? strtoupper($coverage) : null;
         $allowedValues = $this->getCoverageAllowableValues();
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if (!is_null($coverage) && !in_array($coverage, $allowedValues, true)) {
+            if (!is_null($normalizedCoverage) && !in_array($normalizedCoverage, $allowedValues, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         "Invalid value '%s' for 'coverage', must be one of '%s'",
-                        $coverage,
+                        $normalizedCoverage,
                         implode("', '", $allowedValues)
                     )
                 );
             }
         }
 
-        $this->container['coverage'] = $coverage;
+        $this->container['coverage'] = $normalizedCoverage;
 
         return $this;
     }
