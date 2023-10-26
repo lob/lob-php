@@ -51,17 +51,21 @@ enum DpvFootnote: string
 
     case CC = 'CC';
 
-    case N1 = 'N1';
+    case C1 = 'C1';
 
     case F1 = 'F1';
 
     case G1 = 'G1';
 
-    case U1 = 'U1';
+    case IA = 'IA';
 
     case M1 = 'M1';
 
     case M3 = 'M3';
+
+    case N1 = 'N1';
+
+    case PB = 'PB';
 
     case P1 = 'P1';
 
@@ -72,6 +76,10 @@ enum DpvFootnote: string
     case R7 = 'R7';
 
     case RR = 'RR';
+
+    case TA = 'TA';
+
+    case U1 = 'U1';
 
 }
 

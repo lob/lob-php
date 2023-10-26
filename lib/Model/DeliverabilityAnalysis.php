@@ -65,6 +65,12 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
         'dpv_cmra' => 'string',
         'dpv_vacant' => 'string',
         'dpv_active' => 'string',
+        'dpv_inactive_reason' => 'string',
+        'dpv_throwback' => 'string',
+        'dpv_non_delivery_day_flag' => 'string',
+        'dpv_non_delivery_day_values' => 'string',
+        'dpv_no_secure_location' => 'string',
+        'dpv_door_not_accessible' => 'string',
         'dpv_footnotes' => '\OpenAPI\Client\Model\DpvFootnote[]',
         'ews_match' => 'bool',
         'lacs_indicator' => 'string',
@@ -84,6 +90,12 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
         'dpv_cmra' => null,
         'dpv_vacant' => null,
         'dpv_active' => null,
+        'dpv_inactive_reason' => null,
+        'dpv_throwback' => null,
+        'dpv_non_delivery_day_flag' => null,
+        'dpv_non_delivery_day_values' => null,
+        'dpv_no_secure_location' => null,
+        'dpv_door_not_accessible' => null,
         'dpv_footnotes' => null,
         'ews_match' => null,
         'lacs_indicator' => null,
@@ -122,6 +134,12 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
         'dpv_cmra' => 'dpv_cmra',
         'dpv_vacant' => 'dpv_vacant',
         'dpv_active' => 'dpv_active',
+        'dpv_inactive_reason' => 'dpv_inactive_reason',
+        'dpv_throwback' => 'dpv_throwback',
+        'dpv_non_delivery_day_flag' => 'dpv_non_delivery_day_flag',
+        'dpv_non_delivery_day_values' => 'dpv_non_delivery_day_values',
+        'dpv_no_secure_location' => 'dpv_no_secure_location',
+        'dpv_door_not_accessible' => 'dpv_door_not_accessible',
         'dpv_footnotes' => 'dpv_footnotes',
         'ews_match' => 'ews_match',
         'lacs_indicator' => 'lacs_indicator',
@@ -139,6 +157,12 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
         'dpv_cmra' => 'setDpvCmra',
         'dpv_vacant' => 'setDpvVacant',
         'dpv_active' => 'setDpvActive',
+        'dpv_inactive_reason' => 'setDpvInactiveReason',
+        'dpv_throwback' => 'setDpvThrowback',
+        'dpv_non_delivery_day_flag' => 'setDpvNonDeliveryDayFlag',
+        'dpv_non_delivery_day_values' => 'setDpvNonDeliveryDayValues',
+        'dpv_no_secure_location' => 'setDpvNoSecureLocation',
+        'dpv_door_not_accessible' => 'setDpvDoorNotAccessible',
         'dpv_footnotes' => 'setDpvFootnotes',
         'ews_match' => 'setEwsMatch',
         'lacs_indicator' => 'setLacsIndicator',
@@ -156,6 +180,12 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
         'dpv_cmra' => 'getDpvCmra',
         'dpv_vacant' => 'getDpvVacant',
         'dpv_active' => 'getDpvActive',
+        'dpv_inactive_reason' => 'getDpvInactiveReason',
+        'dpv_throwback' => 'getDpvThrowback',
+        'dpv_non_delivery_day_flag' => 'getDpvNonDeliveryDayFlag',
+        'dpv_non_delivery_day_values' => 'getDpvNonDeliveryDayValues',
+        'dpv_no_secure_location' => 'getDpvNoSecureLocation',
+        'dpv_door_not_accessible' => 'getDpvDoorNotAccessible',
         'dpv_footnotes' => 'getDpvFootnotes',
         'ews_match' => 'getEwsMatch',
         'lacs_indicator' => 'getLacsIndicator',
@@ -218,6 +248,25 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
     const DPV_ACTIVE_Y = 'Y';
     const DPV_ACTIVE_N = 'N';
     const DPV_ACTIVE_EMPTY = '';
+    const DPV_INACTIVE_REASON__01 = '01';
+    const DPV_INACTIVE_REASON__02 = '02';
+    const DPV_INACTIVE_REASON__03 = '03';
+    const DPV_INACTIVE_REASON__04 = '04';
+    const DPV_INACTIVE_REASON__05 = '05';
+    const DPV_INACTIVE_REASON__06 = '06';
+    const DPV_INACTIVE_REASON_EMPTY = '';
+    const DPV_THROWBACK_Y = 'Y';
+    const DPV_THROWBACK_N = 'N';
+    const DPV_THROWBACK_EMPTY = '';
+    const DPV_NON_DELIVERY_DAY_FLAG_Y = 'Y';
+    const DPV_NON_DELIVERY_DAY_FLAG_N = 'N';
+    const DPV_NON_DELIVERY_DAY_FLAG_EMPTY = '';
+    const DPV_NO_SECURE_LOCATION_Y = 'Y';
+    const DPV_NO_SECURE_LOCATION_N = 'N';
+    const DPV_NO_SECURE_LOCATION_EMPTY = '';
+    const DPV_DOOR_NOT_ACCESSIBLE_Y = 'Y';
+    const DPV_DOOR_NOT_ACCESSIBLE_N = 'N';
+    const DPV_DOOR_NOT_ACCESSIBLE_EMPTY = '';
     const LACS_INDICATOR_Y = 'Y';
     const LACS_INDICATOR_N = 'N';
     const LACS_INDICATOR_EMPTY = '';
@@ -288,6 +337,80 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
      *
      * @return string[]
      */
+    public function getDpvInactiveReasonAllowableValues()
+    {
+        return [
+            self::DPV_INACTIVE_REASON__01,
+            self::DPV_INACTIVE_REASON__02,
+            self::DPV_INACTIVE_REASON__03,
+            self::DPV_INACTIVE_REASON__04,
+            self::DPV_INACTIVE_REASON__05,
+            self::DPV_INACTIVE_REASON__06,
+            self::DPV_INACTIVE_REASON_EMPTY,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDpvThrowbackAllowableValues()
+    {
+        return [
+            self::DPV_THROWBACK_Y,
+            self::DPV_THROWBACK_N,
+            self::DPV_THROWBACK_EMPTY,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDpvNonDeliveryDayFlagAllowableValues()
+    {
+        return [
+            self::DPV_NON_DELIVERY_DAY_FLAG_Y,
+            self::DPV_NON_DELIVERY_DAY_FLAG_N,
+            self::DPV_NON_DELIVERY_DAY_FLAG_EMPTY,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDpvNoSecureLocationAllowableValues()
+    {
+        return [
+            self::DPV_NO_SECURE_LOCATION_Y,
+            self::DPV_NO_SECURE_LOCATION_N,
+            self::DPV_NO_SECURE_LOCATION_EMPTY,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDpvDoorNotAccessibleAllowableValues()
+    {
+        return [
+            self::DPV_DOOR_NOT_ACCESSIBLE_Y,
+            self::DPV_DOOR_NOT_ACCESSIBLE_N,
+            self::DPV_DOOR_NOT_ACCESSIBLE_EMPTY,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
     public function getLacsIndicatorAllowableValues()
     {
         return [
@@ -330,6 +453,12 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
         $this->container['dpv_cmra'] = $data['dpv_cmra'] ?? null;
         $this->container['dpv_vacant'] = $data['dpv_vacant'] ?? null;
         $this->container['dpv_active'] = $data['dpv_active'] ?? null;
+        $this->container['dpv_inactive_reason'] = $data['dpv_inactive_reason'] ?? null;
+        $this->container['dpv_throwback'] = $data['dpv_throwback'] ?? null;
+        $this->container['dpv_non_delivery_day_flag'] = $data['dpv_non_delivery_day_flag'] ?? null;
+        $this->container['dpv_non_delivery_day_values'] = $data['dpv_non_delivery_day_values'] ?? null;
+        $this->container['dpv_no_secure_location'] = $data['dpv_no_secure_location'] ?? null;
+        $this->container['dpv_door_not_accessible'] = $data['dpv_door_not_accessible'] ?? null;
         $this->container['dpv_footnotes'] = $data['dpv_footnotes'] ?? null;
         $this->container['ews_match'] = $data['ews_match'] ?? null;
         $this->container['lacs_indicator'] = $data['lacs_indicator'] ?? null;
@@ -405,6 +534,91 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'dpv_active', must be one of '%s'",
                     $this->container['dpv_active'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['dpv_inactive_reason'] === null) {
+                $invalidProperties[] = "'dpv_inactive_reason' can't be null";
+            }
+        }
+        $allowedValues = $this->getDpvInactiveReasonAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['dpv_inactive_reason']) && !in_array($this->container['dpv_inactive_reason'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_inactive_reason', must be one of '%s'",
+                    $this->container['dpv_inactive_reason'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['dpv_throwback'] === null) {
+                $invalidProperties[] = "'dpv_throwback' can't be null";
+            }
+        }
+        $allowedValues = $this->getDpvThrowbackAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['dpv_throwback']) && !in_array($this->container['dpv_throwback'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_throwback', must be one of '%s'",
+                    $this->container['dpv_throwback'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['dpv_non_delivery_day_flag'] === null) {
+                $invalidProperties[] = "'dpv_non_delivery_day_flag' can't be null";
+            }
+        }
+        $allowedValues = $this->getDpvNonDeliveryDayFlagAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['dpv_non_delivery_day_flag']) && !in_array($this->container['dpv_non_delivery_day_flag'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_non_delivery_day_flag', must be one of '%s'",
+                    $this->container['dpv_non_delivery_day_flag'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['dpv_non_delivery_day_values'] === null) {
+                $invalidProperties[] = "'dpv_non_delivery_day_values' can't be null";
+            }
+        }
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['dpv_no_secure_location'] === null) {
+                $invalidProperties[] = "'dpv_no_secure_location' can't be null";
+            }
+        }
+        $allowedValues = $this->getDpvNoSecureLocationAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['dpv_no_secure_location']) && !in_array($this->container['dpv_no_secure_location'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_no_secure_location', must be one of '%s'",
+                    $this->container['dpv_no_secure_location'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['dpv_door_not_accessible'] === null) {
+                $invalidProperties[] = "'dpv_door_not_accessible' can't be null";
+            }
+        }
+        $allowedValues = $this->getDpvDoorNotAccessibleAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['dpv_door_not_accessible']) && !in_array($this->container['dpv_door_not_accessible'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'dpv_door_not_accessible', must be one of '%s'",
+                    $this->container['dpv_door_not_accessible'],
                     implode("', '", $allowedValues)
                 );
             }
@@ -620,6 +834,221 @@ class DeliverabilityAnalysis implements ModelInterface, ArrayAccess, \JsonSerial
         }
 
         $this->container['dpv_active'] = $dpv_active;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets dpv_inactive_reason
+     *
+     * @return string
+     */
+    public function getDpvInactiveReason()
+    {
+        return $this->container['dpv_inactive_reason'];
+    }
+
+    /**
+     * Sets dpv_inactive_reason
+     *
+     * @param string $dpv_inactive_reason Indicates the reason why an address is vacant or no longer receiving deliveries. Possible values are: * `01` –– Address does not receive mail from the USPS directly, but is serviced by a drop address. * `02` –– Address not yet deliverable. * `03` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string). * `04` –– Address is a College, Military Zone, or other type. * `05` –– Address no longer receives deliveries. * `06` –– Address is missing required secondary information. * `''` –– A DPV match is not made or the address is active.
+     *
+     * @return self
+     */
+    public function setDpvInactiveReason($dpv_inactive_reason)
+    {
+        $allowedValues = $this->getDpvInactiveReasonAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_inactive_reason, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_inactive_reason', must be one of '%s'",
+                        $dpv_inactive_reason,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['dpv_inactive_reason'] = $dpv_inactive_reason;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets dpv_throwback
+     *
+     * @return string
+     */
+    public function getDpvThrowback()
+    {
+        return $this->container['dpv_throwback'];
+    }
+
+    /**
+     * Sets dpv_throwback
+     *
+     * @param string $dpv_throwback Indicates a street address for which mail is delivered to a PO Box. Possible values are: * `Y` –– Address is a PO Box throwback delivery point. * `N` –– Address is not a PO Box throwback delivery point. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     *
+     * @return self
+     */
+    public function setDpvThrowback($dpv_throwback)
+    {
+        $allowedValues = $this->getDpvThrowbackAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_throwback, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_throwback', must be one of '%s'",
+                        $dpv_throwback,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['dpv_throwback'] = $dpv_throwback;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets dpv_non_delivery_day_flag
+     *
+     * @return string
+     */
+    public function getDpvNonDeliveryDayFlag()
+    {
+        return $this->container['dpv_non_delivery_day_flag'];
+    }
+
+    /**
+     * Sets dpv_non_delivery_day_flag
+     *
+     * @param string $dpv_non_delivery_day_flag Indicates whether deliveries are not performed on one or more days of the week at an address. Possible values are: * `Y` –– Mail delivery does not occur on some days of the week. * `N` –– Mail delivery occurs every day of the week. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     *
+     * @return self
+     */
+    public function setDpvNonDeliveryDayFlag($dpv_non_delivery_day_flag)
+    {
+        $allowedValues = $this->getDpvNonDeliveryDayFlagAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_non_delivery_day_flag, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_non_delivery_day_flag', must be one of '%s'",
+                        $dpv_non_delivery_day_flag,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['dpv_non_delivery_day_flag'] = $dpv_non_delivery_day_flag;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets dpv_non_delivery_day_values
+     *
+     * @return string
+     */
+    public function getDpvNonDeliveryDayValues()
+    {
+        return $this->container['dpv_non_delivery_day_values'];
+    }
+
+    /**
+     * Sets dpv_non_delivery_day_values
+     *
+     * @param string $dpv_non_delivery_day_values Indicates days of the week (starting on Sunday) deliveries are not performed at an address. For example: * `YNNNNNN` –– Mail delivery does not occur on Sunday's. * `NYNNNYN` –– Mail delivery does not occur on Monday's or Friday's. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string) or address receives mail every day of the week (`deliverability_analysis[dpv_non_delivery_day_flag]` is `N` or an empty string).
+     *
+     * @return self
+     */
+    public function setDpvNonDeliveryDayValues($dpv_non_delivery_day_values)
+    {
+        $this->container['dpv_non_delivery_day_values'] = $dpv_non_delivery_day_values;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets dpv_no_secure_location
+     *
+     * @return string
+     */
+    public function getDpvNoSecureLocation()
+    {
+        return $this->container['dpv_no_secure_location'];
+    }
+
+    /**
+     * Sets dpv_no_secure_location
+     *
+     * @param string $dpv_no_secure_location Indicates packages to this address will not be left due to security concerns. Possible values are: * `Y` –– Address does not have a secure mailbox. * `N` –– Address has a secure mailbox. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     *
+     * @return self
+     */
+    public function setDpvNoSecureLocation($dpv_no_secure_location)
+    {
+        $allowedValues = $this->getDpvNoSecureLocationAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_no_secure_location, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_no_secure_location', must be one of '%s'",
+                        $dpv_no_secure_location,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['dpv_no_secure_location'] = $dpv_no_secure_location;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets dpv_door_not_accessible
+     *
+     * @return string
+     */
+    public function getDpvDoorNotAccessible()
+    {
+        return $this->container['dpv_door_not_accessible'];
+    }
+
+    /**
+     * Sets dpv_door_not_accessible
+     *
+     * @param string $dpv_door_not_accessible Indicates the door of the address is not accessible for mail delivery. Possible values are: * `Y` –– Door is not accessible. * `N` –– Door is accessible. * `''` –– A DPV match is not made (`deliverability_analysis[dpv_confirmation]` is `N` or an empty string).
+     *
+     * @return self
+     */
+    public function setDpvDoorNotAccessible($dpv_door_not_accessible)
+    {
+        $allowedValues = $this->getDpvDoorNotAccessibleAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($dpv_door_not_accessible, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'dpv_door_not_accessible', must be one of '%s'",
+                        $dpv_door_not_accessible,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['dpv_door_not_accessible'] = $dpv_door_not_accessible;
 
         return $this;
     }
