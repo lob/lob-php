@@ -85,6 +85,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         'county_fips' => 'string',
         'carrier_route' => 'string',
         'carrier_route_type' => 'string',
+        'po_box_only_flag' => 'string',
         'latitude' => 'float',
         'longitude' => 'float'
     ];
@@ -121,6 +122,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         'county_fips' => null,
         'carrier_route' => null,
         'carrier_route_type' => null,
+        'po_box_only_flag' => null,
         'latitude' => 'float',
         'longitude' => 'float'
     ];
@@ -176,6 +178,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         'county_fips' => 'county_fips',
         'carrier_route' => 'carrier_route',
         'carrier_route_type' => 'carrier_route_type',
+        'po_box_only_flag' => 'po_box_only_flag',
         'latitude' => 'latitude',
         'longitude' => 'longitude'
     ];
@@ -210,6 +213,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         'county_fips' => 'setCountyFips',
         'carrier_route' => 'setCarrierRoute',
         'carrier_route_type' => 'setCarrierRouteType',
+        'po_box_only_flag' => 'setPoBoxOnlyFlag',
         'latitude' => 'setLatitude',
         'longitude' => 'setLongitude'
     ];
@@ -244,6 +248,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         'county_fips' => 'getCountyFips',
         'carrier_route' => 'getCarrierRoute',
         'carrier_route_type' => 'getCarrierRouteType',
+        'po_box_only_flag' => 'getPoBoxOnlyFlag',
         'latitude' => 'getLatitude',
         'longitude' => 'getLongitude'
     ];
@@ -323,6 +328,9 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     const CARRIER_ROUTE_TYPE_PO_BOX = 'po_box';
     const CARRIER_ROUTE_TYPE_GENERAL_DELIVERY = 'general_delivery';
     const CARRIER_ROUTE_TYPE_EMPTY = '';
+    const PO_BOX_ONLY_FLAG_Y = 'Y';
+    const PO_BOX_ONLY_FLAG_N = 'N';
+    const PO_BOX_ONLY_FLAG_EMPTY = '';
 
     /**
      * Gets allowable values of the enum
@@ -414,6 +422,20 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getPoBoxOnlyFlagAllowableValues()
+    {
+        return [
+            self::PO_BOX_ONLY_FLAG_Y,
+            self::PO_BOX_ONLY_FLAG_N,
+            self::PO_BOX_ONLY_FLAG_EMPTY,
+        ];
+    }
+
+    /**
      * Associative array for storing property values
      *
      * @var mixed[]
@@ -452,6 +474,7 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['county_fips'] = $data['county_fips'] ?? null;
         $this->container['carrier_route'] = $data['carrier_route'] ?? null;
         $this->container['carrier_route_type'] = $data['carrier_route_type'] ?? null;
+        $this->container['po_box_only_flag'] = $data['po_box_only_flag'] ?? null;
         $this->container['latitude'] = $data['latitude'] ?? null;
         $this->container['longitude'] = $data['longitude'] ?? null;
     }
@@ -659,6 +682,22 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
                 $invalidProperties[] = sprintf(
                     "invalid value '%s' for 'carrier_route_type', must be one of '%s'",
                     $this->container['carrier_route_type'],
+                    implode("', '", $allowedValues)
+                );
+            }
+        }
+
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if ($this->container['po_box_only_flag'] === null) {
+                $invalidProperties[] = "'po_box_only_flag' can't be null";
+            }
+        }
+        $allowedValues = $this->getPoBoxOnlyFlagAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($this->container['po_box_only_flag']) && !in_array($this->container['po_box_only_flag'], $allowedValues, true)) {
+                $invalidProperties[] = sprintf(
+                    "invalid value '%s' for 'po_box_only_flag', must be one of '%s'",
+                    $this->container['po_box_only_flag'],
                     implode("', '", $allowedValues)
                 );
             }
@@ -1366,6 +1405,44 @@ class UsComponents implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['carrier_route_type'] = $carrier_route_type;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets po_box_only_flag
+     *
+     * @return string
+     */
+    public function getPoBoxOnlyFlag()
+    {
+        return $this->container['po_box_only_flag'];
+    }
+
+    /**
+     * Sets po_box_only_flag
+     *
+     * @param string $po_box_only_flag Indicates the mailing facility for an address only supports PO Box deliveries and other forms of mail delivery are not available.
+     *
+     * @return self
+     */
+    public function setPoBoxOnlyFlag($po_box_only_flag)
+    {
+        $allowedValues = $this->getPoBoxOnlyFlagAllowableValues();
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!in_array($po_box_only_flag, $allowedValues, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Invalid value '%s' for 'po_box_only_flag', must be one of '%s'",
+                        $po_box_only_flag,
+                        implode("', '", $allowedValues)
+                    )
+                );
+            }
+        }
+
+        $this->container['po_box_only_flag'] = $po_box_only_flag;
 
         return $this;
     }
