@@ -70,10 +70,10 @@ class UsVerificationsApiSpecTest extends TestCase
         self::$invalidUsvApi = new UsVerificationsApi($wrongConfig);
 
         self::$validAddress1 = new UsVerificationsWritable();
-        self::$validAddress1->setPrimaryLine("210 KING ST");
+        self::$validAddress1->setPrimaryLine("2261 Market Street");
         self::$validAddress1->setCity("SAN FRANCISCO");
         self::$validAddress1->setState("CA");
-        self::$validAddress1->setZipCode("94107");
+        self::$validAddress1->setZipCode("94114");
 
         self::$validAddress2 = new UsVerificationsWritable();
         self::$validAddress2->setPrimaryLine("001 CEMETERY LN");
@@ -83,10 +83,10 @@ class UsVerificationsApiSpecTest extends TestCase
         self::$validAddress2->setZipCode("07000");
 
         $mc1 = new MultipleComponents();
-        $mc1->setPrimaryLine("210 KING ST");
+        $mc1->setPrimaryLine("2261 Market Street");
         $mc1->setCity("SAN FRANCISCO");
         $mc1->setState("CA");
-        $mc1->setZipCode("94107");
+        $mc1->setZipCode("94114");
 
         $mc2 = new MultipleComponents();
         $mc2->setPrimaryLine("001 CEMETERY LN");
@@ -183,10 +183,10 @@ class UsVerificationsApiSpecTest extends TestCase
     {
         try {
             $mc1 = new MultipleComponents();
-            $mc1->setPrimaryLine("210 KING ST");
+            $mc1->setPrimaryLine("2261 Market Street");
             $mc1->setCity("SAN FRANCISCO");
             $mc1->setState("CA");
-            $mc1->setZipCode("94107");
+            $mc1->setZipCode("94114");
 
             // second entry has no primary line, should error
             $mc2 = new MultipleComponents();

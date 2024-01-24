@@ -310,7 +310,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets address
      *
-     * @param string|null $address The entire address in one string (e.g., \"210 King Street 94107\"). _Does not support a recipient and will error when other payload parameters are provided._
+     * @param string|null $address The entire address in one string (e.g., \"2261 Market Street 94114\"). _Does not support a recipient and will error when other payload parameters are provided._
      *
      * @return self
      */
