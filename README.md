@@ -7,8 +7,7 @@ Looking for our [legacy PHP SDK](https://github.com/lob/lob-php/tree/v3-legacy)?
 
 ## Requirements
 
-PHP 7.3 and later.
-Should also work with PHP 8.0 but has not been tested.
+PHP 8.1 and later.
 
 ## Getting Started
 
