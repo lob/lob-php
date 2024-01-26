@@ -64,7 +64,7 @@ class IdentityValidationApiSpecTest extends TestCase
 
         self::$cityStateMultiLineAddress = new MultiLineAddress();
         self::$cityStateMultiLineAddress->setRecipient("Lob.com");
-        self::$cityStateMultiLineAddress->setPrimaryLine("210 King St");
+        self::$cityStateMultiLineAddress->setPrimaryLine("2261 Market Street");
         self::$cityStateMultiLineAddress->setCity("San Francisco");
         self::$cityStateMultiLineAddress->setState("CA");
     }
@@ -104,8 +104,8 @@ class IdentityValidationApiSpecTest extends TestCase
     {
         $zipCodeMultiLineAddress = new MultiLineAddress();
         $zipCodeMultiLineAddress->setRecipient("Lob.com");
-        $zipCodeMultiLineAddress->setPrimaryLine("210 King St");
-        $zipCodeMultiLineAddress->setZipCode("94107");
+        $zipCodeMultiLineAddress->setPrimaryLine("2261 Market Street");
+        $zipCodeMultiLineAddress->setZipCode("94114");
 
         try {
             $identityValidationObject = self::$identityValidationApi->validate($zipCodeMultiLineAddress);
@@ -142,8 +142,8 @@ class IdentityValidationApiSpecTest extends TestCase
         try {
             // error validation object
             $invalidAddress = new MultiLineAddress();
-            $invalidAddress->setPrimaryLine("210 King St");
-            $invalidAddress->setZipCode("94107");
+            $invalidAddress->setPrimaryLine("2261 Market Street");
+            $invalidAddress->setZipCode("94114");
 
             $this->expectException(\Exception::class);
             $this->expectExceptionMessageMatches("/recipient is required/");

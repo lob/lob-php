@@ -53,31 +53,28 @@ curl https://api.lob.com/v1/addresses \
   -d "company=Lob" \
   -d "email=harry@lob.com" \
   -d "phone=5555555555" \
-  -d "address_line1=210 King St" \
-  -d "address_line2=# 6100" \
+  -d "address_line1=2261 Market Street" \
+  -d "address_line2=STE 5668" \
   -d "address_city=San Francisco" \
   -d "address_state=CA" \
-  -d "address_zip=94107" \
+  -d "address_zip=94114" \
   -d "address_country=US" \
 ```
 
 ```php
 $apiInstance = new OpenAPI\Client\Api\AddressesApi($config, new GuzzleHttp\Client());
-$address_editable = new OpenAPI\Client\Model\AddressEditable(
-  array(
-    "description"     => "Harry - Office",
-    "name"     => "Harry Zhang",
-    "company"     => "Lob",
-    "email"     => "harry@lob.com",
-    "phone"     => "5555555555",
-    "address_line1"     => "210 King St",
-    "address_line2"     => "# 6100",
-    "address_city"     => "San Francisco",
-    "address_state"     => "CA",
-    "address_zip"     => "94107",
-    "address_country"     => "US",
-  )
-);
+$address_editable = new OpenAPI\Client\Model\AddressEditable();
+$address_editable->setDescription("Harry - Office");
+$address_editable->setName("Harry Zhang");
+$address_editable->setCompany("Lob");
+$address_editable->setEmail("harry@lob.com");
+$address_editable->setPhone("5555555555");
+$address_editable->setAddressLine1("2261 Market Street");
+$address_editable->setAddressLine2("STE 5668");
+$address_editable->setAddressCity("San Francisco");
+$address_editable->setAddressState("CA");
+$address_editable->setAddressZip("94114");
+$address_editable->setAddressCountry("US");
 
 try {
     $result = $apiInstance->create($address_editable);
@@ -100,7 +97,10 @@ $apiInstance = new OpenAPI\Client\Api\AddressesApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
+      metadata, // metadata 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -203,11 +203,11 @@ curl https://api.lob.com/v1/postcards \
   --data-urlencode "front=<html style='padding: 1in; font-size: 50;'>Front HTML for {{name}}</html>" \
   --data-urlencode "back=<html style='padding: 1in; font-size: 20;'>Back HTML for {{name}}</html>" \
   -d "to[name]=Harry Zhang" \
-  -d "to[address_line1]=210 King St" \
-  -d "to[address_line2]=# 6100" \
+  -d "to[address_line1]=2261 Market Street" \
+  -d "to[address_line2]=STE 5668" \
   -d "to[address_city]=San Francisco" \
   -d "to[address_state]=CA" \
-  -d "to[address_zip]=94107" \
+  -d "to[address_zip]=94114" \
   -d "merge_variables[name]=Harry" \
 ```
 
@@ -215,11 +215,11 @@ curl https://api.lob.com/v1/postcards \
 $to = new OpenAPI\Client\Model\AddressEditable(
   array(
     "name"     => "Harry Zhang",
-    "address_line1"     => "210 King St",
-    "address_line2"     => "# 6100",
+    "address_line1"     => "2261 Market Street",
+    "address_line2"     => "STE 5668",
     "address_city"     => "San Francisco",
     "address_state"     => "CA",
-    "address_zip"     => "94107",
+    "address_zip"     => "94114",
   )
 );
 
@@ -227,16 +227,13 @@ $merge_variables = new stdClass;
 $merge_variables->name = "Harry";
 
 $apiInstance = new OpenAPI\Client\Api\PostcardsApi($config, new GuzzleHttp\Client());
-$postcard_editable = new OpenAPI\Client\Model\PostcardEditable(
-  array(
-    "description"     => "Demo Postcard job",
-    "from"     => "adr_210a8d4b0b76d77b",
-    "front"     => "<html style='padding: 1in; font-size: 50;'>Front HTML for {{name}}</html>",
-    "back"     => "<html style='padding: 1in; font-size: 20;'>Back HTML for {{name}}</html>",
-    "to"     => $to,
-    "merge_variables"     => $merge_variables,
-  )
-);
+$postcard_editable = new OpenAPI\Client\Model\PostcardEditable();
+$postcard_editable->setDescription("Demo Postcard job");
+$postcard_editable->setFrom("adr_210a8d4b0b76d77b");
+$postcard_editable->setFront("<html style='padding: 1in; font-size: 50;'>Front HTML for {{name}}</html>");
+$postcard_editable->setBack("<html style='padding: 1in; font-size: 20;'>Back HTML for {{name}}</html>");
+$postcard_editable->setTo($to);
+$postcard_editable->setMergeVariables($merge_variables);
 
 try {
     $result = $apiInstance->create($postcard_editable);
@@ -259,7 +256,15 @@ $apiInstance = new OpenAPI\Client\Api\PostcardsApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
+      metadata, // metadata 
+      sizeArray, // size 
+      true, // scheduled 
+      sendDate, // sendDate 
+      , // mailType 
+      sortBy, // sortBy 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -322,11 +327,11 @@ curl https://api.lob.com/v1/self_mailers \
   --data-urlencode "inside=<html style='padding: 1in; font-size: 50;'>Inside HTML for {{name}}</html>" \
   --data-urlencode "outside=<html style='padding: 1in; font-size: 20;'>Outside HTML for {{name}}</html>" \
   -d "to[name]=Harry Zhang" \
-  -d "to[address_line1]=210 King St" \
-  -d "to[address_line2]=# 6100" \
+  -d "to[address_line1]=2261 Market Street" \
+  -d "to[address_line2]=STE 5668" \
   -d "to[address_city]=San Francisco" \
   -d "to[address_state]=CA" \
-  -d "to[address_zip]=94107" \
+  -d "to[address_zip]=94114" \
   -d "merge_variables[name]=Harry" \
 ```
 
@@ -334,11 +339,11 @@ curl https://api.lob.com/v1/self_mailers \
 $to = new OpenAPI\Client\Model\AddressEditable(
   array(
     "name"     => "Harry Zhang",
-    "address_line1"     => "210 King St",
-    "address_line2"     => "# 6100",
+    "address_line1"     => "2261 Market Street",
+    "address_line2"     => "STE 5668",
     "address_city"     => "San Francisco",
     "address_state"     => "CA",
-    "address_zip"     => "94107",
+    "address_zip"     => "94114",
   )
 );
 
@@ -346,16 +351,13 @@ $merge_variables = new stdClass;
 $merge_variables->name = "Harry";
 
 $apiInstance = new OpenAPI\Client\Api\SelfMailersApi($config, new GuzzleHttp\Client());
-$self_mailer_editable = new OpenAPI\Client\Model\SelfMailerEditable(
-  array(
-    "description"     => "Demo Self Mailer job",
-    "from"     => "adr_210a8d4b0b76d77b",
-    "inside"     => "<html style='padding: 1in; font-size: 50;'>Inside HTML for {{name}}</html>",
-    "outside"     => "<html style='padding: 1in; font-size: 20;'>Outside HTML for {{name}}</html>",
-    "to"     => $to,
-    "merge_variables"     => $merge_variables,
-  )
-);
+$self_mailer_editable = new OpenAPI\Client\Model\SelfMailerEditable();
+$self_mailer_editable->setDescription("Demo Self Mailer job");
+$self_mailer_editable->setFrom("adr_210a8d4b0b76d77b");
+$self_mailer_editable->setInside("<html style='padding: 1in; font-size: 50;'>Inside HTML for {{name}}</html>");
+$self_mailer_editable->setOutside("<html style='padding: 1in; font-size: 20;'>Outside HTML for {{name}}</html>");
+$self_mailer_editable->setTo($to);
+$self_mailer_editable->setMergeVariables($merge_variables);
 
 try {
     $result = $apiInstance->create($self_mailer_editable);
@@ -378,7 +380,15 @@ $apiInstance = new OpenAPI\Client\Api\SelfMailersApi($config, new GuzzleHttp\Cli
 
 try {
     $result = $apiInstance->list(
-      2, // limit
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
+      metadata, // metadata 
+      null, // size 
+      true, // scheduled 
+      sendDate, // sendDate 
+      , // mailType 
+      sortBy, // sortBy 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -441,25 +451,24 @@ curl https://api.lob.com/v1/letters \
   --data-urlencode "file=<html style='padding-top: 3in; margin: .5in;'>HTML Letter for {{name}}</html>" \
   -d "color=true" \
   -d "to[name]=Harry Zhang" \
-  -d "to[address_line1]=210 King St" \
-  -d "to[address_line2]=# 6100" \
+  -d "to[address_line1]=2261 Market Street" \
+  -d "to[address_line2]=STE 5668" \
   -d "to[address_city]=San Francisco" \
   -d "to[address_state]=CA" \
-  -d "to[address_zip]=94107" \
+  -d "to[address_zip]=94114" \
   -d "merge_variables[name]=Harry" \
   -d "cards[]=card_c51ae96f5cebf3e"
-  -d "cards[]=card_thingy"
 ```
 
 ```php
 $to = new OpenAPI\Client\Model\AddressEditable(
   array(
     "name"     => "Harry Zhang",
-    "address_line1"     => "210 King St",
-    "address_line2"     => "# 6100",
+    "address_line1"     => "2261 Market Street",
+    "address_line2"     => "STE 5668",
     "address_city"     => "San Francisco",
     "address_state"     => "CA",
-    "address_zip"     => "94107",
+    "address_zip"     => "94114",
   )
 );
 
@@ -467,20 +476,16 @@ $merge_variables = new stdClass;
 $merge_variables->name = "Harry";
 
 $apiInstance = new OpenAPI\Client\Api\LettersApi($config, new GuzzleHttp\Client());
-$letter_editable = new OpenAPI\Client\Model\LetterEditable(
-  array(
-    "description"     => "Demo Letter",
-    "from"     => "adr_210a8d4b0b76d77b",
-    "file"     => "<html style='padding-top: 3in; margin: .5in;'>HTML Letter for {{name}}</html>",
-    "color"     => "true",
-    "to"     => $to,
-    "merge_variables"     => $merge_variables,
-    "cards"     => array(
-      "card_c51ae96f5cebf3e",
-      "card_thingy",
-    ),
-  )
-);
+$letter_editable = new OpenAPI\Client\Model\LetterEditable();
+$letter_editable->setDescription("Demo Letter");
+$letter_editable->setFrom("adr_210a8d4b0b76d77b");
+$letter_editable->setFile("<html style='padding-top: 3in; margin: .5in;'>HTML Letter for {{name}}</html>");
+$letter_editable->setColor("true");
+$letter_editable->setTo($to);
+$letter_editable->setMergeVariables($merge_variables);
+$letter_editable->setCards(array(
+  "card_c51ae96f5cebf3e",
+));
 
 try {
     $result = $apiInstance->create($letter_editable);
@@ -503,7 +508,14 @@ $apiInstance = new OpenAPI\Client\Api\LettersApi($config, new GuzzleHttp\Client(
 
 try {
     $result = $apiInstance->list(
-      2, // limit
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
+      metadata, // metadata 
+      true, // scheduled 
+      sendDate, // sendDate 
+      , // mailType 
+      sortBy, // sortBy 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -569,23 +581,23 @@ curl https://api.lob.com/v1/checks \
   --data-urlencode "check_bottom=<h1 style='padding-top:4in;'>Demo Check for {{name}}</h1>" \
   -d "from=adr_210a8d4b0b76d77b" \
   -d "to[name]=Harry Zhang" \
-  -d "to[address_line1]=210 King St" \
-  -d "to[address_line2]=# 6100" \
+  -d "to[address_line1]=2261 Market Street" \
+  -d "to[address_line2]=STE 5668" \
   -d "to[address_city]=San Francisco" \
   -d "to[address_state]=CA" \
-  -d "to[address_zip]=94107" \
+  -d "to[address_zip]=94114" \
   -d "merge_variables[name]=Harry" \
 ```
 
 ```php
-$to = new OpenAPI\Client\Model\AddressEditable(
+$to = new OpenAPI\Client\Model\AddressDomestic(
   array(
     "name"     => "Harry Zhang",
-    "address_line1"     => "210 King St",
-    "address_line2"     => "# 6100",
+    "address_line1"     => "2261 Market Street",
+    "address_line2"     => "STE 5668",
     "address_city"     => "San Francisco",
     "address_state"     => "CA",
-    "address_zip"     => "94107",
+    "address_zip"     => "94114",
   )
 );
 
@@ -593,19 +605,16 @@ $merge_variables = new stdClass;
 $merge_variables->name = "Harry";
 
 $apiInstance = new OpenAPI\Client\Api\ChecksApi($config, new GuzzleHttp\Client());
-$check_editable = new OpenAPI\Client\Model\CheckEditable(
-  array(
-    "description"     => "Demo Check",
-    "bank_account"     => "bank_8cad8df5354d33f",
-    "amount"     => "22.5",
-    "memo"     => "rent",
-    "logo"     => "https://s3-us-west-2.amazonaws.com/public.lob.com/assets/check_logo.png",
-    "check_bottom"     => "<h1 style='padding-top:4in;'>Demo Check for {{name}}</h1>",
-    "from"     => "adr_210a8d4b0b76d77b",
-    "to"     => $to,
-    "merge_variables"     => $merge_variables,
-  )
-);
+$check_editable = new OpenAPI\Client\Model\CheckEditable();
+$check_editable->setDescription("Demo Check");
+$check_editable->setBankAccount("bank_8cad8df5354d33f");
+$check_editable->setAmount("22.5");
+$check_editable->setMemo("rent");
+$check_editable->setLogo("https://s3-us-west-2.amazonaws.com/public.lob.com/assets/check_logo.png");
+$check_editable->setCheckBottom("<h1 style='padding-top:4in;'>Demo Check for {{name}}</h1>");
+$check_editable->setFrom("adr_210a8d4b0b76d77b");
+$check_editable->setTo($to);
+$check_editable->setMergeVariables($merge_variables);
 
 try {
     $result = $apiInstance->create($check_editable);
@@ -628,7 +637,14 @@ $apiInstance = new OpenAPI\Client\Api\ChecksApi($config, new GuzzleHttp\Client()
 
 try {
     $result = $apiInstance->list(
-      2, // limit
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
+      metadata, // metadata 
+      true, // scheduled 
+      sendDate, // sendDate 
+      , // mailType 
+      sortBy, // sortBy 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -692,7 +708,10 @@ $apiInstance = new OpenAPI\Client\Api\BankAccountsApi($config, new GuzzleHttp\Cl
 
 try {
     $result = $apiInstance->list(
-      2, // limit
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
+      metadata, // metadata 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -706,9 +725,9 @@ try {
 ### Verify
 ```bash
 curl https://api.lob.com/v1/bank_accounts/bank_dfceb4a2a05b57e/verify \
-  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
-  -d "amounts[]=25" \
-  -d "amounts[]=63" \
+  -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \ 
+  -d "amounts[]=25" \ 
+  -d "amounts[]=63" \ 
 ```
 
 ```php
@@ -748,15 +767,12 @@ curl https://api.lob.com/v1/bank_accounts \
 
 ```php
 $apiInstance = new OpenAPI\Client\Api\BankAccountsApi($config, new GuzzleHttp\Client());
-$bank_account_writable = new OpenAPI\Client\Model\BankAccountWritable(
-  array(
-    "description"     => "Test Bank Account",
-    "routing_number"     => "322271627",
-    "account_number"     => "123456789",
-    "signatory"     => "John Doe",
-    "account_type"     => "company",
-  )
-);
+$bank_account_writable = new OpenAPI\Client\Model\BankAccountWritable();
+$bank_account_writable->setDescription("Test Bank Account");
+$bank_account_writable->setRoutingNumber("322271627");
+$bank_account_writable->setAccountNumber("123456789");
+$bank_account_writable->setSignatory("John Doe");
+$bank_account_writable->setAccountType("company");
 
 try {
     $result = $apiInstance->create($bank_account_writable);
@@ -821,7 +837,10 @@ $apiInstance = new OpenAPI\Client\Api\TemplatesApi($config, new GuzzleHttp\Clien
 
 try {
     $result = $apiInstance->list(
-      2, // limit
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
+      metadata, // metadata 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -871,12 +890,9 @@ curl https://api.lob.com/v1/templates \
 
 ```php
 $apiInstance = new OpenAPI\Client\Api\TemplatesApi($config, new GuzzleHttp\Client());
-$template_writable = new OpenAPI\Client\Model\TemplateWritable(
-  array(
-    "description"     => "Test Template",
-    "html"     => "<html>HTML for {{name}}</html>",
-  )
-);
+$template_writable = new OpenAPI\Client\Model\TemplateWritable();
+$template_writable->setDescription("Test Template");
+$template_writable->setHtml("<html>HTML for {{name}}</html>");
 
 try {
     $result = $apiInstance->create($template_writable);
@@ -941,8 +957,10 @@ $apiInstance = new OpenAPI\Client\Api\TemplateVersionsApi($config, new GuzzleHtt
 
 try {
     $result = $apiInstance->list(
-      tmpl_dadaaf7b76c9f25, // tmplId
-      2, // limit
+      "tmpl_dadaaf7b76c9f25", // tmplId 
+      2, // limit 
+      includeList, // include 
+      dateCreated, // dateCreated 
     );
     print_r($result);
 } catch (Exception $e) {
@@ -990,12 +1008,9 @@ curl https://api.lob.com/v1/templates/tmpl_4aa14648113e45b/versions \
 
 ```php
 $apiInstance = new OpenAPI\Client\Api\TemplateVersionsApi($config, new GuzzleHttp\Client());
-$template_version_writable = new OpenAPI\Client\Model\TemplateVersionWritable(
-  array(
-    "description"     => "Second Version",
-    "html"     => "<html>Second HTML for {{name}}</html>",
-  )
-);
+$template_version_writable = new OpenAPI\Client\Model\TemplateVersionWritable();
+$template_version_writable->setDescription("Second Version");
+$template_version_writable->setHtml("<html>Second HTML for {{name}}</html>");
 
 try {
     $result = $apiInstance->create("tmpl_4aa14648113e45b", $template_version_writable);
@@ -1004,6 +1019,8 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 ```
+
+
 
 ## Creatives Api
 
@@ -1015,8 +1032,6 @@ curl -X PATCH https://api.lob.com/v1/crv_2a3b096c409b32c \
   -u test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc: \
   -d "description=Our updated 4x6 postcard creative" \
 ```
-
-```php
 $apiInstance = new OpenAPI\Client\Api\CreativesApi($config, new GuzzleHttp\Client());
 
 $creativeUpdate = new OpenAPI\Client\Model\CreativePatch();
@@ -1137,14 +1152,14 @@ curl https://api.lob.com/v1/bulk/intl_verifications \
 
 ```php
 
-$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
   'primary_line'     => '35 Tower Hill',
   'city'     => 'London',
   'postal_code'     => 'EC3N 4DR',
   'country'     => 'GB',
 ));
 
-$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array(
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponentsIntl(array( 
   'primary_line'     => '370 Water St',
   'city'     => 'Summerside',
   'state'     => 'Prince Edward Island',
@@ -1174,10 +1189,10 @@ try {
 curl https://api.lob.com/v1/bulk/us_verifications \
   -u <YOUR LIVE API KEY>: \
   --header 'Content-Type: application/x-www-form-urlencoded' \
-  --data-urlencode 'addresses[0][primary_line]=210 King Street' \
+  --data-urlencode 'addresses[0][primary_line]=2261 Market Street' \
   --data-urlencode 'addresses[0][city]=San Francisco' \
   --data-urlencode 'addresses[0][state]=CA' \
-  --data-urlencode 'addresses[0][zip_code]=94017' \
+  --data-urlencode 'addresses[0][zip_code]=94114' \
   --data-urlencode 'addresses[1][primary_line]=185 BERRY ST STE 6600' \
   --data-urlencode 'addresses[1][city]=SAN FRANCISCO' \
   --data-urlencode 'addresses[1][state]=CA' \
@@ -1186,14 +1201,14 @@ curl https://api.lob.com/v1/bulk/us_verifications \
 
 ```php
 
-$verificationData0 = new OpenAPI\Client\Model\MultipleComponents(array(
-  'primary_line'     => '210 King Street',
+$verificationData0 = new OpenAPI\Client\Model\MultipleComponents(array( 
+  'primary_line'     => '2261 Market Street',
   'city'     => 'San Francisco',
   'state'     => 'CA',
-  'zip_code'     => '94017',
+  'zip_code'     => '94114',
 ));
 
-$verificationData1 = new OpenAPI\Client\Model\MultipleComponents(array(
+$verificationData1 = new OpenAPI\Client\Model\MultipleComponents(array( 
   'primary_line'     => '185 BERRY ST STE 6600',
   'city'     => 'SAN FRANCISCO',
   'state'     => 'CA',
@@ -1219,20 +1234,20 @@ try {
 ```bash
 curl https://api.lob.com/v1/us_verifications \
   -u <YOUR_LIVE_API_KEY>: \
-  -d "primary_line=210 King Street" \
+  -d "primary_line=2261 Market Street" \
   -d "city=San Francisco" \
   -d "state=CA" \
-  -d "zip_code=94017" \
+  -d "zip_code=94114" \
 ```
 
 ```php
 $apiInstance = new OpenAPI\Client\Api\UsVerificationsApi($config, new GuzzleHttp\Client());
 
 $verificationData = new OpenAPI\Client\Model\UsVerificationsWritable(array(
-  'primary_line'     => '210 King Street',
+  'primary_line'     => '2261 Market Street',
   'city'     => 'San Francisco',
   'state'     => 'CA',
-  'zip_code'     => '94017',
+  'zip_code'     => '94114',
 ));
 
 try {
