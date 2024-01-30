@@ -58,6 +58,8 @@ enum CountryExtended: string
 
     case AL = 'AL';
 
+    case AM = 'AM';
+
     case AN = 'AN';
 
     case AO = 'AO';
