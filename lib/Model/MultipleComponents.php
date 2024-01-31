@@ -66,7 +66,8 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
         'urbanization' => 'string',
         'city' => 'string',
         'state' => 'string',
-        'zip_code' => 'string'
+        'zip_code' => 'string',
+        'transient_id' => 'string'
     ];
 
     /**
@@ -83,7 +84,8 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
         'urbanization' => null,
         'city' => null,
         'state' => null,
-        'zip_code' => null
+        'zip_code' => null,
+        'transient_id' => null
     ];
 
     /**
@@ -119,7 +121,8 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
         'urbanization' => 'urbanization',
         'city' => 'city',
         'state' => 'state',
-        'zip_code' => 'zip_code'
+        'zip_code' => 'zip_code',
+        'transient_id' => 'transient_id'
     ];
 
     /**
@@ -134,7 +137,8 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
         'urbanization' => 'setUrbanization',
         'city' => 'setCity',
         'state' => 'setState',
-        'zip_code' => 'setZipCode'
+        'zip_code' => 'setZipCode',
+        'transient_id' => 'setTransientId'
     ];
 
     /**
@@ -149,7 +153,8 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
         'urbanization' => 'getUrbanization',
         'city' => 'getCity',
         'state' => 'getState',
-        'zip_code' => 'getZipCode'
+        'zip_code' => 'getZipCode',
+        'transient_id' => 'getTransientId'
     ];
 
     /**
@@ -216,6 +221,7 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->container['city'] = $data['city'] ?? null;
         $this->container['state'] = $data['state'] ?? null;
         $this->container['zip_code'] = $data['zip_code'] ?? null;
+        $this->container['transient_id'] = $data['transient_id'] ?? null;
     }
 
     /**
@@ -503,6 +509,31 @@ class MultipleComponents implements ModelInterface, ArrayAccess, \JsonSerializab
 
         }
         $this->container['zip_code'] = $zip_code;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets transient_id
+     *
+     * @return string|null
+     */
+    public function getTransientId()
+    {
+        return $this->container['transient_id'];
+    }
+
+    /**
+     * Sets transient_id
+     *
+     * @param string|null $transient_id ID that is returned in the response body for the verification
+     *
+     * @return self
+     */
+    public function setTransientId($transient_id)
+    {
+        $this->container['transient_id'] = $transient_id;
 
         return $this;
     }

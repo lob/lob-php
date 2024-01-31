@@ -67,7 +67,8 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
         'urbanization' => 'string',
         'city' => 'string',
         'state' => 'string',
-        'zip_code' => 'string'
+        'zip_code' => 'string',
+        'transient_id' => 'string'
     ];
 
     /**
@@ -85,7 +86,8 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
         'urbanization' => null,
         'city' => null,
         'state' => null,
-        'zip_code' => null
+        'zip_code' => null,
+        'transient_id' => null
     ];
 
     /**
@@ -122,7 +124,8 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
         'urbanization' => 'urbanization',
         'city' => 'city',
         'state' => 'state',
-        'zip_code' => 'zip_code'
+        'zip_code' => 'zip_code',
+        'transient_id' => 'transient_id'
     ];
 
     /**
@@ -138,7 +141,8 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
         'urbanization' => 'setUrbanization',
         'city' => 'setCity',
         'state' => 'setState',
-        'zip_code' => 'setZipCode'
+        'zip_code' => 'setZipCode',
+        'transient_id' => 'setTransientId'
     ];
 
     /**
@@ -154,7 +158,8 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
         'urbanization' => 'getUrbanization',
         'city' => 'getCity',
         'state' => 'getState',
-        'zip_code' => 'getZipCode'
+        'zip_code' => 'getZipCode',
+        'transient_id' => 'getTransientId'
     ];
 
     /**
@@ -222,6 +227,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
         $this->container['city'] = $data['city'] ?? null;
         $this->container['state'] = $data['state'] ?? null;
         $this->container['zip_code'] = $data['zip_code'] ?? null;
+        $this->container['transient_id'] = $data['transient_id'] ?? null;
     }
 
     /**
@@ -310,7 +316,7 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets address
      *
-     * @param string|null $address The entire address in one string (e.g., \"210 King Street 94107\"). _Does not support a recipient and will error when other payload parameters are provided._
+     * @param string|null $address The entire address in one string (e.g., \"2261 Market Street 94114\"). _Does not support a recipient and will error when other payload parameters are provided._
      *
      * @return self
      */
@@ -541,6 +547,31 @@ class UsVerificationsWritable implements ModelInterface, ArrayAccess, \JsonSeria
 
         }
         $this->container['zip_code'] = $zip_code;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets transient_id
+     *
+     * @return string|null
+     */
+    public function getTransientId()
+    {
+        return $this->container['transient_id'];
+    }
+
+    /**
+     * Sets transient_id
+     *
+     * @param string|null $transient_id ID that is returned in the response body for the verification
+     *
+     * @return self
+     */
+    public function setTransientId($transient_id)
+    {
+        $this->container['transient_id'] = $transient_id;
 
         return $this;
     }

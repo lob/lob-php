@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **deliverability_analysis** | [**\OpenAPI\Client\Model\DeliverabilityAnalysis**](DeliverabilityAnalysis.md) |  | [optional]
 **lob_confidence_score** | [**\OpenAPI\Client\Model\LobConfidenceScore**](LobConfidenceScore.md) |  | [optional]
 **object** | **string** |  | [optional] [default to OBJECT_US_VERIFICATION]
+**transient_id** | **string** | ID that is returned in the response body for the verification | [optional]
 **error** | [**\OpenAPI\Client\Model\BulkError**](BulkError.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
