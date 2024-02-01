@@ -71,7 +71,8 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'components' => '\OpenAPI\Client\Model\UsComponents',
         'deliverability_analysis' => '\OpenAPI\Client\Model\DeliverabilityAnalysis',
         'lob_confidence_score' => '\OpenAPI\Client\Model\LobConfidenceScore',
-        'object' => 'string'
+        'object' => 'string',
+        'transient_id' => 'string'
     ];
 
     /**
@@ -93,7 +94,8 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'components' => null,
         'deliverability_analysis' => null,
         'lob_confidence_score' => null,
-        'object' => null
+        'object' => null,
+        'transient_id' => null
     ];
 
     /**
@@ -134,7 +136,8 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'components' => 'components',
         'deliverability_analysis' => 'deliverability_analysis',
         'lob_confidence_score' => 'lob_confidence_score',
-        'object' => 'object'
+        'object' => 'object',
+        'transient_id' => 'transient_id'
     ];
 
     /**
@@ -154,7 +157,8 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'components' => 'setComponents',
         'deliverability_analysis' => 'setDeliverabilityAnalysis',
         'lob_confidence_score' => 'setLobConfidenceScore',
-        'object' => 'setObject'
+        'object' => 'setObject',
+        'transient_id' => 'setTransientId'
     ];
 
     /**
@@ -174,7 +178,8 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         'components' => 'getComponents',
         'deliverability_analysis' => 'getDeliverabilityAnalysis',
         'lob_confidence_score' => 'getLobConfidenceScore',
-        'object' => 'getObject'
+        'object' => 'getObject',
+        'transient_id' => 'getTransientId'
     ];
 
     /**
@@ -280,6 +285,7 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['deliverability_analysis'] = $data['deliverability_analysis'] ?? null;
         $this->container['lob_confidence_score'] = $data['lob_confidence_score'] ?? null;
         $this->container['object'] = $data['object'] ?? null;
+        $this->container['transient_id'] = $data['transient_id'] ?? null;
     }
 
     /**
@@ -711,6 +717,31 @@ class UsVerification implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['object'] = $object;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets transient_id
+     *
+     * @return string|null
+     */
+    public function getTransientId()
+    {
+        return $this->container['transient_id'];
+    }
+
+    /**
+     * Sets transient_id
+     *
+     * @param string|null $transient_id ID that is returned in the response body for the verification
+     *
+     * @return self
+     */
+    public function setTransientId($transient_id)
+    {
+        $this->container['transient_id'] = $transient_id;
 
         return $this;
     }
