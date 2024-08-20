@@ -340,14 +340,19 @@ class LettersApi
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
+                $multipart = [];
+                if ($file !== null) {
+                    $multipart[] = [
+                        'name' => 'file',
+                        'contents' => Utils::tryFopen($file, 'r')
+                    ];
+                }
+                
                 $response = $this->client->request(
                     'POST',
                     $request->getUri()->__toString(),
                     [
-                        'multipart' => [[
-                            'name' => 'file',
-                            'contents' => Utils::tryFopen($file, 'r')
-                        ]],
+                        'multipart' => $multipart,
                         'auth' => $options['auth']
                     ]
                 );
