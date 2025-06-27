@@ -340,17 +340,21 @@ class LettersApi
             $options = $this->createHttpClientOption();
             $requestError = null;
             try {
-                $response = $this->client->request(
-                    'POST',
-                    $request->getUri()->__toString(),
-                    [
-                        'multipart' => [[
-                            'name' => 'file',
-                            'contents' => Utils::tryFopen($file, 'r')
-                        ]],
-                        'auth' => $options['auth']
-                    ]
-                );
+                if ($file !== null) {
+                    $response = $this->client->request(
+                        'POST',
+                        $request->getUri()->__toString(),
+                        [
+                            'multipart' => [[
+                                'name' => 'file',
+                                'contents' => Utils::tryFopen($file, 'r')
+                            ]],
+                            'auth' => $options['auth']
+                        ]
+                    );
+                } else {
+                    $response = $this->client->send($request, $options);
+                }
             } catch (RequestException $e) {
                 $errorBody = json_decode($e->getResponse()->getBody()->getContents())->error;
                 $requestError = new LobError();
