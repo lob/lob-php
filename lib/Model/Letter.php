@@ -1108,12 +1108,6 @@ class Letter implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function setTrackingEvents($tracking_events)
     {
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-
-            if (!is_null($tracking_events) && (count($tracking_events) > 0)) {
-                throw new \InvalidArgumentException('invalid value for $tracking_events when calling Letter., number of items must be less than or equal to 0.');
-            }
-        }
         $this->container['tracking_events'] = [];
         if ($tracking_events) {
             foreach ($tracking_events as $point) {
