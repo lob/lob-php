@@ -360,4 +360,31 @@ class BankAccountsApiSpecTest extends TestCase
         $this->expectExceptionMessageMatches("/bank account not found/");
         $badDeletion = self::$bankApi->delete("bank_NONEXISTENT");
     }
+
+    public function testVerifyWithDescriptorCode200()
+    {
+        try {
+            $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+            $descriptorVerify = new BankAccountVerify();
+            $descriptorVerify->setDescriptorCode("SM11AA");
+            $verifiedBankAccount = self::$bankApi->verify($createdBankAccount->getId(), $descriptorVerify);
+            $this->assertMatchesRegularExpression("/bank_/", $verifiedBankAccount->getId());
+            array_push($this->idsForCleanup, $createdBankAccount->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function testBankAccountHasMicrodepositType()
+    {
+        try {
+            $createdBankAccount = self::$bankApi->create(self::$writableBankAcc);
+            $retrievedBankAccount = self::$bankApi->get($createdBankAccount->getId());
+            $this->assertNotNull($retrievedBankAccount->getMicrodepositType());
+            $this->assertContains($retrievedBankAccount->getMicrodepositType(), ["amounts", "descriptor_code"]);
+            array_push($this->idsForCleanup, $createdBankAccount->getId());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
 }

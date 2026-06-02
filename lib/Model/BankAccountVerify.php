@@ -60,7 +60,8 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'amounts' => 'int[]'
+        'amounts' => 'int[]',
+        'descriptor_code' => 'string'
     ];
 
     /**
@@ -71,7 +72,8 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amounts' => null
+        'amounts' => null,
+        'descriptor_code' => null
     ];
 
     /**
@@ -101,7 +103,8 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $attributeMap = [
-        'amounts' => 'amounts'
+        'amounts' => 'amounts',
+        'descriptor_code' => 'descriptor_code'
     ];
 
     /**
@@ -110,7 +113,8 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $setters = [
-        'amounts' => 'setAmounts'
+        'amounts' => 'setAmounts',
+        'descriptor_code' => 'setDescriptorCode'
     ];
 
     /**
@@ -119,7 +123,8 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $getters = [
-        'amounts' => 'getAmounts'
+        'amounts' => 'getAmounts',
+        'descriptor_code' => 'getDescriptorCode'
     ];
 
     /**
@@ -180,6 +185,7 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
     public function __construct(array $data = null)
     {
         $this->container['amounts'] = $data['amounts'] ?? null;
+        $this->container['descriptor_code'] = $data['descriptor_code'] ?? null;
     }
 
     /**
@@ -192,19 +198,26 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
         $invalidProperties = [];
 
         if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ($this->container['amounts'] === null) {
-                $invalidProperties[] = "'amounts' can't be null";
-            }
-        }
-        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
-            if ((count($this->container['amounts']) > 2)) {
-                $invalidProperties[] = "invalid value for 'amounts', number of items must be less than or equal to 2.";
+            $hasAmounts = $this->container['amounts'] !== null;
+            $hasDescriptorCode = $this->container['descriptor_code'] !== null;
+
+            if (!$hasAmounts && !$hasDescriptorCode) {
+                $invalidProperties[] = "one of 'amounts' or 'descriptor_code' must be provided";
             }
 
-            if ((count($this->container['amounts']) < 2)) {
-                $invalidProperties[] = "invalid value for 'amounts', number of items must be greater than or equal to 2.";
+            if ($hasAmounts && $hasDescriptorCode) {
+                $invalidProperties[] = "only one of 'amounts' or 'descriptor_code' may be provided";
             }
 
+            if ($hasAmounts) {
+                if ((count($this->container['amounts']) > 2)) {
+                    $invalidProperties[] = "invalid value for 'amounts', number of items must be less than or equal to 2.";
+                }
+
+                if ((count($this->container['amounts']) < 2)) {
+                    $invalidProperties[] = "invalid value for 'amounts', number of items must be greater than or equal to 2.";
+                }
+            }
         }
         return $invalidProperties;
     }
@@ -253,11 +266,40 @@ class BankAccountVerify implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->container['amounts'] = [];
         if ($amounts) {
             foreach ($amounts as $point) {
-                
+
                 $deserializedData = (int) $point;
                 array_push($this->container['amounts'], $deserializedData);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Gets descriptor_code
+     *
+     * @return string|null
+     */
+    public function getDescriptorCode()
+    {
+        return $this->container['descriptor_code'];
+    }
+
+    /**
+     * Sets descriptor_code
+     *
+     * @param string|null $descriptor_code The 6-character code (beginning with SM) from the bank statement descriptor of the single $0.01 microdeposit. Required when microdeposit_type is descriptor_code.
+     *
+     * @return self
+     */
+    public function setDescriptorCode($descriptor_code)
+    {
+        if (!method_exists($this, 'getId') || (!empty($this->getId()) && strpos($this->getId(), "fakeId") === False)) {
+            if (!is_null($descriptor_code) && !preg_match("/^SM[a-zA-Z0-9]{4}$/", $descriptor_code)) {
+                throw new \InvalidArgumentException('invalid value for $descriptor_code when calling BankAccountVerify., must conform to the pattern /^SM[a-zA-Z0-9]{4}$/.');
+            }
+        }
+        $this->container['descriptor_code'] = $descriptor_code;
 
         return $this;
     }

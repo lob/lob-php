@@ -836,4 +836,85 @@ class BankAccountsApiUnitTest extends TestCase
             echo 'Caught exception: ',  $instantiationError->getMessage(), "\n";
         }
     }
+
+    /**
+     * @group unit
+     * @group bankAccounts
+     */
+    public function testVerifyWithDescriptorCode()
+    {
+        $guzzleMock = new MockHandler();
+        $handlerStack = HandlerStack::create($guzzleMock);
+        $client = new Client(['handler' => $handlerStack]);
+        $config = new Configuration();
+        $config->setApiKey('basic', 'Totally Fake Key');
+        $bankAccountsApi = new BankAccountsApi($config, $client);
+
+        $guzzleMock->append(new Response(200, [], self::$mockBankAccountResponse));
+        try {
+            $verify = new BankAccountVerify(array("descriptor_code" => "SM11AA"));
+            $happyPath = $bankAccountsApi->verify(self::$mockBankId, $verify);
+            $this->assertEquals($happyPath->getId(), self::$mockBankId);
+        } catch (Exception $retrieveError) {
+            echo 'Caught exception: ',  $retrieveError->getMessage(), "\n";
+        }
+    }
+
+    /**
+     * @group unit
+     * @group bankAccounts
+     */
+    public function testVerifyFailBothAmountsAndDescriptorCode()
+    {
+        $verify = new BankAccountVerify(array("amounts" => [1, 2], "descriptor_code" => "SM11AA"));
+        $invalidProps = $verify->listInvalidProperties();
+        $this->assertNotEmpty($invalidProps);
+        $this->assertStringContainsString("only one of", $invalidProps[0]);
+        $this->assertFalse($verify->valid());
+    }
+
+    /**
+     * @group unit
+     * @group bankAccounts
+     */
+    public function testVerifyFailNeitherAmountsNorDescriptorCode()
+    {
+        $verify = new BankAccountVerify();
+        $invalidProps = $verify->listInvalidProperties();
+        $this->assertNotEmpty($invalidProps);
+        $this->assertStringContainsString("one of 'amounts' or 'descriptor_code' must be provided", $invalidProps[0]);
+    }
+
+    /**
+     * @group unit
+     * @group bankAccounts
+     */
+    public function testVerifyFailInvalidDescriptorCodePattern()
+    {
+        try {
+            $this->expectException(\InvalidArgumentException::class);
+            $verify = new BankAccountVerify();
+            $verify->setDescriptorCode("INVALID");
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+    }
+
+    /**
+     * @group unit
+     * @group bankAccounts
+     */
+    public function testBankAccountHasMicrodepositType()
+    {
+        $account = new BankAccount();
+        $account->setId(self::$mockBankId);
+        $account->setMicrodepositType("amounts");
+        $this->assertEquals("amounts", $account->getMicrodepositType());
+
+        $account->setMicrodepositType("descriptor_code");
+        $this->assertEquals("descriptor_code", $account->getMicrodepositType());
+
+        $account->setMicrodepositType(null);
+        $this->assertNull($account->getMicrodepositType());
+    }
 }

@@ -73,7 +73,8 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         'date_created' => '\DateTime',
         'date_modified' => '\DateTime',
         'deleted' => 'bool',
-        'object' => 'string'
+        'object' => 'string',
+        'microdeposit_type' => 'string'
     ];
 
     /**
@@ -97,7 +98,8 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         'date_created' => 'date-time',
         'date_modified' => 'date-time',
         'deleted' => null,
-        'object' => null
+        'object' => null,
+        'microdeposit_type' => null
     ];
 
     /**
@@ -140,7 +142,8 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         'date_created' => 'date_created',
         'date_modified' => 'date_modified',
         'deleted' => 'deleted',
-        'object' => 'object'
+        'object' => 'object',
+        'microdeposit_type' => 'microdeposit_type'
     ];
 
     /**
@@ -162,7 +165,8 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         'date_created' => 'setDateCreated',
         'date_modified' => 'setDateModified',
         'deleted' => 'setDeleted',
-        'object' => 'setObject'
+        'object' => 'setObject',
+        'microdeposit_type' => 'setMicrodepositType'
     ];
 
     /**
@@ -184,7 +188,8 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         'date_created' => 'getDateCreated',
         'date_modified' => 'getDateModified',
         'deleted' => 'getDeleted',
-        'object' => 'getObject'
+        'object' => 'getObject',
+        'microdeposit_type' => 'getMicrodepositType'
     ];
 
     /**
@@ -286,6 +291,7 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['date_modified'] = $data['date_modified'] ?? null;
         $this->container['deleted'] = $data['deleted'] ?? null;
         $this->container['object'] = $data['object'] ?? null;
+        $this->container['microdeposit_type'] = $data['microdeposit_type'] ?? null;
     }
 
     /**
@@ -836,6 +842,32 @@ class BankAccount implements ModelInterface, ArrayAccess, \JsonSerializable
 
         return $this;
     }
+
+
+    /**
+     * Gets microdeposit_type
+     *
+     * @return string|null
+     */
+    public function getMicrodepositType()
+    {
+        return $this->container['microdeposit_type'];
+    }
+
+    /**
+     * Sets microdeposit_type
+     *
+     * @param string|null $microdeposit_type The type of microdeposit verification required. Present when verified is false; null once the account is verified. Use this to determine which field to submit to the verify endpoint: amounts or descriptor_code.
+     *
+     * @return self
+     */
+    public function setMicrodepositType($microdeposit_type)
+    {
+        $this->container['microdeposit_type'] = $microdeposit_type;
+
+        return $this;
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
