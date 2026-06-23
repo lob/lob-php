@@ -66,6 +66,8 @@ enum CountryExtendedExpanded: string
 
     case ARGENTINA = 'ARGENTINA';
 
+    case ARMENIA = 'ARMENIA';
+
     case ARUBA = 'ARUBA';
 
     case AUSTRALIA = 'AUSTRALIA';
