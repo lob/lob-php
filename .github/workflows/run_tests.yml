@@ -17,7 +17,7 @@ jobs:
       - uses: php-actions/composer@v6
 
       - name: Run Unit Tests
-        run: vendor/bin/phpunit --group unit--coverage-text --coverage-clover=coverage/coverage.xml --configuration=phpunit.xml.dist
+        run: vendor/bin/phpunit --group unit --coverage-text --coverage-clover=coverage/coverage.xml --configuration=phpunit.xml.dist
         env:
           LOB_API_TEST_KEY: ${{ secrets.LOB_API_TEST_KEY }}
           LOB_API_LIVE_KEY: ${{ secrets.LOB_API_LIVE_KEY }}
