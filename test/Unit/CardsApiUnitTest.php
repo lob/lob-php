@@ -149,7 +149,7 @@ class CardsApiUnitTest extends TestCase
     // ToDo: public function testCardsCreateWithCustomHeaders()
 
     /**
-     * @group units
+     * @group unit
      * @group cards
      */
     public function testCreateWithIdempotency()

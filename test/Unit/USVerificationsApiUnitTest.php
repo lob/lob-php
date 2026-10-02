@@ -35,7 +35,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 
-use OpenAPI\Client\Api\USVerificationsApi;
+use OpenAPI\Client\Api\UsVerificationsApi;
 use \OpenAPI\Client\Configuration;
 use \OpenAPI\Client\ApiException;
 use OpenAPI\Client\Model\MultipleComponents;
@@ -113,7 +113,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new ConnectException("Server refused connection", new Request("POST", "test")));
         try {
@@ -136,7 +136,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new Response(200, [], self::$mockUsVerificationBulkResponse));
         try {
@@ -162,7 +162,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new Response(401, [], "{ \"error\": { \"message\": \"blah\", \"status_code\": 422, \"code\": \"invalid\" } }"));
         try {
@@ -185,7 +185,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new Response(300, [], "{ \"error\": { \"message\": \"blah\", \"status_code\": 300, \"code\": \"invalid\" } }"));
         try {
@@ -211,7 +211,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new ConnectException("Server refused connection", new Request("POST", "test")));
         try {
@@ -234,7 +234,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]); 
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new Response(200, [], self::$mockUsVerificationResponse));
         try {
@@ -256,7 +256,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         try {
             $this->expectException(\InvalidArgumentException::class);
@@ -277,7 +277,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new Response(401, [], "{ \"error\": { \"message\": \"blah\", \"status_code\": 422, \"code\": \"invalid\" } }"));
         try {
@@ -300,7 +300,7 @@ class USVerificationsApiUnitTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
         $config = new Configuration();
         $config->setApiKey('basic', 'Totally Fake Key');
-        $verificationsApi = new USVerificationsApi($config, $client);
+        $verificationsApi = new UsVerificationsApi($config, $client);
 
         $guzzleMock->append(new Response(300, [], "{ \"error\": { \"message\": \"blah\", \"status_code\": 300, \"code\": \"invalid\" } }"));
         try {
